@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">vanjel</string>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="userType">
+        <item>Patient</item>
+        <item>Doctor</item>
+    </string-array>
 </resources>
