@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "592840537914",
+    "firebase_url": "https://vanjel-mediscan.firebaseio.com",
+    "project_id": "vanjel-mediscan",
+    "storage_bucket": "vanjel-mediscan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592840537914:android:6335544e34fa3bea",
+        "android_client_info": {
+          "package_name": "ch.epfl.sweng.vanjel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592840537914-dluagghflvtt34kfrife1hv5sqaiqan5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

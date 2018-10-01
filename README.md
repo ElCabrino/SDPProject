@@ -6,16 +6,19 @@ Welcome to the repository of the group VANJEL. In here you will find the code fo
 
 ## Coachs/Supervisors
 
-* ** Alexandre CHAU [_dialexo_](https://github.com/dialexo)
-* ** Théo NIKLES [_Theyiot_](https://github.com/Theyiot)
+* ** Alexandre CHAU  **[_dialexo_](https://github.com/dialexo)
+* ** Théo NIKLES ** [_Theyiot_](https://github.com/Theyiot)
 
 
 ## Members 
 
-* ** Vincent CABRINI [_ElCabrino_](https://github.com/ElCabrino)
-* ** Aslam CADER [_AAA97AAA_](https://github.com/AAA97AAA)
-* ** Nicolas BRANDT [_Snxdd_](https://github.com/Snxdd)
-* ** Jules POCHON [_julespochon_](https://github.com/julespochon)
-* ** Etienne CAQUOT [_ecaquot_](https://github.com/ecaquot)
+* ** Vincent CABRINI ** [_ElCabrino_](https://github.com/ElCabrino)
+* ** Aslam CADER ** [_AAA97AAA_](https://github.com/AAA97AAA)
+* ** Nicolas BRANDT ** [_Snxdd_](https://github.com/Snxdd)
+* ** Jules POCHON ** [_julespochon_](https://github.com/julespochon)
+* ** Etienne CAQUOT ** [_ecaquot_](https://github.com/ecaquot)
+* ** Luca JOSS ** [_ljoss17_](https://github.com/ljoss17)
+
+
 
 
