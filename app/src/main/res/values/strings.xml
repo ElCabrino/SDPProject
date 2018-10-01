@@ -8,4 +8,6 @@
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
+    <string name="title_activity_profile">Profile</string>
+    <string name="your_profile">Your profile</string>
 </resources>
