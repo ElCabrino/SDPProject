@@ -8,22 +8,57 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
-import org.w3c.dom.Text;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private EditText birthdayReg;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
+
+    private EditText mailReg;
+    private EditText passwordReg;
+    private EditText confirmPasswordReg;
+    private EditText firstNameReg;
+    private EditText lastNameReg;
+    private EditText birthdayReg;
+    private EditText streetReg;
+    private EditText numberReg;
+    private EditText cityReg;
+    private EditText countryReg;
+
+    private Spinner genderReg;
+    private Spinner userTypeReg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        //Views
+        mailReg = findViewById(R.id.mailReg);
+        passwordReg = findViewById(R.id.passwordReg);
+        confirmPasswordReg = findViewById(R.id.confirmPasswordReg);
+        firstNameReg = findViewById(R.id.firstNameReg);
+        lastNameReg = findViewById(R.id.lastNameReg);
         birthdayReg = findViewById(R.id.birthdayReg);
+        streetReg = findViewById(R.id.streetReg);
+        numberReg = findViewById(R.id.numberReg);
+        cityReg = findViewById(R.id.cityReg);
+        countryReg = findViewById(R.id.countryReg);
+
+        //Spinner
+        genderReg = findViewById(R.id.genderReg);
+        userTypeReg = findViewById(R.id.userTypeReg);
+
+
         birthdayReg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
