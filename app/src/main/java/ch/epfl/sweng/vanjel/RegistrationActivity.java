@@ -14,7 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements
+        View.OnClickListener{
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
@@ -84,5 +85,27 @@ public class RegistrationActivity extends AppCompatActivity {
                 birthdayReg.setText(date);
             }
         };
+    }
+
+    private void registerAccount(String email, String password, String confirmedPassword,
+                                 String firstName, String lastName, String birthday, String street,
+                                 String streetNumber, String city, String country, String gender,
+                                 String userType){
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        //if the register button is pressed we call the method registerAccount with the right argument
+        if (i == R.id.buttonReg){
+            registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
+                    confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
+                    lastNameReg.getText().toString(), birthdayReg.getText().toString(),
+                    streetReg.getText().toString(), numberReg.getText().toString(),
+                    cityReg.getText().toString(), countryReg.getText().toString(),
+                    genderReg.toString(), userTypeReg.toString());
+        }
     }
 }
