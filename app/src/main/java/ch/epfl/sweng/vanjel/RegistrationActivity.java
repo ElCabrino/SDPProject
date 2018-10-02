@@ -1,18 +1,28 @@
 package ch.epfl.sweng.vanjel;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity implements
         View.OnClickListener{
@@ -37,6 +47,8 @@ public class RegistrationActivity extends AppCompatActivity implements
     private Spinner genderReg;
     private Spinner userTypeReg;
 
+    private Button registerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +70,9 @@ public class RegistrationActivity extends AppCompatActivity implements
         //Spinner
         genderReg = findViewById(R.id.genderReg);
         userTypeReg = findViewById(R.id.userTypeReg);
+
+        //Button
+        registerButton = findViewById(R.id.buttonReg);
 
 
         birthdayReg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -87,25 +102,58 @@ public class RegistrationActivity extends AppCompatActivity implements
         };
     }
 
-    private void registerAccount(String email, String password, String confirmedPassword,
-                                 String firstName, String lastName, String birthday, String street,
-                                 String streetNumber, String city, String country, String gender,
-                                 String userType){
+    private void registerAccount(final String email, final String password, final String confirmedPassword,
+                                 final String firstName, final String lastName, final String birthday, final String street,
+                                 String streetNumber, String city, final String country, final String gender,
+                                 final String userType){
+        //login status
+        final String[] status = {new String()};
+
+        //get database reference
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        /* TODO: test each field if they were correctly filled */
+
+        //instantiating user
+        final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
+                city, country, gender, userType);
+
+        //create user with custom information
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+
+                            //save user informations in the database, the email is the userID
+                            mDatabase.child("users").child(email).setValue(user);
+                            status[0] = "Registration successful";
+
+
+                        } else {
+                            status[0] = "Registration failed";
+                        }
+                    }
+                });
+
+        Intent intent = new Intent(RegistrationActivity.this,
+                RegistrationStatusActivity.class);
+        intent.putExtra("status", status[0]);
+        startActivity(intent);
 
     }
 
-
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        //if the register button is pressed we call the method registerAccount with the right argument
-        if (i == R.id.buttonReg){
-            registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
-                    confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
-                    lastNameReg.getText().toString(), birthdayReg.getText().toString(),
-                    streetReg.getText().toString(), numberReg.getText().toString(),
-                    cityReg.getText().toString(), countryReg.getText().toString(),
-                    genderReg.toString(), userTypeReg.toString());
+        switch (v.getId()) {
+            case R.id.buttonReg:
+                registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
+                        confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
+                        lastNameReg.getText().toString(), birthdayReg.getText().toString(),
+                        streetReg.getText().toString(), numberReg.getText().toString(),
+                        cityReg.getText().toString(), countryReg.getText().toString(),
+                        genderReg.toString(), userTypeReg.toString());
+                break;
         }
     }
 }
