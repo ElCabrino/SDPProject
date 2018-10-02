@@ -24,8 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class RegistrationActivity extends AppCompatActivity implements
-        View.OnClickListener{
+public class RegistrationActivity extends AppCompatActivity{
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
@@ -47,13 +46,17 @@ public class RegistrationActivity extends AppCompatActivity implements
     private Spinner genderReg;
     private Spinner userTypeReg;
 
-    private Button registerButton;
+    private Button buttonReg;
+
+    private int registrationStatus;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        mAuth = FirebaseAuth.getInstance();
 
         //Views
         mailReg = findViewById(R.id.mailReg);
@@ -72,7 +75,7 @@ public class RegistrationActivity extends AppCompatActivity implements
         userTypeReg = findViewById(R.id.userTypeReg);
 
         //Button
-        registerButton = findViewById(R.id.buttonReg);
+        buttonReg = findViewById(R.id.buttonReg);
 
 
         birthdayReg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -100,15 +103,36 @@ public class RegistrationActivity extends AppCompatActivity implements
                 birthdayReg.setText(date);
             }
         };
+
+        buttonReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.buttonReg:
+                        registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
+                                confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
+                                lastNameReg.getText().toString(), birthdayReg.getText().toString(),
+                                streetReg.getText().toString(), numberReg.getText().toString(),
+                                cityReg.getText().toString(), countryReg.getText().toString(),
+                                genderReg.toString(), userTypeReg.toString());
+                        break;
+                }
+
+            }
+        });
     }
+
+    /*registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
+                                    confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
+                                    lastNameReg.getText().toString(), birthdayReg.getText().toString(),
+                                    streetReg.getText().toString(), numberReg.getText().toString(),
+                                    cityReg.getText().toString(), countryReg.getText().toString(),
+                                    genderReg.toString(), userTypeReg.toString());*/
 
     private void registerAccount(final String email, final String password, final String confirmedPassword,
                                  final String firstName, final String lastName, final String birthday, final String street,
                                  String streetNumber, String city, final String country, final String gender,
                                  final String userType){
-        //login status
-        final String[] status = {new String()};
-
         //get database reference
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         /* TODO: test each field if they were correctly filled */
@@ -127,33 +151,18 @@ public class RegistrationActivity extends AppCompatActivity implements
 
                             //save user informations in the database, the email is the userID
                             mDatabase.child("users").child(email).setValue(user);
-                            status[0] = "Registration successful";
+                            registrationStatus = 1;
 
 
                         } else {
-                            status[0] = "Registration failed";
+                            registrationStatus = 0;
                         }
                     }
                 });
 
         Intent intent = new Intent(RegistrationActivity.this,
                 RegistrationStatusActivity.class);
-        intent.putExtra("status", status[0]);
         startActivity(intent);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonReg:
-                registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
-                        confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
-                        lastNameReg.getText().toString(), birthdayReg.getText().toString(),
-                        streetReg.getText().toString(), numberReg.getText().toString(),
-                        cityReg.getText().toString(), countryReg.getText().toString(),
-                        genderReg.toString(), userTypeReg.toString());
-                break;
-        }
     }
 }

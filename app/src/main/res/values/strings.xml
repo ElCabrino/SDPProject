@@ -8,4 +8,5 @@
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
+    <string name="title_activity_registration_status">RegistrationStatusActivity</string>
 </resources>
