@@ -32,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
+    // attribute that will contain pointer
     private EditText mailReg;
     private EditText passwordReg;
     private EditText confirmPasswordReg;
@@ -58,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity{
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Views
+        // getting pointer to corresponding element on screen
         mailReg = findViewById(R.id.mailReg);
         passwordReg = findViewById(R.id.passwordReg);
         confirmPasswordReg = findViewById(R.id.confirmPasswordReg);
@@ -108,6 +109,8 @@ public class RegistrationActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
+
+                    // If the user press buttonReg (register button), we will register his account
                     case R.id.buttonReg:
                         registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
                                 confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
@@ -122,47 +125,90 @@ public class RegistrationActivity extends AppCompatActivity{
         });
     }
 
-    /*registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
-                                    confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
-                                    lastNameReg.getText().toString(), birthdayReg.getText().toString(),
-                                    streetReg.getText().toString(), numberReg.getText().toString(),
-                                    cityReg.getText().toString(), countryReg.getText().toString(),
-                                    genderReg.toString(), userTypeReg.toString());*/
-
+    /*
+        This method is implementing the register functionality:
+            -   checks if the user entries are not null
+            -   register and save data in DataBase
+     */
     private void registerAccount(final String email, final String password, final String confirmedPassword,
                                  final String firstName, final String lastName, final String birthday, final String street,
-                                 String streetNumber, String city, final String country, final String gender,
+                                 final String streetNumber, final String city, final String country, final String gender,
                                  final String userType){
-        //get database reference
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
         /* TODO: test each field if they were correctly filled */
 
+
+//        if (email == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (firstName == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a first name.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (lastName == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a last name.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (birthday == null) {
+//            // TODO: check if he's > 18, conversion in string is weird
+//            Toast.makeText(RegistrationActivity.this, "Please check your birth date.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (street == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a street.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (streetNumber == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a street number.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (city == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a city.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (country == null) {
+//            Toast.makeText(RegistrationActivity.this, "Please enter a country.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if (gender == null) {
+//            // TODO: what? The gender is not a String --> male or female
+//        }
+//
+//        if (userType == null) {
+//            // TODO: what ? (doctor or patient) --> same thing as Gender
+//        }
         //instantiating user
         final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
                 city, country, gender, userType);
 
-        //create user with custom information
+
+
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        // task : create account
                         if (task.isSuccessful()) {
-
-                            //save user informations in the database, the email is the userID
-                            mDatabase.child("users").child(email).setValue(user);
-                            registrationStatus = 1;
-
+                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    // task: put data in database
+                                    if(task.isSuccessful()) {
+                                        Toast.makeText(RegistrationActivity.this, "Registration Successfully done!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(RegistrationActivity.this, "A problem occured while creating account, please try again later", Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(RegistrationActivity.this, "A problem occured while creating account, please try again later" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
                         } else {
-                            registrationStatus = 0;
+                            Toast.makeText(RegistrationActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-        Intent intent = new Intent(RegistrationActivity.this,
-                RegistrationStatusActivity.class);
-        startActivity(intent);
 
     }
 }
