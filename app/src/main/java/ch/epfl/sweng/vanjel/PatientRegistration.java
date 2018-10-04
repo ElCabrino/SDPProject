@@ -132,7 +132,6 @@ public class PatientRegistration extends AppCompatActivity{
         final String city = cityReg.getText().toString().trim();
         final String country = countryReg.getText().toString().trim();
         final String gender = genderReg.getSelectedItem().toString().trim();
-        final String userType = userTypeReg.getSelectedItem().toString().trim();
 
         Boolean validRegistration = true;
 
@@ -214,17 +213,13 @@ public class PatientRegistration extends AppCompatActivity{
 //        if (gender == null) {
 //            // TODO: what? The gender is not a String --> male or female
 //        }
-//
-//        if (userType == null) {
-//            // TODO: what ? (doctor or patient) --> same thing as Gender
-//        }
 
         //if fields were incorrectly filled
         if (!validRegistration){return;}
 
         //instantiating user
-        final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
-                city, country, Gender.valueOf(gender), userType);
+        final Patient patient = new Patient(email, firstName, lastName, birthday, street, streetNumber,
+                city, country, Gender.valueOf(gender));
         //authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -232,7 +227,7 @@ public class PatientRegistration extends AppCompatActivity{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // task : create account
                         if (task.isSuccessful()) {
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     // task: put data in database
