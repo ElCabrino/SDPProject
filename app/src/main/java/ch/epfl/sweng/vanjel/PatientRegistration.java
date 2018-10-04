@@ -215,13 +215,14 @@ public class PatientRegistration extends AppCompatActivity{
 //        if (gender == null) {
 //            // TODO: what? The gender is not a String --> male or female
 //        }
-//
+
 
         //if fields were incorrectly filled
         if (!validRegistration){return;}
 
         //instantiating user
-        final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
+
+        final Patient patient = new Patient(email, firstName, lastName, birthday, street, streetNumber,
                 city, country, Gender.valueOf(gender));
         //authentication
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -230,7 +231,7 @@ public class PatientRegistration extends AppCompatActivity{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // task : create account
                         if (task.isSuccessful()) {
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     // task: put data in database

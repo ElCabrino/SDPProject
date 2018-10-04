@@ -86,15 +86,11 @@ public class User {
         this.gender = gender;
     }
 
-<<<<<<< HEAD
+
     private String email, firstName, lastName, birthday, street, streetNumber, city, country;
-=======
+
     User() {}
 
-    private String email, firstName, lastName, birthday, street, streetNumber, city, country,
-            userType;
->>>>>>> f984205b31cacdecc66676d966a461f72deb41c0
 
     private Gender gender;
-
 }
