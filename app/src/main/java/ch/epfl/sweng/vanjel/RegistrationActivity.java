@@ -224,7 +224,7 @@ public class RegistrationActivity extends AppCompatActivity{
 
         //instantiating user
         final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
-                city, country, gender, userType);
+                city, country, Gender.valueOf(gender), userType);
         //authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

@@ -65,11 +65,11 @@ public class User {
         this.country = country;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -81,8 +81,8 @@ public class User {
         this.userType = userType;
     }
 
-    public User(String email, String firstName, String lastName, String birthday, String street,
-                String streetNumber, String city, String country, String gender, String userType) {
+    User(String email, String firstName, String lastName, String birthday, String street,
+         String streetNumber, String city, String country, Gender gender, String userType) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -95,7 +95,9 @@ public class User {
         this.userType = userType;
     }
 
-    public String email, firstName, lastName, birthday, street, streetNumber, city, country,
-                    gender, userType;
+    private String email, firstName, lastName, birthday, street, streetNumber, city, country,
+            userType;
+
+    private Gender gender;
 
 }
