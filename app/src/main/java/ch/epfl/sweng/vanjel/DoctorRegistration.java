@@ -46,6 +46,7 @@ public class DoctorRegistration extends AppCompatActivity {
     private EditText countryReg;
 
     private Spinner genderReg;
+    private Spinner activityReg;
 
     private Button buttonReg;
 
@@ -71,6 +72,7 @@ public class DoctorRegistration extends AppCompatActivity {
 
         //Spinner
         genderReg = findViewById(R.id.genderDoc);
+        activityReg = findViewById(R.id.activityDoc);
 
         //Button
         buttonReg = findViewById(R.id.buttonDocReg);
@@ -134,6 +136,7 @@ public class DoctorRegistration extends AppCompatActivity {
         final String city = cityReg.getText().toString().trim();
         final String country = countryReg.getText().toString().trim();
         final String gender = genderReg.getSelectedItem().toString().trim();
+        final String activity = activityReg.getSelectedItem().toString().trim();
 
         Boolean validRegistration = true;
 
@@ -221,7 +224,7 @@ public class DoctorRegistration extends AppCompatActivity {
 
         //instantiating user
         final Doctor doctor = new Doctor(email, firstName, lastName, birthday, street, streetNumber,
-                city, country, Gender.valueOf(gender));
+                city, country, Gender.valueOf(gender), DoctorActivity.valueOf(activity));
         //authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
