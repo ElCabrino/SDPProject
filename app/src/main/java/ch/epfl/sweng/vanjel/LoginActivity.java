@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button buttonLogin;
     private TextView registrationLogin ;
 
     @Override
@@ -17,20 +16,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        buttonLogin = findViewById(R.id.buttonLogin);
         registrationLogin = findViewById(R.id.registationLogin);
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonLogin.setVisibility(View.INVISIBLE);
-            }
-        });
 
         registrationLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegistrationActivity.class);
+                Intent intent = new Intent(LoginActivity.this,ChooseRegistration.class);
                 startActivity(intent);
             }
         });

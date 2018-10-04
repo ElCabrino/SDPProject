@@ -3,25 +3,19 @@ package ch.epfl.sweng.vanjel;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
-public class RegistrationActivityTest {
+public class PatientRegistrationTest {
 
     @Rule
-    public final ActivityTestRule<RegistrationActivity> mActivityRule =
-            new ActivityTestRule<>(RegistrationActivity.class);
+    public final ActivityTestRule<PatientRegistration> mActivityRule =
+            new ActivityTestRule<>(PatientRegistration.class);
 
 
 

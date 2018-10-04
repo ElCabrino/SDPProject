@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class RegistrationActivity extends AppCompatActivity{
+public class PatientRegistration extends AppCompatActivity{
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
@@ -49,28 +49,28 @@ public class RegistrationActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_patient_registration);
 
         mAuth = FirebaseAuth.getInstance();
 
         // getting pointer to corresponding element on screen
-        mailReg = findViewById(R.id.mailReg);
-        passwordReg = findViewById(R.id.passwordReg);
-        confirmPasswordReg = findViewById(R.id.confirmPasswordReg);
-        firstNameReg = findViewById(R.id.firstNameReg);
-        lastNameReg = findViewById(R.id.lastNameReg);
-        birthdayReg = findViewById(R.id.birthdayReg);
-        streetReg = findViewById(R.id.streetReg);
-        numberReg = findViewById(R.id.numberReg);
-        cityReg = findViewById(R.id.cityReg);
-        countryReg = findViewById(R.id.countryReg);
+        mailReg = findViewById(R.id.mailPa);
+        passwordReg = findViewById(R.id.passwordPa);
+        confirmPasswordReg = findViewById(R.id.confirmPasswordPa);
+        firstNameReg = findViewById(R.id.firstNamePa);
+        lastNameReg = findViewById(R.id.lastNamePa);
+        birthdayReg = findViewById(R.id.birthdayPa);
+        streetReg = findViewById(R.id.streetPa);
+        numberReg = findViewById(R.id.numberPa);
+        cityReg = findViewById(R.id.cityPa);
+        countryReg = findViewById(R.id.countryPa);
 
         //Spinner
-        genderReg = findViewById(R.id.genderReg);
-        userTypeReg = findViewById(R.id.userTypeReg);
+        genderReg = findViewById(R.id.genderPa);
+        //userTypeReg = findViewById(R.id.userTypeReg);
 
         //Button
-        buttonReg = findViewById(R.id.buttonReg);
+        buttonReg = findViewById(R.id.buttonPaReg);
 
 
         birthdayReg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -82,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity{
                     int month = cal.get(Calendar.MONTH);
                     int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                    DatePickerDialog dialog = new DatePickerDialog(RegistrationActivity.this,
+                    DatePickerDialog dialog = new DatePickerDialog(PatientRegistration.this,
                             android.R.style.Theme_Light_Panel, dateSetListener, year, month, day);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.show();
@@ -105,7 +105,7 @@ public class RegistrationActivity extends AppCompatActivity{
                 switch (v.getId()) {
 
                     // If the user press buttonReg (register button), we will register his account
-                    case R.id.buttonReg:
+                    case R.id.buttonPaReg:
                         registerAccount();
                         break;
                 }
@@ -177,7 +177,7 @@ public class RegistrationActivity extends AppCompatActivity{
 //
 //        if (birthday == null) {
 //            // TODO: check if he's > 18, conversion in string is weird
-//            Toast.makeText(RegistrationActivity.this, "Please check your birth date.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(PatientRegistration.this, "Please check your birth date.", Toast.LENGTH_SHORT).show();
 //        }
 //
         if (street.isEmpty()) {
@@ -237,16 +237,16 @@ public class RegistrationActivity extends AppCompatActivity{
                                 public void onComplete(@NonNull Task<Void> task) {
                                     // task: put data in database
                                     if(task.isSuccessful()) {
-                                        Toast.makeText(RegistrationActivity.this, "Registration Successfully done!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PatientRegistration.this, "Registration Successfully done!", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(RegistrationActivity.this, "A problem occured while creating account, please try again later", Toast.LENGTH_SHORT).show();
-//                                        Toast.makeText(RegistrationActivity.this, "A problem occured while creating account, please try again later" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PatientRegistration.this, "A problem occured while creating account, please try again later", Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(PatientRegistration.this, "A problem occured while creating account, please try again later" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
                         } else {
-                            Toast.makeText(RegistrationActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PatientRegistration.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

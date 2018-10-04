@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrationActivity">
+    tools:context=".PatientRegistration">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titleReg"
+                android:id="@+id/titleRegDoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:height="100dp"
@@ -34,7 +34,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/mailReg"
+                android:id="@+id/mailDoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -43,7 +43,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/passwordReg"
+                android:id="@+id/passwordDoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -51,7 +51,7 @@
                 android:inputType="textPassword" />
 
             <EditText
-                android:id="@+id/confirmPasswordReg"
+                android:id="@+id/confirmPasswordDoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -65,17 +65,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/firstNameReg"
+                    android:id="@+id/firstNameDoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="first name"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@+id/lastNameReg" />
+                    android:nextFocusDown="@+id/lastNameDoc" />
 
                 <EditText
-                    android:id="@+id/lastNameReg"
+                    android:id="@+id/lastNameDoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -85,7 +85,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/birthdayReg"
+                android:id="@+id/birthdayDoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -98,19 +98,13 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/genderReg"
+                    android:id="@+id/genderDoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     android:entries="@array/gender" />
 
-                <Spinner
-                    android:id="@+id/userTypeReg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/userType" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,24 +113,24 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/streetReg"
+                    android:id="@+id/streetDoc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="street"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/numberReg" />
+                    android:nextFocusDown="@id/numberDoc" />
 
                 <EditText
-                    android:id="@+id/numberReg"
+                    android:id="@+id/numberDoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
                     android:hint="number"
                     android:inputType="number"
-                    android:nextFocusDown="@id/cityReg" />
+                    android:nextFocusDown="@id/cityDoc" />
             </LinearLayout>
 
             <LinearLayout
@@ -145,17 +139,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/cityReg"
+                    android:id="@+id/cityDoc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:ems="10"
                     android:hint="city"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/postcodeReg" />
+                    android:nextFocusDown="@id/postcodeDoc" />
 
                 <EditText
-                    android:id="@+id/postcodeReg"
+                    android:id="@+id/postcodeDoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -165,7 +159,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/countryReg"
+                android:id="@+id/countryDoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -173,8 +167,14 @@
                 android:hint="country"
                 android:inputType="textPersonName" />
 
+            <Spinner
+                android:id="@+id/specializationDoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/doctorSpecialization" />
+
             <Button
-                android:id="@+id/buttonReg"
+                android:id="@+id/buttonDocReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
