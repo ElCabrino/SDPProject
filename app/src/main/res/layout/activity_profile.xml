@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default last name"
-                android:textSize="12sp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/nameProfile"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default name"
-                android:textSize="12sp"/>
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default birthday"
-                android:textSize="12sp"/>
+                android:textSize="20sp"/>
 
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default type"
-                android:textSize="12sp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/emailProfile"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default email"
-                android:textSize="12sp"/>
+                android:textSize="20sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="default street"
                     android:layout_weight="1"
-                    android:textSize="12sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/numberStreetProfile"
@@ -94,32 +94,17 @@
                     android:layout_height="wrap_content"
                     android:text="#"
                     android:layout_weight="2"
-                    android:textSize="12sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/cityProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/cityProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="default city"
-                    android:layout_weight="1"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/postCodeProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="postcode"
-                    android:layout_weight="2"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
+                android:text="default city"
+                android:layout_weight="1"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/countryProfile"
@@ -127,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default country"
-                android:textSize="12sp"/>
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
