@@ -131,8 +131,8 @@ public class RegistrationActivity extends AppCompatActivity{
         final String streetNumber = numberReg.getText().toString().trim();
         final String city = cityReg.getText().toString().trim();
         final String country = countryReg.getText().toString().trim();
-        final String gender = genderReg.toString().trim();
-        final String userType = userTypeReg.toString().trim();
+        final String gender = genderReg.getSelectedItem().toString().trim();
+        final String userType = userTypeReg.getSelectedItem().toString().trim();
 
         Boolean validRegistration = true;
 
