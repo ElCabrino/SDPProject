@@ -168,10 +168,9 @@
                 android:inputType="textPersonName" />
 
             <Spinner
-                android:id="@+id/specializationDoc"
+                android:id="@+id/activityDoc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/doctorSpecialization" />
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/buttonDocReg"

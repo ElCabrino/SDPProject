@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -42,7 +43,6 @@ public class PatientRegistration extends AppCompatActivity{
     private EditText countryReg;
 
     private Spinner genderReg;
-    private Spinner userTypeReg;
 
     private Button buttonReg;
 
@@ -67,7 +67,6 @@ public class PatientRegistration extends AppCompatActivity{
 
         //Spinner
         genderReg = findViewById(R.id.genderPa);
-        //userTypeReg = findViewById(R.id.userTypeReg);
 
         //Button
         buttonReg = findViewById(R.id.buttonPaReg);
@@ -107,6 +106,9 @@ public class PatientRegistration extends AppCompatActivity{
                     // If the user press buttonReg (register button), we will register his account
                     case R.id.buttonPaReg:
                         registerAccount();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                 }
 
@@ -132,7 +134,6 @@ public class PatientRegistration extends AppCompatActivity{
         final String city = cityReg.getText().toString().trim();
         final String country = countryReg.getText().toString().trim();
         final String gender = genderReg.getSelectedItem().toString().trim();
-        final String userType = userTypeReg.getSelectedItem().toString().trim();
 
         Boolean validRegistration = true;
 
@@ -215,16 +216,13 @@ public class PatientRegistration extends AppCompatActivity{
 //            // TODO: what? The gender is not a String --> male or female
 //        }
 //
-//        if (userType == null) {
-//            // TODO: what ? (doctor or patient) --> same thing as Gender
-//        }
 
         //if fields were incorrectly filled
         if (!validRegistration){return;}
 
         //instantiating user
         final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
-                city, country, Gender.valueOf(gender), userType);
+                city, country, Gender.valueOf(gender));
         //authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

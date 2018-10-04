@@ -4,9 +4,6 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
-    <string-array name="doctorSpecialization">
-        <item>A completer</item>
-    </string-array>
     <string name="title_activity_registration_status">RegistrationStatusActivity</string>
     <string name="input_email_error">email required</string>
     <string name="input_first_name_error">first name required</string>

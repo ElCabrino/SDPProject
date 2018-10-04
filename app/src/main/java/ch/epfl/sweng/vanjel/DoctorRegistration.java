@@ -6,8 +6,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Calendar;
 
@@ -16,6 +18,7 @@ public class DoctorRegistration extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     private EditText birthdayDoc;
+    private Spinner activityDoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +52,9 @@ public class DoctorRegistration extends AppCompatActivity {
                 birthdayDoc.setText(date);
             }
         };
+
+        activityDoc = (Spinner) findViewById(R.id.activityDoc);
+
+        activityDoc.setAdapter(new ArrayAdapter<DoctorActivity>(this, android.R.layout.simple_spinner_item, DoctorActivity.values()));
     }
 }
