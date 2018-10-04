@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -114,6 +115,9 @@ public class DoctorRegistration extends AppCompatActivity {
                     // If the user press buttonReg (register button), we will register his account
                     case R.id.buttonDocReg:
                         registerAccount();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                 }
 
