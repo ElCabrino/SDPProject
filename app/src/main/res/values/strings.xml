@@ -15,4 +15,7 @@
     <string name="input_password_conf_error">password confirmation required</string>
     <string name="input_password_matching_error">passwords must be the same</string>
     <string name="input_country_error">country required</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="your_profile">Your profile</string>
+>>>>>>> profile
 </resources>
