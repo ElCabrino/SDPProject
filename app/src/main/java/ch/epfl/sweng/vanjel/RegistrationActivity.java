@@ -1,7 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -18,11 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
-import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity{
 
@@ -48,9 +45,6 @@ public class RegistrationActivity extends AppCompatActivity{
     private Spinner userTypeReg;
 
     private Button buttonReg;
-
-    private int registrationStatus;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +106,7 @@ public class RegistrationActivity extends AppCompatActivity{
 
                     // If the user press buttonReg (register button), we will register his account
                     case R.id.buttonReg:
-                        registerAccount(mailReg.getText().toString(), passwordReg.getText().toString(),
-                                confirmPasswordReg.getText().toString(), firstNameReg.getText().toString(),
-                                lastNameReg.getText().toString(), birthdayReg.getText().toString(),
-                                streetReg.getText().toString(), numberReg.getText().toString(),
-                                cityReg.getText().toString(), countryReg.getText().toString(),
-                                genderReg.toString(), userTypeReg.toString());
+                        registerAccount();
                         break;
                 }
 
@@ -130,46 +119,97 @@ public class RegistrationActivity extends AppCompatActivity{
             -   checks if the user entries are not null
             -   register and save data in DataBase
      */
-    private void registerAccount(final String email, final String password, final String confirmedPassword,
-                                 final String firstName, final String lastName, final String birthday, final String street,
-                                 final String streetNumber, final String city, final String country, final String gender,
-                                 final String userType){
+    private void registerAccount(){
+
+        final String email = mailReg.getText().toString().trim();
+        final String password = passwordReg.getText().toString().trim();
+        final String confirmedPassword = confirmPasswordReg.getText().toString().trim();
+        final String firstName = firstNameReg.getText().toString().trim();
+        final String lastName = lastNameReg.getText().toString().trim();
+        final String birthday = birthdayReg.getText().toString().trim();
+        final String street = streetReg.getText().toString().trim();
+        final String streetNumber = numberReg.getText().toString().trim();
+        final String city = cityReg.getText().toString().trim();
+        final String country = countryReg.getText().toString().trim();
+        final String gender = genderReg.toString().trim();
+        final String userType = userTypeReg.toString().trim();
+
+        Boolean validRegistration = true;
 
         /* TODO: test each field if they were correctly filled */
 
 
-//        if (email == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if (firstName == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a first name.", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if (lastName == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a last name.", Toast.LENGTH_SHORT).show();
-//        }
+        if (email.isEmpty()) {
+            mailReg.setError(getString(R.string.input_email_error));
+            mailReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (firstName.isEmpty()) {
+            firstNameReg.setError(getString(R.string.input_first_name_error));
+            firstNameReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (lastName.isEmpty()) {
+            lastNameReg.setError(getString(R.string.input_last_name_error));
+            lastNameReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (password.isEmpty()) {
+            passwordReg.setError(getString(R.string.input_password_error));
+            passwordReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (confirmedPassword.isEmpty()) {
+            confirmPasswordReg.setError(getString(R.string.input_password_conf_error));
+            confirmPasswordReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (password.compareTo(confirmedPassword) != 0){
+            confirmPasswordReg.setError(getString(R.string.input_password_matching_error));
+            confirmPasswordReg.requestFocus();
+            validRegistration = false;
+        }
 //
 //        if (birthday == null) {
 //            // TODO: check if he's > 18, conversion in string is weird
 //            Toast.makeText(RegistrationActivity.this, "Please check your birth date.", Toast.LENGTH_SHORT).show();
 //        }
 //
-//        if (street == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a street.", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if (streetNumber == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a street number.", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if (city == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a city.", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if (country == null) {
-//            Toast.makeText(RegistrationActivity.this, "Please enter a country.", Toast.LENGTH_SHORT).show();
-//        }
+        if (street.isEmpty()) {
+            streetReg.setError(getString(R.string.input_street_name_error));
+            streetReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (streetNumber.isEmpty()) {
+            numberReg.setError(getString(R.string.input_street_number_error));
+            numberReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (city.isEmpty()) {
+            cityReg.setError(getString(R.string.input_city_name_error));
+            streetReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (street.isEmpty()) {
+            streetReg.setError(getString(R.string.input_street_name_error));
+            streetReg.requestFocus();
+            validRegistration = false;
+        }
+
+        if (country.isEmpty()) {
+            countryReg.setError(getString(R.string.input_country_error));
+            countryReg.requestFocus();
+            validRegistration = false;
+        }
+
 //
 //        if (gender == null) {
 //            // TODO: what? The gender is not a String --> male or female
@@ -178,12 +218,14 @@ public class RegistrationActivity extends AppCompatActivity{
 //        if (userType == null) {
 //            // TODO: what ? (doctor or patient) --> same thing as Gender
 //        }
+
+        //if fields were incorrectly filled
+        if (!validRegistration){return;}
+
         //instantiating user
         final User user = new User(email, firstName, lastName, birthday, street, streetNumber,
                 city, country, gender, userType);
-
-
-
+        //authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -208,7 +250,5 @@ public class RegistrationActivity extends AppCompatActivity{
                         }
                     }
                 });
-
-
     }
 }

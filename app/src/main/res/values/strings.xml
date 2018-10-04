@@ -9,4 +9,14 @@
         <item>Doctor</item>
     </string-array>
     <string name="title_activity_registration_status">RegistrationStatusActivity</string>
+    <string name="input_email_error">email required</string>
+    <string name="input_first_name_error">first name required</string>
+    <string name="input_last_name_error">last name required</string>
+    <string name="input_street_name_error">street name required</string>
+    <string name="input_street_number_error">street number required</string>
+    <string name="input_city_name_error">city name required</string>
+    <string name="input_password_error">password required</string>
+    <string name="input_password_conf_error">password confirmation required</string>
+    <string name="input_password_matching_error">passwords must be the same</string>
+    <string name="input_country_error">country required</string>
 </resources>
