@@ -73,16 +73,8 @@ public class User {
         this.gender = gender;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
     User(String email, String firstName, String lastName, String birthday, String street,
-         String streetNumber, String city, String country, Gender gender, String userType) {
+         String streetNumber, String city, String country, Gender gender) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -92,12 +84,9 @@ public class User {
         this.city = city;
         this.country = country;
         this.gender = gender;
-        this.userType = userType;
     }
 
-    private String email, firstName, lastName, birthday, street, streetNumber, city, country,
-            userType;
+    private String email, firstName, lastName, birthday, street, streetNumber, city, country;
 
     private Gender gender;
-
 }
