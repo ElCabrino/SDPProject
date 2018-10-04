@@ -95,6 +95,8 @@ public class User {
         this.userType = userType;
     }
 
+    User() {}
+
     private String email, firstName, lastName, birthday, street, streetNumber, city, country,
             userType;
 

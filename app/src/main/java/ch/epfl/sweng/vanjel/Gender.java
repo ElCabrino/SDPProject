@@ -6,5 +6,18 @@ public enum Gender {
      */
     Male,
     Female,
-    Other //pour être politiquement correct :p
+    Other;//pour être politiquement correct :p
+
+    @Override
+    public String toString() {
+        if (this == Gender.Male) {
+            return "Male";
+        }
+        else if (this == Gender.Female) {
+            return "Female";
+        }
+        else {
+            return "Other";
+        }
+    }
 }
