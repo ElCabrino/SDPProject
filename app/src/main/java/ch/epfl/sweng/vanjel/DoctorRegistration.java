@@ -117,9 +117,9 @@ public class DoctorRegistration extends AppCompatActivity {
                     // If the user press buttonReg (register button), we will register his account
                     case R.id.buttonDocReg:
                         registerAccount();
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(intent);
                         break;
                 }
 
