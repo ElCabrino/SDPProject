@@ -19,10 +19,6 @@
         <activity android:name=".PatientRegistration" />
         <activity android:name=".ChooseRegistration" />
         <activity android:name=".DoctorRegistration" />
-        <activity
-            android:name=".Profile"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme"></activity>
         <activity android:name=".PatientMedicalInfo"></activity>
     </application>
 

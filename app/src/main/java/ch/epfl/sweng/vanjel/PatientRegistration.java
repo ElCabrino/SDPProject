@@ -106,9 +106,9 @@ public class PatientRegistration extends AppCompatActivity{
                     // If the user press buttonReg (register button), we will register his account
                     case R.id.buttonPaReg:
                         registerAccount();
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(intent);
                         break;
                 }
 
@@ -169,6 +169,11 @@ public class PatientRegistration extends AppCompatActivity{
             confirmPasswordReg.requestFocus();
             validRegistration = false;
         }
+
+        if(password != confirmedPassword) {
+            Toast.makeText(PatientRegistration.this, "Passwords are not the same.", Toast.LENGTH_SHORT).show();
+        }
+//        TODO: check if password and confirmedPassword are the same
 
         if (password.compareTo(confirmedPassword) != 0){
             confirmPasswordReg.setError(getString(R.string.input_password_matching_error));
