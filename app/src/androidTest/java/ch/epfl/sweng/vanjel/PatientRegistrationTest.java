@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -37,7 +38,7 @@ public class PatientRegistrationTest {
     @Test
     public void testForm() {
         // Check if register without anything affect
-        onView(withId(R.id.buttonPaReg)).perform(click());
+        onView(withId(R.id.buttonPaReg)).perform(scrollTo(), click());
 
 
         assertEquals("Unexpected Activity before adding elements", mActivityRule.getActivity().getClass().getName(), PatientRegistration.class.getName());
@@ -56,20 +57,20 @@ public class PatientRegistrationTest {
         String country = "EPFL Land";
         String postCode = "1212";
 
-        onView(withId(R.id.mailPa)).perform(typeText(email)).perform(closeSoftKeyboard());
-        onView(withId(R.id.passwordPa)).perform(typeText(password)).perform(closeSoftKeyboard());
-        onView(withId(R.id.confirmPasswordPa)).perform(typeText(confirmedPassword)).perform(closeSoftKeyboard());
-        onView(withId(R.id.firstNamePa)).perform(typeText(firstName)).perform(closeSoftKeyboard());
-        onView(withId(R.id.lastNamePa)).perform(typeText(lastName)).perform(closeSoftKeyboard());
-//        OnView(withId(R.id.birthdayPa)).perform(typeText(birthday)).perform(closeSoftKeyboard());
-        onView(withId(R.id.streetPa)).perform(typeText(street)).perform(closeSoftKeyboard());
-        onView(withId(R.id.numberPa)).perform(typeText(streetNumber)).perform(closeSoftKeyboard());
-        onView(withId(R.id.cityPa)).perform(typeText(city)).perform(closeSoftKeyboard());
-        onView(withId(R.id.countryPa)).perform(typeText(country)).perform(closeSoftKeyboard());
-        onView(withId(R.id.postcodePa)).perform(typeText(postCode)).perform(closeSoftKeyboard());
+        onView(withId(R.id.mailPa)).perform(scrollTo(), typeText(email)).perform(closeSoftKeyboard());
+        onView(withId(R.id.passwordPa)).perform(scrollTo(), typeText(password)).perform(closeSoftKeyboard());
+        onView(withId(R.id.confirmPasswordPa)).perform(scrollTo(), typeText(confirmedPassword)).perform(closeSoftKeyboard());
+        onView(withId(R.id.firstNamePa)).perform(scrollTo(), typeText(firstName)).perform(closeSoftKeyboard());
+        onView(withId(R.id.lastNamePa)).perform(scrollTo(), typeText(lastName)).perform(closeSoftKeyboard());
+//        OnView(withId(R.id.birthdayPa)).perform(scrollTo(), typeText(birthday)).perform(closeSoftKeyboard());
+        onView(withId(R.id.streetPa)).perform(scrollTo(), typeText(street)).perform(closeSoftKeyboard());
+        onView(withId(R.id.numberPa)).perform(scrollTo(), typeText(streetNumber)).perform(closeSoftKeyboard());
+        onView(withId(R.id.cityPa)).perform(scrollTo(), typeText(city)).perform(closeSoftKeyboard());
+        onView(withId(R.id.countryPa)).perform(scrollTo(), typeText(country)).perform(closeSoftKeyboard());
+        onView(withId(R.id.postcodePa)).perform(scrollTo(), typeText(postCode)).perform(closeSoftKeyboard());
 
 
-        onView(withId(R.id.buttonPaReg)).perform(click());
+        onView(withId(R.id.buttonPaReg)).perform(scrollTo(), click());
 
 
         assertEquals("Unexpected Activity after putting data", mActivityRule.getActivity().getClass().getName(), PatientRegistration.class.getName());
