@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PatientRegistration">
+    tools:context=".Registration">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titleRegPa"
+                android:id="@+id/titleReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:height="100dp"
@@ -34,7 +34,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/mailPa"
+                android:id="@+id/mailReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -43,7 +43,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/passwordPa"
+                android:id="@+id/passwordReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -51,7 +51,7 @@
                 android:inputType="textPassword" />
 
             <EditText
-                android:id="@+id/confirmPasswordPa"
+                android:id="@+id/confirmPasswordReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -65,27 +65,28 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/firstNamePa"
+                    android:id="@+id/firstNameReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="first name"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@+id/lastNamePa" />
+                    android:nextFocusDown="@+id/lastNameReg" />
 
                 <EditText
-                    android:id="@+id/lastNamePa"
+                    android:id="@+id/lastNameReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="last name"
+                    android:imeOptions="actionDone"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
             <EditText
-                android:id="@+id/birthdayPa"
+                android:id="@+id/birthdayReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -98,7 +99,7 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/genderPa"
+                    android:id="@+id/genderReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -113,24 +114,24 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/streetPa"
+                    android:id="@+id/streetReg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="street"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/numberPa" />
+                    android:nextFocusDown="@id/numberReg" />
 
                 <EditText
-                    android:id="@+id/numberPa"
+                    android:id="@+id/numberReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
                     android:hint="number"
                     android:inputType="number"
-                    android:nextFocusDown="@id/cityPa" />
+                    android:nextFocusDown="@id/cityReg" />
             </LinearLayout>
 
             <LinearLayout
@@ -139,17 +140,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/cityPa"
+                    android:id="@+id/cityReg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:ems="10"
                     android:hint="city"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/postcodePa" />
+                    android:nextFocusDown="@id/postcodeReg" />
 
                 <EditText
-                    android:id="@+id/postcodePa"
+                    android:id="@+id/postcodeReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -159,7 +160,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/countryPa"
+                android:id="@+id/countryReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -167,8 +168,14 @@
                 android:hint="country"
                 android:inputType="textPersonName" />
 
+            <Spinner
+                android:id="@+id/activityReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
             <Button
-                android:id="@+id/buttonPaReg"
+                android:id="@+id/buttonReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class ChooseRegistration extends AppCompatActivity {
 
-    private Button buttonPatient ;
-    private Button buttonDoctor ;
+    private Button buttonPatient;
+    private Button buttonDoctor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,22 +17,22 @@ public class ChooseRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_choose_registration);
 
         buttonPatient = findViewById(R.id.patientButton);
-        buttonDoctor = findViewById(R.id.doctorButton);
-
-
         buttonPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseRegistration.this,PatientRegistration.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(v.getContext(), Registration.class);
+                intent1.putExtra("DoctorReg", false);
+                v.getContext().startActivity(intent1);
             }
         });
 
+        buttonDoctor = findViewById(R.id.doctorButton);
         buttonDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseRegistration.this,DoctorRegistration.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(v.getContext(), Registration.class);
+                intent2.putExtra("DoctorReg", true);
+                v.getContext().startActivity(intent2);
             }
         });
     }

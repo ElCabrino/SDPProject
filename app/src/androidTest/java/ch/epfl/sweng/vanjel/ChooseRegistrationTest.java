@@ -21,12 +21,12 @@ public class ChooseRegistrationTest {
     @Test
     public void testCanOpenPatientRegistration() {
         onView(withId(R.id.patientButton)).perform(click());
-        intended(hasComponent(PatientRegistration.class.getName()));
+        intended(hasComponent(Registration.class.getName()));
     }
 
     @Test
     public void testCanOpenDoctorRegistration() {
         onView(withId(R.id.doctorButton)).perform(click());
-        intended(hasComponent(DoctorRegistration.class.getName()));
+        intended(hasComponent(Registration.class.getName()));
     }
 }
