@@ -214,62 +214,45 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-        if (DoctorReg) {
-            //instantiating doctor
-            final Doctor doctor = new Doctor(email, firstName, lastName, birthday, street, streetNumber,
-                    city, country, Gender.valueOf(gender), DoctorActivity.valueOf(activity));
-            //authentication
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            // task : create account
-                            if (task.isSuccessful()) {
-                              FirebaseDatabase.getInstance().getReference("Doctor").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(doctor).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        // task: put data in database
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(Registration.this, "Registration Successfully done!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(Registration.this, "A problem occured while creating account, please try again later", Toast.LENGTH_SHORT).show();
-//                                          Toast.makeText(PatientRegistration.this, "A problem occured while creating account, please try again later" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+        if(DoctorReg){}
+        //instantiating doctor
+        final Doctor doctor = new Doctor(email, firstName, lastName, birthday, street, streetNumber,
+                city, country, Gender.valueOf(gender), DoctorActivity.valueOf(activity));
+
+        final Patient patient = new Patient(email, firstName, lastName, birthday, street, streetNumber,
+                city, country, Gender.valueOf(gender));
+
+        //authentication
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    private Task<Void> val;
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // task : create account
+                        if (task.isSuccessful()) {
+                            if(DoctorReg) {
+                                val = FirebaseDatabase.getInstance().getReference("Doctor").child(FirebaseAuth.
+                                        getInstance().getCurrentUser().getUid()).setValue(doctor);
                             } else {
-                                Toast.makeText(Registration.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                val = FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.
+                                        getInstance().getCurrentUser().getUid()).setValue(patient);
                             }
-                        }
-                    });
-        } else {
-            //instantiating patient
-            final Patient patient = new Patient(email, firstName, lastName, birthday, street, streetNumber,
-                    city, country, Gender.valueOf(gender));
-            //authentication
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            // task : create account
-                            if (task.isSuccessful()) {
-                                FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        // task: put data in database
-                                        if(task.isSuccessful()) {
-                                            Toast.makeText(Registration.this, "Registration Successfully done!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(Registration.this, "A problem occured while creating account, please try again later", Toast.LENGTH_SHORT).show();
-//                                          Toast.makeText(PatientRegistration.this, "A problem occured while creating account, please try again later" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
+                            val.addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    // task: put data in database
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Registration.this, "Registration Successfully done!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(Registration.this, "A problem occured while creating account, please try again later", Toast.LENGTH_SHORT).show();
+//                                      Toast.makeText(PatientRegistration.this, "A problem occured while creating account, please try again later" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                });
-                            } else {
-                                Toast.makeText(Registration.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                                }
+                            });
+                        } else {
+                            Toast.makeText(Registration.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    });
-        }
+                    }
+                });
     }
 }

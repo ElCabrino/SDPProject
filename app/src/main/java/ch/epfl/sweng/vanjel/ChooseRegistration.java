@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ChooseRegistration extends AppCompatActivity {
+public class ChooseRegistration extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonPatient;
     private Button buttonDoctor;
@@ -17,23 +17,22 @@ public class ChooseRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_choose_registration);
 
         buttonPatient = findViewById(R.id.patientButton);
-        buttonPatient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(v.getContext(), Registration.class);
-                intent1.putExtra("DoctorReg", false);
-                v.getContext().startActivity(intent1);
-            }
-        });
-
+        buttonPatient.setOnClickListener(this);
         buttonDoctor = findViewById(R.id.doctorButton);
-        buttonDoctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(v.getContext(), Registration.class);
-                intent2.putExtra("DoctorReg", true);
-                v.getContext().startActivity(intent2);
-            }
-        });
+        buttonDoctor.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(v.getContext(), Registration.class);
+        switch (v.getId()){
+            case R.id.patientButton:
+                intent.putExtra("DoctorReg", false);
+                break;
+            case R.id.doctorButton:
+                intent.putExtra("DoctorReg", true);
+                break;
+        }
+        v.getContext().startActivity(intent);
     }
 }
