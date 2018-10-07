@@ -46,6 +46,20 @@ public class Registration extends AppCompatActivity {
     private Spinner activityReg;
     private Button buttonReg;
 
+    // strings corresponding to the field
+    private String email;
+    private String password;
+    private String confirmedPassword;
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private String street;
+    private String streetNumber;
+    private String city;
+    private String country;
+    private String gender;
+    private String activity;
+
     private DatePickerDialog.OnDateSetListener mDateListener;
 
     @Override
@@ -79,25 +93,13 @@ public class Registration extends AppCompatActivity {
 
     private void registerAccount(final Boolean DoctorReg) {
 
-        final String email = mailReg.getText().toString().trim();
-        final String password = passwordReg.getText().toString().trim();
-        final String confirmedPassword = confirmPasswordReg.getText().toString().trim();
-        final String firstName = firstNameReg.getText().toString().trim();
-        final String lastName = lastNameReg.getText().toString().trim();
-        final String birthday = birthdayReg.getText().toString().trim();
-        final String street = streetReg.getText().toString().trim();
-        final String streetNumber = numberReg.getText().toString().trim();
-        final String city = cityReg.getText().toString().trim();
-        final String country = countryReg.getText().toString().trim();
-        final String gender = genderReg.getSelectedItem().toString().trim();
-        final String activity = activityReg.getSelectedItem().toString().trim();
+        getStringFromFields();
 
         Boolean validRegistration = true;
 
         /* TODO: test each field if they were correctly filled */
 
-        validRegistration = areFieldsValid(email, firstName, lastName, password, confirmedPassword,
-                birthday, street, streetNumber, country);
+        validRegistration = areFieldsValid();
 
         if (!validRegistration) {
             return;
@@ -168,6 +170,21 @@ public class Registration extends AppCompatActivity {
         activityReg = findViewById(R.id.activityReg);
     }
 
+    void getStringFromFields(){
+        this.email = mailReg.getText().toString().trim();
+        this.password = passwordReg.getText().toString().trim();
+        this.confirmedPassword = confirmPasswordReg.getText().toString().trim();
+        this.firstName = firstNameReg.getText().toString().trim();
+        this.lastName = lastNameReg.getText().toString().trim();
+        this.birthday = birthdayReg.getText().toString().trim();
+        this.street = streetReg.getText().toString().trim();
+        this.streetNumber = numberReg.getText().toString().trim();
+        this.city = cityReg.getText().toString().trim();
+        this.country = countryReg.getText().toString().trim();
+        this.gender = genderReg.getSelectedItem().toString().trim();
+        this.activity = activityReg.getSelectedItem().toString().trim();
+    }
+
     void setBirthdayListener(){
         birthdayReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,15 +243,7 @@ public class Registration extends AppCompatActivity {
         } else { return true; }
     }
 
-    boolean areFieldsValid(String email,
-                           String firstName,
-                           String lastName,
-                           String password,
-                           String confirmedPassword,
-                           String birthday,
-                           String street,
-                           String number,
-                           String country){
+    boolean areFieldsValid(){
         boolean valid = true;
         valid = isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
         &&isFieldNotEmpty(lastNameReg, lastName, R.string.input_last_name_error)
@@ -242,7 +251,7 @@ public class Registration extends AppCompatActivity {
         &&isFieldNotEmpty(confirmPasswordReg, confirmedPassword, R.string.input_password_conf_error)
         &&isFieldNotEmpty(birthdayReg, birthday, R.string.input_birthday_error)
         &&isFieldNotEmpty(streetReg, street, R.string.input_street_name_error)
-        &&isFieldNotEmpty(numberReg, number, R.string.input_street_number_error)
+        &&isFieldNotEmpty(numberReg, streetNumber, R.string.input_street_number_error)
         &&isFieldNotEmpty(countryReg, country, R.string.input_country_error)
         &&arePasswordMatching(password, confirmedPassword, confirmPasswordReg, R.string.input_password_conf_error);
 
