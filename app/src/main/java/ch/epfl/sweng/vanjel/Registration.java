@@ -23,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 
 public class Registration extends AppCompatActivity {
 
@@ -93,84 +96,9 @@ public class Registration extends AppCompatActivity {
 
         /* TODO: test each field if they were correctly filled */
 
+        validRegistration = areFieldsValid(email, firstName, lastName, password, confirmedPassword,
+                birthday, street, streetNumber, country);
 
-        if (email.isEmpty()) {
-            mailReg.setError(getString(R.string.input_email_error));
-            mailReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (firstName.isEmpty()) {
-            firstNameReg.setError(getString(R.string.input_first_name_error));
-            firstNameReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (lastName.isEmpty()) {
-            lastNameReg.setError(getString(R.string.input_last_name_error));
-            lastNameReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (password.isEmpty()) {
-            passwordReg.setError(getString(R.string.input_password_error));
-            passwordReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (confirmedPassword.isEmpty()) {
-            confirmPasswordReg.setError(getString(R.string.input_password_conf_error));
-            confirmPasswordReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (password.compareTo(confirmedPassword) != 0) {
-            confirmPasswordReg.setError(getString(R.string.input_password_matching_error));
-            confirmPasswordReg.requestFocus();
-            validRegistration = false;
-        }
-//
-//        if (birthday == null) {
-//            // TODO: check if he's > 18, conversion in string is weird
-//            Toast.makeText(PatientRegistration.this, "Please check your birth date.", Toast.LENGTH_SHORT).show();
-//        }
-//
-        if (street.isEmpty()) {
-            streetReg.setError(getString(R.string.input_street_name_error));
-            streetReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (streetNumber.isEmpty()) {
-            numberReg.setError(getString(R.string.input_street_number_error));
-            numberReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (city.isEmpty()) {
-            cityReg.setError(getString(R.string.input_city_name_error));
-            streetReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (street.isEmpty()) {
-            streetReg.setError(getString(R.string.input_street_name_error));
-            streetReg.requestFocus();
-            validRegistration = false;
-        }
-
-        if (country.isEmpty()) {
-            countryReg.setError(getString(R.string.input_country_error));
-            countryReg.requestFocus();
-            validRegistration = false;
-        }
-
-//
-//        if (gender == null) {
-//            // TODO: what? The gender is not a String --> male or female
-//        }
-
-        //if fields were incorrectly filled
         if (!validRegistration) {
             return;
         }
@@ -267,5 +195,57 @@ public class Registration extends AppCompatActivity {
                 birthdayReg.setText(date);
             }
         };
+    }
+
+    boolean isEmailValid(String email){
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
+    }
+
+    boolean isFieldNotEmpty(EditText editText, String editTextString, int error_id){
+        if (editTextString.isEmpty()) {
+            editText.setError(getString(error_id));
+            editText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean arePasswordMatching(String password, String confirmedPassword, EditText confirmPasswordReg, int error_id){
+        if (password.compareTo(confirmedPassword) != 0) {
+            confirmPasswordReg.setError(getString(error_id));
+            confirmPasswordReg.requestFocus();
+            return false;
+        } else { return true; }
+    }
+
+    boolean areFieldsValid(String email,
+                           String firstName,
+                           String lastName,
+                           String password,
+                           String confirmedPassword,
+                           String birthday,
+                           String street,
+                           String number,
+                           String country){
+        boolean valid = true;
+        valid = isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
+        &&isFieldNotEmpty(lastNameReg, lastName, R.string.input_last_name_error)
+        &&isFieldNotEmpty(passwordReg, password, R.string.input_password_error)
+        &&isFieldNotEmpty(confirmPasswordReg, confirmedPassword, R.string.input_password_conf_error)
+        &&isFieldNotEmpty(birthdayReg, birthday, R.string.input_birthday_error)
+        &&isFieldNotEmpty(streetReg, street, R.string.input_street_name_error)
+        &&isFieldNotEmpty(numberReg, number, R.string.input_street_number_error)
+        &&isFieldNotEmpty(countryReg, country, R.string.input_country_error)
+        &&arePasswordMatching(password, confirmedPassword, confirmPasswordReg, R.string.input_password_conf_error);
+
+        return valid;
     }
 }
