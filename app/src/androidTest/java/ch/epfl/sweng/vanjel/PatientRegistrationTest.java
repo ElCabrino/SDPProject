@@ -46,7 +46,6 @@ public class PatientRegistrationTest {
         String confirmedPassword = "123455"; // not the same
         String firstName = "John";
         String lastName = "Smith";
-        String birthday = "27/09/2018";
         String street = "Best avenue";
         String streetNumber = "42";
         String city = "Gaillard";
