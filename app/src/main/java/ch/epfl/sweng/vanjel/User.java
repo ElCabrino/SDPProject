@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
-public class User {
+public abstract class User {
     public String getEmail() {
         return email;
     }

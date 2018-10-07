@@ -17,8 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChooseRegistration" />
-        <activity android:name=".PatientMedicalInfo" />
-        <activity android:name=".Registration"></activity>
+        <!--<activity android:name=".PatientMedicalInfo" />-->
+        <activity android:name=".Registration"/>
+        <activity android:name=".Profile"/>
     </application>
 
 </manifest>

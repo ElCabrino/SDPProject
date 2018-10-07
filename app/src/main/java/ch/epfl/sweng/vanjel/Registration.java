@@ -25,7 +25,8 @@ import java.util.Calendar;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity {
 
@@ -62,12 +63,19 @@ public class Registration extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateListener;
 
+    private Boolean DoctorReg = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        final Boolean DoctorReg = getIntent().getExtras().getBoolean("DoctorReg");
+        Bundle bundle= getIntent().getExtras();
+
+
+        if (bundle!= null) {// to avoid the NullPointerException
+
+            DoctorReg = getIntent().getExtras().getBoolean("DoctorReg");
+        }
 
         getAllFields();
 
@@ -229,14 +237,18 @@ public class Registration extends AppCompatActivity {
     }
 
     boolean isEmailValid(String email){
-        boolean result = true;
-        try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
-        } catch (AddressException ex) {
-            result = false;
+        String emailRegEx;
+        Pattern pattern;
+        // Regex for a valid email address
+        emailRegEx = "^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,4}$";
+        // Compare the regex with the email address
+        pattern = Pattern.compile(emailRegEx);
+        Matcher matcher = pattern.matcher(email);
+        if (!matcher.find()) {
+            return false;
         }
-        return result;
+        return true;
+
     }
 
     boolean isFieldNotEmpty(EditText editText, String editTextString, int error_id){
