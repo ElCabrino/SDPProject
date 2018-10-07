@@ -109,7 +109,7 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-        if(DoctorReg){}
+        
         //instantiating doctor
         final Doctor doctor = new Doctor(email, firstName, lastName, birthday, street, streetNumber,
                 city, country, Gender.valueOf(gender), DoctorActivity.valueOf(activity));
