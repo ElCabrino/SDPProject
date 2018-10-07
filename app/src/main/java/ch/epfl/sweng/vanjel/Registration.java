@@ -52,54 +52,15 @@ public class Registration extends AppCompatActivity {
 
         final Boolean DoctorReg = getIntent().getExtras().getBoolean("DoctorReg");
 
-        mAuth = FirebaseAuth.getInstance();
+        getAllFields();
 
-        // getting pointer to corresponding element on screen
-        mailReg = findViewById(R.id.mailReg);
-        passwordReg = findViewById(R.id.passwordReg);
-        confirmPasswordReg = findViewById(R.id.confirmPasswordReg);
-        firstNameReg = findViewById(R.id.firstNameReg);
-        lastNameReg = findViewById(R.id.lastNameReg);
-        birthdayReg = findViewById(R.id.birthdayReg);
-        streetReg = findViewById(R.id.streetReg);
-        numberReg = findViewById(R.id.numberReg);
-        cityReg = findViewById(R.id.cityReg);
-        countryReg = findViewById(R.id.countryReg);
-
-        //Spinner
-        genderReg = findViewById(R.id.genderReg);
-        activityReg = findViewById(R.id.activityReg);
         activityReg.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, DoctorActivity.values()));
         if (DoctorReg) activityReg.setVisibility(View.VISIBLE);
 
-        //Button
-        buttonReg = findViewById(R.id.buttonReg);
+        setBirthdayListener();
 
-        birthdayReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(Registration.this,
-                        android.R.style.Theme_Holo_Light,mDateListener,year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setGravity(Gravity.CENTER);
-                dialog.show();
-            }
-        });
-
-        mDateListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = month + "/" + dayOfMonth + "/" + year;
-                birthdayReg.setText(date);
-            }
-        };
+        setDateListener();
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,5 +215,57 @@ public class Registration extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    void getAllFields(){
+        mAuth = FirebaseAuth.getInstance();
+
+        //Button
+        buttonReg = findViewById(R.id.buttonReg);
+
+        // getting pointer to corresponding element on screen
+        mailReg = findViewById(R.id.mailReg);
+        passwordReg = findViewById(R.id.passwordReg);
+        confirmPasswordReg = findViewById(R.id.confirmPasswordReg);
+        firstNameReg = findViewById(R.id.firstNameReg);
+        lastNameReg = findViewById(R.id.lastNameReg);
+        birthdayReg = findViewById(R.id.birthdayReg);
+        streetReg = findViewById(R.id.streetReg);
+        numberReg = findViewById(R.id.numberReg);
+        cityReg = findViewById(R.id.cityReg);
+        countryReg = findViewById(R.id.countryReg);
+
+        //Spinner
+        genderReg = findViewById(R.id.genderReg);
+        activityReg = findViewById(R.id.activityReg);
+    }
+
+    void setBirthdayListener(){
+        birthdayReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(Registration.this,
+                        android.R.style.Theme_Holo_Light,mDateListener,year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setGravity(Gravity.CENTER);
+                dialog.show();
+            }
+        });
+    }
+
+    void setDateListener(){
+        mDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = month + "/" + dayOfMonth + "/" + year;
+                birthdayReg.setText(date);
+            }
+        };
     }
 }
