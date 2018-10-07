@@ -95,9 +95,7 @@ public class Registration extends AppCompatActivity {
 
         getStringFromFields();
 
-        Boolean validRegistration = true;
-
-        /* TODO: test each field if they were correctly filled */
+        Boolean validRegistration;
 
         validRegistration = areFieldsValid();
 
@@ -122,18 +120,11 @@ public class Registration extends AppCompatActivity {
                                                               final Doctor doctor,
                                                               final Patient patient) {
         OnCompleteListener<AuthResult> listener = new OnCompleteListener<AuthResult>() {
-            private Task<Void> val;
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // task : create account
                 if (task.isSuccessful()) {
-                    if(DoctorReg) {
-                        val = FirebaseDatabase.getInstance().getReference("Doctor").child(FirebaseAuth.
-                                getInstance().getCurrentUser().getUid()).setValue(doctor);
-                    } else {
-                        val = FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.
-                                getInstance().getCurrentUser().getUid()).setValue(patient);
-                    }
+                    Task<Void> val = createUser(DoctorReg, patient, doctor);
                     val.addOnCompleteListener(createDatabaseListener());
                 } else {
                     Toast.makeText(Registration.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -141,6 +132,18 @@ public class Registration extends AppCompatActivity {
             }
         };
         return listener;
+    }
+
+    Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
+        Task<Void> val;
+        if(DoctorReg) {
+            val = FirebaseDatabase.getInstance().getReference("Doctor").child(FirebaseAuth.
+                    getInstance().getCurrentUser().getUid()).setValue(doctor);
+        } else {
+            val = FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.
+                    getInstance().getCurrentUser().getUid()).setValue(patient);
+        }
+        return val;
     }
 
     private OnCompleteListener<Void> createDatabaseListener() {
