@@ -23,6 +23,16 @@ import java.util.Map;
 
 public class Profile extends AppCompatActivity {
 
+    TextView email;
+    TextView lastName;
+    TextView firstName;
+    TextView birthday;
+    TextView gender;
+    TextView street;
+    TextView streetNumber;
+    TextView city;
+    TextView country;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +49,7 @@ public class Profile extends AppCompatActivity {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                TextView email = findViewById(R.id.emailProfile);
-                TextView lastName = findViewById(R.id.lastnameProfile);
-                TextView firstName = findViewById(R.id.nameProfile);
-                TextView birthday = findViewById(R.id.birthdayProfile);
-                TextView gender = findViewById(R.id.typeProfile);
-                TextView street = findViewById(R.id.streetProfile);
-                TextView streetNumber = findViewById(R.id.numberStreetProfile);
-                TextView city = findViewById(R.id.cityProfile);
-                TextView country = findViewById(R.id.countryProfile);
+                getAllTextView();
                 User user = dataSnapshot.getValue(User.class);
                 lastName.setText(user.getLastName());
                 firstName.setText(user.getFirstName());
@@ -67,6 +69,18 @@ public class Profile extends AppCompatActivity {
 
         };
         return listener;
+    }
+
+    private void getAllTextView() {
+        this.email = findViewById(R.id.emailProfile);
+        this.lastName = findViewById(R.id.lastnameProfile);
+        this.firstName = findViewById(R.id.nameProfile);
+        this.birthday = findViewById(R.id.birthdayProfile);
+        this.gender = findViewById(R.id.typeProfile);
+        this.street = findViewById(R.id.streetProfile);
+        this.streetNumber = findViewById(R.id.numberStreetProfile);
+        this.city = findViewById(R.id.cityProfile);
+        this.country = findViewById(R.id.countryProfile);
     }
 
 }
