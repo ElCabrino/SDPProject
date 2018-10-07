@@ -29,11 +29,14 @@ public class Profile extends AppCompatActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Patient").child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
-//        DatabaseReference ref = database.getReference("Users").child(database.getCurrentUser().getUid());
 
+        ref.addValueEventListener(createValueEventListener());
 
+        setContentView(R.layout.activity_profile);
+    }
 
-        ref.addValueEventListener(new ValueEventListener() {
+    private ValueEventListener createValueEventListener() {
+        ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TextView email = findViewById(R.id.emailProfile);
@@ -62,9 +65,8 @@ public class Profile extends AppCompatActivity {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
 
-        });
-
-        setContentView(R.layout.activity_profile);
+        };
+        return listener;
     }
 
 }
