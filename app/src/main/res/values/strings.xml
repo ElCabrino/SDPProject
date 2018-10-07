@@ -37,4 +37,5 @@
     <string name="save_your_informations">Save your informations</string>
     <string name="year">Year</string>
     <string name="reaction">Reaction</string>
+    <string name="input_birthday_error">birthday required</string>
 </resources>
