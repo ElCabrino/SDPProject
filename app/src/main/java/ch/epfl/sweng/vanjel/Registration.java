@@ -23,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
