@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="default last name"
+                android:text=""
                 android:textSize="20sp"/>
 
             <EditText
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="default name"
+                android:text=""
                 android:textSize="20sp"/>
 
 
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="default birthday"
+                android:text=""
                 android:textSize="20sp"/>
 
 
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="default type"
+                android:text=""
                 android:textSize="20sp"/>
 
             <EditText
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="default email"
+                android:text=""
                 android:textSize="20sp"/>
 
             <LinearLayout
@@ -88,7 +88,7 @@
                     android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="default street"
+                    android:text=""
                     android:layout_weight="1"
                     android:textSize="20sp" />
 
@@ -97,7 +97,7 @@
                     android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="#"
+                    android:text=""
                     android:layout_weight="2"
                     android:textSize="20sp" />
 
@@ -108,7 +108,7 @@
                 android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="default city"
+                android:text=""
                 android:textSize="20sp" />
 
             <EditText
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="default country"
+                android:text=""
                 android:textSize="20sp"/>
 
             <Button

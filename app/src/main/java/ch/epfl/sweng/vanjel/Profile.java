@@ -2,25 +2,22 @@ package ch.epfl.sweng.vanjel;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Profile extends AppCompatActivity {
@@ -46,14 +43,15 @@ public class Profile extends AppCompatActivity {
     Button editButton;
     Button saveButton;
 
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference userRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Patient").child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
-
-        ref.addValueEventListener(createValueEventListener());
+        getUser();
+        userRef.addValueEventListener(createValueEventListener());
 
         setContentView(R.layout.activity_profile);
 
@@ -69,15 +67,8 @@ public class Profile extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("EDIT", "save edit values:");
                 getStringFromFields();
-                Log.d("EDIT", newLastName);
-                Log.d("EDIT", newEmail);
-                Log.d("EDIT", newFirstName);
-                Log.d("EDIT", newStreet);
-                Log.d("EDIT", newStreetNumber);
-                Log.d("EDIT", newCity);
-                Log.d("EDIT", newCountry);
+                saveNewValues();
                 disableEditText();
             }
         });
@@ -150,7 +141,8 @@ public class Profile extends AppCompatActivity {
         this.saveButton.setVisibility(View.VISIBLE);
     }
 
-    private void disableEditText() {getAllTextView();
+    private void disableEditText() {
+        getAllTextView();
         this.lastName.setEnabled(false);
         this.lastName.requestFocus();
         this.firstName.setEnabled(false);
@@ -183,5 +175,29 @@ public class Profile extends AppCompatActivity {
     }
 
     void saveNewValues() {
+        Map<String, Object> userValues = new HashMap<>();
+        userValues.put("email", this.newEmail);
+        userValues.put("firstName", this.newFirstName);
+        userValues.put("lastName", this.newLastName);
+        userValues.put("street", this.newStreet);
+        userValues.put("streetNumber", this.newStreetNumber);
+        userValues.put("city", this.newCity);
+        userValues.put("country", this.newCountry);
+
+        this.userRef.updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void getUser() {
+        this.userRef = database.getReference("Patient").child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
     }
 }
