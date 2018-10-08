@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">vanjel</string>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="title_activity_registration_status">RegistrationStatusActivity</string>
+    <string name="input_email_error">email required</string>
+    <string name="input_first_name_error">first name required</string>
+    <string name="input_last_name_error">last name required</string>
+    <string name="input_street_name_error">street name required</string>
+    <string name="input_street_number_error">street number required</string>
+    <string name="input_city_name_error">city name required</string>
+    <string name="input_password_error">password required</string>
+    <string name="input_password_conf_error">password confirmation required</string>
+    <string name="input_password_matching_error">passwords must be the same</string>
+    <string name="input_country_error">country required</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="your_profile">Your profile</string>
+    <string name="general_informations">General informations</string>
+    <string name="medical_condition">Do you suffer from any medical condition ?</string>
+    <string name="previous_surgeries">Have you ever had surgery ? Please list which surgeries and what year</string>
+    <string name="allergies">Do you have any allergies ?</string>
+    <string name="drug_reaction">Did you ever have a strong reaction, allergic or other, to a drug ? Please write the drug and the reaction</string>
+    <string name="current_medication">Are you currently taking medication ? Please write down what medication,the individual dosage and how many times the drug is taken per day</string>
+    <string name="drug">Drug</string>
+    <string name="dosage">Dosage</string>
+    <string name="times_per_day">Times per day</string>
+    <string name="add">add</string>
+    <string name="cig_per_day">How many cigarettes do you consumme on average per day?</string>
+    <string name="drinks_per_day">How many drinks do you consumme on average per day?</string>
+    <string name="exercice_per_week">How many hours of exercices do you do per week ?</string>
+    <string name="other_substances">Do you consumme any other substances (recreationnal drugs, alternative medcecines,..) ?</string>
+    <string name="additional_information">Additional information</string>
+    <string name="dyspnea">Do you have trouble breathing ?</string>
+    <string name="pain">Do you have pain somewhere ?</string>
+    <string name="save_your_informations">Save your informations</string>
+    <string name="year">Year</string>
+    <string name="reaction">Reaction</string>
+    <string name="input_birthday_error">birthday required</string>
 </resources>
