@@ -36,7 +36,7 @@ public class LoginActivityTest {
 
     @Test
     public void testOpenChooseRegistration() {
-        onView(withId(R.id.registationLogin)).perform(click());
+        onView(withId(R.id.registrationLogin)).perform(click());
         intended(hasComponent(ChooseRegistration.class.getName()));
     }
 
