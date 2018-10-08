@@ -32,7 +32,6 @@ public class Profile extends AppCompatActivity {
     TextView city;
     TextView country;
 
-    String newEmail;
     String newLastName;
     String newFirstName;
     String newStreet;
@@ -54,7 +53,6 @@ public class Profile extends AppCompatActivity {
         userRef.addValueEventListener(createValueEventListener());
 
         setContentView(R.layout.activity_profile);
-
         getButtonsView();
 
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +116,7 @@ public class Profile extends AppCompatActivity {
         this.saveButton = findViewById(R.id.saveButton);
     }
 
+    // Enables editing of some fields and replaces Edit button with Save.
     private void enableEditText() {
         getAllTextView();
         this.lastName.setEnabled(true);
@@ -141,6 +140,7 @@ public class Profile extends AppCompatActivity {
         this.saveButton.setVisibility(View.VISIBLE);
     }
 
+    // Disables editing of fields and replaces Save button with Edit.
     private void disableEditText() {
         getAllTextView();
         this.lastName.setEnabled(false);
@@ -164,8 +164,8 @@ public class Profile extends AppCompatActivity {
         this.saveButton.setVisibility(View.GONE);
     }
 
+    // Get string values from the fields.
     void getStringFromFields(){
-        this.newEmail = this.email.getText().toString().trim();
         this.newFirstName = this.firstName.getText().toString().trim();
         this.newLastName = this.lastName.getText().toString().trim();
         this.newStreet = this.street.getText().toString().trim();
@@ -174,9 +174,9 @@ public class Profile extends AppCompatActivity {
         this.newCountry = this.country.getText().toString().trim();
     }
 
+    // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = new HashMap<>();
-        userValues.put("email", this.newEmail);
         userValues.put("firstName", this.newFirstName);
         userValues.put("lastName", this.newLastName);
         userValues.put("street", this.newStreet);
@@ -197,6 +197,7 @@ public class Profile extends AppCompatActivity {
         });
     }
 
+    // Get the reference to the logged in user.
     void getUser() {
         this.userRef = database.getReference("Patient").child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
     }

@@ -69,9 +69,8 @@
                 android:text=""
                 android:textSize="20sp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/emailProfile"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
