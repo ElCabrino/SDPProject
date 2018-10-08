@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //Button listener
         findViewById(R.id.buttonLogin).setOnClickListener(this);
-        findViewById(R.id.registationLogin).setOnClickListener(this);
+        findViewById(R.id.registrationLogin).setOnClickListener(this);
 
         //Initialize Auth
         mAuth = FirebaseAuth.getInstance();
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int i = v.getId();
         if (i == R.id.buttonLogin) {
             login(emailField.getText().toString(), passwordField.getText().toString());
-        } else if (i == R.id.buttonReg){
+        } else if (i == R.id.registrationLogin){
             Intent intent = new Intent(LoginActivity.this,ChooseRegistration.class);
             startActivity(intent);
         }
