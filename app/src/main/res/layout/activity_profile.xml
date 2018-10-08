@@ -33,16 +33,18 @@
                 android:text="@string/your_profile"
                 android:textSize="24sp"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/lastnameProfile"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default last name"
                 android:textSize="20sp"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/nameProfile"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -60,15 +62,16 @@
 
 
             <TextView
-                android:id="@+id/typeProfile"
+                android:id="@+id/genderProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default type"
                 android:textSize="20sp"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/emailProfile"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -80,16 +83,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <EditText
                     android:id="@+id/streetProfile"
+                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="default street"
                     android:layout_weight="1"
                     android:textSize="20sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/numberStreetProfile"
+                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="#"
@@ -98,21 +103,39 @@
 
             </LinearLayout>
 
-            <TextView
+            <EditText
                 android:id="@+id/cityProfile"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="default city"
-                android:layout_weight="1"
                 android:textSize="20sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/countryProfile"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="default country"
                 android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/saveButton"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
 
