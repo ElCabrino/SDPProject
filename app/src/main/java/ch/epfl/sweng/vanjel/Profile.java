@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,8 +49,10 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getUser();
+    }
+
+    private void loadContent() {
         userRef.addValueEventListener(createValueEventListener());
 
         setContentView(R.layout.activity_profile);
@@ -199,6 +202,39 @@ public class Profile extends AppCompatActivity {
 
     // Get the reference to the logged in user.
     void getUser() {
-        this.userRef = database.getReference("Patient").child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
+        DatabaseReference patientRef = database.getReference("Patient");
+        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild("UOcBueg3U1eEQs1ptII3Ga0VXuj1")) {
+//                if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    setUserRef("Patient");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        DatabaseReference doctorRef = database.getReference("Doctor");
+        doctorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild("UOcBueg3U1eEQs1ptII3Ga0VXuj1")) {
+//                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    setUserRef("Doctor");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    void setUserRef(String ref) {
+        this.userRef = database.getReference(ref).child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
+//        this.userRef = database.getReference(ref).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        loadContent();
     }
 }
