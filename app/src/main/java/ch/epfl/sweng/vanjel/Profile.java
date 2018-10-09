@@ -1,11 +1,13 @@
 package ch.epfl.sweng.vanjel;
 
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +18,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email;
     TextView lastName;
@@ -32,6 +35,8 @@ public class Profile extends AppCompatActivity {
     TextView streetNumber;
     TextView city;
     TextView country;
+
+    Button logoutButton;
 
     String newLastName;
     String newFirstName;
@@ -53,53 +58,70 @@ public class Profile extends AppCompatActivity {
     }
 
     private void loadContent() {
-        userRef.addValueEventListener(createValueEventListener());
+
 
         setContentView(R.layout.activity_profile);
         getButtonsView();
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enableEditText();
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getStringFromFields();
-                saveNewValues();
-                disableEditText();
-            }
-        });
+        logoutButton.setOnClickListener(this);
+        editButton.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
 
     }
 
-    private ValueEventListener createValueEventListener() {
+    private ValueEventListener createValueEventListener(final String type) {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 getAllTextView();
-                Patient user = dataSnapshot.getValue(Patient.class);
-                lastName.setText(user.getLastName());
-                firstName.setText(user.getFirstName());
-                birthday.setText(user.getBirthday());
-                gender.setText(user.getGender().toString());
-                email.setText(user.getEmail());
-                street.setText(user.getStreet());
-                streetNumber.setText(user.getStreetNumber());
-                city.setText(user.getCity());
-                country.setText(user.getCountry());
+                if (type.compareTo("Patient") == 0) {
+                    Patient patient = dataSnapshot.getValue(Patient.class);
+                    lastName.setText(patient.getLastName());
+                    firstName.setText(patient.getFirstName());
+                    birthday.setText(patient.getBirthday());
+                    gender.setText(patient.getGender().toString());
+                    email.setText(patient.getEmail());
+                    street.setText(patient.getStreet());
+                    streetNumber.setText(patient.getStreetNumber());
+                    city.setText(patient.getCity());
+                    country.setText(patient.getCountry());
+
+                } else if (type.compareTo("Doctor") == 0) {
+                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
+                    lastName.setText(doctor.getLastName());
+                    firstName.setText(doctor.getFirstName());
+                    birthday.setText(doctor.getBirthday());
+                    gender.setText(doctor.getGender().toString());
+                    email.setText(doctor.getEmail());
+                    street.setText(doctor.getStreet());
+                    streetNumber.setText(doctor.getStreetNumber());
+                    city.setText(doctor.getCity());
+                    country.setText(doctor.getCountry());
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
-
         };
         return listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.logoutButton) {
+            FirebaseAuth.getInstance().signOut();
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.editButton) {
+            enableEditText();
+        } else if (v.getId() == R.id.saveButton) {
+            getStringFromFields();
+            saveNewValues();
+            disableEditText();
+        }
     }
 
     private void getAllTextView() {
@@ -117,6 +139,7 @@ public class Profile extends AppCompatActivity {
     private void getButtonsView() {
         this.editButton = findViewById(R.id.editButton);
         this.saveButton = findViewById(R.id.saveButton);
+        this.logoutButton = findViewById(R.id.logoutButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -206,9 +229,9 @@ public class Profile extends AppCompatActivity {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("UOcBueg3U1eEQs1ptII3Ga0VXuj1")) {
-//                if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                    setUserRef("Patient");
+                if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    database.getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Patient"));
+                    loadContent();
                 }
             }
 
@@ -220,21 +243,15 @@ public class Profile extends AppCompatActivity {
         doctorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("UOcBueg3U1eEQs1ptII3Ga0VXuj1")) {
-//                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                    setUserRef("Doctor");
+                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    database.getReference("Doctor").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Doctor"));
+                    loadContent();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
-    }
-
-    void setUserRef(String ref) {
-        this.userRef = database.getReference(ref).child("UOcBueg3U1eEQs1ptII3Ga0VXuj1");
-//        this.userRef = database.getReference(ref).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        loadContent();
     }
 }
