@@ -50,7 +50,7 @@ public class LoginActivityTest {
 
     @Test
     public void successfulLogin(){
-          String email = "admin@test.ch";
+          String email = "test@test.ch";
           String password = "123456";
 //        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("Users").child(database.getReference().getCurrentUser().getUid());
@@ -72,7 +72,10 @@ public class LoginActivityTest {
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
-        //TODO: checker que t'es sur la page du login
+        // checker que t'es sur la page du profile
+//        intended(hasComponent(Profile.class.getName()));
+
+
 
     }
 
@@ -89,15 +92,36 @@ public class LoginActivityTest {
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
+//        intended(hasComponent(LoginActivity.class.getName()));
+
     }
 
     @Test
     public void emptyPasswordLogin(){
+        String email = "test@test.ch";
+
+        signOutIfPossible();
+        enterEmail(email);
+
+        onView(withId(R.id.buttonLogin)).perform(click());
+
+//        intended(hasComponent(LoginActivity.class.getName()));
+
 
     }
 
     @Test
     public void wrongCredentialLogin(){
+
+        String email = "impossible@impossible.ch";
+        String password = "impossiblePassword";
+
+        signOutIfPossible();
+        enterEmail(email);
+        enterPassword(password);
+
+
+//        intended(hasComponent(LoginActivity.class.getName()));
 
     }
 
