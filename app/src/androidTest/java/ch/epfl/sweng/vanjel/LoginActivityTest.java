@@ -12,6 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -85,23 +87,24 @@ public class LoginActivityTest {
 
         signOutIfPossible();
 
-        enterEmail(email);
-
         enterPassword(password);
 
         onView(withId(R.id.buttonLogin)).perform(click());
+
 
 //        intended(hasComponent(LoginActivity.class.getName()));
 
     }
 
     @Test
-    public void emptyPasswordLogin(){
+    public void emptyPasswordLogin() throws InterruptedException {
 
         signOutIfPossible();
         enterEmail(email);
 
         onView(withId(R.id.buttonLogin)).perform(click());
+
+        TimeUnit.SECONDS.sleep(5);
 
 //        intended(hasComponent(LoginActivity.class.getName()));
 
