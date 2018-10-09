@@ -37,6 +37,9 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
 
+    private String email = "test@test.ch";
+    private String password = "123456";
+
     @Rule
     public final IntentsTestRule<LoginActivity> ActivityRule =
             new IntentsTestRule<>(LoginActivity.class);
@@ -50,8 +53,6 @@ public class LoginActivityTest {
 
     @Test
     public void successfulLogin(){
-          String email = "test@test.ch";
-          String password = "123456";
 //        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("Users").child(database.getReference().getCurrentUser().getUid());
 //
@@ -81,8 +82,6 @@ public class LoginActivityTest {
 
     @Test
     public void emptyEmailLogin(){
-        String email = "";
-        String password = "123456";
 
         signOutIfPossible();
 
