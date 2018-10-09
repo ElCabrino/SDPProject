@@ -72,10 +72,22 @@ public class LoginActivityTest {
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
+        //TODO: checker que t'es sur la page du login
+
     }
 
     @Test
     public void emptyEmailLogin(){
+        String email = "";
+        String password = "123456";
+
+        signOutIfPossible();
+
+        enterEmail(email);
+
+        enterPassword(password);
+
+        onView(withId(R.id.buttonLogin)).perform(click());
 
     }
 
