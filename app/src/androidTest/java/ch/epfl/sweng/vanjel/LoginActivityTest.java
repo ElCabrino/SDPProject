@@ -97,7 +97,6 @@ public class LoginActivityTest {
 
     @Test
     public void emptyPasswordLogin(){
-        String email = "test@test.ch";
 
         signOutIfPossible();
         enterEmail(email);
