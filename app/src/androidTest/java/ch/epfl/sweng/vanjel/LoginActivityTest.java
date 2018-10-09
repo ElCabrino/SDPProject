@@ -128,7 +128,7 @@ public class LoginActivityTest {
     }
 
     private void enterPassword(String password) {
-        onView(withId(R.id.mailLogin)).perform(replaceText(password));
+        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
     }
 
     private void signOutIfPossible() {

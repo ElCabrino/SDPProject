@@ -40,6 +40,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
 
     }
