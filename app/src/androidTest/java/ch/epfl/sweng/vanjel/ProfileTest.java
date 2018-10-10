@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -59,9 +60,9 @@ public class ProfileTest {
     @Test
     public void testLogOut(){
 
-        onView(withId(R.id.logoutButton)).perform(click());
+        onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
 
-//        intended(hasComponent(LoginActivity.class.getName()));
+        intended(hasComponent(LoginActivity.class.getName()));
     }
 
     private void enterEmail(String email) {
