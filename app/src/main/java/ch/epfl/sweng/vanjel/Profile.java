@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,7 +52,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    boolean isPatient = false;
+    String userType = "Doctor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,28 +75,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 getAllTextView();
                 if (type.compareTo("Patient") == 0) {
-                    patient = dataSnapshot.getValue(Patient.class);
-                    lastName.setText(patient.getLastName());
-                    firstName.setText(patient.getFirstName());
-                    birthday.setText(patient.getBirthday());
-                    gender.setText(patient.getGender().toString());
-                    email.setText(patient.getEmail());
-                    street.setText(patient.getStreet());
-                    streetNumber.setText(patient.getStreetNumber());
-                    city.setText(patient.getCity());
-                    country.setText(patient.getCountry());
-
+                    setPatientText(dataSnapshot);
                 } else if (type.compareTo("Doctor") == 0) {
-                    doctor = dataSnapshot.getValue(Doctor.class);
-                    lastName.setText(doctor.getLastName());
-                    firstName.setText(doctor.getFirstName());
-                    birthday.setText(doctor.getBirthday());
-                    gender.setText(doctor.getGender().toString());
-                    email.setText(doctor.getEmail());
-                    street.setText(doctor.getStreet());
-                    streetNumber.setText(doctor.getStreetNumber());
-                    city.setText(doctor.getCity());
-                    country.setText(doctor.getCountry());
+                    setDoctorText(dataSnapshot);
                 }
             }
 
@@ -107,6 +89,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         return listener;
     }
 
+    private void setPatientText(DataSnapshot dataSnapshot) {
+        patient = dataSnapshot.getValue(Patient.class);
+        lastName.setText(patient.getLastName());
+        firstName.setText(patient.getFirstName());
+        birthday.setText(patient.getBirthday());
+        gender.setText(patient.getGender().toString());
+        email.setText(patient.getEmail());
+        street.setText(patient.getStreet());
+        streetNumber.setText(patient.getStreetNumber());
+        city.setText(patient.getCity());
+        country.setText(patient.getCountry());
+    }
+
+    private void setDoctorText(DataSnapshot dataSnapshot) {
+        doctor = dataSnapshot.getValue(Doctor.class);
+        lastName.setText(doctor.getLastName());
+        firstName.setText(doctor.getFirstName());
+        birthday.setText(doctor.getBirthday());
+        gender.setText(doctor.getGender().toString());
+        email.setText(doctor.getEmail());
+        street.setText(doctor.getStreet());
+        streetNumber.setText(doctor.getStreetNumber());
+        city.setText(doctor.getCity());
+        country.setText(doctor.getCountry());
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.logoutButton) {
@@ -115,11 +123,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.editButton) {
-            enableEditText();
+            setEditText(true, View.GONE, View.VISIBLE);
         } else if (v.getId() == R.id.saveButton) {
             getStringFromFields();
             saveNewValues();
-            disableEditText();
+            setEditText(false, View.VISIBLE, View.VISIBLE);
         }
     }
 
@@ -142,51 +150,27 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
-    private void enableEditText() {
+    private void setEditText(boolean set, int s1, int s2 ) {
         getAllTextView();
-        this.lastName.setEnabled(true);
+        this.lastName.setEnabled(set);
         this.lastName.requestFocus();
-        this.firstName.setEnabled(true);
+        this.firstName.setEnabled(set);
         this.firstName.requestFocus();
-        this.birthday.setVisibility(View.GONE);
-        this.gender.setVisibility(View.GONE);
-        this.email.setEnabled(true);
+        this.email.setEnabled(set);
         this.email.requestFocus();
-        this.street.setEnabled(true);
+        this.street.setEnabled(set);
         this.street.requestFocus();
-        this.streetNumber.setEnabled(true);
+        this.streetNumber.setEnabled(set);
         this.streetNumber.requestFocus();
-        this.city.setEnabled(true);
+        this.city.setEnabled(set);
         this.city.requestFocus();
-        this.country.setEnabled(true);
+        this.country.setEnabled(set);
         this.country.requestFocus();
 
-        this.editButton.setVisibility(View.GONE);
-        this.saveButton.setVisibility(View.VISIBLE);
-    }
-
-    // Disables editing of fields and replaces Save button with Edit.
-    private void disableEditText() {
-        getAllTextView();
-        this.lastName.setEnabled(false);
-        this.lastName.requestFocus();
-        this.firstName.setEnabled(false);
-        this.firstName.requestFocus();
-        this.birthday.setVisibility(View.VISIBLE);
-        this.gender.setVisibility(View.VISIBLE);
-        this.email.setEnabled(false);
-        this.email.requestFocus();
-        this.street.setEnabled(false);
-        this.street.requestFocus();
-        this.streetNumber.setEnabled(false);
-        this.streetNumber.requestFocus();
-        this.city.setEnabled(false);
-        this.city.requestFocus();
-        this.country.setEnabled(false);
-        this.country.requestFocus();
-
-        this.editButton.setVisibility(View.VISIBLE);
-        this.saveButton.setVisibility(View.GONE);
+        this.editButton.setVisibility(s1);
+        this.saveButton.setVisibility(s2);
+        this.birthday.setVisibility(s1);
+        this.gender.setVisibility(s1);
     }
 
     // Get string values from the fields.
@@ -201,6 +185,21 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     // Updates user with values in the fields.
     void saveNewValues() {
+        Map<String, Object> userValues = storeUpdatedValues();
+        database.getReference(userType).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private Map<String, Object> storeUpdatedValues() {
         Map<String, Object> userValues = new HashMap<>();
         userValues.put("firstName", this.newFirstName);
         userValues.put("lastName", this.newLastName);
@@ -208,33 +207,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("streetNumber", this.newStreetNumber);
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
-
-        if (isPatient) {
-            database.getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
-                }
-
-            });
-        } else {
-            database.getReference("Doctor").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
-            }
-            }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
-            }
-            });
-        }
+        return userValues;
     }
 
     // Get the reference to the logged in user.
@@ -244,12 +217,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                    isPatient = true;
+                    userType = "Patient";
                     database.getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Patient"));
                     loadContent();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
