@@ -1,7 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -48,8 +46,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
 
+    Patient patient;
+    Doctor doctor;
+
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference userRef;
+
+    boolean isPatient = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +60,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void loadContent() {
-
-
         setContentView(R.layout.activity_profile);
         getButtonsView();
 
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
-
     }
 
     private ValueEventListener createValueEventListener(final String type) {
@@ -75,7 +74,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 getAllTextView();
                 if (type.compareTo("Patient") == 0) {
-                    Patient patient = dataSnapshot.getValue(Patient.class);
+                    patient = dataSnapshot.getValue(Patient.class);
                     lastName.setText(patient.getLastName());
                     firstName.setText(patient.getFirstName());
                     birthday.setText(patient.getBirthday());
@@ -87,7 +86,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     country.setText(patient.getCountry());
 
                 } else if (type.compareTo("Doctor") == 0) {
-                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
+                    doctor = dataSnapshot.getValue(Doctor.class);
                     lastName.setText(doctor.getLastName());
                     firstName.setText(doctor.getFirstName());
                     birthday.setText(doctor.getBirthday());
@@ -210,17 +209,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
 
-        this.userRef.updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+        if (isPatient) {
+            database.getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+        } else {
+            database.getReference("Doctor").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
+            }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
             }
-        });
+            });
+        }
     }
 
     // Get the reference to the logged in user.
@@ -230,6 +244,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    isPatient = true;
                     database.getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Patient"));
                     loadContent();
                 }
