@@ -60,7 +60,7 @@ public class ProfileTest {
     @Test
     public void testLogOut(){
 
-        onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
+        onView(withId(R.id.logoutButton)).perform(click());
 
         intended(hasComponent(LoginActivity.class.getName()));
     }
