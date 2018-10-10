@@ -30,7 +30,6 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- Test class for User class
 
  author: Aslam CADER
  reviewer:
@@ -67,6 +66,12 @@ public class LoginActivityTest {
 //
 //        assertEquals("Check if corrected to correct account", email, user.getEmail());
 //        intended(hasComponent(Profile.class.getName()));
+        try {
+            onView(withId(R.id.logoutButton)).perform(click());
+        } catch (NoMatchingViewException e) {
+            // Ignore
+        }
+
         signOutIfPossible();
 
         enterEmail(email);
