@@ -2,20 +2,20 @@ package ch.epfl.sweng.vanjel;
 
 public class DoctorCalendarItem {
 
-    private String head;
-    private String desc;
+    private String date;
+    private Patient patient;
 
-    public DoctorCalendarItem(String head, String desc) {
-        this.head = head;
-        this.desc = desc;
+    public DoctorCalendarItem(String dt, Patient pt) {
+        this.date = dt;
+        this.patient = pt;
     }
 
 
-    public String getHead() {
-        return head;
+    public String getDate() {
+        return date;
     }
 
-    public String getDesc() {
-        return desc;
+    public Patient getPatient() {
+        return patient;
     }
 }
