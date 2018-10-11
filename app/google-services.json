@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "592840537914-ed8t5pdd5njefrd6cdv7928mkcie7cpv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.epfl.sweng.vanjel",
+            "certificate_hash": "63937197c38080a0fd7910c7ff371fc8a2dd5ca3"
+          }
+        },
+        {
+          "client_id": "592840537914-ibuhrkqvlk80lpilbnl95gi6u4cki622.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.epfl.sweng.vanjel",
+            "certificate_hash": "9a9f16b241732ff88644144d8fbf012d66e41edb"
+          }
+        },
+        {
           "client_id": "592840537914-dluagghflvtt34kfrife1hv5sqaiqan5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592840537914-dluagghflvtt34kfrife1hv5sqaiqan5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

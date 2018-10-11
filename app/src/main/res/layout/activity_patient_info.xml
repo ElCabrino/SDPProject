@@ -401,7 +401,7 @@
 
 
             <Button
-                android:id="@+id/buttonComplentaryInfoPt"
+                android:id="@+id/buttonGenInfoPtReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
