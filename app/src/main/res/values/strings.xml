@@ -20,7 +20,7 @@
     <string name="general_informations">General informations</string>
     <string name="medical_condition">Do you suffer from any medical condition ?</string>
     <string name="previous_surgeries">Have you ever had surgery ? Please list which surgeries and what year</string>
-    <string name="allergies">Do you have any allergies ?</string>
+    <string name="allergies">Do you have any allergies ? Please specify which</string>
     <string name="drug_reaction">Did you ever have a strong reaction, allergic or other, to a drug ? Please write the drug and the reaction</string>
     <string name="current_medication">Are you currently taking medication ? Please write down what medication,the individual dosage and how many times the drug is taken per day</string>
     <string name="drug">Drug</string>

@@ -27,12 +27,12 @@ public class SurgeryList extends ArrayAdapter<Surgery> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.list_conditions_layout,null,true);
-        TextView textViewConditions = (TextView) listViewItem.findViewById(R.id.textViewConditions);
+        View listViewItem = inflater.inflate(R.layout.list_surgeries_layout,null,true);
+        TextView textViewSurgeries = (TextView) listViewItem.findViewById(R.id.textViewSurgeries);
 
         Surgery surgery = surgeryList.get(position);
 
-        textViewConditions.setText(surgery.getType() + " " + surgery.getYear());
+        textViewSurgeries.setText(surgery.getType() + " " + surgery.getYear());
 
         return listViewItem;
 

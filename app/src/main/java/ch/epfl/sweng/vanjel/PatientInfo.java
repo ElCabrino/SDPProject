@@ -21,24 +21,47 @@ import java.util.List;
 
 public class PatientInfo extends AppCompatActivity {
 
-    Button detailedInfoButton;
     Button saveButton;
 
     EditText priorConditionsReg;
     EditText surgeriesReg;
     EditText surgeriesYearReg;
+    EditText allergyReg;
+    EditText drugReactionDrugReg;
+    EditText drugReactionReactionReg;
+    EditText drugRegimenDrugReg;
+    EditText drugRegimenDosageReg;
+    EditText drugRegimenTimesReg;
+    EditText substancesReg;
 
     Button buttonConditions;
     Button buttonSurgeries;
+    Button buttonAllergies;
+    Button buttonDrugReactions;
+    Button buttonDrug;
+    Button buttonSubstance;
 
     DatabaseReference databaseCondition;
     DatabaseReference databaseSurgery;
+    DatabaseReference databaseAllergy;
+    DatabaseReference databaseDrugReaction;
+    DatabaseReference databaseDrug;
+    DatabaseReference databaseSubstance;
 
     ListView listViewConditions;
     ListView listViewSurgeries;
+    ListView listViewAllergies;
+    ListView listViewDrugReactions;
+    ListView listViewDrugs;
+    ListView listViewSubstances;
 
     List<Condition> conditionList;
     List<Surgery> surgeryList;
+    List<Allergy> allergyList;
+    List<DrugReaction> drugReactionList;
+    List<Drug> drugList;
+    List<Substance> substanceList;
+
 
 
     @Override
@@ -48,21 +71,46 @@ public class PatientInfo extends AppCompatActivity {
 
         databaseCondition = FirebaseDatabase.getInstance().getReference("Condition");
         databaseSurgery = FirebaseDatabase.getInstance().getReference("Surgery");
+        databaseAllergy = FirebaseDatabase.getInstance().getReference("Allergy");
+        databaseDrugReaction = FirebaseDatabase.getInstance().getReference("DrugReaction");
+        databaseDrug = FirebaseDatabase.getInstance().getReference("Drug");
+        databaseSubstance = FirebaseDatabase.getInstance().getReference("Substance");
 
         saveButton = (Button) findViewById(R.id.buttonGenInfoPtReg);
 
         priorConditionsReg = (EditText) findViewById(R.id.ptPriorConditionsReg);
         surgeriesReg = (EditText) findViewById(R.id.ptSurgeryReg);
         surgeriesYearReg = (EditText) findViewById(R.id.ptSurgeryYearReg);
+        allergyReg = (EditText) findViewById(R.id.ptAllergyReg);
+        drugReactionDrugReg = (EditText) findViewById(R.id.ptDrugReactionDrugReg);
+        drugReactionReactionReg = (EditText) findViewById(R.id.ptDrugReactionReactionReg);
+        drugRegimenDrugReg = (EditText) findViewById(R.id.ptDrugRegimenDrugReg);
+        drugRegimenDosageReg = (EditText) findViewById(R.id.ptDrugRegimenDosageReg);
+        drugRegimenTimesReg = (EditText) findViewById(R.id.ptDrugRegimenTimesReg);
+        substancesReg = (EditText) findViewById(R.id.ptSubstanceReg);
 
         buttonConditions = (Button) findViewById(R.id.buttonPriorConditions);
         buttonSurgeries = (Button) findViewById(R.id.buttonSurgery);
+        buttonAllergies = (Button) findViewById(R.id.buttonAllergy);
+        buttonDrugReactions = (Button) findViewById(R.id.buttonDrugReaction);
+        buttonDrug = (Button) findViewById(R.id.buttonDrugRegimen);
+        buttonSubstance = (Button) findViewById(R.id.buttonSubstance);
+
 
         listViewConditions = (ListView) findViewById(R.id.ptPriorConditionsList);
         listViewSurgeries = (ListView) findViewById(R.id.ptSurgeryList);
+        listViewAllergies = (ListView) findViewById(R.id.ptAllergyList);
+        listViewDrugReactions = (ListView) findViewById(R.id.ptDrugReactionList);
+        listViewDrugs = (ListView) findViewById(R.id.ptDrugRegimenList);
+        listViewSubstances = (ListView) findViewById(R.id.ptSubstanceList);
 
         conditionList = new ArrayList<>();
         surgeryList = new ArrayList<>();
+        allergyList = new ArrayList<>();
+        drugReactionList = new ArrayList<>();
+        drugList = new ArrayList<>();
+        substanceList = new ArrayList<>();
+
 
         buttonConditions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +122,30 @@ public class PatientInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addSurgery();
+            }
+        });
+        buttonAllergies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addAllergy();
+            }
+        });
+        buttonDrugReactions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrugReaction();
+            }
+        });
+        buttonDrug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrug();
+            }
+        });
+        buttonSubstance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSubstance();
             }
         });
 
@@ -129,6 +201,97 @@ public class PatientInfo extends AppCompatActivity {
             }
         });
 
+        databaseAllergy.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allergyList.clear();
+                for (DataSnapshot allergySnapshot: dataSnapshot.getChildren()) {
+                    Allergy allergy = allergySnapshot.getValue(Allergy.class);
+
+                    allergyList.add(allergy);
+
+                }
+
+                AllergyList adapter = new AllergyList(PatientInfo.this,allergyList);
+                listViewAllergies.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseDrugReaction.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                drugReactionList.clear();
+                for (DataSnapshot drugReactionSnapshot: dataSnapshot.getChildren()) {
+                    DrugReaction drugReaction = drugReactionSnapshot.getValue(DrugReaction.class);
+
+                    drugReactionList.add(drugReaction);
+
+                }
+
+                DrugReactionList adapter = new DrugReactionList(PatientInfo.this,drugReactionList);
+                listViewDrugReactions.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        databaseDrug.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                drugList.clear();
+                for (DataSnapshot drugSnapshot: dataSnapshot.getChildren()) {
+                    Drug drug = drugSnapshot.getValue(Drug.class);
+
+                    drugList.add(drug);
+
+                }
+
+                DrugList adapter = new DrugList(PatientInfo.this,drugList);
+                listViewDrugs.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseSubstance.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                substanceList.clear();
+                for (DataSnapshot substanceSnapshot: dataSnapshot.getChildren()) {
+                    Substance sub = substanceSnapshot.getValue(Substance.class);
+
+                    substanceList.add(sub);
+
+                }
+
+                SubstanceList adapter = new SubstanceList(PatientInfo.this,substanceList);
+                listViewSubstances.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
 
@@ -162,6 +325,72 @@ public class PatientInfo extends AppCompatActivity {
 
         } else {
             Toast.makeText(this,"Please enter the surgery and the year you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addAllergy() {
+        String allergy = allergyReg.getText().toString().trim();
+        if(!TextUtils.isEmpty(allergy)) {
+
+            String id = databaseAllergy.push().getKey();
+            Allergy al = new Allergy(id,allergy);
+
+
+            databaseAllergy.child(id).setValue(al);
+            Toast.makeText(this,"Allergy added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the allergy you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addDrugReaction() {
+        String drug = drugReactionDrugReg.getText().toString().trim();
+        String reaction = drugReactionReactionReg.getText().toString().trim();
+        if(!TextUtils.isEmpty(drug) && !TextUtils.isEmpty(reaction)) {
+
+            String id = databaseDrugReaction.push().getKey();
+            DrugReaction dr = new DrugReaction(id,drug,reaction);
+
+            databaseDrugReaction.child(id).setValue(dr);
+            Toast.makeText(this,"Drug reaction added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the drug and the reaction you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addDrug() {
+        String drug = drugRegimenDrugReg.getText().toString().trim();
+        String dosage = drugRegimenDosageReg.getText().toString().trim();
+        String times = drugRegimenTimesReg.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(drug) && !TextUtils.isEmpty(dosage) && !TextUtils.isEmpty(times)) {
+
+            String id = databaseDrug.push().getKey();
+            Drug dr = new Drug(id,drug,dosage, times);
+
+            databaseDrug.child(id).setValue(dr);
+            Toast.makeText(this,"Drug added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the drug, the dosage and the frequency you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addSubstance() {
+        String substance = substancesReg.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(substance)) {
+
+            String id = databaseSubstance.push().getKey();
+            Substance sub = new Substance(id,substance);
+
+            databaseSubstance.child(id).setValue(sub);
+            Toast.makeText(this,"Substance added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the substance you want to add", Toast.LENGTH_LONG).show();
         }
     }
 

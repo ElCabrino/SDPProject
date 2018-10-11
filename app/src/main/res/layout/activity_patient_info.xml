@@ -288,13 +288,22 @@
                     android:layout_weight="1"
                     android:ems="3" />
 
-                <TextView
-                    android:id="@+id/ptSmokingValue"
+                <Button
+                    android:id="@+id/buttonSmoking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="3" />
+                    android:text="@string/add" />
+
+
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/ptSmokingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="3" />
 
 
             <TextView
@@ -317,15 +326,22 @@
                     android:layout_weight="1"
                     android:ems="3" />
 
-                <TextView
-                    android:id="@+id/ptDrinkingValue"
+                <Button
+                    android:id="@+id/buttonDrinking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="3" />
+                    android:text="@string/add" />
 
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/ptDrinkingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="3" />
+
 
 
             <TextView
@@ -349,14 +365,21 @@
                     android:layout_weight="1"
                     android:ems="3" />
 
-                <TextView
-                    android:id="@+id/ptExerciceValue"
+                <Button
+                    android:id="@+id/buttonExercice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="3" />
+                    android:text="@string/add" />
 
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/ptExerciceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="3" />
 
 
             <TextView
