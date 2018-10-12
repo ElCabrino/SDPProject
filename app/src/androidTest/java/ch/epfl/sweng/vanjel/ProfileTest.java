@@ -1,17 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
-
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.intent.Intents.intended;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.util.Log;
-import android.view.View;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,7 +22,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
 
 public class ProfileTest {
 
@@ -56,7 +48,7 @@ public class ProfileTest {
                 onView(allOf(withId(R.id.buttonLogin), withText("Login"))).check(matches(isDisplayed()));
                 onView(withId(R.id.mailLogin)).perform(replaceText(email));
                 onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-                onView(withId(R.id.buttonLogin)).perform(click());
+                    onView(withId(R.id.buttonLogin)).perform(click());
             } catch (NoMatchingViewException f) {
                 Log.d("TESTOUT", "exception : "+f);
             }
