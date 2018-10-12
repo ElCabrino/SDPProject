@@ -345,11 +345,11 @@
 
 
             <TextView
-                android:id="@+id/ptExerciceInfo"
+                android:id="@+id/ptExerciseInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/exercice_per_week"
+                android:text="@string/exercise_per_week"
                 android:textSize="16sp" />
 
 
@@ -359,14 +359,14 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/ptExerciceReg"
+                    android:id="@+id/ptExerciseReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="3" />
 
                 <Button
-                    android:id="@+id/buttonExercice"
+                    android:id="@+id/buttonExercise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add" />
@@ -375,7 +375,7 @@
 
 
             <TextView
-                android:id="@+id/ptExerciceValue"
+                android:id="@+id/ptExerciseValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +34,9 @@ public class PatientInfo extends AppCompatActivity {
     EditText drugRegimenDosageReg;
     EditText drugRegimenTimesReg;
     EditText substancesReg;
+    EditText smokingReg;
+    EditText drinkingReg;
+    EditText exerciseReg;
 
     Button buttonConditions;
     Button buttonSurgeries;
@@ -40,6 +44,9 @@ public class PatientInfo extends AppCompatActivity {
     Button buttonDrugReactions;
     Button buttonDrug;
     Button buttonSubstance;
+    Button buttonSmoking;
+    Button buttonDrinking;
+    Button buttonExercise;
 
     DatabaseReference databaseCondition;
     DatabaseReference databaseSurgery;
@@ -47,6 +54,9 @@ public class PatientInfo extends AppCompatActivity {
     DatabaseReference databaseDrugReaction;
     DatabaseReference databaseDrug;
     DatabaseReference databaseSubstance;
+    DatabaseReference databaseSmoking;
+    DatabaseReference databaseDrinking;
+    DatabaseReference databaseExercise;
 
     ListView listViewConditions;
     ListView listViewSurgeries;
@@ -54,6 +64,9 @@ public class PatientInfo extends AppCompatActivity {
     ListView listViewDrugReactions;
     ListView listViewDrugs;
     ListView listViewSubstances;
+    TextView textViewSmoking;
+    TextView textViewDrinking;
+    TextView textViewExercise;
 
     List<Condition> conditionList;
     List<Surgery> surgeryList;
@@ -75,6 +88,9 @@ public class PatientInfo extends AppCompatActivity {
         databaseDrugReaction = FirebaseDatabase.getInstance().getReference("DrugReaction");
         databaseDrug = FirebaseDatabase.getInstance().getReference("Drug");
         databaseSubstance = FirebaseDatabase.getInstance().getReference("Substance");
+        databaseSmoking = FirebaseDatabase.getInstance().getReference("Smoking");
+        databaseDrinking = FirebaseDatabase.getInstance().getReference("Drinking");
+        databaseExercise = FirebaseDatabase.getInstance().getReference("Exercise");
 
         saveButton = (Button) findViewById(R.id.buttonGenInfoPtReg);
 
@@ -88,6 +104,9 @@ public class PatientInfo extends AppCompatActivity {
         drugRegimenDosageReg = (EditText) findViewById(R.id.ptDrugRegimenDosageReg);
         drugRegimenTimesReg = (EditText) findViewById(R.id.ptDrugRegimenTimesReg);
         substancesReg = (EditText) findViewById(R.id.ptSubstanceReg);
+        smokingReg = (EditText) findViewById(R.id.ptSmokingReg);
+        drinkingReg = (EditText) findViewById(R.id.ptDrinkingReg);
+        exerciseReg = (EditText) findViewById(R.id.ptExerciseReg);
 
         buttonConditions = (Button) findViewById(R.id.buttonPriorConditions);
         buttonSurgeries = (Button) findViewById(R.id.buttonSurgery);
@@ -95,6 +114,9 @@ public class PatientInfo extends AppCompatActivity {
         buttonDrugReactions = (Button) findViewById(R.id.buttonDrugReaction);
         buttonDrug = (Button) findViewById(R.id.buttonDrugRegimen);
         buttonSubstance = (Button) findViewById(R.id.buttonSubstance);
+        buttonSmoking = (Button) findViewById(R.id.buttonSmoking);
+        buttonDrinking = (Button) findViewById(R.id.buttonDrinking);
+        buttonExercise = (Button) findViewById(R.id.buttonExercise);
 
 
         listViewConditions = (ListView) findViewById(R.id.ptPriorConditionsList);
@@ -103,6 +125,9 @@ public class PatientInfo extends AppCompatActivity {
         listViewDrugReactions = (ListView) findViewById(R.id.ptDrugReactionList);
         listViewDrugs = (ListView) findViewById(R.id.ptDrugRegimenList);
         listViewSubstances = (ListView) findViewById(R.id.ptSubstanceList);
+        textViewSmoking = (TextView) findViewById(R.id.ptSmokingValue);
+        textViewDrinking = (TextView) findViewById(R.id.ptDrinkingValue);
+        textViewExercise = (TextView) findViewById(R.id.ptExerciseValue);
 
         conditionList = new ArrayList<>();
         surgeryList = new ArrayList<>();
@@ -146,6 +171,24 @@ public class PatientInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addSubstance();
+            }
+        });
+        buttonSmoking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSmoking();
+            }
+        });
+        buttonDrinking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrinking();
+            }
+        });
+        buttonExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addExercise();
             }
         });
 
@@ -290,6 +333,52 @@ public class PatientInfo extends AppCompatActivity {
             }
         });
 
+        databaseSmoking.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot smokingSnapshot: dataSnapshot.getChildren()) {
+                    String s = smokingSnapshot.getValue(Smoking.class).getAmount();
+                    textViewSmoking.setText(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseDrinking.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot drinkingSnapshot: dataSnapshot.getChildren()) {
+                    String s = drinkingSnapshot.getValue(Drinking.class).getAmount();
+                    textViewDrinking.setText(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseExercise.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot exerciseSnapshot: dataSnapshot.getChildren()) {
+                    String s = exerciseSnapshot.getValue(Exercise.class).getAmount();
+                    textViewExercise.setText(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
     }
@@ -391,6 +480,54 @@ public class PatientInfo extends AppCompatActivity {
 
         } else {
             Toast.makeText(this,"Please enter the substance you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addSmoking() {
+        String amount = smokingReg.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(amount)) {
+
+            String id = databaseSmoking.push().getKey();
+            Smoking cigs = new Smoking(id,amount);
+
+            databaseSmoking.child(id).setValue(cigs);
+            Toast.makeText(this,"Smoking added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the average amount of cigarettes you smoke per day", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addDrinking() {
+        String amount = drinkingReg.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(amount)) {
+
+            String id = databaseDrinking.push().getKey();
+            Drinking drink = new Drinking(id,amount);
+
+            databaseDrinking.child(id).setValue(drink);
+            Toast.makeText(this,"Drinking added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the average amount of alcohol you consume per day", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addExercise() {
+        String amount = exerciseReg.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(amount)) {
+
+            String id = databaseExercise.push().getKey();
+            Exercise ex = new Exercise(id,amount);
+
+            databaseExercise.child(id).setValue(ex);
+            Toast.makeText(this,"Exercise added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,"Please enter the average hours of exercise you do per week", Toast.LENGTH_LONG).show();
         }
     }
 
