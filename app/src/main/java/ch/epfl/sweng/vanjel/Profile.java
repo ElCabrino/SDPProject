@@ -48,12 +48,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    String userType = "Doctor";
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getUser();
+        searchUserIn("Patient");
+        searchUserIn("Doctor");
     }
 
     private void loadContent() {
@@ -71,9 +72,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 getAllTextView();
                 if (type.compareTo("Patient") == 0) {
-                    setTextFirebase(dataSnapshot, Patient.class);
+                    setTextFields(dataSnapshot, Patient.class);
                 } else if (type.compareTo("Doctor") == 0) {
-                    setTextFirebase(dataSnapshot, Doctor.class);
+                    setTextFields(dataSnapshot, Doctor.class);
                 }
             }
 
@@ -85,7 +86,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         return listener;
     }
 
-    private void setTextFirebase(DataSnapshot dataSnapshot, Class<? extends User> c) {
+    private void setTextFields(DataSnapshot dataSnapshot, Class<? extends User> c) {
         User user = dataSnapshot.getValue(c);
         c.cast(user);
         lastName.setText(user.getLastName());
@@ -195,33 +196,20 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     // Get the reference to the logged in user.
-    void getUser() {
-        DatabaseReference patientRef = database.getReference("Patient");
+    void searchUserIn(final String category) {
+        DatabaseReference patientRef = database.getReference(category);
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                    userType = "Patient";
-                    database.getReference("Patient").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Patient"));
+                    userType = category;
+                    database.getReference(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener(category));
                     loadContent();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        DatabaseReference doctorRef = database.getReference("Doctor");
-        doctorRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                    database.getReference("Doctor").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Doctor"));
-                    loadContent();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
