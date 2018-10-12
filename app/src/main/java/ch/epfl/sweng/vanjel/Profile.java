@@ -112,7 +112,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         } else if (v.getId() == R.id.saveButton) {
             getStringFromFields();
             saveNewValues();
-            setEditText(false, View.VISIBLE, View.VISIBLE);
+            setEditText(false, View.VISIBLE, View.GONE);
         }
     }
 
@@ -141,8 +141,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.lastName.requestFocus();
         this.firstName.setEnabled(set);
         this.firstName.requestFocus();
-        this.email.setEnabled(set);
-        this.email.requestFocus();
         this.street.setEnabled(set);
         this.street.requestFocus();
         this.streetNumber.setEnabled(set);
@@ -156,6 +154,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton.setVisibility(s2);
         this.birthday.setVisibility(s1);
         this.gender.setVisibility(s1);
+        this.email.setVisibility(s1);
     }
 
     // Get string values from the fields.
