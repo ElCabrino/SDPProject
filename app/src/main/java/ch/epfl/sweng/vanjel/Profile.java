@@ -1,7 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -47,9 +46,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
 
-    Patient patient;
-    Doctor doctor;
-
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     String userType = "Doctor";
@@ -75,9 +71,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 getAllTextView();
                 if (type.compareTo("Patient") == 0) {
-                    setPatientText(dataSnapshot);
+                    setTextFirebase(dataSnapshot, Patient.class);
                 } else if (type.compareTo("Doctor") == 0) {
-                    setDoctorText(dataSnapshot);
+                    setTextFirebase(dataSnapshot, Doctor.class);
                 }
             }
 
@@ -89,30 +85,18 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         return listener;
     }
 
-    private void setPatientText(DataSnapshot dataSnapshot) {
-        patient = dataSnapshot.getValue(Patient.class);
-        lastName.setText(patient.getLastName());
-        firstName.setText(patient.getFirstName());
-        birthday.setText(patient.getBirthday());
-        gender.setText(patient.getGender().toString());
-        email.setText(patient.getEmail());
-        street.setText(patient.getStreet());
-        streetNumber.setText(patient.getStreetNumber());
-        city.setText(patient.getCity());
-        country.setText(patient.getCountry());
-    }
-
-    private void setDoctorText(DataSnapshot dataSnapshot) {
-        doctor = dataSnapshot.getValue(Doctor.class);
-        lastName.setText(doctor.getLastName());
-        firstName.setText(doctor.getFirstName());
-        birthday.setText(doctor.getBirthday());
-        gender.setText(doctor.getGender().toString());
-        email.setText(doctor.getEmail());
-        street.setText(doctor.getStreet());
-        streetNumber.setText(doctor.getStreetNumber());
-        city.setText(doctor.getCity());
-        country.setText(doctor.getCountry());
+    private void setTextFirebase(DataSnapshot dataSnapshot, Class<? extends User> c) {
+        User user = dataSnapshot.getValue(c);
+        c.cast(user);
+        lastName.setText(user.getLastName());
+        firstName.setText(user.getFirstName());
+        birthday.setText(user.getBirthday());
+        gender.setText(user.getGender().toString());
+        email.setText(user.getEmail());
+        street.setText(user.getStreet());
+        streetNumber.setText(user.getStreetNumber());
+        city.setText(user.getCity());
+        country.setText(user.getCountry());
     }
 
     @Override
