@@ -94,40 +94,11 @@ public class PatientInfo extends AppCompatActivity {
 
         saveButton = (Button) findViewById(R.id.buttonGenInfoPtReg);
 
-        priorConditionsReg = (EditText) findViewById(R.id.ptPriorConditionsReg);
-        surgeriesReg = (EditText) findViewById(R.id.ptSurgeryReg);
-        surgeriesYearReg = (EditText) findViewById(R.id.ptSurgeryYearReg);
-        allergyReg = (EditText) findViewById(R.id.ptAllergyReg);
-        drugReactionDrugReg = (EditText) findViewById(R.id.ptDrugReactionDrugReg);
-        drugReactionReactionReg = (EditText) findViewById(R.id.ptDrugReactionReactionReg);
-        drugRegimenDrugReg = (EditText) findViewById(R.id.ptDrugRegimenDrugReg);
-        drugRegimenDosageReg = (EditText) findViewById(R.id.ptDrugRegimenDosageReg);
-        drugRegimenTimesReg = (EditText) findViewById(R.id.ptDrugRegimenTimesReg);
-        substancesReg = (EditText) findViewById(R.id.ptSubstanceReg);
-        smokingReg = (EditText) findViewById(R.id.ptSmokingReg);
-        drinkingReg = (EditText) findViewById(R.id.ptDrinkingReg);
-        exerciseReg = (EditText) findViewById(R.id.ptExerciseReg);
+        getAllEditText();
 
-        buttonConditions = (Button) findViewById(R.id.buttonPriorConditions);
-        buttonSurgeries = (Button) findViewById(R.id.buttonSurgery);
-        buttonAllergies = (Button) findViewById(R.id.buttonAllergy);
-        buttonDrugReactions = (Button) findViewById(R.id.buttonDrugReaction);
-        buttonDrug = (Button) findViewById(R.id.buttonDrugRegimen);
-        buttonSubstance = (Button) findViewById(R.id.buttonSubstance);
-        buttonSmoking = (Button) findViewById(R.id.buttonSmoking);
-        buttonDrinking = (Button) findViewById(R.id.buttonDrinking);
-        buttonExercise = (Button) findViewById(R.id.buttonExercise);
+        getAllButtons();
 
-
-        listViewConditions = (ListView) findViewById(R.id.ptPriorConditionsList);
-        listViewSurgeries = (ListView) findViewById(R.id.ptSurgeryList);
-        listViewAllergies = (ListView) findViewById(R.id.ptAllergyList);
-        listViewDrugReactions = (ListView) findViewById(R.id.ptDrugReactionList);
-        listViewDrugs = (ListView) findViewById(R.id.ptDrugRegimenList);
-        listViewSubstances = (ListView) findViewById(R.id.ptSubstanceList);
-        textViewSmoking = (TextView) findViewById(R.id.ptSmokingValue);
-        textViewDrinking = (TextView) findViewById(R.id.ptDrinkingValue);
-        textViewExercise = (TextView) findViewById(R.id.ptExerciseValue);
+        getAllPatientInfoFields();
 
         conditionList = new ArrayList<>();
         surgeryList = new ArrayList<>();
@@ -193,6 +164,46 @@ public class PatientInfo extends AppCompatActivity {
         });
 
 
+    }
+
+    private void getAllPatientInfoFields() {
+        listViewConditions = (ListView) findViewById(R.id.ptPriorConditionsList);
+        listViewSurgeries = (ListView) findViewById(R.id.ptSurgeryList);
+        listViewAllergies = (ListView) findViewById(R.id.ptAllergyList);
+        listViewDrugReactions = (ListView) findViewById(R.id.ptDrugReactionList);
+        listViewDrugs = (ListView) findViewById(R.id.ptDrugRegimenList);
+        listViewSubstances = (ListView) findViewById(R.id.ptSubstanceList);
+        textViewSmoking = (TextView) findViewById(R.id.ptSmokingValue);
+        textViewDrinking = (TextView) findViewById(R.id.ptDrinkingValue);
+        textViewExercise = (TextView) findViewById(R.id.ptExerciseValue);
+    }
+
+    private void getAllButtons() {
+        buttonConditions = (Button) findViewById(R.id.buttonPriorConditions);
+        buttonSurgeries = (Button) findViewById(R.id.buttonSurgery);
+        buttonAllergies = (Button) findViewById(R.id.buttonAllergy);
+        buttonDrugReactions = (Button) findViewById(R.id.buttonDrugReaction);
+        buttonDrug = (Button) findViewById(R.id.buttonDrugRegimen);
+        buttonSubstance = (Button) findViewById(R.id.buttonSubstance);
+        buttonSmoking = (Button) findViewById(R.id.buttonSmoking);
+        buttonDrinking = (Button) findViewById(R.id.buttonDrinking);
+        buttonExercise = (Button) findViewById(R.id.buttonExercise);
+    }
+
+    private void getAllEditText() {
+        priorConditionsReg = (EditText) findViewById(R.id.ptPriorConditionsReg);
+        surgeriesReg = (EditText) findViewById(R.id.ptSurgeryReg);
+        surgeriesYearReg = (EditText) findViewById(R.id.ptSurgeryYearReg);
+        allergyReg = (EditText) findViewById(R.id.ptAllergyReg);
+        drugReactionDrugReg = (EditText) findViewById(R.id.ptDrugReactionDrugReg);
+        drugReactionReactionReg = (EditText) findViewById(R.id.ptDrugReactionReactionReg);
+        drugRegimenDrugReg = (EditText) findViewById(R.id.ptDrugRegimenDrugReg);
+        drugRegimenDosageReg = (EditText) findViewById(R.id.ptDrugRegimenDosageReg);
+        drugRegimenTimesReg = (EditText) findViewById(R.id.ptDrugRegimenTimesReg);
+        substancesReg = (EditText) findViewById(R.id.ptSubstanceReg);
+        smokingReg = (EditText) findViewById(R.id.ptSmokingReg);
+        drinkingReg = (EditText) findViewById(R.id.ptDrinkingReg);
+        exerciseReg = (EditText) findViewById(R.id.ptExerciseReg);
     }
 
 
