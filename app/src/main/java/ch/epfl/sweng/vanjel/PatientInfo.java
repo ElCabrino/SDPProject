@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientInfo extends AppCompatActivity {
+public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
 
     Button saveButton;
 
@@ -82,6 +82,31 @@ public class PatientInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
+
+
+        saveButton = (Button) findViewById(R.id.buttonGenInfoPtReg);
+
+        getFirebaseInstances();
+
+        getAllEditText();
+
+        getAllButtons();
+
+        getAllPatientInfoFields();
+
+        initializeLists();
+    }
+
+    private void initializeLists() {
+        conditionList = new ArrayList<>();
+        surgeryList = new ArrayList<>();
+        allergyList = new ArrayList<>();
+        drugReactionList = new ArrayList<>();
+        drugList = new ArrayList<>();
+        substanceList = new ArrayList<>();
+    }
+
+    private void getFirebaseInstances() {
         databaseCondition = FirebaseDatabase.getInstance().getReference("Condition");
         databaseSurgery = FirebaseDatabase.getInstance().getReference("Surgery");
         databaseAllergy = FirebaseDatabase.getInstance().getReference("Allergy");
@@ -91,79 +116,6 @@ public class PatientInfo extends AppCompatActivity {
         databaseSmoking = FirebaseDatabase.getInstance().getReference("Smoking");
         databaseDrinking = FirebaseDatabase.getInstance().getReference("Drinking");
         databaseExercise = FirebaseDatabase.getInstance().getReference("Exercise");
-
-        saveButton = (Button) findViewById(R.id.buttonGenInfoPtReg);
-
-        getAllEditText();
-
-        getAllButtons();
-
-        getAllPatientInfoFields();
-
-        conditionList = new ArrayList<>();
-        surgeryList = new ArrayList<>();
-        allergyList = new ArrayList<>();
-        drugReactionList = new ArrayList<>();
-        drugList = new ArrayList<>();
-        substanceList = new ArrayList<>();
-
-
-        buttonConditions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCondition();
-            }
-        });
-        buttonSurgeries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSurgery();
-            }
-        });
-        buttonAllergies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addAllergy();
-            }
-        });
-        buttonDrugReactions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addDrugReaction();
-            }
-        });
-        buttonDrug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addDrug();
-            }
-        });
-        buttonSubstance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSubstance();
-            }
-        });
-        buttonSmoking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSmoking();
-            }
-        });
-        buttonDrinking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addDrinking();
-            }
-        });
-        buttonExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addExercise();
-            }
-        });
-
-
     }
 
     private void getAllPatientInfoFields() {
@@ -388,10 +340,6 @@ public class PatientInfo extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
 
 
@@ -542,8 +490,27 @@ public class PatientInfo extends AppCompatActivity {
         }
     }
 
-
-
-
-
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.buttonPriorConditions){
+            addCondition();
+        } else if (i == R.id.buttonSurgery) {
+            addSurgery();
+        } else if (i == R.id.buttonAllergy) {
+            addAllergy();
+        } else if (i == R.id.buttonDrugRegimen) {
+            addDrug();
+        } else if (i == R.id.buttonDrugReaction) {
+            addDrugReaction();
+        } else if (i == R.id.buttonSubstance) {
+            addSubstance();
+        } else if (i == R.id.buttonSmoking) {
+            addSmoking();
+        } else if (i == R.id.buttonDrinking) {
+            addDrinking();
+        } else if (i == R.id.buttonExercise) {
+            addExercise();
+        }
+    }
 }
