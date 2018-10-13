@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
@@ -66,14 +66,14 @@
 
             </LinearLayout>
 
-            <ListView
+            <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptPriorConditionsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="4dp"/>
 
-            </ListView>
+
 
             <TextView
                 android:id="@+id/ptSurgeryInfo"
@@ -115,14 +115,12 @@
 
             </LinearLayout>
 
-            <ListView
+            <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptSurgeryList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp">
-
-            </ListView>
+                android:layout_marginBottom="4dp"/>
 
 
             <TextView
@@ -155,14 +153,12 @@
             </LinearLayout>
 
 
-            <ListView
+            <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptAllergyList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp">
-
-            </ListView>
+                android:layout_marginBottom="4dp"/>
 
 
             <TextView
@@ -203,14 +199,13 @@
 
             </LinearLayout>
 
-            <ListView
+            <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptDrugReactionList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="4dp"/>
 
-            </ListView>
 
             <TextView
                 android:id="@+id/ptDrugRegimenInfo"
@@ -259,14 +254,13 @@
             </LinearLayout>
 
 
-            <ListView
+            <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptDrugRegimenList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="4dp"/>
 
-            </ListView>
 
             <TextView
                 android:id="@+id/ptSmokingInfo"
@@ -293,7 +287,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add" />
-
 
 
             </LinearLayout>
@@ -341,7 +334,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3" />
-
 
 
             <TextView
@@ -417,10 +409,6 @@
                 android:layout_marginBottom="4dp">
 
             </ListView>
-
-
-
-
 
 
             <Button
