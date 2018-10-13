@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -496,7 +497,12 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonPriorConditions){
-            patientInfoDatabaseService.addConditionToDatabase(priorConditionsReg.getText().toString().trim(), "ID", this);
+            patientInfoDatabaseService.
+                    addConditionToDatabase(
+                            priorConditionsReg.getText().toString().trim(),
+                            //FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                            "ABLlrLukjAaPzaf5GA03takkw5k2",
+                            this);
         } else if (i == R.id.buttonSurgery) {
             addSurgery();
         } else if (i == R.id.buttonAllergy) {
