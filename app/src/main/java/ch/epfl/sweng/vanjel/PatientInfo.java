@@ -22,6 +22,8 @@ import java.util.List;
 
 public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
 
+    PatientInfoDatabaseService patientInfoDatabaseService;
+
     Button saveButton;
 
     EditText priorConditionsReg;
@@ -494,7 +496,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonPriorConditions){
-            addCondition();
+            patientInfoDatabaseService.addConditionToDatabase(priorConditionsReg.getText().toString().trim(), "ID", this);
         } else if (i == R.id.buttonSurgery) {
             addSurgery();
         } else if (i == R.id.buttonAllergy) {
