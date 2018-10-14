@@ -126,7 +126,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     }
 
     private void getFirebaseInstances() {
-        databaseCondition = FirebaseDatabase.getInstance().getReference("Condition");
+        databaseCondition = FirebaseDatabase.getInstance().getReference("Patient").child("ABLlrLukjAaPzaf5GA03takkw5k2").child("Condition");
         databaseSurgery = FirebaseDatabase.getInstance().getReference("Surgery");
         databaseAllergy = FirebaseDatabase.getInstance().getReference("Allergy");
         databaseDrugReaction = FirebaseDatabase.getInstance().getReference("DrugReaction");
@@ -182,7 +182,9 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     protected void onStart() {
         super.onStart();
         // add the database listeners
-        databaseCondition.addValueEventListener(new ValueEventListener() {
+        patientInfoDatabaseService.addConditionListener(conditionList, listViewConditions);
+
+        /*databaseCondition.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 conditionList.clear();
@@ -201,7 +203,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         databaseSurgery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -358,38 +360,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
 
             }
         });
-    }
-
-
-    private void addCondition() {
-        String condition = priorConditionsReg.getText().toString().trim();
-        if(!TextUtils.isEmpty(condition)) {
-            String id = databaseCondition.push().getKey();
-            Condition cond = new Condition(id,condition);
-            databaseCondition.child(id).setValue(cond);
-            Toast.makeText(this,"Condition added",Toast.LENGTH_LONG).show();
-
-        } else {
-            Toast.makeText(this,"Please enter the condition you want to add", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    private void addSurgery() {
-        String surgery = surgeriesReg.getText().toString().trim();
-        String year = surgeriesYearReg.getText().toString().trim();
-        if(!TextUtils.isEmpty(surgery) && !TextUtils.isEmpty(year)) {
-
-            String id = databaseSurgery.push().getKey();
-            Surgery chir = new Surgery(id,surgery,year);
-
-
-            databaseSurgery.child(id).setValue(chir);
-            Toast.makeText(this,"Surgery added",Toast.LENGTH_LONG).show();
-
-        } else {
-            Toast.makeText(this,"Please enter the surgery and the year you want to add", Toast.LENGTH_LONG).show();
-        }
     }
 
     private void addAllergy() {

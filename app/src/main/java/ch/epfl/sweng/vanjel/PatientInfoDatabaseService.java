@@ -1,13 +1,21 @@
 package ch.epfl.sweng.vanjel;
 
+import android.app.AlertDialog;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientInfoDatabaseService {
 
@@ -47,5 +55,29 @@ public class PatientInfoDatabaseService {
         } else {
             Toast.makeText(this.activity,"Please enter the surgery and the year you want to add", Toast.LENGTH_LONG).show();
         }
+    }
+
+    void addConditionListener(final List<Condition> conditionList, final ListView listViewConditions){
+        DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
+        databaseCondition.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                conditionList.clear();
+                for (DataSnapshot conditionSnapshot: dataSnapshot.getChildren()) {
+                    Condition condition = conditionSnapshot.getValue(Condition.class);
+                    conditionList.add(condition);
+
+                }
+
+                ConditionList adapter = new ConditionList(activity,conditionList);
+                listViewConditions.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
