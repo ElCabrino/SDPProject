@@ -87,11 +87,11 @@ public class ProfileTest {
         String newCity = "BussignyEdit";
 
         pressButton(R.id.editButton, "Edit");
-        onView(withId(R.id.lastnameProfile)).perform(replaceText(newLastName));
-        onView(withId(R.id.nameProfile)).perform(replaceText(newName));
-        onView(withId(R.id.streetProfile)).perform(replaceText(newStreet));
-        onView(withId(R.id.numberStreetProfile)).perform(replaceText(newNumberStreet));
-        onView(withId(R.id.cityProfile)).perform(replaceText(newCity));
+        onView(allOf(withId(R.id.lastnameProfile), isEnabled())).perform(replaceText(newLastName));
+        onView(allOf(withId(R.id.nameProfile), isEnabled())).perform(replaceText(newName));
+        onView(allOf(withId(R.id.streetProfile), isEnabled())).perform(replaceText(newStreet));
+        onView(allOf(withId(R.id.numberStreetProfile), isEnabled())).perform(replaceText(newNumberStreet));
+        onView(allOf(withId(R.id.cityProfile), isEnabled())).perform(replaceText(newCity));
         pressButton(R.id.saveButton, "Save");
 
         checkDisplayed(R.id.lastnameProfile, newLastName);
