@@ -85,7 +85,8 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-
+        patientInfoDatabaseService =
+                new PatientInfoDatabaseService(FirebaseAuth.getInstance().getUid(), this);
 
         saveButton = (Button) findViewById(R.id.buttonGenInfoPtReg);
 
@@ -95,9 +96,22 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
 
         getAllButtons();
 
+        initializeButtonsListeners();
+
         getAllPatientInfoFields();
 
         initializeLists();
+    }
+
+    private void initializeButtonsListeners() {
+        buttonConditions.setOnClickListener(this);
+        buttonSurgeries.setOnClickListener(this);
+        buttonDrugReactions.setOnClickListener(this);
+        buttonDrug.setOnClickListener(this);
+        buttonSubstance.setOnClickListener(this);
+        buttonSmoking.setOnClickListener(this);
+        buttonDrinking.setOnClickListener(this);
+        buttonExercise.setOnClickListener(this);
     }
 
     private void initializeLists() {
@@ -134,15 +148,15 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     }
 
     private void getAllButtons() {
-        buttonConditions = (Button) findViewById(R.id.buttonPriorConditions);
-        buttonSurgeries = (Button) findViewById(R.id.buttonSurgery);
-        buttonAllergies = (Button) findViewById(R.id.buttonAllergy);
-        buttonDrugReactions = (Button) findViewById(R.id.buttonDrugReaction);
-        buttonDrug = (Button) findViewById(R.id.buttonDrugRegimen);
-        buttonSubstance = (Button) findViewById(R.id.buttonSubstance);
-        buttonSmoking = (Button) findViewById(R.id.buttonSmoking);
-        buttonDrinking = (Button) findViewById(R.id.buttonDrinking);
-        buttonExercise = (Button) findViewById(R.id.buttonExercise);
+        buttonConditions = findViewById(R.id.buttonPriorConditions);
+        buttonSurgeries = findViewById(R.id.buttonSurgery);
+        buttonAllergies = findViewById(R.id.buttonAllergy);
+        buttonDrugReactions = findViewById(R.id.buttonDrugReaction);
+        buttonDrug = findViewById(R.id.buttonDrugRegimen);
+        buttonSubstance = findViewById(R.id.buttonSubstance);
+        buttonSmoking = findViewById(R.id.buttonSmoking);
+        buttonDrinking = findViewById(R.id.buttonDrinking);
+        buttonExercise = findViewById(R.id.buttonExercise);
     }
 
     private void getAllEditText() {
@@ -346,8 +360,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     }
 
 
-
-
     private void addCondition() {
         String condition = priorConditionsReg.getText().toString().trim();
         if(!TextUtils.isEmpty(condition)) {
@@ -498,13 +510,10 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         int i = v.getId();
         if (i == R.id.buttonPriorConditions){
             patientInfoDatabaseService.
-                    addConditionToDatabase(
-                            priorConditionsReg.getText().toString().trim(),
-                            //FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                            "ABLlrLukjAaPzaf5GA03takkw5k2",
-                            this);
+                    addConditionToDatabase(priorConditionsReg.getText().toString().trim());
         } else if (i == R.id.buttonSurgery) {
-            addSurgery();
+            patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
+                    surgeriesYearReg.getText().toString().trim());
         } else if (i == R.id.buttonAllergy) {
             addAllergy();
         } else if (i == R.id.buttonDrugRegimen) {
