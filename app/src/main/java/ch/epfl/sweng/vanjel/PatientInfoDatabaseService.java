@@ -1,7 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-import android.app.AlertDialog;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,20 +13,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PatientInfoDatabaseService {
+class PatientInfoDatabaseService {
 
 
-    String UserID ; //FirebaseAuth.getInstance().getUid();
-    AppCompatActivity activity;
-    DatabaseReference userDatabaseReference;
+    private String UserID ; //FirebaseAuth.getInstance().getUid();
+    private AppCompatActivity activity;
+    private DatabaseReference userDatabaseReference;
 
 
     //TEMPORARY ID
     /*TODO: put the user ID of the logged user*/
-    public PatientInfoDatabaseService(String userID, AppCompatActivity activity) {
+    PatientInfoDatabaseService(String userID, AppCompatActivity activity) {
         UserID = "ABLlrLukjAaPzaf5GA03takkw5k2";
         this.activity = activity;
         this.userDatabaseReference = FirebaseDatabase.getInstance().getReference("Patient").child(UserID);
