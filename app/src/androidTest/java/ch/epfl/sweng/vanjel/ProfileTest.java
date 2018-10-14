@@ -59,15 +59,15 @@ public class ProfileTest {
 
     @Test
     public void outputTest() {
-        onView(withId(R.id.lastnameProfile)).check(matches(withText("Joss")));
-        onView(withId(R.id.nameProfile)).check(matches(withText("Dr Luca")));
-        onView(withId(R.id.birthdayProfile)).check(matches(withText("10/17/1991")));
-        onView(withId(R.id.genderProfile)).check(matches(withText("Male")));
-        onView(withId(R.id.emailProfile)).check(matches(withText("luca@doctor.ch")));
-        onView(withId(R.id.streetProfile)).check(matches(withText("Ancienne-Poste")));
-        onView(withId(R.id.numberStreetProfile)).check(matches(withText("7")));
-        onView(withId(R.id.cityProfile)).check(matches(withText("Bussigny")));
-        onView(withId(R.id.countryProfile)).check(matches(withText("Switzerland")));
+        onView(allOf(withId(R.id.lastnameProfile))).check(matches(withText("Joss")));
+        onView(allOf(withId(R.id.nameProfile))).check(matches(withText("Dr Luca")));
+        onView(allOf(withId(R.id.birthdayProfile))).check(matches(withText("10/17/1991")));
+        onView(allOf(withId(R.id.genderProfile))).check(matches(withText("Male")));
+        onView(allOf(withId(R.id.emailProfile))).check(matches(withText("luca@doctor.ch")));
+        onView(allOf(withId(R.id.streetProfile))).check(matches(withText("Ancienne-Poste")));
+        onView(allOf(withId(R.id.numberStreetProfile))).check(matches(withText("7")));
+        onView(allOf(withId(R.id.cityProfile))).check(matches(withText("Bussigny")));
+        onView(allOf(withId(R.id.countryProfile))).check(matches(withText("Switzerland")));
     }
 
     @Test
