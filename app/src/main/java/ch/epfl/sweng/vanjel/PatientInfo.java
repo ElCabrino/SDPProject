@@ -108,6 +108,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     private void initializeButtonsListeners() {
         buttonConditions.setOnClickListener(this);
         buttonSurgeries.setOnClickListener(this);
+        buttonAllergies.setOnClickListener(this);
         buttonDrugReactions.setOnClickListener(this);
         buttonDrug.setOnClickListener(this);
         buttonSubstance.setOnClickListener(this);
@@ -486,19 +487,22 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
             patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
                     surgeriesYearReg.getText().toString().trim());
         } else if (i == R.id.buttonAllergy) {
-            addAllergy();
+            patientInfoDatabaseService.addAllergy(allergyReg.getText().toString().trim());
         } else if (i == R.id.buttonDrugRegimen) {
-            addDrug();
+            patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
+                    drugRegimenDosageReg.getText().toString().trim(),
+                    drugRegimenTimesReg.getText().toString().trim());
         } else if (i == R.id.buttonDrugReaction) {
-            addDrugReaction();
+            patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
+                    drugReactionReactionReg.getText().toString().trim());
         } else if (i == R.id.buttonSubstance) {
-            addSubstance();
+            patientInfoDatabaseService.addSubstance(substancesReg.getText().toString().trim());
         } else if (i == R.id.buttonSmoking) {
-            addSmoking();
+            patientInfoDatabaseService.addSmoking(smokingReg.getText().toString().trim());
         } else if (i == R.id.buttonDrinking) {
-            addDrinking();
+            patientInfoDatabaseService.addDrinking(drinkingReg.getText().toString().trim());
         } else if (i == R.id.buttonExercise) {
-            addExercise();
+            patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
         }
     }
 }

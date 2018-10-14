@@ -33,6 +33,30 @@ public class PatientInfoDatabaseService {
         this.userDatabaseReference = FirebaseDatabase.getInstance().getReference("Patient").child(UserID);
     }
 
+    void addConditionListener(final List<Condition> conditionList, final ListView listViewConditions){
+        DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
+        databaseCondition.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                conditionList.clear();
+                for (DataSnapshot conditionSnapshot: dataSnapshot.getChildren()) {
+                    Condition condition = conditionSnapshot.getValue(Condition.class);
+                    conditionList.add(condition);
+
+                }
+
+                ConditionList adapter = new ConditionList(activity,conditionList);
+                listViewConditions.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     void addConditionToDatabase(String condition) {
         DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
         if (!TextUtils.isEmpty(condition)) {
@@ -57,27 +81,88 @@ public class PatientInfoDatabaseService {
         }
     }
 
-    void addConditionListener(final List<Condition> conditionList, final ListView listViewConditions){
-        DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
-        databaseCondition.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                conditionList.clear();
-                for (DataSnapshot conditionSnapshot: dataSnapshot.getChildren()) {
-                    Condition condition = conditionSnapshot.getValue(Condition.class);
-                    conditionList.add(condition);
+    void addAllergy(String allergy) {
+        DatabaseReference databaseAllergy = userDatabaseReference.child("Allergy");
+        if(!TextUtils.isEmpty(allergy)) {
+            Allergy allergyObject = new Allergy(UserID,allergy);
+            databaseAllergy.child(allergy).setValue(allergyObject);
+            Toast.makeText(this.activity,"Allergy added",Toast.LENGTH_LONG).show();
 
-                }
-
-                ConditionList adapter = new ConditionList(activity,conditionList);
-                listViewConditions.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        } else {
+            Toast.makeText(this.activity,"Please enter the allergy you want to add", Toast.LENGTH_LONG).show();
+        }
     }
+
+    void addDrugReaction(String drug, String reaction) {
+        DatabaseReference databaseDrugReaction = userDatabaseReference.child("DrugReaction");
+        if(!TextUtils.isEmpty(drug) && !TextUtils.isEmpty(reaction)) {
+            DrugReaction drugReactionObject = new DrugReaction(UserID,drug,reaction);
+            databaseDrugReaction.child(drug).setValue(drugReactionObject);
+            Toast.makeText(this.activity,"Drug reaction added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity,"Please enter the drug and the reaction you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void addDrug(String drug, String dosage, String times) {
+        DatabaseReference databaseDrug = userDatabaseReference.child("Drug");
+        if(!TextUtils.isEmpty(drug) && !TextUtils.isEmpty(dosage) && !TextUtils.isEmpty(times)) {
+            Drug drugObject = new Drug(UserID,drug,dosage,times);
+            databaseDrug.child(drug).setValue(drugObject);
+            Toast.makeText(this.activity,"Drug added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity,"Please enter the drug, the dosage and the frequency you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void addSubstance(String substance) {
+        DatabaseReference databaseSubstance = userDatabaseReference.child("Substance");
+        if(!TextUtils.isEmpty(substance)) {
+            Substance substanceObject = new Substance(UserID,substance);
+            databaseSubstance.child(substance).setValue(substanceObject);
+            Toast.makeText(this.activity,"Substance added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity,"Please enter the substance you want to add", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void addSmoking(String amount) {
+        DatabaseReference databaseSmoking = userDatabaseReference.child("Smoking");
+        if(!TextUtils.isEmpty(amount)) {
+            Smoking smokingObject = new Smoking(UserID,amount);
+            databaseSmoking.child(amount).setValue(smokingObject);
+            Toast.makeText(this.activity,"Smoking added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity,"Please enter the average amount of cigarettes you smoke per day", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void addDrinking(String amount) {
+        DatabaseReference databaseDrinking = userDatabaseReference.child("Drinking");
+        if(!TextUtils.isEmpty(amount)) {
+            Drinking drinkingObject = new Drinking(UserID,amount);
+            databaseDrinking.child(amount).setValue(drinkingObject);
+            Toast.makeText(this.activity,"Drinking added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity,"Please enter the average amount of alcohol you consume per day", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void addExercise(String amount) {
+        DatabaseReference databaseExercise = userDatabaseReference.child("Exercise");
+        if(!TextUtils.isEmpty(amount)) {
+            Exercise exerciseObject = new Exercise(UserID,amount);
+            databaseExercise.child(amount).setValue(exerciseObject);
+            Toast.makeText(this.activity,"Exercise added",Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity,"Please enter the average hours of exercise you do per week", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
