@@ -25,6 +25,15 @@ import static org.hamcrest.core.IsNot.not;
 
 public class ProfileTest {
 
+    private String expectedLastname = "Joss";
+    private String expectedName = "Dr Luca";
+    private String expectedBirtday = "10/17/1991";
+    private String expectedGender = "Male";
+    private String expectedEmail = "luca@doctor.ch";
+    private String expectedStreet = "Ancienne-Poste";
+    private String expectedStreetNumber = "7";
+    private String expectedCity = "Bussigny";
+    private String expectedCountry = "Switzerland";
 
     @Rule
     public final IntentsTestRule<LoginActivity> ActivityRule =
@@ -32,21 +41,20 @@ public class ProfileTest {
 
     @Before
     public void setUp() throws Exception {
-
-        String email = "luca@doctor.ch";
+;
         String password = "testluca";
 
         try {
             onView(allOf(withId(R.id.logoutButton), withText("Logout"))).check(matches(isDisplayed()));
             onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(click());
             TimeUnit.SECONDS.sleep(5);
-            onView(withId(R.id.mailLogin)).perform(replaceText(email));
+            onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
             onView(withId(R.id.passwordLogin)).perform(replaceText(password));
             onView(withId(R.id.buttonLogin)).perform(click());
         } catch (NoMatchingViewException e) {
             try {
                 onView(allOf(withId(R.id.buttonLogin), withText("Login"))).check(matches(isDisplayed()));
-                onView(withId(R.id.mailLogin)).perform(replaceText(email));
+                onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
                 onView(withId(R.id.passwordLogin)).perform(replaceText(password));
                     onView(withId(R.id.buttonLogin)).perform(click());
             } catch (NoMatchingViewException f) {
@@ -59,15 +67,15 @@ public class ProfileTest {
 
     @Test
     public void outputTest() {
-        checkDisplayed(R.id.lastnameProfile, "Joss");
-        checkDisplayed(R.id.nameProfile, "Dr Luca");
-        checkDisplayed(R.id.birthdayProfile, "10/17/1991");
-        checkDisplayed(R.id.genderProfile, "Male");
-        checkDisplayed(R.id.emailProfile, "luca@doctor.ch");
-        checkDisplayed(R.id.streetProfile, "Ancienne-Poste");
-        checkDisplayed(R.id.numberStreetProfile, "7");
-        checkDisplayed(R.id.cityProfile, "Bussigny");
-        checkDisplayed(R.id.countryProfile, "Switzerland");
+        checkDisplayed(R.id.lastnameProfile, expectedLastname);
+        checkDisplayed(R.id.nameProfile, expectedName);
+        checkDisplayed(R.id.birthdayProfile, expectedBirtday);
+        checkDisplayed(R.id.genderProfile, expectedGender);
+        checkDisplayed(R.id.emailProfile, expectedEmail);
+        checkDisplayed(R.id.streetProfile, expectedStreet);
+        checkDisplayed(R.id.numberStreetProfile, expectedStreetNumber);
+        checkDisplayed(R.id.cityProfile, expectedCity);
+        checkDisplayed(R.id.countryProfile, expectedCountry);
     }
 
     private void checkDisplayed(int id, String text) {
@@ -84,15 +92,15 @@ public class ProfileTest {
         pressButton(R.id.editButton, "Edit");
         checkVisibility(R.id.editButton, "Edit", ViewMatchers.Visibility.GONE);
         checkVisibility(R.id.saveButton, "Save", ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.genderProfile, "Male", ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.birthdayProfile, "10/17/1991", ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.emailProfile, "luca@doctor.ch", ViewMatchers.Visibility.GONE);
-/*        onView(withId(R.id.nameProfile)).check(matches(isEnabled()));
-        onView(withId(R.id.lastnameProfile)).check(matches(isEnabled()));
-        onView(withId(R.id.streetProfile)).check(matches(isEnabled()));
-        onView(withId(R.id.numberStreetProfile)).check(matches(isEnabled()));
-        onView(withId(R.id.cityProfile)).check(matches(isEnabled()));
-        onView(withId(R.id.countryProfile)).check(matches(isEnabled()));*/
+        checkVisibility(R.id.genderProfile, expectedGender, ViewMatchers.Visibility.GONE);
+        checkVisibility(R.id.birthdayProfile, expectedBirtday, ViewMatchers.Visibility.GONE);
+        checkVisibility(R.id.emailProfile, expectedEmail, ViewMatchers.Visibility.GONE);
+        checkIsEnabled(R.id.lastnameProfile, expectedLastname);
+        checkIsEnabled(R.id.nameProfile, expectedName);
+        checkIsEnabled(R.id.streetProfile, expectedStreet);
+        checkIsEnabled(R.id.numberStreetProfile, expectedStreetNumber);
+        checkIsEnabled(R.id.cityProfile, expectedCity);
+        checkIsEnabled(R.id.countryProfile, expectedCountry);
     }
 
     @Test
@@ -101,15 +109,15 @@ public class ProfileTest {
         pressButton(R.id.saveButton, "Save");
         checkVisibility(R.id.editButton, "Edit", ViewMatchers.Visibility.VISIBLE);
         checkVisibility(R.id.saveButton, "Save", ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.genderProfile, "Male", ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.birthdayProfile, "10/17/1991", ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.emailProfile, "luca@doctor.ch", ViewMatchers.Visibility.VISIBLE);
-/*        onView(withId(R.id.nameProfile)).check(matches(not(isEnabled())));
-        onView(withId(R.id.lastnameProfile)).check(matches(not(isEnabled())));
-        onView(withId(R.id.streetProfile)).check(matches(not(isEnabled())));
-        onView(withId(R.id.numberStreetProfile)).check(matches(not(isEnabled())));
-        onView(withId(R.id.cityProfile)).check(matches(not(isEnabled())));
-        onView(withId(R.id.countryProfile)).check(matches(not(isEnabled())));*/
+        checkVisibility(R.id.genderProfile, expectedGender, ViewMatchers.Visibility.VISIBLE);
+        checkVisibility(R.id.birthdayProfile, expectedBirtday, ViewMatchers.Visibility.VISIBLE);
+        checkVisibility(R.id.emailProfile, expectedEmail, ViewMatchers.Visibility.VISIBLE);
+        checkIsNotEnabled(R.id.lastnameProfile, expectedLastname);
+        checkIsNotEnabled(R.id.nameProfile, expectedName);
+        checkIsNotEnabled(R.id.streetProfile, expectedStreet);
+        checkIsNotEnabled(R.id.numberStreetProfile, expectedStreetNumber);
+        checkIsNotEnabled(R.id.cityProfile, expectedCity);
+        checkIsNotEnabled(R.id.countryProfile, expectedCountry);
     }
 
     private void pressButton(int id, String text) {
@@ -130,4 +138,21 @@ public class ProfileTest {
         }
     }
 
+    private void checkIsEnabled(int id, String text) {
+        try {
+            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed())).check(matches(isEnabled()));
+            assert(true);
+        } catch (NoMatchingViewException e) {
+            assert(false);
+        }
+    }
+
+    private void checkIsNotEnabled(int id, String text) {
+        try {
+            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed())).check(matches(not(isEnabled())));
+            assert(true);
+        } catch (NoMatchingViewException e) {
+            assert(false);
+        }
+    }
 }
