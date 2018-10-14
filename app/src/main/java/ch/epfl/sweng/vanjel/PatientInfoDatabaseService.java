@@ -83,21 +83,17 @@ public class PatientInfoDatabaseService {
     }
 
     void addAllergyListener(final List<Allergy> allergyList, final ListView listViewAllergies){
-        DatabaseReference databaseAllergy = userDatabaseReference.child("Allergies");
+        DatabaseReference databaseAllergy = userDatabaseReference.child("Allergy");
         databaseAllergy.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allergyList.clear();
                 for (DataSnapshot allergySnapshot: dataSnapshot.getChildren()) {
                     Allergy allergy = allergySnapshot.getValue(Allergy.class);
-
                     allergyList.add(allergy);
-
                 }
-
                 AllergyList adapter = new AllergyList(activity,allergyList);
                 listViewAllergies.setAdapter(adapter);
-
             }
 
             @Override
