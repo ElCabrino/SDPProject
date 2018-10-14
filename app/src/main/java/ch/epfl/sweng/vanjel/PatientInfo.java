@@ -1,9 +1,12 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,7 +80,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     List<DrugReaction> drugReactionList;
     List<Drug> drugList;
     List<Substance> substanceList;
-
 
 
     @Override
@@ -186,7 +188,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 conditionList.clear();
                 for (DataSnapshot conditionSnapshot: dataSnapshot.getChildren()) {
                     Condition condition = conditionSnapshot.getValue(Condition.class);
-
                     conditionList.add(condition);
 
                 }
