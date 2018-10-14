@@ -78,6 +78,44 @@ public class ProfileTest {
         checkDisplayed(R.id.countryProfile, expectedCountry);
     }
 
+    @Test
+    public void testEditText() {
+        String newLastName = "JossEdit";
+        String newName = "Dr LucaEdit";
+        String newStreet = "Nouvelle-Poste";
+        String newNumberStreet = "12";
+        String newCity = "BussignyEdit";
+
+        pressButton(R.id.editButton, "Edit");
+        onView(withId(R.id.lastnameProfile)).perform(replaceText(newLastName));
+        onView(withId(R.id.nameProfile)).perform(replaceText(newName));
+        onView(withId(R.id.streetProfile)).perform(replaceText(newStreet));
+        onView(withId(R.id.numberStreetProfile)).perform(replaceText(newNumberStreet));
+        onView(withId(R.id.cityProfile)).perform(replaceText(newCity));
+        pressButton(R.id.saveButton, "Save");
+
+        checkDisplayed(R.id.lastnameProfile, newLastName);
+        checkDisplayed(R.id.nameProfile, newName);
+        checkDisplayed(R.id.birthdayProfile, expectedBirtday);
+        checkDisplayed(R.id.genderProfile, expectedGender);
+        checkDisplayed(R.id.emailProfile, expectedEmail);
+        checkDisplayed(R.id.streetProfile, newStreet);
+        checkDisplayed(R.id.numberStreetProfile, newNumberStreet);
+        checkDisplayed(R.id.cityProfile, newCity);
+        checkDisplayed(R.id.countryProfile, expectedCountry);
+        restoreEditTest();
+    }
+
+    private void restoreEditTest() {
+        pressButton(R.id.editButton, "Edit");
+        onView(withId(R.id.lastnameProfile)).perform(replaceText(expectedLastname));
+        onView(withId(R.id.nameProfile)).perform(replaceText(expectedName));
+        onView(withId(R.id.streetProfile)).perform(replaceText(expectedStreet));
+        onView(withId(R.id.numberStreetProfile)).perform(replaceText(expectedStreetNumber));
+        onView(withId(R.id.cityProfile)).perform(replaceText(expectedCity));
+        pressButton(R.id.saveButton, "Save");
+    }
+
     private void checkDisplayed(int id, String text) {
         try {
             onView(allOf(withId(id), withText(text))).check(matches(isDisplayed()));
