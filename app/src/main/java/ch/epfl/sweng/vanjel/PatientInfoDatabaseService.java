@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +34,7 @@ public class PatientInfoDatabaseService {
         this.userDatabaseReference = FirebaseDatabase.getInstance().getReference("Patient").child(UserID);
     }
 
+    //LISTENERS
     void addConditionListener(final List<Condition> conditionList, final ListView listViewConditions){
         DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
         databaseCondition.addValueEventListener(new ValueEventListener() {
@@ -42,11 +44,34 @@ public class PatientInfoDatabaseService {
                 for (DataSnapshot conditionSnapshot: dataSnapshot.getChildren()) {
                     Condition condition = conditionSnapshot.getValue(Condition.class);
                     conditionList.add(condition);
-
                 }
 
                 ConditionList adapter = new ConditionList(activity,conditionList);
                 listViewConditions.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addSurgeryListener(final List<Surgery> surgeryList, final ListView listViewSurgeries){
+        DatabaseReference databaseSurgery = userDatabaseReference.child("Surgery");
+        databaseSurgery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                surgeryList.clear();
+                for (DataSnapshot surgerySnapshot: dataSnapshot.getChildren()) {
+                    Surgery surgery = surgerySnapshot.getValue(Surgery.class);
+
+                    surgeryList.add(surgery);
+
+                }
+
+                SurgeryList adapter = new SurgeryList(activity,surgeryList);
+                listViewSurgeries.setAdapter(adapter);
 
             }
 
@@ -57,6 +82,161 @@ public class PatientInfoDatabaseService {
         });
     }
 
+    void addAllergyListener(final List<Allergy> allergyList, final ListView listViewAllergies){
+        DatabaseReference databaseAllergy = userDatabaseReference.child("Allergies");
+        databaseAllergy.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allergyList.clear();
+                for (DataSnapshot allergySnapshot: dataSnapshot.getChildren()) {
+                    Allergy allergy = allergySnapshot.getValue(Allergy.class);
+
+                    allergyList.add(allergy);
+
+                }
+
+                AllergyList adapter = new AllergyList(activity,allergyList);
+                listViewAllergies.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addDrugReactionListener(final List<DrugReaction> drugReactionList, final ListView listViewDrugReactions){
+        DatabaseReference databaseDrugReaction = userDatabaseReference.child("DrugReaction");
+        databaseDrugReaction.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                drugReactionList.clear();
+                for (DataSnapshot drugReactionSnapshot: dataSnapshot.getChildren()) {
+                    DrugReaction drugReaction = drugReactionSnapshot.getValue(DrugReaction.class);
+
+                    drugReactionList.add(drugReaction);
+
+                }
+
+                DrugReactionList adapter = new DrugReactionList(activity,drugReactionList);
+                listViewDrugReactions.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addDrugListener(final List<Drug> drugList, final ListView listViewDrugs){
+        DatabaseReference databaseDrug = userDatabaseReference.child("Drug");
+        databaseDrug.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                drugList.clear();
+                for (DataSnapshot drugSnapshot: dataSnapshot.getChildren()) {
+                    Drug drug = drugSnapshot.getValue(Drug.class);
+
+                    drugList.add(drug);
+
+                }
+
+                DrugList adapter = new DrugList(activity,drugList);
+                listViewDrugs.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addSubstanceListener(final List<Substance> substanceList, final ListView listViewSubstances){
+        DatabaseReference databaseSubstance = userDatabaseReference.child("Substance");
+        databaseSubstance.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                substanceList.clear();
+                for (DataSnapshot substanceSnapshot: dataSnapshot.getChildren()) {
+                    Substance sub = substanceSnapshot.getValue(Substance.class);
+
+                    substanceList.add(sub);
+
+                }
+
+                SubstanceList adapter = new SubstanceList(activity,substanceList);
+                listViewSubstances.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addSmokingListener(final TextView textViewSmoking){
+        DatabaseReference databaseSmoking = userDatabaseReference.child("Smoking");
+        databaseSmoking.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot smokingSnapshot: dataSnapshot.getChildren()) {
+                    String s = smokingSnapshot.getValue(Smoking.class).getAmount();
+                    textViewSmoking.setText(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addDrinkingListener(final TextView textViewDrinking){
+        DatabaseReference databaseDrinking = userDatabaseReference.child("Drinking");
+        databaseDrinking.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot drinkingSnapshot: dataSnapshot.getChildren()) {
+                    String s = drinkingSnapshot.getValue(Drinking.class).getAmount();
+                    textViewDrinking.setText(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void addExerciseListener(final TextView textViewExercise){
+        DatabaseReference databaseExercise = userDatabaseReference.child("Exercise");
+        databaseExercise.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot exerciseSnapshot: dataSnapshot.getChildren()) {
+                    String s = exerciseSnapshot.getValue(Exercise.class).getAmount();
+                    textViewExercise.setText(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //SETTERS
     void addConditionToDatabase(String condition) {
         DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
         if (!TextUtils.isEmpty(condition)) {
