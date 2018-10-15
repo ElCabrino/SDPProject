@@ -18,6 +18,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -68,15 +69,15 @@ public class ProfileTest {
 
     @Test
     public void outputTest() {
-        onView(withId(R.id.lastnameProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedLastname)));
-        onView(withId(R.id.nameProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedName)));
-        onView(withId(R.id.birthdayProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
-        onView(withId(R.id.genderProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedGender)));
-        onView(withId(R.id.emailProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedEmail)));
-        onView(withId(R.id.streetProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedStreet)));
-        onView(withId(R.id.numberStreetProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedStreetNumber)));
-        onView(withId(R.id.cityProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedCity)));
-        onView(withId(R.id.countryProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
+        onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedLastname)));
+        onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedName)));
+        onView(withContentDescription("profile birthday")).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
+        onView(withContentDescription("profile gender")).perform(ViewActions.scrollTo()).check(matches(withText(expectedGender)));
+        onView(withContentDescription("profile email")).perform(ViewActions.scrollTo()).check(matches(withText(expectedEmail)));
+        onView(withContentDescription("profile street")).perform(ViewActions.scrollTo()).check(matches(withText(expectedStreet)));
+        onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(withText(expectedStreetNumber)));
+        onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCity)));
+        onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
     }
 
     @Test
@@ -87,72 +88,72 @@ public class ProfileTest {
         String newNumberStreet = "12";
         String newCity = "BussignyEdit";
 
-        onView(withId(R.id.editButton)).perform(ViewActions.scrollTo(), click());
-        onView(withId(R.id.lastnameProfile)).perform(ViewActions.scrollTo(), replaceText(newLastName));
-        onView(withId(R.id.nameProfile)).perform(ViewActions.scrollTo(), replaceText(newName));
-        onView(withId(R.id.streetProfile)).perform(ViewActions.scrollTo(), replaceText(newStreet));
-        onView(withId(R.id.numberStreetProfile)).perform(ViewActions.scrollTo(), replaceText(newNumberStreet));
-        onView(withId(R.id.cityProfile)).perform(ViewActions.scrollTo(), replaceText(newCity));
-        onView(withId(R.id.saveButton)).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo(), replaceText(newLastName));
+        onView(withContentDescription("profile name")).perform(ViewActions.scrollTo(), replaceText(newName));
+        onView(withContentDescription("profile street")).perform(ViewActions.scrollTo(), replaceText(newStreet));
+        onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo(), replaceText(newNumberStreet));
+        onView(withContentDescription("profile city")).perform(ViewActions.scrollTo(), replaceText(newCity));
+        onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
 
-        onView(withId(R.id.lastnameProfile)).perform(ViewActions.scrollTo()).check(matches(withText(newLastName)));
-        onView(withId(R.id.nameProfile)).perform(ViewActions.scrollTo()).check(matches(withText(newName)));
-        onView(withId(R.id.birthdayProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
-        onView(withId(R.id.genderProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedGender)));
-        onView(withId(R.id.emailProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedEmail)));
-        onView(withId(R.id.streetProfile)).perform(ViewActions.scrollTo()).check(matches(withText(newStreet)));
-        onView(withId(R.id.numberStreetProfile)).perform(ViewActions.scrollTo()).check(matches(withText(newNumberStreet)));
-        onView(withId(R.id.cityProfile)).perform(ViewActions.scrollTo()).check(matches(withText(newCity)));
-        onView(withId(R.id.countryProfile)).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
+        onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(newLastName)));
+        onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText(newName)));
+        onView(withContentDescription("profile birthday")).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
+        onView(withContentDescription("profile gender")).perform(ViewActions.scrollTo()).check(matches(withText(expectedGender)));
+        onView(withContentDescription("profile email")).perform(ViewActions.scrollTo()).check(matches(withText(expectedEmail)));
+        onView(withContentDescription("profile street")).perform(ViewActions.scrollTo()).check(matches(withText(newStreet)));
+        onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(withText(newNumberStreet)));
+        onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText(newCity)));
+        onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
 
         restoreEditTest();
     }
 
     private void restoreEditTest() {
-        onView(withId(R.id.editButton)).perform(ViewActions.scrollTo(), click());
-        onView(withId(R.id.lastnameProfile)).perform(ViewActions.scrollTo(), replaceText(expectedLastname));
-        onView(withId(R.id.nameProfile)).perform(ViewActions.scrollTo(), replaceText(expectedName));
-        onView(withId(R.id.streetProfile)).perform(ViewActions.scrollTo(), replaceText(expectedStreet));
-        onView(withId(R.id.numberStreetProfile)).perform(ViewActions.scrollTo(), replaceText(expectedStreetNumber));
-        onView(withId(R.id.cityProfile)).perform(ViewActions.scrollTo(), replaceText(expectedCity));
-        onView(withId(R.id.saveButton)).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo(), replaceText(expectedLastname));
+        onView(withContentDescription("profile name")).perform(ViewActions.scrollTo(), replaceText(expectedName));
+        onView(withContentDescription("profile street")).perform(ViewActions.scrollTo(), replaceText(expectedStreet));
+        onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo(), replaceText(expectedStreetNumber));
+        onView(withContentDescription("profile city")).perform(ViewActions.scrollTo(), replaceText(expectedCity));
+        onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
     }
 
     @Test
     public void editButtonTest() {
-        onView(withId(R.id.editButton)).perform(ViewActions.scrollTo(), click());
-        onView(withId(R.id.editButton)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
-        onView(withId(R.id.saveButton)).perform(ViewActions.scrollTo()).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo()).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
-        onView(withId(R.id.genderProfile)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
-        onView(withId(R.id.birthdayProfile)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
-        onView(withId(R.id.emailProfile)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withContentDescription("profile gender")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withContentDescription("profile birthday")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withContentDescription("profile email")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
-        onView(withId(R.id.lastnameProfile)).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
-        onView(withId(R.id.nameProfile)).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
-        onView(withId(R.id.streetProfile)).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
-        onView(withId(R.id.numberStreetProfile)).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
-        onView(withId(R.id.cityProfile)).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
-        onView(withId(R.id.countryProfile)).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
+        onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
+        onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
+        onView(withContentDescription("profile street")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
+        onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
+        onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
+        onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
     }
 
     @Test
     public void saveButtonTest() {
-        onView(withId(R.id.editButton)).perform(ViewActions.scrollTo(), click());
-        onView(withId(R.id.saveButton)).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
+        onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
 
-        onView(withId(R.id.editButton)).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
-        onView(withId(R.id.saveButton)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withContentDescription("profile save button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
-        onView(withId(R.id.genderProfile)).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
-        onView(withId(R.id.birthdayProfile)).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
-        onView(withId(R.id.emailProfile)).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withContentDescription("profile gender")).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withContentDescription("profile birthday")).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withContentDescription("profile email")).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
-        onView(withId(R.id.lastnameProfile)).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-        onView(withId(R.id.nameProfile)).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-        onView(withId(R.id.streetProfile)).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-        onView(withId(R.id.numberStreetProfile)).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-        onView(withId(R.id.cityProfile)).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-        onView(withId(R.id.countryProfile)).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+        onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+        onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+        onView(withContentDescription("profile street")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+        onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+        onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+        onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
     }
 }

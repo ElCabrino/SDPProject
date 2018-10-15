@@ -27,6 +27,7 @@
 
             <EditText
                 android:id="@+id/lastnameProfile"
+                android:contentDescription="profile last name"
                 android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
 
             <EditText
                 android:id="@+id/nameProfile"
+                android:contentDescription="profile name"
                 android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +48,7 @@
 
             <TextView
                 android:id="@+id/birthdayProfile"
+                android:contentDescription="profile birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -55,6 +58,7 @@
 
             <TextView
                 android:id="@+id/genderProfile"
+                android:contentDescription="profile gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -63,6 +67,7 @@
 
             <TextView
                 android:id="@+id/emailProfile"
+                android:contentDescription="profile email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -76,6 +81,7 @@
 
                 <EditText
                     android:id="@+id/streetProfile"
+                    android:contentDescription="profile street"
                     android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,6 +91,7 @@
 
                 <EditText
                     android:id="@+id/numberStreetProfile"
+                    android:contentDescription="profile street number"
                     android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,6 +103,7 @@
 
             <EditText
                 android:id="@+id/cityProfile"
+                android:contentDescription="profile city"
                 android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,6 +112,7 @@
 
             <EditText
                 android:id="@+id/countryProfile"
+                android:contentDescription="profile country"
                 android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,6 +122,7 @@
 
             <Button
                 android:id="@+id/saveButton"
+                android:contentDescription="profile save button"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,6 +132,7 @@
 
             <Button
                 android:id="@+id/editButton"
+                android:contentDescription="profile edit button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit"
@@ -130,6 +141,7 @@
 
             <Button
                 android:id="@+id/logoutButton"
+                android:contentDescription="profile logout button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Logout"
