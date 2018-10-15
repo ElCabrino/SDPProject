@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+
+    <!-- title -->
+    <TextView
+        android:id="@+id/oklm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/firstName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/oklm"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/lastName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/firstName"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/activity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastName"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/street"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/streetNumber"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/street"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/streetNumber"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="22sp" />
+</RelativeLayout>
