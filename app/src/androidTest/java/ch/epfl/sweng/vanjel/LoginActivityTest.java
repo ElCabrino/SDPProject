@@ -1,5 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
+import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -10,18 +12,24 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- Test class for User class
 
  author: Aslam CADER
  reviewer:
@@ -30,20 +38,22 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
 
+    private String email = "test@test.ch";
+    private String password = "123456";
+
     @Rule
     public final IntentsTestRule<LoginActivity> ActivityRule =
             new IntentsTestRule<>(LoginActivity.class);
 
     @Test
     public void testOpenChooseRegistration() {
-        onView(withId(R.id.registationLogin)).perform(click());
+        signOutIfPossible();
+        onView(withId(R.id.registrationLogin)).perform(click());
         intended(hasComponent(ChooseRegistration.class.getName()));
     }
 
     @Test
-    public void testLogin(){
-//        String email = "admin@test.ch";
-//        String password = "123456";
+    public void successfulLogin(){
 //        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("Users").child(database.getReference().getCurrentUser().getUid());
 //
@@ -56,9 +66,85 @@ public class LoginActivityTest {
 //
 //        assertEquals("Check if corrected to correct account", email, user.getEmail());
 //        intended(hasComponent(Profile.class.getName()));
+        try {
+            onView(withId(R.id.logoutButton)).perform(click());
+        } catch (NoMatchingViewException e) {
+            // Ignore
+        }
+
+        signOutIfPossible();
+
+        enterEmail(email);
+
+        enterPassword(password);
+
+        onView(withId(R.id.buttonLogin)).perform(click());
+
+        // checker que t'es sur la page du profile
+//        intended(hasComponent(Profile.class.getName()));
+
+
 
     }
 
+    @Test
+    public void emptyEmailLogin(){
+
+        signOutIfPossible();
+
+        enterPassword(password);
+
+        onView(withId(R.id.buttonLogin)).perform(click());
 
 
+//        intended(hasComponent(LoginActivity.class.getName()));
+
+    }
+
+    @Test
+    public void emptyPasswordLogin() throws InterruptedException {
+
+        signOutIfPossible();
+        enterEmail(email);
+
+        onView(withId(R.id.buttonLogin)).perform(click());
+
+        TimeUnit.SECONDS.sleep(5);
+
+//        intended(hasComponent(LoginActivity.class.getName()));
+
+
+    }
+
+    @Test
+    public void wrongCredentialLogin(){
+
+        String email = "impossible@impossible.ch";
+        String password = "impossiblePassword";
+
+        signOutIfPossible();
+        enterEmail(email);
+        enterPassword(password);
+
+
+//        intended(hasComponent(LoginActivity.class.getName()));
+
+    }
+
+    private void enterEmail(String email) {
+        onView(withId(R.id.mailLogin)).perform(replaceText(email));
+    }
+
+    private void enterPassword(String password) {
+        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
+    }
+
+    private void signOutIfPossible() {
+        try {
+            onView(withId(R.id.logoutButton)).perform(click());
+        } catch (NoMatchingViewException e) {
+            // Ignore
+        }
+
+    }
 }

@@ -11,10 +11,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
 
-            <!-- <intent-filter>
+            <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
+             </intent-filter>
 
         </activity>
         <activity android:name=".ChooseRegistration" />
@@ -28,11 +28,6 @@
         <!-- </activity> -->
 
         <activity android:name="ch.epfl.sweng.vanjel.PatientInfo" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -43,6 +43,7 @@ public class UserTest {
         assertEquals("Unexpected city in entity", city, testUser.getCity());
         assertEquals("Unexpected country in entity", country, testUser.getCountry());
         assertEquals("Unexpected gender in entity", gender, testUser.getGender());
+        assertEquals("error in to string",firstName+" "+lastName,testUser.toString());
 
 
         // setter test
