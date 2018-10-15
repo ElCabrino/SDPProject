@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
@@ -45,37 +46,36 @@ public class ProfileTest {
         String password = "testluca";
 
         try {
-            onView(allOf(withId(R.id.logoutButton), withText("Logout"))).check(matches(isDisplayed()));
-            onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(click());
-            TimeUnit.SECONDS.sleep(5);
-            onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
-            onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-            onView(withId(R.id.buttonLogin)).perform(click());
+            onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(scrollTo()).check(matches(isDisplayed()));
+            onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(scrollTo(), click());
+            TimeUnit.SECONDS.sleep(1);
+            onView(withId(R.id.mailLogin)).perform(scrollTo(), replaceText(expectedEmail));
+            onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(password));
+            onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
         } catch (NoMatchingViewException e) {
             try {
-                onView(allOf(withId(R.id.buttonLogin), withText("Login"))).check(matches(isDisplayed()));
-                onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
-                onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-                    onView(withId(R.id.buttonLogin)).perform(click());
+                onView(allOf(withId(R.id.buttonLogin), withText("Login"))).perform(scrollTo()).check(matches(isDisplayed()));
+                onView(withId(R.id.mailLogin)).perform(scrollTo(), replaceText(expectedEmail));
+                onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(password));
+                    onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
             } catch (NoMatchingViewException f) {
                 Log.d("TESTOUT", "exception : "+f);
             }
         }
-
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(1);
     }
 
     @Test
     public void outputTest() {
-        checkDisplayed(R.id.lastnameProfile, expectedLastname);
-        checkDisplayed(R.id.nameProfile, expectedName);
-        checkDisplayed(R.id.birthdayProfile, expectedBirtday);
-        checkDisplayed(R.id.genderProfile, expectedGender);
-        checkDisplayed(R.id.emailProfile, expectedEmail);
-        checkDisplayed(R.id.streetProfile, expectedStreet);
-        checkDisplayed(R.id.numberStreetProfile, expectedStreetNumber);
-        checkDisplayed(R.id.cityProfile, expectedCity);
-        checkDisplayed(R.id.countryProfile, expectedCountry);
+        onView(withId(R.id.lastnameProfile)).perform(scrollTo()).check(matches(withText(expectedLastname)));
+        onView(withId(R.id.nameProfile)).perform(scrollTo()).check(matches(withText(expectedName)));
+        onView(withId(R.id.birthdayProfile)).perform(scrollTo()).check(matches(withText(expectedBirtday)));
+        onView(withId(R.id.genderProfile)).perform(scrollTo()).check(matches(withText(expectedGender)));
+        onView(withId(R.id.emailProfile)).perform(scrollTo()).check(matches(withText(expectedEmail)));
+        onView(withId(R.id.streetProfile)).perform(scrollTo()).check(matches(withText(expectedStreet)));
+        onView(withId(R.id.numberStreetProfile)).perform(scrollTo()).check(matches(withText(expectedStreetNumber)));
+        onView(withId(R.id.cityProfile)).perform(scrollTo()).check(matches(withText(expectedCity)));
+        onView(withId(R.id.countryProfile)).perform(scrollTo()).check(matches(withText(expectedCountry)));
     }
 
     @Test
@@ -86,111 +86,72 @@ public class ProfileTest {
         String newNumberStreet = "12";
         String newCity = "BussignyEdit";
 
-        pressButton(R.id.editButton, "Edit");
-        onView(allOf(withId(R.id.lastnameProfile), isEnabled())).perform(replaceText(newLastName));
-        onView(allOf(withId(R.id.nameProfile), isEnabled())).perform(replaceText(newName));
-        onView(allOf(withId(R.id.streetProfile), isEnabled())).perform(replaceText(newStreet));
-        onView(allOf(withId(R.id.numberStreetProfile), isEnabled())).perform(replaceText(newNumberStreet));
-        onView(allOf(withId(R.id.cityProfile), isEnabled())).perform(replaceText(newCity));
-        pressButton(R.id.saveButton, "Save");
+        onView(withId(R.id.editButton)).perform(scrollTo(), click());
+        onView(withId(R.id.lastnameProfile)).perform(scrollTo(), replaceText(newLastName));
+        onView(withId(R.id.nameProfile)).perform(scrollTo(), replaceText(newName));
+        onView(withId(R.id.streetProfile)).perform(scrollTo(), replaceText(newStreet));
+        onView(withId(R.id.numberStreetProfile)).perform(scrollTo(), replaceText(newNumberStreet));
+        onView(withId(R.id.cityProfile)).perform(scrollTo(), replaceText(newCity));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
 
-        checkDisplayed(R.id.lastnameProfile, newLastName);
-        checkDisplayed(R.id.nameProfile, newName);
-        checkDisplayed(R.id.birthdayProfile, expectedBirtday);
-        checkDisplayed(R.id.genderProfile, expectedGender);
-        checkDisplayed(R.id.emailProfile, expectedEmail);
-        checkDisplayed(R.id.streetProfile, newStreet);
-        checkDisplayed(R.id.numberStreetProfile, newNumberStreet);
-        checkDisplayed(R.id.cityProfile, newCity);
-        checkDisplayed(R.id.countryProfile, expectedCountry);
+        onView(withId(R.id.lastnameProfile)).perform(scrollTo()).check(matches(withText(newLastName)));
+        onView(withId(R.id.nameProfile)).perform(scrollTo()).check(matches(withText(newName)));
+        onView(withId(R.id.birthdayProfile)).perform(scrollTo()).check(matches(withText(expectedBirtday)));
+        onView(withId(R.id.genderProfile)).perform(scrollTo()).check(matches(withText(expectedGender)));
+        onView(withId(R.id.emailProfile)).perform(scrollTo()).check(matches(withText(expectedEmail)));
+        onView(withId(R.id.streetProfile)).perform(scrollTo()).check(matches(withText(newStreet)));
+        onView(withId(R.id.numberStreetProfile)).perform(scrollTo()).check(matches(withText(newNumberStreet)));
+        onView(withId(R.id.cityProfile)).perform(scrollTo()).check(matches(withText(newCity)));
+        onView(withId(R.id.countryProfile)).perform(scrollTo()).check(matches(withText(expectedCountry)));
+
         restoreEditTest();
     }
 
     private void restoreEditTest() {
-        pressButton(R.id.editButton, "Edit");
-        onView(withId(R.id.lastnameProfile)).perform(replaceText(expectedLastname));
-        onView(withId(R.id.nameProfile)).perform(replaceText(expectedName));
-        onView(withId(R.id.streetProfile)).perform(replaceText(expectedStreet));
-        onView(withId(R.id.numberStreetProfile)).perform(replaceText(expectedStreetNumber));
-        onView(withId(R.id.cityProfile)).perform(replaceText(expectedCity));
-        pressButton(R.id.saveButton, "Save");
-    }
-
-    private void checkDisplayed(int id, String text) {
-        try {
-            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed()));
-            assert(true);
-        } catch (NoMatchingViewException e) {
-            assert(false);
-        }
+        onView(withId(R.id.editButton)).perform(scrollTo(), click());
+        onView(withId(R.id.lastnameProfile)).perform(scrollTo(), replaceText(expectedLastname));
+        onView(withId(R.id.nameProfile)).perform(scrollTo(), replaceText(expectedName));
+        onView(withId(R.id.streetProfile)).perform(scrollTo(), replaceText(expectedStreet));
+        onView(withId(R.id.numberStreetProfile)).perform(scrollTo(), replaceText(expectedStreetNumber));
+        onView(withId(R.id.cityProfile)).perform(scrollTo(), replaceText(expectedCity));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
     }
 
     @Test
     public void editButtonTest() {
-/*        pressButton(R.id.editButton, "Edit");
-        checkVisibility(R.id.editButton, "Edit", ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.saveButton, "Save", ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.genderProfile, expectedGender, ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.birthdayProfile, expectedBirtday, ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.emailProfile, expectedEmail, ViewMatchers.Visibility.GONE);
-        checkIsEnabled(R.id.lastnameProfile, expectedLastname);
-        checkIsEnabled(R.id.nameProfile, expectedName);
-        checkIsEnabled(R.id.streetProfile, expectedStreet);
-        checkIsEnabled(R.id.numberStreetProfile, expectedStreetNumber);
-        checkIsEnabled(R.id.cityProfile, expectedCity);
-        checkIsEnabled(R.id.countryProfile, expectedCountry);*/
+        onView(withId(R.id.editButton)).perform(scrollTo(), click());
+        onView(withId(R.id.editButton)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.saveButton)).perform(scrollTo()).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+
+        onView(withId(R.id.genderProfile)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.birthdayProfile)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.emailProfile)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+
+        onView(withId(R.id.lastnameProfile)).perform(scrollTo()).check(matches(isEnabled()));
+        onView(withId(R.id.nameProfile)).perform(scrollTo()).check(matches(isEnabled()));
+        onView(withId(R.id.streetProfile)).perform(scrollTo()).check(matches(isEnabled()));
+        onView(withId(R.id.numberStreetProfile)).perform(scrollTo()).check(matches(isEnabled()));
+        onView(withId(R.id.cityProfile)).perform(scrollTo()).check(matches(isEnabled()));
+        onView(withId(R.id.countryProfile)).perform(scrollTo()).check(matches(isEnabled()));
     }
 
     @Test
     public void saveButtonTest() {
-/*        pressButton(R.id.editButton, "Edit");
-        pressButton(R.id.saveButton, "Save");
-        checkVisibility(R.id.editButton, "Edit", ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.saveButton, "Save", ViewMatchers.Visibility.GONE);
-        checkVisibility(R.id.genderProfile, expectedGender, ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.birthdayProfile, expectedBirtday, ViewMatchers.Visibility.VISIBLE);
-        checkVisibility(R.id.emailProfile, expectedEmail, ViewMatchers.Visibility.VISIBLE);
-        checkIsNotEnabled(R.id.lastnameProfile, expectedLastname);
-        checkIsNotEnabled(R.id.nameProfile, expectedName);
-        checkIsNotEnabled(R.id.streetProfile, expectedStreet);
-        checkIsNotEnabled(R.id.numberStreetProfile, expectedStreetNumber);
-        checkIsNotEnabled(R.id.cityProfile, expectedCity);
-        checkIsNotEnabled(R.id.countryProfile, expectedCountry);*/
-    }
+        onView(withId(R.id.editButton)).perform(scrollTo(), click());
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
 
-    private void pressButton(int id, String text) {
-        try {
-            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed()));
-            onView(allOf(withId(id), withText(text))).perform(click());
-        } catch (NoMatchingViewException e) {
-            assert(false);
-        }
-    }
+        onView(withId(R.id.editButton)).perform(scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.saveButton)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
-    private void checkVisibility(int id, String text, ViewMatchers.Visibility visib) {
-        try {
-            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(visib)));
-            assert(true);
-        } catch (NoMatchingViewException e) {
-            assert(false);
-        }
-    }
+        onView(withId(R.id.genderProfile)).perform(scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.birthdayProfile)).perform(scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.emailProfile)).perform(scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
-    private void checkIsEnabled(int id, String text) {
-        try {
-            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed())).check(matches(isEnabled()));
-            assert(true);
-        } catch (NoMatchingViewException e) {
-            assert(false);
-        }
-    }
-
-    private void checkIsNotEnabled(int id, String text) {
-        try {
-            onView(allOf(withId(id), withText(text))).check(matches(isDisplayed())).check(matches(not(isEnabled())));
-            assert(true);
-        } catch (NoMatchingViewException e) {
-            assert(false);
-        }
+        onView(withId(R.id.lastnameProfile)).perform(scrollTo()).check(matches(not(isEnabled())));
+        onView(withId(R.id.nameProfile)).perform(scrollTo()).check(matches(not(isEnabled())));
+        onView(withId(R.id.streetProfile)).perform(scrollTo()).check(matches(not(isEnabled())));
+        onView(withId(R.id.numberStreetProfile)).perform(scrollTo()).check(matches(not(isEnabled())));
+        onView(withId(R.id.cityProfile)).perform(scrollTo()).check(matches(not(isEnabled())));
+        onView(withId(R.id.countryProfile)).perform(scrollTo()).check(matches(not(isEnabled())));
     }
 }
