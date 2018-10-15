@@ -99,7 +99,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
     }
 
-    @Test
+  /*  @Test
     public void testEditText() {
         String newLastName = "JossEdit";
         String newName = "Dr LucaEdit";
@@ -126,7 +126,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
 
         restoreEditTest();
-    }
+    }*/
 
     private void restoreEditTest() {
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
