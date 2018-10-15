@@ -33,6 +33,7 @@ import static org.hamcrest.core.AllOf.allOf;
 public class PatientInfoTest {
 
     private String condition = "Good condition";
+    private String amount = "18";
     private String id = "ABLlrLukjAaPzaf5GA03takkw5k2";
     private String al1 = "Bees";
     private String al2 = "Bs";
@@ -58,6 +59,7 @@ public class PatientInfoTest {
 
     @Test
     public void testAddCondition(){
+        onView(withId(R.id.ptGeneralInfos)).perform(scrollTo());
         onView(withId(R.id.ptPriorConditionsReg)).perform(replaceText(condition));
         onView(withId(R.id.buttonPriorConditions)).perform(click());
 
@@ -77,6 +79,14 @@ public class PatientInfoTest {
 
         }
 
+    }
+
+    @Test
+    public void testAddAndRecoverSmoking() {
+        onView(withId(R.id.buttonGenInfoPtReg)).perform(scrollTo());
+        onView(withId(R.id.ptSmokingReg)).perform(typeText(amount)).perform(closeSoftKeyboard());
+        onView(withId(R.id.buttonSmoking)).perform(click());
+        onView(withId(R.id.ptSmokingValue)).check(matches(withText(amount)));
     }
 
 
