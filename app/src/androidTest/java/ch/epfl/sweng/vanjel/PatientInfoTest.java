@@ -4,6 +4,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,14 +18,18 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 
-@RunWith(AndroidJUnit4.class)
-public class PatientInfoTest {
+//@RunWith(AndroidJUnit4.class)
+public class
+PatientInfoTest {
+
+    private LoginHelper helper = new LoginHelper();
 
     private String condition = "Good condition";
     private String smoking = "Often";
@@ -40,6 +45,7 @@ public class PatientInfoTest {
     @Rule
     public final IntentsTestRule<PatientInfo> ActivityRule =
             new IntentsTestRule<>(PatientInfo.class);
+
 
     @Before
     public void setUp() throws Exception
@@ -85,7 +91,7 @@ public class PatientInfoTest {
 
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverSmoking() {
         onView(withId(R.id.buttonGenInfoPtReg)).perform(scrollTo());
         onView(withId(R.id.ptSmokingReg)).perform(typeText(amount)).perform(closeSoftKeyboard());
