@@ -156,7 +156,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
     }
 
-    @Test
+/*    @Test
     public void saveButtonTest() {
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
@@ -174,5 +174,5 @@ public class ProfileTest {
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-    }
+    }*/
 }
