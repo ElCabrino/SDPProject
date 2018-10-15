@@ -48,21 +48,21 @@ public class ProfileTest {
         try {
             onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(scrollTo()).check(matches(isDisplayed()));
             onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(scrollTo(), click());
-            TimeUnit.SECONDS.sleep(1);
-            onView(withId(R.id.mailLogin)).perform(scrollTo(), replaceText(expectedEmail));
-            onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(password));
-            onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
+            TimeUnit.SECONDS.sleep(3);
+            onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
+            onView(withId(R.id.passwordLogin)).perform(replaceText(password));
+            onView(withId(R.id.buttonLogin)).perform(click());
         } catch (NoMatchingViewException e) {
             try {
-                onView(allOf(withId(R.id.buttonLogin), withText("Login"))).perform(scrollTo()).check(matches(isDisplayed()));
-                onView(withId(R.id.mailLogin)).perform(scrollTo(), replaceText(expectedEmail));
-                onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(password));
-                    onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
+                onView(allOf(withId(R.id.buttonLogin), withText("Login"))).check(matches(isDisplayed()));
+                onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
+                onView(withId(R.id.passwordLogin)).perform(replaceText(password));
+                    onView(withId(R.id.buttonLogin)).perform(click());
             } catch (NoMatchingViewException f) {
                 Log.d("TESTOUT", "exception : "+f);
             }
         }
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(5);
     }
 
     @Test
