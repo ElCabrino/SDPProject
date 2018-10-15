@@ -5,7 +5,9 @@ import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
+import android.view.WindowManager;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,6 +42,23 @@ public class ProfileTest {
     @Rule
     public final IntentsTestRule<LoginActivity> ActivityRule =
             new IntentsTestRule<>(LoginActivity.class);
+
+    @Rule
+    public ActivityTestRule<Profile> mActivityRule =
+            new ActivityTestRule<>(Profile.class);
+
+    @Before
+    public void unlockScreen() {
+        final Profile activity = mActivityRule.getActivity();
+        Runnable wakeUpDevice = new Runnable() {
+            public void run() {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        };
+        activity.runOnUiThread(wakeUpDevice);
+    }
 
     @Before
     public void setUp() throws Exception {
