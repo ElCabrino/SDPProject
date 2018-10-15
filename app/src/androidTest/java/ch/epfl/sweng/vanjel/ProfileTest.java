@@ -49,15 +49,7 @@ public class ProfileTest {
 
     @Before
     public void unlockScreen() throws Exception {
-        final Profile activity = mActivityRule.getActivity();
-        Runnable wakeUpDevice = new Runnable() {
-            public void run() {
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            }
-        };
-        activity.runOnUiThread(wakeUpDevice);
+
 
         String password = "testluca";
 
@@ -80,6 +72,15 @@ public class ProfileTest {
             }
         }
         TimeUnit.SECONDS.sleep(5);
+        final Profile activity = mActivityRule.getActivity();
+        Runnable wakeUpDevice = new Runnable() {
+            public void run() {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        };
+        activity.runOnUiThread(wakeUpDevice);
     }
 
     @Test
