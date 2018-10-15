@@ -48,7 +48,7 @@ public class ProfileTest {
             new ActivityTestRule<>(Profile.class);
 
     @Before
-    public void unlockScreen() {
+    public void unlockScreen() throws Exception {
         final Profile activity = mActivityRule.getActivity();
         Runnable wakeUpDevice = new Runnable() {
             public void run() {
@@ -58,11 +58,7 @@ public class ProfileTest {
             }
         };
         activity.runOnUiThread(wakeUpDevice);
-    }
 
-    @Before
-    public void setUp() throws Exception {
-;
         String password = "testluca";
 
         try {
@@ -99,7 +95,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
     }
 
-  /*  @Test
+    @Test
     public void testEditText() {
         String newLastName = "JossEdit";
         String newName = "Dr LucaEdit";
@@ -126,7 +122,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
 
         restoreEditTest();
-    }*/
+    }
 
     private void restoreEditTest() {
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
@@ -156,7 +152,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
     }
 
-/*    @Test
+    @Test
     public void saveButtonTest() {
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
@@ -174,5 +170,5 @@ public class ProfileTest {
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-    }*/
+    }
 }
