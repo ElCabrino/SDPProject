@@ -15,6 +15,7 @@ import static ch.epfl.sweng.vanjel.R.id.logoutButton;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
 
+    Button patientInfoButton;
     Button logoutButton;
     TextView userProfile;
 
@@ -23,6 +24,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
         userProfile = findViewById(R.id.userProfile);
 
@@ -31,16 +33,21 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
 
         logoutButton.setOnClickListener(this);
+        patientInfoButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.logoutButton){
+        int i = v.getId();
+        if( i == R.id.logoutButton){
             FirebaseAuth.getInstance().signOut();
 
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
+        } else if (i == R.id.patientInfoButton) {
+            Intent intent = new Intent(this, PatientInfo.class);
+            startActivity(intent);
         }
 
     }
