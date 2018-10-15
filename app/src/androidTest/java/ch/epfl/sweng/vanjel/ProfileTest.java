@@ -62,7 +62,7 @@ public class ProfileTest {
                 Log.d("TESTOUT", "exception : "+f);
             }
         }
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(15);
     }
 
     @Test
