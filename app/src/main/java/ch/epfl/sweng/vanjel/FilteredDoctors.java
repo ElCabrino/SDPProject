@@ -35,7 +35,7 @@ public class FilteredDoctors extends AppCompatActivity {
 
     // user choices
     private String lastName;
-    private String name;
+    private String firstName;
     private String specialisation;
     private String city;
 
@@ -57,16 +57,35 @@ public class FilteredDoctors extends AppCompatActivity {
         doctors = new ArrayList<Doctor>();
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
         recyclerView.setAdapter(adapter);
+        bundle = getIntent().getExtras();
     }
 
     public void getUserFilters(){
         lastName = bundle.getString("lastName");
-        name = bundle.getString("firstName");
+        firstName = bundle.getString("firstName");
         specialisation = bundle.getString("specialisation");
         city = bundle.getString("city");
 
     }
-    
+
+    public void select(){
+        // userDemand correspond to what the user wrote
+        // key correspond to the key (firstname, lastname, etc)
+        // This method select data from array doctors where the conditions of userDemand are verified
+        ArrayList<Doctor> newDoctors = new ArrayList<Doctor>();
+        for (Doctor doc: doctors){
+            if (doc.getFirstName().toLowerCase().equals(firstName.toLowerCase()))
+                newDoctors.add(doc);
+            else if(doc.getLastName().toLowerCase().equals(lastName.toLowerCase()))
+                newDoctors.add(doc);
+            else if(doc.getActivity().toLowerCase().equals(specialisation.toLowerCase()))
+                newDoctors.add(doc);
+            else if(doc.getCity().toLowerCase().equals(city.toLowerCase()))
+                newDoctors.add(doc);
+        }
+        doctors = newDoctors;
+        adapter.notifyDataSetChanged();
+    }
     public void databaseListener(){
 
         // useful to see if DB problem or not
@@ -75,8 +94,7 @@ public class FilteredDoctors extends AppCompatActivity {
 //        doctors.add(myDoctor);
 //        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
 //        recyclerView.setAdapter(adapter);
-
-
+        
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -85,7 +103,7 @@ public class FilteredDoctors extends AppCompatActivity {
                     Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
                     doctors.add(myDoctor);
                 }
-
+                select(); // remove unwanted doctors
                 adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
