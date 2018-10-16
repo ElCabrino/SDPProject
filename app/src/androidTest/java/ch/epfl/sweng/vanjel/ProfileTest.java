@@ -2,23 +2,10 @@ package ch.epfl.sweng.vanjel;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 
-import android.support.annotation.NonNull;
-import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
-import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -31,9 +18,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 
 public class ProfileTest {
@@ -48,106 +33,14 @@ public class ProfileTest {
     private String expectedCity = "Bussigny";
     private String expectedCountry = "Switzerland";
 
-/*    @Rule
-    public final IntentsTestRule<P> ActivityRule =
-            new IntentsTestRule<>(LoginActivity.class);*/
-
-/*    @Rule
-    public ActivityTestRule<LoginActivity> mActivityRule =
-            new ActivityTestRule<>(LoginActivity.class);*/
-
     @Rule
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
 
-/*    @BeforeClass
-    public static void setUp() throws Exception {
-        String email = "luca@doctor.ch";
-        String password = "testluca";
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() == null) {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("TESTPROF", "succeeded to sign in.");
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.d("TESTPROF", "failed to sign in.");
-
-                    }
-
-                    // [START_EXCLUDE]
-                    if (!task.isSuccessful()) {
-                        Log.d("TESTPROF", "task failed.");
-                    }
-                    // [END_EXCLUDE]
-                }
-            });
-        }
-//        if (!tryLogout()) {
-//            loginWith();
-//        }
-//        TimeUnit.SECONDS.sleep(3);
-//        unlockScreen();
-        TimeUnit.SECONDS.sleep(3);
-    }*/
-
-    private void loginIfNeeded() {
-        try {
-            onView(allOf(withId(R.id.buttonLogin), withText("Logout"))).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
-            loginWith();
-        } catch (NoMatchingViewException e) {
-            Log.d("INFO", "User already logged in.");
-            System.err.print("INFO User already logged in.");
-        }
-    }
-
-    private boolean tryLogout() throws Exception {
-        try {
-            onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
-            onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(ViewActions.scrollTo(), click());
-            TimeUnit.SECONDS.sleep(3);
-            return false;
-        } catch (NoMatchingViewException e) {
-            Log.d("INFO", "User already logged out.");
-            return true;
-        }
-    }
-
-    private void loginWith() {
-        try {
-            String password = "testluca";
-            onView(withId(R.id.buttonLogin)).perform(click());
-            onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
-            onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-            onView(withId(R.id.buttonLogin)).perform(click());
-        } catch (NoMatchingViewException e) {
-            System.err.print("No Login Button "+e.getViewMatcherDescription());
-        }
-    }
-
-    private void unlockScreen() {
-        ActivityTestRule<Profile> mActivityRule =
-                new ActivityTestRule<>(Profile.class);
-        final Profile activity = mActivityRule.getActivity();
-        Runnable wakeUpDevice = new Runnable() {
-            public void run() {
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            }
-        };
-        activity.runOnUiThread(wakeUpDevice);
-    }
-
     @Test
     public void outputTest() throws Exception {
+        // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);
-//        loginIfNeeded();
-//        TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedLastname)));
         onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedName)));
         onView(withContentDescription("profile birthday")).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
@@ -161,9 +54,8 @@ public class ProfileTest {
 
     @Test
     public void testEditText() throws Exception {
+        // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);
-//        loginIfNeeded();
-//        TimeUnit.SECONDS.sleep(3);
         String newLastName = "JossEdit";
         String newName = "Dr LucaEdit";
         String newStreet = "Nouvelle-Poste";
@@ -203,9 +95,8 @@ public class ProfileTest {
 
     @Test
     public void editButtonTest() throws Exception {
+        // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);
-//        loginIfNeeded();
-//        TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo()).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
@@ -224,6 +115,7 @@ public class ProfileTest {
 
     @Test
     public void saveButtonTest() throws Exception {
+        // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());

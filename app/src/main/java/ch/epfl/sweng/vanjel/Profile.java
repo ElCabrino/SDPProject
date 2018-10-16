@@ -200,25 +200,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     if (dataSnapshot.hasChild(getUserFirebaseID())) {
                         userType = category;
                         database.getReference(category).child(getUserFirebaseID()).addValueEventListener(createValueEventListener(category));
                         loadContent();
-/*                    }
-                } else {
-                    Log.d("ERROR", "No user logged in.");
-                    Intent intent = new Intent(Profile.this,LoginActivity.class);
-                    startActivity(intent);*/
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
 
+    // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
     public String getUserFirebaseID() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             return FirebaseAuth.getInstance().getCurrentUser().getUid();
