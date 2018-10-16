@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,6 +35,15 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.buttonSearch) {
             getFieldStrings();
+            Intent intent = new Intent(SearchDoctor.this, FilteredDoctors.class);
+            Bundle b = new Bundle();
+            b.putString("lastname",lastNameString);
+            b.putString("name",nameString);
+            b.putString("specialisation",specialisationString);
+            b.putString("city",cityString);
+            intent.putExtras(b);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -44,7 +54,6 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
         this.specialisation = findViewById(R.id.specialisationSearch);
         this.city = findViewById(R.id.citySearch);
         this.searchButton = findViewById(R.id.buttonSearch);
-
     }
 
     private void getFieldStrings() {
