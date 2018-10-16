@@ -96,8 +96,7 @@ public class ProfileTest {
         TimeUnit.SECONDS.sleep(3);
     }
 
-    @Before
-    public void loginIfNeeded() {
+    private void loginIfNeeded() {
         try {
             onView(allOf(withId(R.id.buttonLogin), withText("Logout"))).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
             loginWith();
@@ -143,6 +142,8 @@ public class ProfileTest {
     @Test
     public void outputTest() throws Exception {
         TimeUnit.SECONDS.sleep(3);
+        loginIfNeeded();
+        TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedLastname)));
         onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedName)));
         onView(withContentDescription("profile birthday")).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
@@ -156,6 +157,8 @@ public class ProfileTest {
 
     @Test
     public void testEditText() throws Exception {
+        TimeUnit.SECONDS.sleep(3);
+        loginIfNeeded();
         TimeUnit.SECONDS.sleep(3);
         String newLastName = "JossEdit";
         String newName = "Dr LucaEdit";
@@ -196,6 +199,8 @@ public class ProfileTest {
 
     @Test
     public void editButtonTest() throws Exception {
+        TimeUnit.SECONDS.sleep(3);
+        loginIfNeeded();
         TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
