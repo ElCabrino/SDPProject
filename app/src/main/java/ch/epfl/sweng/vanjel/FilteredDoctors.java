@@ -68,20 +68,28 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
+    public boolean compareString(String s1, String s2){
+        if(s1.toLowerCase().equals(s2.toLowerCase()))
+            return true;
+        else
+            return false;
+    }
+
     public void select(){
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
         ArrayList<Doctor> newDoctors = new ArrayList<Doctor>();
         for (Doctor doc: doctors){
-            if (doc.getFirstName().toLowerCase().equals(firstName.toLowerCase()))
+            if (compareString(doc.getFirstName(), firstName))
                 newDoctors.add(doc);
-            else if(doc.getLastName().toLowerCase().equals(lastName.toLowerCase()))
+            else if (compareString(doc.getLastName(), lastName))
                 newDoctors.add(doc);
-            else if(doc.getActivity().toLowerCase().equals(specialisation.toLowerCase()))
+            else if (compareString(doc.getActivity(), specialisation))
                 newDoctors.add(doc);
-            else if(doc.getCity().toLowerCase().equals(city.toLowerCase()))
+            else if(compareString(doc.getCity(), city))
                 newDoctors.add(doc);
+
         }
         doctors = newDoctors;
         adapter.notifyDataSetChanged();
@@ -94,7 +102,7 @@ public class FilteredDoctors extends AppCompatActivity {
 //        doctors.add(myDoctor);
 //        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
 //        recyclerView.setAdapter(adapter);
-        
+
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
