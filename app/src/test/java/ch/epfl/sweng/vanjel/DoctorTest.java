@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  * @author Aslam CADER
  * @reviewer
  */
-public class PatientTest {
+public class DoctorTest {
 
     @Test
     public void emptyConstructorEntity(){
