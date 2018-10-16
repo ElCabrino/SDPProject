@@ -39,39 +39,46 @@ public class ProfileTest {
     private String expectedCity = "Bussigny";
     private String expectedCountry = "Switzerland";
 
-    @Rule
-    public final IntentsTestRule<LoginActivity> ActivityRule =
-            new IntentsTestRule<>(LoginActivity.class);
+/*    @Rule
+    public final IntentsTestRule<P> ActivityRule =
+            new IntentsTestRule<>(LoginActivity.class);*/
 
     @Rule
-    public ActivityTestRule<Profile> mActivityRule =
-            new ActivityTestRule<>(Profile.class);
+    public ActivityTestRule<LoginActivity> mActivityRule =
+            new ActivityTestRule<>(LoginActivity.class);
 
     @Before
-    public void unlockScreen() throws Exception {
+    public void setUp() throws Exception {
+        if (!tryLogout()) {
+            loginWith();
+        }
+        TimeUnit.SECONDS.sleep(3);
+//        unlockScreen();
+    }
 
-
-        String password = "testluca";
-
+    private boolean tryLogout() throws Exception {
         try {
-            TimeUnit.SECONDS.sleep(5);
             onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
             onView(allOf(withId(R.id.logoutButton), withText("Logout"))).perform(ViewActions.scrollTo(), click());
             TimeUnit.SECONDS.sleep(3);
-            onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
-            onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-            onView(withId(R.id.buttonLogin)).perform(click());
+            return false;
         } catch (NoMatchingViewException e) {
-            try {
-                onView(allOf(withId(R.id.buttonLogin), withText("Login"))).check(matches(isDisplayed()));
-                onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
-                onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-                    onView(withId(R.id.buttonLogin)).perform(click());
-            } catch (NoMatchingViewException f) {
-                Log.d("TESTOUT", "exception : "+f);
-            }
+            Log.d("INFO", "User already logged out.");
+            return true;
         }
-        TimeUnit.SECONDS.sleep(5);
+    }
+
+    private void loginWith() {
+        String password = "testluca";
+        onView(withId(R.id.buttonLogin)).perform(click());
+        onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
+        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
+        onView(withId(R.id.buttonLogin)).perform(click());
+    }
+
+    private void unlockScreen() {
+        ActivityTestRule<Profile> mActivityRule =
+                new ActivityTestRule<>(Profile.class);
         final Profile activity = mActivityRule.getActivity();
         Runnable wakeUpDevice = new Runnable() {
             public void run() {
