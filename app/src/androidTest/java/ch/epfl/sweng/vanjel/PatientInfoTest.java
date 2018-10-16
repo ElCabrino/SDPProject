@@ -7,6 +7,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -55,6 +58,17 @@ PatientInfoTest {
     private ArrayList<Surgery> surgeries;
     private ArrayList<DrugReaction> drugReactions;
 
+    @BeforeClass
+    public static void loginPatientInfoUser() throws InterruptedException {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword("PatientInfo@test.ch", "123456");
+        }
+
+        TimeUnit.SECONDS.sleep(10);
+
+    }
+
     @Rule
     public final IntentsTestRule<PatientInfo> ActivityRule =
             new IntentsTestRule<>(PatientInfo.class);
@@ -66,6 +80,7 @@ PatientInfoTest {
         populateAllergies();
         populateSurgeries();
         populateDrugs();
+
     }
 
     private void populateAllergies()
