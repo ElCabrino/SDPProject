@@ -86,11 +86,9 @@ public abstract class User {
         this.gender = gender;
     }
 
-
-    private String email, firstName, lastName, birthday, street, streetNumber, city, country;
-
     User() {}
 
+    private String email, firstName, lastName, birthday, street, streetNumber, city, country;
 
     private Gender gender;
 
