@@ -202,14 +202,19 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         switch (i){
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addConditionToDatabase(priorConditionsReg.getText().toString().trim());
+                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition",
+                                new Condition(priorConditionsReg.getText().toString().trim()));
+                        //addConditionToDatabase(priorConditionsReg.getText().toString().trim());
                 break;
             case R.id.buttonSurgery:
                 patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
                         surgeriesYearReg.getText().toString().trim());
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.addAllergy(allergyReg.getText().toString().trim());
+                patientInfoDatabaseService.
+                        //addAllergy(allergyReg.getText().toString().trim());
+                                addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
+                                new Condition(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
                 patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
@@ -221,7 +226,10 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                         drugReactionReactionReg.getText().toString().trim());
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addSubstance(substancesReg.getText().toString().trim());
+                patientInfoDatabaseService.
+                        //addSubstance(substancesReg.getText().toString().trim());
+                                addItemToDatabase(substancesReg.getText().toString().trim(),"Substance",
+                                new Condition(substancesReg.getText().toString().trim()));
                     break;
             case R.id.buttonSmoking:
                 patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");

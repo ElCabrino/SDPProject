@@ -33,21 +33,19 @@ class PatientInfoDatabaseService {
     }
 
     //LISTENERS
-    <T> void addListListener(final List<T> typeList, final ListView listView, String category,final Class c, final ArrayAdapter<T> adapter) {
+    <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 typeList.clear();
                 for (DataSnapshot snap: dataSnapshot.getChildren()) {
-                    Object item = snap.getValue(c);
+                    T item = (T) snap.getValue(c);
 
                     typeList.add((T) item);
 
                 }
 
-                //DrugList adapter = new DrugList(activity,drugList);
-                //listViewDrugs.setAdapter(adapter);
                 listView.setAdapter(adapter);
 
             }
@@ -81,7 +79,19 @@ class PatientInfoDatabaseService {
 
 
     //SETTERS
-    void addConditionToDatabase(String condition) {
+
+    <T> void addItemToDatabase(String item, String category, T itemObject) {
+        DatabaseReference dbCat = userDatabaseReference.child(category);
+        if (!TextUtils.isEmpty(item)) {
+            dbCat.child(item).setValue(itemObject);
+            Toast.makeText(this.activity, "%s added".format(category), Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this.activity, "Please enter the %s you want to add".format(category), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /*void addConditionToDatabase(String condition) {
         DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
         if (!TextUtils.isEmpty(condition)) {
             Condition cond = new Condition(condition);
@@ -91,7 +101,7 @@ class PatientInfoDatabaseService {
         } else {
             Toast.makeText(this.activity, "Please enter the condition you want to add", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     void addSurgery(String surgery, String year) {
         DatabaseReference databaseSurgery = userDatabaseReference.child("Surgery");
@@ -105,7 +115,7 @@ class PatientInfoDatabaseService {
         }
     }
 
-    void addAllergy(String allergy) {
+    /*void addAllergy(String allergy) {
         DatabaseReference databaseAllergy = userDatabaseReference.child("Allergy");
         if(!TextUtils.isEmpty(allergy)) {
             Allergy allergyObject = new Allergy(allergy);
@@ -115,7 +125,7 @@ class PatientInfoDatabaseService {
         } else {
             Toast.makeText(this.activity,"Please enter the allergy you want to add", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     void addDrugReaction(String drug, String reaction) {
         DatabaseReference databaseDrugReaction = userDatabaseReference.child("DrugReaction");
@@ -141,7 +151,7 @@ class PatientInfoDatabaseService {
         }
     }
 
-    void addSubstance(String substance) {
+    /*void addSubstance(String substance) {
         DatabaseReference databaseSubstance = userDatabaseReference.child("Substance");
         if(!TextUtils.isEmpty(substance)) {
             Substance substanceObject = new Substance(substance);
@@ -151,7 +161,7 @@ class PatientInfoDatabaseService {
         } else {
             Toast.makeText(this.activity,"Please enter the substance you want to add", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     void addAmount(String amount, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
