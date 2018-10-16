@@ -102,6 +102,7 @@ public class ProfileTest {
             loginWith();
         } catch (NoMatchingViewException e) {
             Log.d("INFO", "User already logged in.");
+            System.err.print("INFO User already logged in.");
         }
     }
 
@@ -118,11 +119,15 @@ public class ProfileTest {
     }
 
     private void loginWith() {
-        String password = "testluca";
-        onView(withId(R.id.buttonLogin)).perform(click());
-        onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
-        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-        onView(withId(R.id.buttonLogin)).perform(click());
+        try {
+            String password = "testluca";
+            onView(withId(R.id.buttonLogin)).perform(click());
+            onView(withId(R.id.mailLogin)).perform(replaceText(expectedEmail));
+            onView(withId(R.id.passwordLogin)).perform(replaceText(password));
+            onView(withId(R.id.buttonLogin)).perform(click());
+        } catch (NoMatchingViewException e) {
+            System.err.print("No Login Button "+e.getViewMatcherDescription());
+        }
     }
 
     private void unlockScreen() {
