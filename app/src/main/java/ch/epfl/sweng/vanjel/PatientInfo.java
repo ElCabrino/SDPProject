@@ -169,39 +169,31 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.buttonPriorConditions){
+        /*if (i == R.id.buttonPriorConditions){
             patientInfoDatabaseService.
                     addConditionToDatabase(priorConditionsReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonSurgery) {
+        } else if (i == R.id.buttonSurgery) {
             patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
                     surgeriesYearReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonAllergy) {
+        } else if (i == R.id.buttonAllergy) {
             patientInfoDatabaseService.addAllergy(allergyReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonDrugRegimen) {
+        } else if (i == R.id.buttonDrugRegimen) {
             patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
                     drugRegimenDosageReg.getText().toString().trim(),
                     drugRegimenTimesReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonDrugReaction) {
+        } else if (i == R.id.buttonDrugReaction) {
             patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
                     drugReactionReactionReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonSubstance) {
+        } else if (i == R.id.buttonSubstance) {
             patientInfoDatabaseService.addSubstance(substancesReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonSmoking) {
+        } else if (i == R.id.buttonSmoking) {
             patientInfoDatabaseService.addSmoking(smokingReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonDrinking) {
+        } else if (i == R.id.buttonDrinking) {
             patientInfoDatabaseService.addDrinking(drinkingReg.getText().toString().trim());
-        }
-        if (i == R.id.buttonExercise) {
+        } else if (i == R.id.buttonExercise) {
             patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
-        }
-        /*switch (i){
+        }*/
+        switch (i){
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
                         addConditionToDatabase(priorConditionsReg.getText().toString().trim());
@@ -235,6 +227,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
                 break;
 
-        }*/
+        }
     }
 }
