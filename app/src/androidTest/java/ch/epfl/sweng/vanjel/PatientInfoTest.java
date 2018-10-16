@@ -104,7 +104,7 @@ PatientInfoTest {
 
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverAllergy() throws InterruptedException {
         onView(withId(R.id.buttonAllergy)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
