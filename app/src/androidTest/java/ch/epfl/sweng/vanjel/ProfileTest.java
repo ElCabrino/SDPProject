@@ -61,8 +61,8 @@ public class ProfileTest {
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         String email = "luca@doctor.ch";
         String password = "testluca";
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
