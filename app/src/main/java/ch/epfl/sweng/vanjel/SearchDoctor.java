@@ -37,8 +37,8 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
             getFieldStrings();
             Intent intent = new Intent(SearchDoctor.this, FilteredDoctors.class);
             Bundle b = new Bundle();
-            b.putString("lastname",lastNameString);
-            b.putString("name",nameString);
+            b.putString("lastName",lastNameString);
+            b.putString("firstName",nameString);
             b.putString("specialisation",specialisationString);
             b.putString("city",cityString);
             intent.putExtras(b);

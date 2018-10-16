@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,21 +23,29 @@ import java.util.ArrayList;
  */
 public class FilteredDoctors extends AppCompatActivity {
 
+    private static final String TAG = "OKLM2727";
     private FirebaseDatabase database;
     private DatabaseReference ref;
     private RecyclerView recyclerView;
     private ArrayList<Doctor> doctors;
     private FilteredDoctorAdapter adapter;
 
+    // bundle to retrieve data from search
+    private Bundle bundle;
+
+    // user choices
+    private String lastName;
+    private String name;
+    private String specialisation;
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtered_doctors);
-
         init();
+        getUserFilters();
         databaseListener();
-
     }
 
     public void init(){
@@ -50,6 +59,14 @@ public class FilteredDoctors extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void getUserFilters(){
+        lastName = bundle.getString("lastName");
+        name = bundle.getString("firstName");
+        specialisation = bundle.getString("specialisation");
+        city = bundle.getString("city");
+
+    }
+    
     public void databaseListener(){
 
         // useful to see if DB problem or not
@@ -68,6 +85,7 @@ public class FilteredDoctors extends AppCompatActivity {
                     Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
                     doctors.add(myDoctor);
                 }
+
                 adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
