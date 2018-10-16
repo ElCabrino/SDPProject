@@ -180,8 +180,8 @@ class PatientInfoDatabaseService {
         databaseSmoking.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot smokingSnapshot: dataSnapshot.getChildren()) {
-                    String s = smokingSnapshot.getValue(Smoking.class).getAmount();
+                if (dataSnapshot.exists()) {
+                    String s = dataSnapshot.getValue(Smoking.class).getAmount();
                     textViewSmoking.setText(s);
                 }
             }
@@ -198,10 +198,11 @@ class PatientInfoDatabaseService {
         databaseDrinking.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot drinkingSnapshot: dataSnapshot.getChildren()) {
-                    String s = drinkingSnapshot.getValue(Drinking.class).getAmount();
+                if (dataSnapshot.exists()) {
+                    String s = dataSnapshot.getValue(Drinking.class).getAmount();
                     textViewDrinking.setText(s);
                 }
+
             }
 
             @Override
@@ -216,8 +217,8 @@ class PatientInfoDatabaseService {
         databaseExercise.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot exerciseSnapshot: dataSnapshot.getChildren()) {
-                    String s = exerciseSnapshot.getValue(Exercise.class).getAmount();
+                if (dataSnapshot.exists()) {
+                    String s = dataSnapshot.getValue(Exercise.class).getAmount();
                     textViewExercise.setText(s);
                 }
             }
@@ -306,7 +307,7 @@ class PatientInfoDatabaseService {
         DatabaseReference databaseSmoking = userDatabaseReference.child("Smoking");
         if(!TextUtils.isEmpty(amount)) {
             Smoking smokingObject = new Smoking(UserID,amount);
-            databaseSmoking.child(amount).setValue(smokingObject);
+            databaseSmoking.setValue(smokingObject);
             Toast.makeText(this.activity,"Smoking added",Toast.LENGTH_LONG).show();
 
         } else {
@@ -318,7 +319,7 @@ class PatientInfoDatabaseService {
         DatabaseReference databaseDrinking = userDatabaseReference.child("Drinking");
         if(!TextUtils.isEmpty(amount)) {
             Drinking drinkingObject = new Drinking(UserID,amount);
-            databaseDrinking.child(amount).setValue(drinkingObject);
+            databaseDrinking.setValue(drinkingObject);
             Toast.makeText(this.activity,"Drinking added",Toast.LENGTH_LONG).show();
 
         } else {
@@ -330,7 +331,7 @@ class PatientInfoDatabaseService {
         DatabaseReference databaseExercise = userDatabaseReference.child("Exercise");
         if(!TextUtils.isEmpty(amount)) {
             Exercise exerciseObject = new Exercise(UserID,amount);
-            databaseExercise.child(amount).setValue(exerciseObject);
+            databaseExercise.setValue(exerciseObject);
             Toast.makeText(this.activity,"Exercise added",Toast.LENGTH_LONG).show();
 
         } else {
