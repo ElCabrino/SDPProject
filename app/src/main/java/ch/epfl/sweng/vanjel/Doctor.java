@@ -14,6 +14,10 @@ public class Doctor extends User {
         return activity.name();
     }
 
+    public void setActivity(DoctorActivity activity){
+        this.activity = activity;
+    }
+
     Doctor() {}
 
 }

@@ -39,6 +39,7 @@ public class DoctorTest {
         testUser2.setCity(city);
         testUser2.setCountry(country);
         testUser2.setGender(gender);
+        testUser2.setActivity(activity);
 
 
 
