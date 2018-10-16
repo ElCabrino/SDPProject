@@ -45,15 +45,15 @@ public class SearchDoctorTest {
     @Test
     public void searchDoctorTest() {
         Bundle b = new Bundle();
-        b.putString("lastname", lastName);
-        b.putString("name", firstName);
+        b.putString("lastName", lastName);
+        b.putString("firstName", firstName);
         b.putString("specialisation", specialisation);
         b.putString("city", city);
 
         fillFields();
         onView(withId(R.id.buttonSearch)).perform(scrollTo(), click());
-        intended(hasExtra("lastname", lastName));
-        intended(hasExtra("name", firstName));
+        intended(hasExtra("lastName", lastName));
+        intended(hasExtra("firstName", firstName));
         intended(hasExtra("specialisation", specialisation));
         intended(hasExtra("city", city));
     }
