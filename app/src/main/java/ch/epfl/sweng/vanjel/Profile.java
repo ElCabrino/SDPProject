@@ -200,10 +200,16 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                    userType = category;
-                    database.getReference(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener(category));
-                    loadContent();
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        userType = category;
+                        database.getReference(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener(category));
+                        loadContent();
+                    }
+                } else {
+                    Log.d("ERROR", "No user logged in.");
+                    Intent intent = new Intent(Profile.this,LoginActivity.class);
+                    startActivity(intent);
                 }
             }
 

@@ -61,8 +61,8 @@ public class ProfileTest {
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUp() throws Exception {
         String email = "luca@doctor.ch";
         String password = "testluca";
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -94,6 +94,16 @@ public class ProfileTest {
 //        TimeUnit.SECONDS.sleep(3);
 //        unlockScreen();
         TimeUnit.SECONDS.sleep(3);
+    }
+
+    @Before
+    public void loginIfNeeded() {
+        try {
+            onView(allOf(withId(R.id.buttonLogin), withText("Logout"))).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
+            loginWith();
+        } catch (NoMatchingViewException e) {
+            Log.d("INFO", "User already logged in.");
+        }
     }
 
     private boolean tryLogout() throws Exception {
