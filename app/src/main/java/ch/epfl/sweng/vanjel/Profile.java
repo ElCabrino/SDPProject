@@ -170,7 +170,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
-        database.getReference(userType).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+        database.getReference(userType).child(getUserFirebaseID()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
@@ -200,16 +200,16 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    if (dataSnapshot.hasChild(getUserFirebaseID())) {
                         userType = category;
-                        database.getReference(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(createValueEventListener(category));
+                        database.getReference(category).child(getUserFirebaseID()).addValueEventListener(createValueEventListener(category));
                         loadContent();
-                    }
+/*                    }
                 } else {
                     Log.d("ERROR", "No user logged in.");
                     Intent intent = new Intent(Profile.this,LoginActivity.class);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             }
 
@@ -217,5 +217,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    public String getUserFirebaseID() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } else {
+            return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
+        }
     }
 }

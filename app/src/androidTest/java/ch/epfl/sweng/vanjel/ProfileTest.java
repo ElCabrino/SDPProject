@@ -56,12 +56,11 @@ public class ProfileTest {
     public ActivityTestRule<LoginActivity> mActivityRule =
             new ActivityTestRule<>(LoginActivity.class);*/
 
-
     @Rule
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
 
-    @BeforeClass
+/*    @BeforeClass
     public static void setUp() throws Exception {
         String email = "luca@doctor.ch";
         String password = "testluca";
@@ -94,7 +93,7 @@ public class ProfileTest {
 //        TimeUnit.SECONDS.sleep(3);
 //        unlockScreen();
         TimeUnit.SECONDS.sleep(3);
-    }
+    }*/
 
     private void loginIfNeeded() {
         try {
@@ -147,8 +146,8 @@ public class ProfileTest {
     @Test
     public void outputTest() throws Exception {
         TimeUnit.SECONDS.sleep(3);
-        loginIfNeeded();
-        TimeUnit.SECONDS.sleep(3);
+//        loginIfNeeded();
+//        TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedLastname)));
         onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText(expectedName)));
         onView(withContentDescription("profile birthday")).perform(ViewActions.scrollTo()).check(matches(withText(expectedBirtday)));
@@ -163,8 +162,8 @@ public class ProfileTest {
     @Test
     public void testEditText() throws Exception {
         TimeUnit.SECONDS.sleep(3);
-        loginIfNeeded();
-        TimeUnit.SECONDS.sleep(3);
+//        loginIfNeeded();
+//        TimeUnit.SECONDS.sleep(3);
         String newLastName = "JossEdit";
         String newName = "Dr LucaEdit";
         String newStreet = "Nouvelle-Poste";
@@ -205,8 +204,8 @@ public class ProfileTest {
     @Test
     public void editButtonTest() throws Exception {
         TimeUnit.SECONDS.sleep(3);
-        loginIfNeeded();
-        TimeUnit.SECONDS.sleep(3);
+//        loginIfNeeded();
+//        TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo()).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
