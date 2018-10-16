@@ -39,4 +39,5 @@
     <string name="reaction">Reaction</string>
     <string name="input_birthday_error">birthday required</string>
     <string name="login_failed_error">Login failed for unknown reason</string>
+    <string name="title_activity_search_doctor">SearchDoctor</string>
 </resources>
