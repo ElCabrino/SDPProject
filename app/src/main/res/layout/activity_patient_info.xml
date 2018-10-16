@@ -68,11 +68,11 @@
 
             <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptPriorConditionsList"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
-
+                android:layout_marginBottom="4dp" />
 
 
             <TextView
@@ -117,10 +117,11 @@
 
             <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptSurgeryList"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp" />
 
 
             <TextView
@@ -155,10 +156,11 @@
 
             <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptAllergyList"
-                android:layout_width="match_parent"
+                android:layout_width="352dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp" />
 
 
             <TextView
@@ -201,10 +203,11 @@
 
             <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptDrugReactionList"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp" />
 
 
             <TextView
@@ -256,10 +259,11 @@
 
             <ch.epfl.sweng.vanjel.ExpandedListView
                 android:id="@+id/ptDrugRegimenList"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp" />
 
 
             <TextView

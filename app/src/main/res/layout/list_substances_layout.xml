@@ -5,9 +5,11 @@
 
     <TextView
         android:id="@+id/textViewSubstances"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@color/common_google_signin_btn_text_light_focused"
+        android:textSize="14sp" />
 
 
 </LinearLayout>
