@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static ch.epfl.sweng.vanjel.R.layout.layout_doctor_cardview;
 
-public class FilteredDoctorAdapter extends RecyclerView.Adapter<FilteredDoctorAdapter.ViewHolder>  {
+public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
     ArrayList<Doctor> doctors;
     Context context;

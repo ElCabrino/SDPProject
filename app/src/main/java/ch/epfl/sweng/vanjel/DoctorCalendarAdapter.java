@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class DoctorCalendarAdapter extends RecyclerView.Adapter<DoctorCalendarAdapter.ViewHolder> {
+public class DoctorCalendarAdapter extends recyclerViewAdapter<DoctorCalendarAdapter.ViewHolder> {
 
     private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
     private Context mContext;
