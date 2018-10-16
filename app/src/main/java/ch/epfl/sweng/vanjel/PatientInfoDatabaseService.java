@@ -26,7 +26,7 @@ class PatientInfoDatabaseService {
     //TEMPORARY ID
     /*TODO: put the user ID of the logged user*/
     PatientInfoDatabaseService(String userID, AppCompatActivity activity) {
-        UserID = "ABLlrLukjAaPzaf5GA03takkw5k2";
+        UserID = userID;
         this.activity = activity;
         this.userDatabaseReference = FirebaseDatabase.getInstance().getReference("Patient").child(UserID);
     }
