@@ -93,15 +93,15 @@ PatientInfoTest {
     private void populateSurgeries()
     {
         surgeries = new ArrayList<Surgery>();
-        surgeries.add(new Surgery(id, surgery1, surgery1Year));
-        surgeries.add(new Surgery(id, surgery2, surgery2Year));
+        surgeries.add(new Surgery(surgery1, surgery1Year));
+        surgeries.add(new Surgery(surgery2, surgery2Year));
     }
 
     private void populateDrugs()
     {
         drugReactions = new ArrayList<DrugReaction>();
-        drugReactions.add(new DrugReaction(id, "paracetamol", "skin reaction"));
-        drugReactions.add(new DrugReaction(id, "tramadol", "indigestion"));
+        drugReactions.add(new DrugReaction("paracetamol", "skin reaction"));
+        drugReactions.add(new DrugReaction("tramadol", "indigestion"));
     }
 
     @Test

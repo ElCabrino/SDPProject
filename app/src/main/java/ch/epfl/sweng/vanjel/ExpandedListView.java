@@ -16,11 +16,13 @@ public class ExpandedListView extends ListView {
     }
     @Override
     protected void onDraw(Canvas canvas) {
-        if (getCount() != old_count) {
-            old_count = getCount();
-            params = getLayoutParams();
-            params.height = getCount() * (old_count > 0 ? getChildAt(0).getHeight() + 2 : 0);
-            setLayoutParams(params);
+        if (getChildAt(0) != null) {
+            if (getCount() != old_count) {
+                old_count = getCount();
+                params = getLayoutParams();
+                params.height = getCount() * (old_count > 0 ? getChildAt(0).getHeight() + 2 : 0);
+                setLayoutParams(params);
+            }
         }
         super.onDraw(canvas);
     }

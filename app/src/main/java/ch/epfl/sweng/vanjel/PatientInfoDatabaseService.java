@@ -87,7 +87,7 @@ class PatientInfoDatabaseService {
             Toast.makeText(this.activity, "%s added".format(category), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity, "Please enter the %s you want to add".format(category), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, "Please enter the %s information you want to add".format(category.toLowerCase()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -103,7 +103,7 @@ class PatientInfoDatabaseService {
         }
     }*/
 
-    void addSurgery(String surgery, String year) {
+    /*void addSurgery(String surgery, String year) {
         DatabaseReference databaseSurgery = userDatabaseReference.child("Surgery");
         if(!TextUtils.isEmpty(surgery) && !TextUtils.isEmpty(year)) {
             Surgery surgeryObject = new Surgery(UserID,surgery,year);
@@ -113,7 +113,7 @@ class PatientInfoDatabaseService {
         } else {
             Toast.makeText(this.activity,"Please enter the surgery and the year you want to add", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     /*void addAllergy(String allergy) {
         DatabaseReference databaseAllergy = userDatabaseReference.child("Allergy");
@@ -127,7 +127,7 @@ class PatientInfoDatabaseService {
         }
     }*/
 
-    void addDrugReaction(String drug, String reaction) {
+    /*void addDrugReaction(String drug, String reaction) {
         DatabaseReference databaseDrugReaction = userDatabaseReference.child("DrugReaction");
         if(!TextUtils.isEmpty(drug) && !TextUtils.isEmpty(reaction)) {
             DrugReaction drugReactionObject = new DrugReaction(UserID,drug,reaction);
@@ -149,7 +149,7 @@ class PatientInfoDatabaseService {
         } else {
             Toast.makeText(this.activity,"Please enter the drug, the dosage and the frequency you want to add", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     /*void addSubstance(String substance) {
         DatabaseReference databaseSubstance = userDatabaseReference.child("Substance");
