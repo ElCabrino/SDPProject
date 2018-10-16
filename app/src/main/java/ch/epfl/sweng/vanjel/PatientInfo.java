@@ -155,12 +155,18 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     protected void onStart() {
         super.onStart();
         // add the database listeners
-        patientInfoDatabaseService.addConditionListener(conditionList, listViewConditions);
-        patientInfoDatabaseService.addSurgeryListener(surgeryList, listViewSurgeries);
-        patientInfoDatabaseService.addAllergyListener(allergyList, listViewAllergies);
-        patientInfoDatabaseService.addDrugReactionListener(drugReactionList, listViewDrugReactions);
-        patientInfoDatabaseService.addDrugListener(drugList, listViewDrugs);
-        patientInfoDatabaseService.addSubstanceListener(substanceList, listViewSubstances);
+        patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
+                Condition.class, new ConditionList(this,conditionList));
+        patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
+                Surgery.class, new SurgeryList(this,surgeryList));
+        patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
+                Allergy.class, new AllergyList(this,allergyList));
+        patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
+                DrugReaction.class, new DrugReactionList(this,drugReactionList));
+        patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
+                Drug.class, new DrugList(this,drugList));
+        patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
+                Substance.class, new SubstanceList(this,substanceList));
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
