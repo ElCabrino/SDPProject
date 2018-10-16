@@ -161,9 +161,9 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.addDrugReactionListener(drugReactionList, listViewDrugReactions);
         patientInfoDatabaseService.addDrugListener(drugList, listViewDrugs);
         patientInfoDatabaseService.addSubstanceListener(substanceList, listViewSubstances);
-        patientInfoDatabaseService.addSmokingListener(textViewSmoking);
-        patientInfoDatabaseService.addDrinkingListener(textViewDrinking);
-        patientInfoDatabaseService.addExerciseListener(textViewExercise);
+        patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
+        patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
+        patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
     }
 
     @Override
@@ -218,13 +218,13 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 patientInfoDatabaseService.addSubstance(substancesReg.getText().toString().trim());
                     break;
             case R.id.buttonSmoking:
-                patientInfoDatabaseService.addSmoking(smokingReg.getText().toString().trim());
+                patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");
                 break;
             case R.id.buttonDrinking:
-                patientInfoDatabaseService.addDrinking(drinkingReg.getText().toString().trim());
+                patientInfoDatabaseService.addAmount(drinkingReg.getText().toString().trim(),"Drinking");
                 break;
             case R.id.buttonExercise:
-                patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
+                patientInfoDatabaseService.addAmount(exerciseReg.getText().toString().trim(),"Exercise");
                 break;
 
         }

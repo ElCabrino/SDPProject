@@ -175,14 +175,15 @@ class PatientInfoDatabaseService {
         });
     }
 
-    void addSmokingListener(final TextView textViewSmoking){
-        DatabaseReference databaseSmoking = userDatabaseReference.child("Smoking");
-        databaseSmoking.addValueEventListener(new ValueEventListener() {
+
+    void addAmountListener(final TextView textView, String category) {
+        DatabaseReference dbCat = userDatabaseReference.child(category);
+        dbCat.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String s = dataSnapshot.getValue(Smoking.class).getAmount();
-                    textViewSmoking.setText(s);
+                    String s = dataSnapshot.getValue(String.class);
+                    textView.setText(s);
                 }
             }
 
@@ -193,42 +194,8 @@ class PatientInfoDatabaseService {
         });
     }
 
-    void addDrinkingListener(final TextView textViewDrinking){
-        DatabaseReference databaseDrinking = userDatabaseReference.child("Drinking");
-        databaseDrinking.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String s = dataSnapshot.getValue(Drinking.class).getAmount();
-                    textViewDrinking.setText(s);
-                }
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    void addExerciseListener(final TextView textViewExercise){
-        DatabaseReference databaseExercise = userDatabaseReference.child("Exercise");
-        databaseExercise.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String s = dataSnapshot.getValue(Exercise.class).getAmount();
-                    textViewExercise.setText(s);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     //SETTERS
     void addConditionToDatabase(String condition) {
@@ -303,39 +270,14 @@ class PatientInfoDatabaseService {
         }
     }
 
-    void addSmoking(String amount) {
-        DatabaseReference databaseSmoking = userDatabaseReference.child("Smoking");
+    void addAmount(String amount, String category) {
+        DatabaseReference dbCat = userDatabaseReference.child(category);
         if(!TextUtils.isEmpty(amount)) {
-            Smoking smokingObject = new Smoking(UserID,amount);
-            databaseSmoking.setValue(smokingObject);
-            Toast.makeText(this.activity,"Smoking added",Toast.LENGTH_LONG).show();
+            dbCat.setValue(amount);
+            Toast.makeText(this.activity,"%s added".format(category),Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity,"Please enter the average amount of cigarettes you smoke per day", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    void addDrinking(String amount) {
-        DatabaseReference databaseDrinking = userDatabaseReference.child("Drinking");
-        if(!TextUtils.isEmpty(amount)) {
-            Drinking drinkingObject = new Drinking(UserID,amount);
-            databaseDrinking.setValue(drinkingObject);
-            Toast.makeText(this.activity,"Drinking added",Toast.LENGTH_LONG).show();
-
-        } else {
-            Toast.makeText(this.activity,"Please enter the average amount of alcohol you consume per day", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    void addExercise(String amount) {
-        DatabaseReference databaseExercise = userDatabaseReference.child("Exercise");
-        if(!TextUtils.isEmpty(amount)) {
-            Exercise exerciseObject = new Exercise(amount);
-            databaseExercise.setValue(exerciseObject);
-            Toast.makeText(this.activity,"Exercise added",Toast.LENGTH_LONG).show();
-
-        } else {
-            Toast.makeText(this.activity,"Please enter the average hours of exercise you do per week", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity,"Please enter the %s amount".format(category), Toast.LENGTH_LONG).show();
         }
     }
 

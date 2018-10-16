@@ -86,8 +86,8 @@ PatientInfoTest {
     private void populateAllergies()
     {
         allergies = new ArrayList<Allergy>();
-        allergies.add(new Allergy(id,al1));
-        allergies.add(new Allergy(id,al2));
+        allergies.add(new Allergy(al1));
+        allergies.add(new Allergy(al2));
     }
 
     private void populateSurgeries()
