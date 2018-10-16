@@ -12,6 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -28,7 +30,6 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- Test class for User class
 
  author: Aslam CADER
  reviewer:
@@ -36,6 +37,9 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
+
+    private String email = "test@test.ch";
+    private String password = "123456";
 
     @Rule
     public final IntentsTestRule<LoginActivity> ActivityRule =
@@ -50,8 +54,6 @@ public class LoginActivityTest {
 
     @Test
     public void successfulLogin(){
-          String email = "admin@test.ch";
-          String password = "123456";
 //        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("Users").child(database.getReference().getCurrentUser().getUid());
 //
@@ -64,6 +66,12 @@ public class LoginActivityTest {
 //
 //        assertEquals("Check if corrected to correct account", email, user.getEmail());
 //        intended(hasComponent(Profile.class.getName()));
+        try {
+            onView(withId(R.id.logoutButton)).perform(click());
+        } catch (NoMatchingViewException e) {
+            // Ignore
+        }
+
         signOutIfPossible();
 
         enterEmail(email);
@@ -72,32 +80,54 @@ public class LoginActivityTest {
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
-        //TODO: checker que t'es sur la page du login
+        // checker que t'es sur la page du profile
+//        intended(hasComponent(Profile.class.getName()));
+
+
 
     }
 
     @Test
     public void emptyEmailLogin(){
-        String email = "";
-        String password = "123456";
 
         signOutIfPossible();
-
-        enterEmail(email);
 
         enterPassword(password);
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
+
+//        intended(hasComponent(LoginActivity.class.getName()));
+
     }
 
     @Test
-    public void emptyPasswordLogin(){
+    public void emptyPasswordLogin() throws InterruptedException {
+
+        signOutIfPossible();
+        enterEmail(email);
+
+        onView(withId(R.id.buttonLogin)).perform(click());
+
+        TimeUnit.SECONDS.sleep(5);
+
+//        intended(hasComponent(LoginActivity.class.getName()));
+
 
     }
 
     @Test
     public void wrongCredentialLogin(){
+
+        String email = "impossible@impossible.ch";
+        String password = "impossiblePassword";
+
+        signOutIfPossible();
+        enterEmail(email);
+        enterPassword(password);
+
+
+//        intended(hasComponent(LoginActivity.class.getName()));
 
     }
 
@@ -106,7 +136,7 @@ public class LoginActivityTest {
     }
 
     private void enterPassword(String password) {
-        onView(withId(R.id.mailLogin)).perform(replaceText(password));
+        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
     }
 
     private void signOutIfPossible() {

@@ -91,4 +91,9 @@ public abstract class User {
     private String email, firstName, lastName, birthday, street, streetNumber, city, country;
 
     private Gender gender;
+
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
 }
