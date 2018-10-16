@@ -1,8 +1,13 @@
 package ch.epfl.sweng.vanjel;
 
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
+import android.widget.TextView;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -10,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -20,6 +26,7 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -76,10 +83,11 @@ PatientInfoTest {
     }
 
     @Test
-    public void testAddAndRecoverAllergy(){
-        onView(withId(R.id.buttonDrinking)).perform(scrollTo());
+    public void testAddAndRecoverAllergy() throws InterruptedException {
+        onView(withId(R.id.buttonAllergy)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(5);
         for (Allergy allergy : allergies) {
-            onView(withId(R.id.ptAllergyReg)).perform(replaceText(allergy.getAllergy()));
+            onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getAllergy()));
             onView(withId(R.id.buttonAllergy)).perform(click());
         }
 
@@ -99,6 +107,24 @@ PatientInfoTest {
         onView(withId(R.id.ptSmokingValue)).check(matches(withText(amount)));
     }
 
+    public static ViewAction setTextInTextView(final String value){
+        return new ViewAction() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public Matcher<View> getConstraints() {
+                return allOf(isDisplayed(), isAssignableFrom(TextView.class));
+            }
 
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((TextView) view).setText(value);
+            }
+
+            @Override
+            public String getDescription() {
+                return "replace text";
+            }
+        };
+    }
 
 }
