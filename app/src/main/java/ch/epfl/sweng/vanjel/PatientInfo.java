@@ -119,9 +119,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         textViewSmoking = findViewById(R.id.ptSmokingValue);
         textViewDrinking = findViewById(R.id.ptDrinkingValue);
         textViewExercise = findViewById(R.id.ptExerciseValue);
-    }
-
-    private void getAllButtons() {
         buttonConditions = findViewById(R.id.buttonPriorConditions);
         buttonSurgeries = findViewById(R.id.buttonSurgery);
         buttonAllergies = findViewById(R.id.buttonAllergy);
@@ -131,6 +128,10 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         buttonSmoking = findViewById(R.id.buttonSmoking);
         buttonDrinking = findViewById(R.id.buttonDrinking);
         buttonExercise = findViewById(R.id.buttonExercise);
+    }
+
+    private void getAllButtons() {
+
     }
 
     private void getAllEditText() {
@@ -168,31 +169,39 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        /*if (i == R.id.buttonPriorConditions){
+        if (i == R.id.buttonPriorConditions){
             patientInfoDatabaseService.
                     addConditionToDatabase(priorConditionsReg.getText().toString().trim());
-        } else if (i == R.id.buttonSurgery) {
+        }
+        if (i == R.id.buttonSurgery) {
             patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
                     surgeriesYearReg.getText().toString().trim());
-        } else if (i == R.id.buttonAllergy) {
+        }
+        if (i == R.id.buttonAllergy) {
             patientInfoDatabaseService.addAllergy(allergyReg.getText().toString().trim());
-        } else if (i == R.id.buttonDrugRegimen) {
+        }
+        if (i == R.id.buttonDrugRegimen) {
             patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
                     drugRegimenDosageReg.getText().toString().trim(),
                     drugRegimenTimesReg.getText().toString().trim());
-        } else if (i == R.id.buttonDrugReaction) {
+        }
+        if (i == R.id.buttonDrugReaction) {
             patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
                     drugReactionReactionReg.getText().toString().trim());
-        } else if (i == R.id.buttonSubstance) {
+        }
+        if (i == R.id.buttonSubstance) {
             patientInfoDatabaseService.addSubstance(substancesReg.getText().toString().trim());
-        } else if (i == R.id.buttonSmoking) {
+        }
+        if (i == R.id.buttonSmoking) {
             patientInfoDatabaseService.addSmoking(smokingReg.getText().toString().trim());
-        } else if (i == R.id.buttonDrinking) {
+        }
+        if (i == R.id.buttonDrinking) {
             patientInfoDatabaseService.addDrinking(drinkingReg.getText().toString().trim());
-        } else if (i == R.id.buttonExercise) {
+        }
+        if (i == R.id.buttonExercise) {
             patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
-        }*/
-        switch (i){
+        }
+        /*switch (i){
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
                         addConditionToDatabase(priorConditionsReg.getText().toString().trim());
@@ -226,6 +235,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
                 break;
 
-        }
+        }*/
     }
 }
