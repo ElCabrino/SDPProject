@@ -41,4 +41,5 @@
     <string name="login_failed_error">Login failed for unknown reason</string>
     <string name="database_error">Error with database.</string>
     <string name="oklm">oklm un test deux test</string>
+    <string name="title_activity_search_doctor">SearchDoctor</string>
 </resources>
