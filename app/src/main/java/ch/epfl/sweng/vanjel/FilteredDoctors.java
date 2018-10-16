@@ -51,14 +51,16 @@ public class FilteredDoctors extends AppCompatActivity {
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         doctors = new ArrayList<Doctor>();
+        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
+        recyclerView.setAdapter(adapter);
         Log.d(TAG, "init fin");
 
     }
 
     public void databaseListener(){
 //        Log.d(TAG, "init dblistener");
-//        Doctor myDoctor = new Doctor("lol", "Gregory", "House", "10/08/8010", "Revolution Street", "45", "New Jersey", "US", Gender.Male, DoctorActivity.Generalist);
-//        doctors.add(myDoctor);
+        Doctor myDoctor = new Doctor("lol", "Gregory", "House", "10/08/8010", "Revolution Street", "45", "New Jersey", "US", Gender.Male, DoctorActivity.Generalist);
+        doctors.add(myDoctor);
 //        doctors.add(myDoctor);
 //        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
 //        recyclerView.setAdapter(adapter);
@@ -79,6 +81,7 @@ public class FilteredDoctors extends AppCompatActivity {
                 }
                 adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
                 recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -87,5 +90,6 @@ public class FilteredDoctors extends AppCompatActivity {
                 Toast.makeText(FilteredDoctors.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
             }
         });
+        Log.d(TAG, "end dblistener");
     }
 }
