@@ -80,14 +80,15 @@ public class FilteredDoctors extends AppCompatActivity {
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
         ArrayList<Doctor> newDoctors = new ArrayList<Doctor>();
+
         for (Doctor doc: doctors){
-            if (compareString(doc.getFirstName(), firstName))
-                newDoctors.add(doc);
-            else if (compareString(doc.getLastName(), lastName))
-                newDoctors.add(doc);
-            else if (compareString(doc.getActivity(), specialisation))
-                newDoctors.add(doc);
-            else if(compareString(doc.getCity(), city))
+
+            Boolean b1 = compareString(doc.getFirstName(), firstName);
+            Boolean b2 = compareString(doc.getLastName(), lastName);
+            Boolean b3 = compareString(doc.getActivity(), specialisation);
+            Boolean b4 = compareString(doc.getCity(), city);
+
+            if (b1 || b2 || b3 || b4)
                 newDoctors.add(doc);
 
         }
