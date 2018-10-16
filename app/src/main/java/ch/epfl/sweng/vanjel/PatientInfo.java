@@ -81,9 +81,9 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
 
         getAllButtons();
 
-        initializeButtonsListeners();
-
         getAllPatientInfoFields();
+
+        initializeButtonsListeners();
 
         initializeLists();
     }

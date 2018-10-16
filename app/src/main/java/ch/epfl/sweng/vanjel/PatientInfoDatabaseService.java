@@ -234,7 +234,7 @@ class PatientInfoDatabaseService {
     void addConditionToDatabase(String condition) {
         DatabaseReference databaseCondition = userDatabaseReference.child("Condition");
         if (!TextUtils.isEmpty(condition)) {
-            Condition cond = new Condition(UserID, condition);
+            Condition cond = new Condition(condition);
             databaseCondition.child(condition).setValue(cond);
             Toast.makeText(this.activity, "Condition added", Toast.LENGTH_LONG).show();
 
@@ -258,7 +258,7 @@ class PatientInfoDatabaseService {
     void addAllergy(String allergy) {
         DatabaseReference databaseAllergy = userDatabaseReference.child("Allergy");
         if(!TextUtils.isEmpty(allergy)) {
-            Allergy allergyObject = new Allergy(UserID,allergy);
+            Allergy allergyObject = new Allergy(allergy);
             databaseAllergy.child(allergy).setValue(allergyObject);
             Toast.makeText(this.activity,"Allergy added",Toast.LENGTH_LONG).show();
 
@@ -294,7 +294,7 @@ class PatientInfoDatabaseService {
     void addSubstance(String substance) {
         DatabaseReference databaseSubstance = userDatabaseReference.child("Substance");
         if(!TextUtils.isEmpty(substance)) {
-            Substance substanceObject = new Substance(UserID,substance);
+            Substance substanceObject = new Substance(substance);
             databaseSubstance.child(substance).setValue(substanceObject);
             Toast.makeText(this.activity,"Substance added",Toast.LENGTH_LONG).show();
 
@@ -330,7 +330,7 @@ class PatientInfoDatabaseService {
     void addExercise(String amount) {
         DatabaseReference databaseExercise = userDatabaseReference.child("Exercise");
         if(!TextUtils.isEmpty(amount)) {
-            Exercise exerciseObject = new Exercise(UserID,amount);
+            Exercise exerciseObject = new Exercise(amount);
             databaseExercise.setValue(exerciseObject);
             Toast.makeText(this.activity,"Exercise added",Toast.LENGTH_LONG).show();
 
