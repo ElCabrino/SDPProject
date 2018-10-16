@@ -28,12 +28,12 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     @NonNull
     @Override
     public FilteredDoctorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//        return new FilteredDoctorAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_doctor_cardview,
-                viewGroup,false);
-        ViewHolder holder = new ViewHolder(view);
-
-        return holder;
+       return new FilteredDoctorAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
+//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_doctor_cardview,
+//                viewGroup,false);
+//        ViewHolder holder = new ViewHolder(view);
+//
+//        return holder;
     }
 
     @Override
