@@ -9,6 +9,10 @@ public class Doctor extends User {
         this.activity = activity;
     }
 
+    Doctor() {
+
+    }
+
     public String getActivity(){
         return activity.name();
     }
