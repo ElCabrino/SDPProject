@@ -53,14 +53,12 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     TextView textViewDrinking;
     TextView textViewExercise;
 
-    List<Condition> conditionList;
+    List<InfoString> conditionList;
     List<Surgery> surgeryList;
-    List<Allergy> allergyList;
+    List<InfoString> allergyList;
     List<DrugReaction> drugReactionList;
     List<Drug> drugList;
-    List<Substance> substanceList;
-    InfoList substanceInfoList;
-
+    List<InfoString> substanceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,18 +155,18 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onStart();
         // add the database listeners
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
-                Condition.class, new InfoList<Condition>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
+                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
                 Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
         patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
-                Allergy.class, new InfoList<Allergy>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
         patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
                 DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
                 Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
 
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
-                Substance.class, new InfoList<Substance>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+                InfoString.class, new InfoList<InfoString>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
 
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
@@ -205,7 +203,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         switch (i){
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition", new Condition(priorConditionsReg.getText().toString().trim()));
+                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition", new InfoString(priorConditionsReg.getText().toString().trim()));
                         //addConditionToDatabase(priorConditionsReg.getText().toString().trim());
                 break;
             case R.id.buttonSurgery:
@@ -215,7 +213,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.buttonAllergy:
                 patientInfoDatabaseService.addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
-                                new Allergy(allergyReg.getText().toString().trim()));
+                                new InfoString(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
                 Drug drug = new Drug(drugRegimenDrugReg.getText().toString().trim(), drugRegimenDosageReg.getText().toString().trim(),
@@ -232,7 +230,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                         drugReactionReactionReg.getText().toString().trim());*/
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new Substance(substancesReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new InfoString(substancesReg.getText().toString().trim()));
                     break;
             case R.id.buttonSmoking:
                 patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");
