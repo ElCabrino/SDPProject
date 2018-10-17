@@ -1,8 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -16,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -140,5 +144,13 @@ public class ProfileTest {
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
+    }
+
+    @Test
+    public void searchDoctorButtonTest() throws Exception {
+        Intents.init();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withContentDescription("profile search button")).perform(scrollTo(), click());
+        intended(hasComponent(SearchDoctor.class.getName()));
     }
 }
