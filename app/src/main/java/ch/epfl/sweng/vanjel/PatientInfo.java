@@ -202,49 +202,36 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         switch (i){
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition",
-                                new Condition(priorConditionsReg.getText().toString().trim()));
+                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition", new Condition(priorConditionsReg.getText().toString().trim()));
                         //addConditionToDatabase(priorConditionsReg.getText().toString().trim());
                 break;
             case R.id.buttonSurgery:
-                Surgery chir = new Surgery(surgeriesReg.getText().toString().trim(),
-                        surgeriesYearReg.getText().toString().trim());
-                patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(),
-                        "Surgery", chir);
+                Surgery chir = new Surgery(surgeriesReg.getText().toString().trim(), surgeriesYearReg.getText().toString().trim());
+                patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(), "Surgery", chir);
                 /*patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
                         surgeriesYearReg.getText().toString().trim());*/
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.
-                        //addAllergy(allergyReg.getText().toString().trim());
-                                addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
+                patientInfoDatabaseService.addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
                                 new Allergy(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
-                Drug drug = new Drug(drugRegimenDrugReg.getText().toString().trim(),
-                        drugRegimenDosageReg.getText().toString().trim(),
+                Drug drug = new Drug(drugRegimenDrugReg.getText().toString().trim(), drugRegimenDosageReg.getText().toString().trim(),
                         drugRegimenTimesReg.getText().toString().trim());
-                patientInfoDatabaseService.addItemToDatabase(drugRegimenDrugReg.getText().toString().trim(),
-                        "Drug",drug);
-
+                patientInfoDatabaseService.addItemToDatabase(drugRegimenDrugReg.getText().toString().trim(), "Drug",drug);
                 /*patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
                         drugRegimenDosageReg.getText().toString().trim(),
                         drugRegimenTimesReg.getText().toString().trim());*/
                 break;
             case R.id.buttonDrugReaction:
-                DrugReaction dr = new DrugReaction(drugReactionDrugReg.getText().toString().trim(),
-                        drugReactionReactionReg.getText().toString().trim());
+                DrugReaction dr = new DrugReaction(drugReactionDrugReg.getText().toString().trim(), drugReactionReactionReg.getText().toString().trim());
                 patientInfoDatabaseService.addItemToDatabase(drugReactionDrugReg.getText().toString().trim(),
                         "DrugReaction",dr);
-
                 /*patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
                         drugReactionReactionReg.getText().toString().trim());*/
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.
-                        //addSubstance(substancesReg.getText().toString().trim());
-                                addItemToDatabase(substancesReg.getText().toString().trim(),"Substance",
-                                new Substance(substancesReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new Substance(substancesReg.getText().toString().trim()));
                     break;
             case R.id.buttonSmoking:
                 patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");
