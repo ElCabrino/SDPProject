@@ -107,13 +107,13 @@ PatientInfoTest {
     @Test
     public void testAddCondition(){
         onView(withId(R.id.ptGeneralInfos)).perform(scrollTo());
-        onView(withId(R.id.ptPriorConditionsReg)).perform(replaceText(condition));
+        onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition));
         onView(withId(R.id.buttonPriorConditions)).perform(scrollTo(), click());
     }
 
     @Test
     public void testAddSmoking(){
-        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), replaceText(smoking));
+        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), setTextInTextView(smoking));
         onView(withId(R.id.buttonSmoking)).perform(scrollTo(), click());
         onView(allOf(withId(R.id.ptSmokingValue), withText(smoking))).check(matches(withText(smoking)));
 
