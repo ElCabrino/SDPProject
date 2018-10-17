@@ -169,7 +169,7 @@ PatientInfoTest {
 
     void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo());
-        onView(withId(idEditText)).perform(typeText(text)).perform(closeSoftKeyboard());
+        onView(withId(idEditText)).perform(setTextInTextView(text));
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).check(matches(withText(text)));
     }
