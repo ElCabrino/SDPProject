@@ -54,7 +54,7 @@ PatientInfoTest {
     private String surgery2 = "arm surgery";
     private String surgery2Year = "2005";
 
-    private ArrayList<Allergy> allergies;
+    private ArrayList<InfoString> allergies;
     private ArrayList<Surgery> surgeries;
     private ArrayList<DrugReaction> drugReactions;
 
@@ -85,9 +85,9 @@ PatientInfoTest {
 
     private void populateAllergies()
     {
-        allergies = new ArrayList<Allergy>();
-        allergies.add(new Allergy(al1));
-        allergies.add(new Allergy(al2));
+        allergies = new ArrayList<InfoString>();
+        allergies.add(new InfoString(al1));
+        allergies.add(new InfoString(al2));
     }
 
     private void populateSurgeries()
@@ -123,8 +123,8 @@ PatientInfoTest {
     public void testAddAndRecoverAllergy() throws InterruptedException {
         onView(withId(R.id.buttonAllergy)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
-        for (Allergy allergy : allergies) {
-            onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getAllergy()));
+        for (InfoString allergy : allergies) {
+            onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getInfo()));
             onView(withId(R.id.buttonAllergy)).perform(click());
         }
     }
