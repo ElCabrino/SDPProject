@@ -112,14 +112,6 @@ PatientInfoTest {
         onView(withId(R.id.buttonPriorConditions)).perform(scrollTo(), click());
     }
 
-    @Test
-    public void testAddSmoking(){
-        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), clearText(), setTextInTextView(smoking), closeSoftKeyboard());
-        onView(withId(R.id.buttonSmoking)).perform(scrollTo(), click());
-        onView(allOf(withId(R.id.ptSmokingValue), withText(smoking))).check(matches(withText(smoking)));
-
-    }
-
     //@Test
     public void testAddAndRecoverAllergy() throws InterruptedException {
         onView(withId(R.id.buttonAllergy)).perform(scrollTo());
