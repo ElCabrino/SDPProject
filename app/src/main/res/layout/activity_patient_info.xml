@@ -272,7 +272,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/cig_per_day"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:hint="0"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -309,7 +310,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/drinks_per_day"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:hint="0"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -346,7 +348,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/exercise_per_week"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:hint="0"/>
 
 
             <LinearLayout
