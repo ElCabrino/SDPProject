@@ -168,8 +168,8 @@ PatientInfoTest {
         addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }
 
-    void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
-        onView(withId(idButton)).perform(scrollTo());
+    private void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
+        onView(withId(idButton)).perform(scrollTo(), closeSoftKeyboard());
         onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).check(matches(withText(text)));
