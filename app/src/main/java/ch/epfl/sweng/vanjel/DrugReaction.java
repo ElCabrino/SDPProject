@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
-public class DrugReaction {
+public class DrugReaction extends Info{
     String drug;
     String reaction;
 
@@ -18,5 +18,11 @@ public class DrugReaction {
 
     public String getReaction() {
         return reaction;
+    }
+
+
+    @Override
+    String getAndroidInfo() {
+        return getReaction();
     }
 }

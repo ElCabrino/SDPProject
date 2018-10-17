@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
-public class Substance {
+public class Substance extends Info{
     private String substance;
 
     public Substance () {}
@@ -11,5 +11,10 @@ public class Substance {
 
     public String getSubstance() {
         return substance;
+    }
+
+    @Override
+    String getAndroidInfo() {
+        return getSubstance();
     }
 }

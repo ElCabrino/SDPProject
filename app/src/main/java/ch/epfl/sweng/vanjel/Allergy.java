@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
-public class Allergy {
+public class Allergy extends Info{
 
     String allergy;
 
@@ -12,5 +12,9 @@ public class Allergy {
 
     public String getAllergy() {
         return allergy;
+    }
+
+    String getAndroidInfo(){
+        return getAllergy();
     }
 }

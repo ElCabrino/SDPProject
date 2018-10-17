@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
-public class Surgery {
+public class Surgery extends Info{
     String type;
     String year;
 
@@ -26,5 +26,10 @@ public class Surgery {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    @Override
+    String getAndroidInfo() {
+        return getType();
     }
 }
