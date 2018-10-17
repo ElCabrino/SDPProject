@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 
+import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -113,7 +114,7 @@ PatientInfoTest {
 
     @Test
     public void testAddSmoking(){
-        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), setTextInTextView(smoking), closeSoftKeyboard());
+        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), clearText(), setTextInTextView(smoking), closeSoftKeyboard());
         onView(withId(R.id.buttonSmoking)).perform(scrollTo(), click());
         onView(allOf(withId(R.id.ptSmokingValue), withText(smoking))).check(matches(withText(smoking)));
 
@@ -169,7 +170,7 @@ PatientInfoTest {
 
     void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo());
-        onView(withId(idEditText)).perform(setTextInTextView(text), closeSoftKeyboard());
+        onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).check(matches(withText(text)));
     }
