@@ -152,5 +152,6 @@ public class ProfileTest {
         TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile search button")).perform(scrollTo(), click());
         intended(hasComponent(SearchDoctor.class.getName()));
+        Intents.release();
     }
 }
