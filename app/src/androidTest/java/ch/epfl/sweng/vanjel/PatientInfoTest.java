@@ -167,27 +167,26 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverSmoking() {
-        onView(withId(R.id.buttonGenInfoPtReg)).perform(scrollTo());
-        onView(withId(R.id.ptSmokingReg)).perform(typeText(amount)).perform(closeSoftKeyboard());
-        onView(withId(R.id.buttonSmoking)).perform(click());
-        onView(withId(R.id.ptSmokingValue)).check(matches(withText(amount)));
+        addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, amount);
     }
 
     @Test
     public void testAddAndRecoverDrinking() {
-        onView(withId(R.id.buttonExercise)).perform(scrollTo());
-        onView(withId(R.id.ptDrinkingReg)).perform(typeText(amount)).perform(closeSoftKeyboard());
-        onView(withId(R.id.buttonDrinking)).perform(click());
-        onView(withId(R.id.ptDrinkingValue)).check(matches(withText(amount)));
+        addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, amount);
     }
 
     @Test
     public void testAddAndRecoverExercise() {
-        onView(withId(R.id.buttonSubstance)).perform(scrollTo());
-        onView(withId(R.id.ptExerciseReg)).perform(typeText(exercise)).perform(closeSoftKeyboard());
-        onView(withId(R.id.buttonExercise)).perform(click());
-        onView(withId(R.id.ptExerciseValue)).check(matches(withText(exercise)));
+        addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }
+
+    void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
+        onView(withId(idButton)).perform(scrollTo());
+        onView(withId(idEditText)).perform(typeText(text)).perform(closeSoftKeyboard());
+        onView(withId(idButton)).perform(click());
+        onView(withId(idTextField)).check(matches(withText(text)));
+    }
+
 
     private static ViewAction setTextInTextView(final String value){
         return new ViewAction() {
