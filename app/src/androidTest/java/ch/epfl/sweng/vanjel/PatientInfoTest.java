@@ -107,13 +107,13 @@ PatientInfoTest {
     @Test
     public void testAddCondition(){
         onView(withId(R.id.ptGeneralInfos)).perform(scrollTo());
-        onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition));
+        onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition), closeSoftKeyboard());
         onView(withId(R.id.buttonPriorConditions)).perform(scrollTo(), click());
     }
 
     @Test
     public void testAddSmoking(){
-        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), setTextInTextView(smoking));
+        onView(withId(R.id.ptSmokingReg)).perform(scrollTo(), setTextInTextView(smoking), closeSoftKeyboard());
         onView(withId(R.id.buttonSmoking)).perform(scrollTo(), click());
         onView(allOf(withId(R.id.ptSmokingValue), withText(smoking))).check(matches(withText(smoking)));
 
@@ -124,7 +124,7 @@ PatientInfoTest {
         onView(withId(R.id.buttonAllergy)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for (InfoString allergy : allergies) {
-            onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getInfo()));
+            onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonAllergy)).perform(click());
         }
     }
@@ -134,8 +134,8 @@ PatientInfoTest {
         onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for (DrugReaction reaction: drugReactions) {
-            onView(withId(R.id.ptDrugReactionDrugReg)).perform(setTextInTextView(reaction.getDrug()));
-            onView(withId(R.id.ptDrugReactionReactionReg)).perform(setTextInTextView(reaction.getReaction()));
+            onView(withId(R.id.ptDrugReactionDrugReg)).perform(setTextInTextView(reaction.getDrug()), closeSoftKeyboard());
+            onView(withId(R.id.ptDrugReactionReactionReg)).perform(setTextInTextView(reaction.getReaction()), closeSoftKeyboard());
             onView(withId(R.id.buttonDrugReaction)).perform(click());
         }
     }
@@ -145,8 +145,8 @@ PatientInfoTest {
         onView(withId(R.id.buttonSurgery)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(4);
         for (Surgery surgery: surgeries) {
-            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()));
-            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()));
+            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()), closeSoftKeyboard());
+            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()), closeSoftKeyboard());
             onView(withId(R.id.buttonSurgery)).perform(click());
         }
 
@@ -169,7 +169,7 @@ PatientInfoTest {
 
     void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo());
-        onView(withId(idEditText)).perform(setTextInTextView(text));
+        onView(withId(idEditText)).perform(setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).check(matches(withText(text)));
     }
