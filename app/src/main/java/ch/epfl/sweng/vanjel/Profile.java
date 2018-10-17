@@ -52,10 +52,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button saveButton;
     Button searchButton;
 
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
     String userType;
-
 
     Boolean isPatient = new Boolean(false);
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
