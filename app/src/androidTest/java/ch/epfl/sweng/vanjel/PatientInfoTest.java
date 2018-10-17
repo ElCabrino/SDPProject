@@ -127,12 +127,6 @@ PatientInfoTest {
             onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getAllergy()));
             onView(withId(R.id.buttonAllergy)).perform(click());
         }
-
-        for ( int i = 0; i < allergies.size(); i++ ) {
-           onView(allOf(withId(R.id.textViewAllergies), withText(allergies.get(i).getAllergy())))
-                    .check(matches(withText(allergies.get(i).getAllergy())));
-
-        }
     }
 
     @Test
@@ -144,10 +138,7 @@ PatientInfoTest {
             onView(withId(R.id.ptDrugReactionReactionReg)).perform(setTextInTextView(reaction.getReaction()));
             onView(withId(R.id.buttonDrugReaction)).perform(click());
         }
-    }
 
-    @Test
-    public void testAddAndRecoverSurgery() throws InterruptedException {
         onView(withId(R.id.buttonSurgery)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for (Surgery surgery: surgeries) {
@@ -155,14 +146,12 @@ PatientInfoTest {
             onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()));
             onView(withId(R.id.buttonSurgery)).perform(click());
         }
+    }
 
-/*        for ( int i = 0; i < surgeries.size(); i++ ) {
-            onView(allOf(withId(R.id.textViewSurgeries), withText(surgeries.get(i).getType())))
-                    .check(matches(withText(surgeries.get(i).getType())));
-            onView(allOf(withId(R.id.textViewSurgeries), withText(surgeries.get(i).getYear())))
-                    .check(matches(withText(surgeries.get(i).getYear())));
+    @Test
+    public void testAddAndRecoverSurgery() throws InterruptedException {
 
-        }*/
+
     }
 
     @Test
