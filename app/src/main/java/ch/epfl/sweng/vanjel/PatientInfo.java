@@ -209,8 +209,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                         //addConditionToDatabase(priorConditionsReg.getText().toString().trim());
                 break;
             case R.id.buttonSurgery:
-                Surgery chir = new Surgery(surgeriesReg.getText().toString().trim(), surgeriesYearReg.getText().toString().trim());
-                patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(), "Surgery", chir);
+                patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(), "Surgery", new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
                 /*patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
                         surgeriesYearReg.getText().toString().trim());*/
                 break;
@@ -227,9 +226,8 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                         drugRegimenTimesReg.getText().toString().trim());*/
                 break;
             case R.id.buttonDrugReaction:
-                DrugReaction dr = new DrugReaction(drugReactionDrugReg.getText().toString().trim(), drugReactionReactionReg.getText().toString().trim());
                 patientInfoDatabaseService.addItemToDatabase(drugReactionDrugReg.getText().toString().trim(),
-                        "DrugReaction",dr);
+                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg), getTextFromField(drugReactionReactionReg)));
                 /*patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
                         drugReactionReactionReg.getText().toString().trim());*/
                 break;
@@ -247,5 +245,9 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 break;
 
         }
+    }
+
+    String getTextFromField(EditText field){
+        return field.getText().toString().trim();
     }
 }
