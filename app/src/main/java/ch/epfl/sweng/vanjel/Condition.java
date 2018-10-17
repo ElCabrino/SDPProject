@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
-public class Condition {
+public class Condition extends Info {
 
     String condition;
 
@@ -13,4 +13,6 @@ public class Condition {
     public String getCondition() {
         return condition;
     }
+
+    String getAndroidInfo() {return getCondition();}
 }

@@ -56,7 +56,6 @@ class PatientInfoDatabaseService {
         });
     }
 
-
     void addAmountListener(final TextView textView, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         dbCat.addValueEventListener(new ValueEventListener() {

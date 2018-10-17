@@ -59,6 +59,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     List<DrugReaction> drugReactionList;
     List<Drug> drugList;
     List<Substance> substanceList;
+    InfoList substanceInfoList;
 
 
     @Override
@@ -156,17 +157,19 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onStart();
         // add the database listeners
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
-                Condition.class, new ConditionList(this,conditionList));
+                Condition.class, new InfoList<Condition>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
-                Surgery.class, new SurgeryList(this,surgeryList));
+                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
         patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
-                Allergy.class, new AllergyList(this,allergyList));
+                Allergy.class, new InfoList<Allergy>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
         patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
-                DrugReaction.class, new DrugReactionList(this,drugReactionList));
+                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
-                Drug.class, new DrugList(this,drugList));
+                Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
+
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
-                Substance.class, new SubstanceList(this,substanceList));
+                Substance.class, new InfoList<Substance>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
