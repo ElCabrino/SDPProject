@@ -1,9 +1,13 @@
 package ch.epfl.sweng.vanjel;
 
 import android.os.Bundle;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +33,18 @@ public class SearchDoctorTest {
     String city = "Morges";
 
     @Rule
-    public final IntentsTestRule<SearchDoctor> ActivityRule =
-            new IntentsTestRule<>(SearchDoctor.class);
+    public final ActivityTestRule<SearchDoctor> ActivityRule =
+            new ActivityTestRule<>(SearchDoctor.class);
+
+    @Before
+    public void initIntents() {
+        Intents.init();
+    }
+
+    @After
+    public void releaseIntents() {
+        Intents.release();
+    }
 
     @Test
     public void getFieldStringsTest() {

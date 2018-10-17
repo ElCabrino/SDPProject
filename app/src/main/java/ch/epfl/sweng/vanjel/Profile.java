@@ -45,6 +45,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     Button editButton;
     Button saveButton;
+    Button searchButton;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -64,6 +65,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
+        searchButton.setOnClickListener(this);
     }
 
     private ValueEventListener createValueEventListener(final String type) {
@@ -113,6 +115,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             getStringFromFields();
             saveNewValues();
             setEditText(false, View.VISIBLE, View.GONE);
+        } else if (v.getId() == R.id.searchDoctorButton) {
+            Intent intent = new Intent(this, SearchDoctor.class);
+            startActivity(intent);
         }
     }
 
@@ -132,6 +137,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.editButton = findViewById(R.id.editButton);
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
+        this.searchButton = findViewById(R.id.searchDoctorButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
