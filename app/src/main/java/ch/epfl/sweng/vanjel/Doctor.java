@@ -8,4 +8,16 @@ public class Doctor extends User {
         super(email, firstName, lastName, birthday, street, streetNumber, city, country, gender);
         this.activity = activity;
     }
+
+
+    public String getActivity(){
+        return activity.name();
+    }
+
+    public void setActivity(DoctorActivity activity){
+        this.activity = activity;
+    }
+
+    Doctor() {}
+
 }
