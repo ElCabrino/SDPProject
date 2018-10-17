@@ -138,19 +138,17 @@ PatientInfoTest {
             onView(withId(R.id.ptDrugReactionReactionReg)).perform(setTextInTextView(reaction.getReaction()));
             onView(withId(R.id.buttonDrugReaction)).perform(click());
         }
-
-        onView(withId(R.id.buttonSurgery)).perform(scrollTo());
-        TimeUnit.SECONDS.sleep(5);
-        for (Surgery surgery: surgeries) {
-            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()));
-            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()));
-            onView(withId(R.id.buttonSurgery)).perform(click());
-        }
     }
 
     @Test
     public void testAddAndRecoverSurgery() throws InterruptedException {
-
+        onView(withId(R.id.buttonSurgery)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(4);
+        for (Surgery surgery: surgeries) {
+            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()));
+            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()));
+            onView(withId(R.id.buttonSurgery)).perform(click());
+        }
 
     }
 
@@ -175,7 +173,6 @@ PatientInfoTest {
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).check(matches(withText(text)));
     }
-
 
     private static ViewAction setTextInTextView(final String value){
         return new ViewAction() {
