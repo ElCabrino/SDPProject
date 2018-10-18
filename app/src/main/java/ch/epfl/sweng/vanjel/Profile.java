@@ -119,7 +119,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (v.getId() == R.id.logoutButton) {
+        if (i == R.id.logoutButton) {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
