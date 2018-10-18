@@ -1,8 +1,11 @@
 package ch.epfl.sweng.vanjel;
 
-import android.os.Bundle;
+
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +38,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     TextView city;
     TextView country;
 
+    Button patientInfoButton;
     Button logoutButton;
 
     String newLastName;
@@ -47,25 +52,34 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button saveButton;
     Button searchButton;
 
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
     String userType;
+
+    Boolean isPatient = new Boolean(false);
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         searchUserIn("Patient");
         searchUserIn("Doctor");
+        loadContent();
     }
 
     private void loadContent() {
         setContentView(R.layout.activity_profile);
         getButtonsView();
 
+
+        patientInfoButton = findViewById(R.id.patientInfoButton);
+        logoutButton = findViewById(R.id.logoutButton);
+
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
+        patientInfoButton.setOnClickListener(this);
+
+        isPatientUser();
     }
 
     private ValueEventListener createValueEventListener(final String type) {
@@ -104,21 +118,38 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.logoutButton) {
-            FirebaseAuth.getInstance().signOut();
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        } else if (v.getId() == R.id.editButton) {
-            setEditText(true, View.GONE, View.VISIBLE);
-        } else if (v.getId() == R.id.saveButton) {
-            getStringFromFields();
-            saveNewValues();
-            setEditText(false, View.VISIBLE, View.GONE);
-        } else if (v.getId() == R.id.searchDoctorButton) {
-            Intent intent = new Intent(this, SearchDoctor.class);
-            startActivity(intent);
+        int i = v.getId();
+        switch (i) {
+            case R.id.logoutButton:
+                logOut();
+                break;
+            case R.id.patientInfoButton:
+                if (isPatient) {
+                    Intent intent = new Intent(this, PatientInfo.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.editButton:
+                setEditText(true, View.GONE, View.VISIBLE);
+                break;
+            case R.id.saveButton:
+                getStringFromFields();
+                saveNewValues();
+                setEditText(false, View.VISIBLE, View.GONE);
+                break;
+            case R.id.searchDoctorButton:
+                Intent intent = new Intent(this, SearchDoctor.class);
+                startActivity(intent);
         }
+    }
+
+    private void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void getAllTextView() {
@@ -173,6 +204,26 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.newCountry = this.country.getText().toString().trim();
     }
 
+void isPatientUser() {
+        DatabaseReference patientRef;
+        patientRef = database.getReference("Patient");
+        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        isPatient = true;
+                    } else {
+                        isPatient = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();

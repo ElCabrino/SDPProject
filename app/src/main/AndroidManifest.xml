@@ -18,10 +18,11 @@
         </activity>
         <activity android:name=".ChooseRegistration" />
 
-        <!-- <activity android:name=".PatientMedicalInfo" /> -->
         <activity android:name=".Registration" />
-        <activity android:name=".DoctorCalendar" />
-        <activity android:name=".Profile" />
+
+        <activity android:name=".DoctorCalendar"/>
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".PatientInfo"></activity>
         <activity android:name=".FilteredDoctors" />
         <activity android:name=".SearchDoctor" />
     </application>

@@ -20,8 +20,8 @@
     <string name="general_informations">General informations</string>
     <string name="medical_condition">Do you suffer from any medical condition ?</string>
     <string name="previous_surgeries">Have you ever had surgery ? Please list which surgeries and what year</string>
-    <string name="allergies">Do you have any allergies ?</string>
-    <string name="drug_reaction">Did you ever have a strong reaction, allergic or other, to a drug ? Please write the drug and the reaction</string>
+    <string name="allergies">Do you have any allergies ? Please specify which</string>
+    <string name="drug_reaction">Did you ever have a strong reaction, allergic or otherwise, to a drug ? Please write the drug and the reaction</string>
     <string name="current_medication">Are you currently taking medication ? Please write down what medication,the individual dosage and how many times the drug is taken per day</string>
     <string name="drug">Drug</string>
     <string name="dosage">Dosage</string>
@@ -29,8 +29,8 @@
     <string name="add">add</string>
     <string name="cig_per_day">How many cigarettes do you consumme on average per day?</string>
     <string name="drinks_per_day">How many drinks do you consumme on average per day?</string>
-    <string name="exercice_per_week">How many hours of exercices do you do per week ?</string>
-    <string name="other_substances">Do you consumme any other substances (recreationnal drugs, alternative medcecines,..) ?</string>
+    <string name="exercise_per_week">How many hours of physical exercise do you do per week ?</string>
+    <string name="other_substances">Do you consume any other substances (recreationnal drugs, alternative medicines,..) ?</string>
     <string name="additional_information">Additional information</string>
     <string name="dyspnea">Do you have trouble breathing ?</string>
     <string name="pain">Do you have pain somewhere ?</string>

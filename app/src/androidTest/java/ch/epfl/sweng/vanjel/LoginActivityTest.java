@@ -38,6 +38,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
 
+    private LoginHelper helper = new LoginHelper();
+
     private String email = "test@test.ch";
     private String password = "123456";
 
@@ -47,7 +49,7 @@ public class LoginActivityTest {
 
     @Test
     public void testOpenChooseRegistration() {
-        signOutIfPossible();
+        helper.signOutIfPossible();
         onView(withId(R.id.registrationLogin)).perform(click());
         intended(hasComponent(ChooseRegistration.class.getName()));
     }
@@ -72,11 +74,11 @@ public class LoginActivityTest {
             // Ignore
         }
 
-        signOutIfPossible();
+        helper.signOutIfPossible();
 
-        enterEmail(email);
+        helper.enterEmail(email);
 
-        enterPassword(password);
+        helper.enterPassword(password);
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
@@ -90,9 +92,9 @@ public class LoginActivityTest {
     @Test
     public void emptyEmailLogin(){
 
-        signOutIfPossible();
+        helper.signOutIfPossible();
 
-        enterPassword(password);
+        helper.enterPassword(password);
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
@@ -104,8 +106,8 @@ public class LoginActivityTest {
     @Test
     public void emptyPasswordLogin() throws InterruptedException {
 
-        signOutIfPossible();
-        enterEmail(email);
+        helper.signOutIfPossible();
+        helper.enterEmail(email);
 
         onView(withId(R.id.buttonLogin)).perform(click());
 
@@ -122,29 +124,12 @@ public class LoginActivityTest {
         String email = "impossible@impossible.ch";
         String password = "impossiblePassword";
 
-        signOutIfPossible();
-        enterEmail(email);
-        enterPassword(password);
+        helper.signOutIfPossible();
+        helper.enterEmail(email);
+        helper.enterPassword(password);
 
 
 //        intended(hasComponent(LoginActivity.class.getName()));
-
-    }
-
-    private void enterEmail(String email) {
-        onView(withId(R.id.mailLogin)).perform(replaceText(email));
-    }
-
-    private void enterPassword(String password) {
-        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
-    }
-
-    private void signOutIfPossible() {
-        try {
-            onView(withId(R.id.logoutButton)).perform(click());
-        } catch (NoMatchingViewException e) {
-            // Ignore
-        }
 
     }
 }
