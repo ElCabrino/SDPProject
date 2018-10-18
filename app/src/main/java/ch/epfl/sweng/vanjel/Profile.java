@@ -120,10 +120,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.logoutButton) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            logOut();
         } else if (i == R.id.patientInfoButton) {
             if (isPatient) {
                 Intent intent = new Intent(this, PatientInfo.class);
@@ -141,6 +138,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(this, SearchDoctor.class);
             startActivity(intent);
         }
+    }
+
+    private void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void getAllTextView() {
