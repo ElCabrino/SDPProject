@@ -119,24 +119,29 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.logoutButton) {
-            logOut();
-        } else if (i == R.id.patientInfoButton) {
-            if (isPatient) {
-                Intent intent = new Intent(this, PatientInfo.class);
+        switch (i) {
+            case R.id.logoutButton:
+                logOut();
+                break;
+            case R.id.patientInfoButton:
+                if (isPatient) {
+                    Intent intent = new Intent(this, PatientInfo.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.editButton:
+                setEditText(true, View.GONE, View.VISIBLE);
+                break;
+            case R.id.saveButton:
+                getStringFromFields();
+                saveNewValues();
+                setEditText(false, View.VISIBLE, View.GONE);
+                break;
+            case R.id.searchDoctorButton:
+                Intent intent = new Intent(this, SearchDoctor.class);
                 startActivity(intent);
-            } else {
-                Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-            }
-        } else if (v.getId() == R.id.editButton) {
-            setEditText(true, View.GONE, View.VISIBLE);
-        } else if (v.getId() == R.id.saveButton) {
-            getStringFromFields();
-            saveNewValues();
-            setEditText(false, View.VISIBLE, View.GONE);
-        } else if (v.getId() == R.id.searchDoctorButton) {
-            Intent intent = new Intent(this, SearchDoctor.class);
-            startActivity(intent);
         }
     }
 
