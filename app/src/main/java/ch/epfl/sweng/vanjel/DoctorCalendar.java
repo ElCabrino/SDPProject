@@ -29,8 +29,14 @@ public class DoctorCalendar extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), DoctorAvailability.class);
-                v.getContext().startActivity(intent);
+                /*Intent intent = new Intent(v.getContext(), DoctorAvailability.class);
+                v.getContext().startActivity(intent);*/
+                mData.add(new DoctorCalendarItem(cal.getTime().toString().substring(0,10),
+                        new Patient("patient@patient.com","Another", "Patient",
+                                "1 janvier 1970","rue de ","1",
+                                "Lausanne","Switzerland",Gender.Other)));
+                adapter.notifyItemInserted(mData.size());
+                recyclerView.scrollToPosition(mData.size()-1);
             }
         });
 
