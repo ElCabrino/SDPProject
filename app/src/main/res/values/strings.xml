@@ -42,4 +42,35 @@
     <string name="database_error">Error with database.</string>
     <string name="oklm">oklm un test deux test</string>
     <string name="title_activity_search_doctor">SearchDoctor</string>
+    <string name="doc_availabilities">Set your general weekly availabilities</string>
+    <string name="valid">Valid</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="eight">8:00</string>
+    <string name="eight_thirty">8:30</string>
+    <string name="nine">9:00</string>
+    <string name="nine_thirty">9:30</string>
+    <string name="ten">10:00</string>
+    <string name="ten_thirty">10:30</string>
+    <string name="eleven">11:00</string>
+    <string name="eleven_thirty">11:30</string>
+    <string name="twelve">12:00</string>
+    <string name="twelve_thirty">12:30</string>
+    <string name="thirteen">13:00</string>
+    <string name="thirteen_thirty">13:30</string>
+    <string name="fourteen">14:00</string>
+    <string name="fourteen_thirty">14:30</string>
+    <string name="fifteen">15:00</string>
+    <string name="fifteen_thirty">15:30</string>
+    <string name="sixteen">16:00</string>
+    <string name="sixteen_thirty">16:30</string>
+    <string name="seventeen">17:00</string>
+    <string name="seventeen_thirty">17:30</string>
+    <string name="eighteen">18:00</string>
+    <string name="eighteen_thirty">18:30</string>
+
 </resources>

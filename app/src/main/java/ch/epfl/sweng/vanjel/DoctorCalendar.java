@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,31 +29,22 @@ public class DoctorCalendar extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mData.add(new DoctorCalendarItem(cal.getTime().toString().substring(0,10),
-                        new Patient("patient@patient.com","Another", "Patient",
-                                "1 janvier 1970","rue de ","1",
-                                "Lausanne","Switzerland",Gender.Other)));
-                adapter.notifyItemInserted(mData.size());
-                recyclerView.scrollToPosition(mData.size()-1);
+                Intent intent = new Intent(v.getContext(), DoctorAvailability.class);
+                v.getContext().startActivity(intent);
             }
         });
 
         initRecyclerView();
     }
 
-    /*private void init() {
-
-        for (int i = 0; i < 10; i++){
-            DoctorCalendarItem data = new DoctorCalendarItem(cal.getTime().toString().substring(0,10),
-                    new Patient("patient@patient.com","A", "Patient",
-                            "1 janvier 1970","rue de ","1",
-                            "Lausanne","Switzerland",Gender.Other));
-            mData.add(data);
-            cal.add(Calendar.DATE, 1);
-        }
-
-        initRecyclerView();
-    }*/
+    /* ADD ITEM
+    mData.add(new DoctorCalendarItem(cal.getTime().toString().substring(0,10),
+                        new Patient("patient@patient.com","Another", "Patient",
+                                "1 janvier 1970","rue de ","1",
+                                "Lausanne","Switzerland",Gender.Other)));
+                adapter.notifyItemInserted(mData.size());
+                recyclerView.scrollToPosition(mData.size()-1);
+    */
 
     private void initRecyclerView() {
         recyclerView = findViewById(R.id.calender_recyclerView);
