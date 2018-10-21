@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".DoctorAvailability" >
+    tools:context=".DoctorAvailabilityActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -1305,7 +1305,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/validAvail"
+            android:id="@+id/valid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/valid" />
