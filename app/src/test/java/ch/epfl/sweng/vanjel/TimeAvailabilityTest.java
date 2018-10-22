@@ -8,8 +8,8 @@ public class TimeAvailabilityTest {
 
     private int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
 
+    // Id values for ToggleButtons in activity_doctor_availability
     private int[] idValues = {
-
             R.id.monday8,
             R.id.monday8_3,
             R.id.monday9,
