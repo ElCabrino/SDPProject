@@ -108,13 +108,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Take Appointment"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/doctorUID"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="doctorUID"-->
+            <!--tools:layout_editor_absoluteX="118dp"-->
+            <!--tools:layout_editor_absoluteY="160dp" />-->
     </LinearLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/doctorUID"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="doctorUID"-->
-        <!--tools:layout_editor_absoluteX="118dp"-->
-        <!--tools:layout_editor_absoluteY="160dp" />-->
+
+
+
 </android.support.constraint.ConstraintLayout>

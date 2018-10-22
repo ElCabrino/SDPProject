@@ -75,7 +75,6 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
                     }
                 }
                 intent.putExtra("doctorUID", key);
-
                 context.startActivity(intent);
             }
         });
