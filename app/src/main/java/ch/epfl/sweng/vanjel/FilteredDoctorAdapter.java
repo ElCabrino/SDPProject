@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static ch.epfl.sweng.vanjel.R.layout.layout_doctor_cardview;
 
@@ -50,7 +51,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
@@ -63,9 +64,19 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, LoginActivity.class);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, DoctorInformation.class);
 
+                // we need to give the uid of the doctor the user want to see
+                String key = "";
+                for(Map.Entry entry: doctorHashMap.entrySet()){
+                    if(doctors.get(i).equals(entry.getValue())){
+                        key = (String) entry.getKey();
+                        break; //breaking because its one to one map
+                    }
+                }
+                intent.putExtra("doctorUID", key);
+
+                context.startActivity(intent);
             }
         });
     }
