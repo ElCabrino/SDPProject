@@ -38,14 +38,11 @@ public class DoctorAvailabilityActivityTest {
                 124,
                 130
         };
-
         for (int i: toCheck) {
             onView(withId(TimeAvailability.times[i])).perform(scrollTo(), click());
         }
-
         for (int j: toCheck) {
             onView(withId(TimeAvailability.times[j])).perform(scrollTo()).check(matches(isChecked()));
         }
     }
-
 }
