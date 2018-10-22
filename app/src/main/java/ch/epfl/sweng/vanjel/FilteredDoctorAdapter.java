@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,12 +24,17 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
 
     public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data){
+
         this.doctorHashMap = data;
         this.context = context;
-        this.doctors = new ArrayList<>();
-        // loop for to take doctorHashmap to doctor
+
+        doctors = new ArrayList<>();
+
+//         loop for to take doctorHashmap to doctor
         for(Doctor doc: doctorHashMap.values())
             doctors.add(doc);
+
+
     }
 
 
@@ -44,7 +50,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FilteredDoctorAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
@@ -53,6 +59,15 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         viewHolder.streetNumber.setText(doctors.get(i).getStreetNumber());
         viewHolder.city.setText(doctors.get(i).getCity());
         viewHolder.country.setText(doctors.get(i).getCountry());
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(context, LoginActivity.class);
+//                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

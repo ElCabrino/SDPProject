@@ -16,13 +16,15 @@
         <activity android:name=".Profile" />
         <activity android:name=".PatientInfo" />
         <activity android:name=".FilteredDoctors" />
-        <activity android:name=".SearchDoctor" />
-        <activity android:name=".PatientCalendarActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".SearchDoctor" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".PatientCalendarActivity">
+
         </activity>
         <activity android:name=".PatientAppointmentActivity">
         </activity>

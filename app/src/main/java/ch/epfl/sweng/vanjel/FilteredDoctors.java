@@ -84,7 +84,8 @@ public class FilteredDoctors extends AppCompatActivity {
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
-//        ArrayList<Doctor> newDoctors = new ArrayList<>();
+
+        // local hashMap to store the selected doctors only
         HashMap<String, Doctor> selectedDoctorsHashMap = new HashMap<>();
 
 
@@ -96,14 +97,11 @@ public class FilteredDoctors extends AppCompatActivity {
             Boolean b3 = compareString(doc.getActivity(), specialisation);
             Boolean b4 = compareString(doc.getCity(), city);
 
-
             if (b1 || b2 || b3 || b4)
                 selectedDoctorsHashMap.put(oneDoc.getKey(), doc);
 
-//                newDoctors.add(doc);
 
         }
-//        doctors = newDoctors;
         doctorHashMap = selectedDoctorsHashMap;
         adapter.notifyDataSetChanged();
     }
