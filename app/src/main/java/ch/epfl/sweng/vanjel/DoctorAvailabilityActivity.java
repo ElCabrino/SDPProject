@@ -11,7 +11,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     private static final String TAG = "DoctorAvailability";
 
-    private int NUMBER_OF_SLOTS = 132;
+    private int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
 
     private Button valid;
 

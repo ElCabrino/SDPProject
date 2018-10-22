@@ -143,4 +143,8 @@ public class TimeAvailability {
     R.id.saturday18_3
 
     };
+
+    public static int getIdLength() {
+        return times.length;
+    }
 }
