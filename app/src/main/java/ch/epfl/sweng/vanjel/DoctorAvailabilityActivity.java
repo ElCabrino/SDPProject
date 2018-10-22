@@ -2,12 +2,9 @@ package ch.epfl.sweng.vanjel;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class DoctorAvailabilityActivity extends AppCompatActivity {
@@ -42,7 +39,11 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
         buttons = new ToggleButton[NUMBER_OF_SLOTS];
 
-        buttons[0] = findViewById(R.id.monday8);
+        for (int i=0; i<NUMBER_OF_SLOTS; i++) {
+            buttons[i] = findViewById(TimeAvailability.times[i]);
+        }
+
+/*        buttons[0] = findViewById(R.id.monday8);
         buttons[1] = findViewById(R.id.monday8_3);
         buttons[2] = findViewById(R.id.monday9);
         buttons[3] = findViewById(R.id.monday9_3);
@@ -178,7 +179,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         buttons[128] = findViewById(R.id.saturday17);
         buttons[129] = findViewById(R.id.saturday17_3);
         buttons[130] = findViewById(R.id.saturday18);
-        buttons[131] = findViewById(R.id.saturday18_3);
+        buttons[131] = findViewById(R.id.saturday18_3);*/
 
         valid = findViewById(R.id.valid);
     }
