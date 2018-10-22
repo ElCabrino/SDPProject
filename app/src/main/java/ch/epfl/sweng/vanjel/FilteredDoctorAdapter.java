@@ -51,7 +51,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
@@ -61,6 +61,8 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         viewHolder.city.setText(doctors.get(i).getCity());
         viewHolder.country.setText(doctors.get(i).getCountry());
 
+        final int id = i;
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +71,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
                 // we need to give the uid of the doctor the user want to see
                 String key = "";
                 for(Map.Entry entry: doctorHashMap.entrySet()){
-                    if(doctors.get(i).equals(entry.getValue())){
+                    if(doctors.get(id).equals(entry.getValue())){
                         key = (String) entry.getKey();
                         break; //breaking because its one to one map
                     }
