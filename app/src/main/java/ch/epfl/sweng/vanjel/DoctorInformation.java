@@ -1,9 +1,13 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class DoctorInformation extends AppCompatActivity {
+public class DoctorInformation extends AppCompatActivity implements View.OnClickListener {
 
     TextView lastName, firstName, activity, street, streetNumber, city, country;
     private Bundle bundle;
@@ -22,6 +26,8 @@ public class DoctorInformation extends AppCompatActivity {
     // database
     FirebaseDatabase database;
     DatabaseReference ref;
+
+    private Button takeAppointment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +69,27 @@ public class DoctorInformation extends AppCompatActivity {
         city = findViewById(R.id.city);
         country = findViewById(R.id.country);
 
+        takeAppointment = findViewById(R.id.buttonTakeAppointment);
+        takeAppointment.setOnClickListener(this);
+
+
         database = FirebaseDatabase.getInstance();
 
 
     }
 
+    public void onClick(View v) {
+        if(v.getId() == R.id.buttonTakeAppointment){
+            Intent intent = new Intent(this, PatientCalendarActivity.class);
+
+            intent.putExtra("doctorUID", doctorUID);
+
+            startActivity(intent);
+
+        }
+
+
+    }
     private void getDocWithUID(String uid){
 
 
@@ -97,5 +119,10 @@ public class DoctorInformation extends AppCompatActivity {
         streetNumber.setText(doctor.getStreetNumber());
         city.setText(doctor.getCity());
         country.setText(doctor.getCountry());
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }
