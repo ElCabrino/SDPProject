@@ -42,6 +42,7 @@
     <string name="database_error">Error with database.</string>
     <string name="oklm">oklm un test deux test</string>
     <string name="title_activity_search_doctor">SearchDoctor</string>
+    <string name="title_activity_patient_appointment">PatientAppointmentActivity</string>
     <string name="doc_availabilities">Set your general weekly availabilities</string>
     <string name="valid">Valid</string>
     <string name="monday">Monday</string>
