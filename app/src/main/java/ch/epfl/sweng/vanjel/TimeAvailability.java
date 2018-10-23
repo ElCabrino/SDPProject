@@ -2,6 +2,13 @@ package ch.epfl.sweng.vanjel;
 
 public class TimeAvailability {
 
+    public static int MONDAY = 0;
+    public static int TUESDAY = 22;
+    public static int WEDNESDAY = 44;
+    public static int THURSDAY = 66;
+    public static int FRIDAY = 88;
+    public static int SATURDAY = 110;
+
     static int[] times = {
 
     R.id.monday8,
@@ -146,5 +153,34 @@ public class TimeAvailability {
 
     public static int getIdLength() {
         return times.length;
+    }
+
+    public static boolean[] getDayAvailability(int start, String day, boolean[] slots) {
+        if (day != null) {
+            String[] groups = day.split(" / ");
+            for (int i = 0; i < groups.length; i++) {
+                int indStart = 999;
+                int indEnd = 999;
+                String[] subgroups = groups[i].split("-");
+                String[] timeStart = subgroups[0].split(":");
+                String[] timeEnd = subgroups[1].split(":");
+                if (Integer.parseInt(timeStart[1]) == 0) {
+                    indStart = start + (2 * Integer.parseInt(timeStart[0]) - 16);
+                } else {
+                    indStart = start + (2 * Integer.parseInt(timeStart[0]) - 15);
+                }
+                if (Integer.parseInt(timeEnd[1]) == 0) {
+                    indEnd = start + (2 * Integer.parseInt(timeEnd[0]) - 16);
+                } else {
+                    indEnd = start + (2 * Integer.parseInt(timeEnd[0]) - 15);
+                }
+                if (indStart < slots.length && indEnd < slots.length) {
+                    for (int n = indStart; n < indEnd; n++) {
+                        slots[n] = true;
+                    }
+                }
+            }
+        }
+        return slots;
     }
 }

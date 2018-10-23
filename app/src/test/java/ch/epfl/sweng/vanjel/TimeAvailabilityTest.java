@@ -151,10 +151,14 @@ public class TimeAvailabilityTest {
     };
 
     @Test
+    public void testGetLength() {
+        assertEquals(TimeAvailability.times.length, TimeAvailability.getIdLength());
+    }
+
+    @Test
     public void idValuesTest() {
         for (int i=0; i<NUMBER_OF_SLOTS;i++) {
             assertEquals(TimeAvailability.times[i], idValues[i]);
         }
     }
-
 }
