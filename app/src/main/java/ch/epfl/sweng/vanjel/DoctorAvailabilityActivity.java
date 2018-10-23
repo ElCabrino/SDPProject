@@ -141,16 +141,22 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         int isChain = 0;
         int minutes = 480; //480 minutes corresponds to 8:00
         String t = "-";
+        String temp = "";
         for (int i=start;i<start+22;i++) {
             if(slots[i] == true && isChain == 0) {
                 isChain = minutes;
             } else {
-                t = t+buildAvailabilityString(isChain, minutes, t.equals("-"));
+                temp = temp+buildAvailabilityString(isChain, minutes, temp.equals(""));
                 isChain = 0;
             }
             minutes +=30;
         }
-        return t;
+        if (temp.length() < t.length()) {
+            return t;
+        }
+        else {
+            return temp;
+        }
     }
 
     private String buildAvailabilityString(int start, int end, boolean firstTime) {
