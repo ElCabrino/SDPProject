@@ -56,4 +56,11 @@ public class DoctorInformationTest {
 
     }
 
+    @Test
+    public void takeAppointmentButtonTest() throws Exception{
+        onView(withId(R.id.buttonTakeAppointment)).perform(click());
+        TimeUnit.SECONDS.sleep(5); // wait to change page
+        intended(hasComponent(PatientCalendarActivity.class.getName()));
+    }
+
 }
