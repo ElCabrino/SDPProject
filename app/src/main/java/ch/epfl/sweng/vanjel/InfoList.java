@@ -37,7 +37,15 @@ public class InfoList<Info> extends ArrayAdapter<Info> {
 
         info = (ch.epfl.sweng.vanjel.Info) infoList.get(position);
 
+        /*if(infoList.getClass().getComponentType().isAssignableFrom(Surgery.class)) {
+            textView.setText(((Surgery) info).type + " in " + ((Surgery) info).getYear());
+            //textViewDrugReactions.setText(drugReaction.getDrug() + " : " + drugReaction.getReaction());
+        } else {
+            textView.setText(info.getAndroidInfo());
+        }*/
+
         textView.setText(info.getAndroidInfo());
+
 
         return listViewItem;
 
