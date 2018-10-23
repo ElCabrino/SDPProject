@@ -34,7 +34,6 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     private ToggleButton[] buttons;
 
     private Boolean[] slots;
-//    private boolean[] oldSlots = new boolean[TimeAvailability.getIdLength()];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,12 +140,12 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     private String getStringFromSlots(int start) {
         int isChain = 0;
         int minutes = 480;
-        String t = "";
+        String t = "-";
         for (int i=start;i<start+22;i++) {
             if(slots[i] == true && isChain == 0) {
                 isChain = minutes;
             } else {
-                t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
+                t = t+buildAvailabilityString(isChain, minutes, t.equals("-"));
                 isChain = 0;
             }
             minutes +=30;
