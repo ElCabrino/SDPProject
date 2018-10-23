@@ -122,22 +122,36 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     public Map<String, Object> getDayAvailability(int start) {
         Map<String, Object> day = new HashMap<>();
+/*        int isChain = 0;
+        int minutes = 480;
+        String t = "";
+        for (int i=start;i<start+22;i++) {
+            if(slots[i] == true && isChain == 0) {
+                isChain = minutes;
+            } else {
+                t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
+                isChain = 0;
+            }
+            minutes +=30;
+        }*/
+        day.put("availability", getStringFromSlots(start));
+        return day;
+    }
+
+    private String getStringFromSlots(int start) {
         int isChain = 0;
         int minutes = 480;
         String t = "";
         for (int i=start;i<start+22;i++) {
-            if(slots[i] == true) {
-                if (isChain == 0) {
-                    isChain = minutes;
-                }
+            if(slots[i] == true && isChain == 0) {
+                isChain = minutes;
             } else {
                 t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
                 isChain = 0;
             }
             minutes +=30;
         }
-        day.put("availability", t);
-        return day;
+        return t;
     }
 
     private String buildAvailabilityString(int start, int end, boolean firstTime) {
