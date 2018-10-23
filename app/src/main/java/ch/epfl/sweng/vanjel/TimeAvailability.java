@@ -174,7 +174,6 @@ public class TimeAvailability {
         return slots;
     }
 
-
     private static ArrayList<Integer> getRange(String s, int start) {
         ArrayList<Integer> res = new ArrayList<>();
         String[] groups = s.split(" / ");
