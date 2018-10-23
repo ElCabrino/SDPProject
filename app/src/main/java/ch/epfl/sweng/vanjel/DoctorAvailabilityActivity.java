@@ -34,7 +34,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     private ToggleButton[] buttons;
 
     private Boolean[] slots;
-    private boolean[] oldSlots = new boolean[TimeAvailability.getIdLength()];
+//    private boolean[] oldSlots = new boolean[TimeAvailability.getIdLength()];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,10 +175,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map<String, Object> tm = (Map<String, Object>) dataSnapshot.getValue();
                 if (tm != null) {
-                    oldSlots = TimeAvailability.getDayAvailability(dayindex, tm.get("availability").toString(), oldSlots);
-                    for (int i=dayindex;i<dayindex+22;i++) {
-                        buttons[i].setChecked(oldSlots[i]);
-                    }
+                    setOldSlots(TimeAvailability.getDayAvailability(dayindex, tm.get("availability").toString()), dayindex);
                 } else {
                     Log.d("ERROR", "tm is null");
                 }
@@ -192,4 +189,9 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         return listener;
     }
 
+    private void setOldSlots(boolean[] oldSlots, final int dayindex) {
+        for (int i=dayindex;i<dayindex+22;i++) {
+            buttons[i].setChecked(oldSlots[i]);
+        }
+    }
 }

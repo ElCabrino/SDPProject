@@ -155,7 +155,8 @@ public class TimeAvailability {
         return times.length;
     }
 
-    public static boolean[] getDayAvailability(int start, String day, boolean[] slots) {
+    public static boolean[] getDayAvailability(int start, String day) {
+        boolean[] slots = new boolean[getIdLength()];
         if (day != null) {
             int[] r = getRange(day, start);
             for (int n = r[0]; n < r[1]; n++) {
