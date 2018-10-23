@@ -1,8 +1,11 @@
 package ch.epfl.sweng.vanjel;
 
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,11 +29,14 @@ import static org.junit.Assert.*;
 public class DoctorInformationTest {
 
     @Rule
-    public final IntentsTestRule<SearchDoctor> mActivityRule =
-            new IntentsTestRule<>(SearchDoctor.class);
+    public final ActivityTestRule<SearchDoctor> mActivityRule =
+            new ActivityTestRule<>(SearchDoctor.class);
 
     @Before
     public void setUp() throws Exception{
+
+        Intents.init();
+
         String lastName = "Smith";
         onView(withId(R.id.lastNameSearch)).perform(typeText(lastName)).perform(closeSoftKeyboard());
         onView(withId(R.id.buttonSearch)).perform(scrollTo(), click());
@@ -61,6 +67,11 @@ public class DoctorInformationTest {
         onView(withId(R.id.buttonTakeAppointment)).perform(click());
         TimeUnit.SECONDS.sleep(5); // wait to change page
         intended(hasComponent(PatientCalendarActivity.class.getName()));
+    }
+
+    @After
+    public void end(){
+        Intents.release();
     }
 
 }
