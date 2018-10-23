@@ -216,7 +216,7 @@ PatientInfoTest {
     }
 
 
-    @Test
+    //@Test
     public void testAddAndRecoverSubstance() throws InterruptedException {
         onView(withId(R.id.buttonSubstance)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
@@ -276,7 +276,7 @@ PatientInfoTest {
 
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverDrug() throws InterruptedException {
         onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(4);
@@ -297,17 +297,17 @@ PatientInfoTest {
 
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverSmoking() {
         addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, smoking);
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverDrinking() {
         addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, drinking);
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverExercise() {
         addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }
