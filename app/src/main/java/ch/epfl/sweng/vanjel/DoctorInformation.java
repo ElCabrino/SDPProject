@@ -202,29 +202,43 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         gmap.setMinZoomPreference(12);
 
 
-        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
 
-        LatLng doctorLocation = getLocationFromAddress(strAddress);
+        LatLng doctorLocation = getLocationFromAddress(doctor);
+
+
+        // if address does not exist, we zoom in Lausanne and don't put any marker
+        if(doctorLocation == null){
+            doctorLocation = new LatLng(	46.519962, 	6.633597);
+        } else {
+            // put the pin (marker)
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(doctorLocation);
+            markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
+            gmap.addMarker(markerOptions);
+        }
+
         // move the camera
         gmap.moveCamera(CameraUpdateFactory.newLatLng(doctorLocation));
 
-        // put the pin (marker)
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(doctorLocation);
-        gmap.addMarker(markerOptions);
+
 
 
     }
 
-    public LatLng getLocationFromAddress(String strAddress){
+    public LatLng getLocationFromAddress(User user){
+
+        //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
+        String strAddress = user.getStreet() + " " + user.getStreetNumber() + ", " + user.getCity() + ", " + user.getCountry();
 
         Geocoder coder = new Geocoder(this);
         List<Address> address;
-        LatLng locationForMap = new LatLng(40.7143528, -74.0059731); // default value New york?
+        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
+        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
+
 
         try {
             address = coder.getFromLocationName(strAddress,5);
-            if (address==null) {
+            if (address.isEmpty()){
                 return null;
             }
             Address location=address.get(0);
