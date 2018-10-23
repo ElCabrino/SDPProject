@@ -163,10 +163,16 @@ public class TimeAvailability {
         if (day != null && !day.equals("-")) {
             List<int[]> allRes = getRange(day, start);
             for (int[] r: allRes) {
-                for (int n = r[0]; n < r[1]; n++) {
-                    slots[n] = true;
-                }
+                slots = setSlots(r);
             }
+        }
+        return slots;
+    }
+
+    private static boolean[] setSlots(int[] r) {
+        boolean[] slots = new boolean[getIdLength()];
+        for (int n = r[0]; n < r[1]; n++) {
+            slots[n] = true;
         }
         return slots;
     }
