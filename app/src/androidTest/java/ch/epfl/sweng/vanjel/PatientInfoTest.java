@@ -186,10 +186,11 @@ PatientInfoTest {
             onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonPriorConditions)).perform(click());
         }
+        onView(withId(R.id.ptSurgeryInfo)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for ( int i = 0; i < conditions.size(); i++ ) {
             onView(allOf(withId(R.id.textViewConditions), withText(conditions.get(i).getInfo())))
-                    .check(matches(withText(conditions.get(i).getInfo())));
+                    .check(matches(isDisplayed()));
 
         }
 
@@ -204,16 +205,18 @@ PatientInfoTest {
             onView(withId(R.id.buttonAllergy)).perform(click());
         }
 
+        onView(withId(R.id.ptDrugReactionInfo)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for ( int i = 0; i < allergies.size(); i++ ) {
             onView(allOf(withId(R.id.textViewAllergies), withText(allergies.get(i).getInfo())))
-                    .check(matches(withText(allergies.get(i).getInfo())));
+                    .check(matches(isDisplayed()));
 
         }
 
     }
 
-    //@Test
+
+    @Test
     public void testAddAndRecoverSubstance() throws InterruptedException {
         onView(withId(R.id.buttonSubstance)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
@@ -222,10 +225,11 @@ PatientInfoTest {
             onView(withId(R.id.buttonSubstance)).perform(click());
         }
 
+        onView(withId(R.id.buttonGenInfoPtReg)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for ( int i = 0; i < substances.size(); i++ ) {
             onView(allOf(withId(R.id.textViewSubstances), withText(substances.get(i).getInfo())))
-                    .check(matches(withText(substances.get(i).getInfo())));
+                    .check(matches(isDisplayed()));
 
         }
 
@@ -241,10 +245,11 @@ PatientInfoTest {
             onView(withId(R.id.buttonSurgery)).perform(click());
         }
 
+        onView(withId(R.id.ptAllergyInfo)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for ( int i = 0; i < expectedSurgeries.size(); i++ ) {
             onView(allOf(withId(R.id.textViewSurgeries), withText(expectedSurgeries.get(i))))
-                    .check(matches(withText(expectedSurgeries.get(i))));
+                    .check(matches(isDisplayed()));
 
         }
 
@@ -253,7 +258,7 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverDrugReaction() throws InterruptedException {
-        onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
+        onView(withId(R.id.buttonDrugReaction)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for (DrugReaction reaction: drugReactions) {
             onView(withId(R.id.ptDrugReactionDrugReg)).perform(setTextInTextView(reaction.getDrug()), closeSoftKeyboard());
@@ -261,10 +266,11 @@ PatientInfoTest {
             onView(withId(R.id.buttonDrugReaction)).perform(click());
         }
 
+        onView(withId(R.id.ptDrugRegimenInfo)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for ( int i = 0; i < expectedDrugReactions.size(); i++ ) {
             onView(allOf(withId(R.id.textViewDrugReactions), withText(expectedDrugReactions.get(i))))
-                    .check(matches(withText(expectedDrugReactions.get(i))));
+                    .check(matches(isDisplayed()));
 
         }
 
@@ -281,10 +287,11 @@ PatientInfoTest {
             onView(withId(R.id.buttonDrugRegimen)).perform(click());
         }
 
+        onView(withId(R.id.ptSmokingInfo)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for ( int i = 0; i < expectedDrugs.size(); i++ ) {
             onView(allOf(withId(R.id.textViewDrugs), withText(expectedDrugs.get(i))))
-                    .check(matches(withText(expectedDrugs.get(i))));
+                    .check(matches(isDisplayed()));
 
         }
 
@@ -309,6 +316,7 @@ PatientInfoTest {
         onView(withId(idButton)).perform(scrollTo(), closeSoftKeyboard());
         onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
+        onView(withId(idTextField)).perform(scrollTo());
         onView(withId(idTextField)).check(matches(withText(text)));
     }
 
