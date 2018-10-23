@@ -157,11 +157,11 @@ public class TimeAvailability {
 
     public static boolean[] getDayAvailability(int start, String day, boolean[] slots) {
         if (day != null) {
+            int indStart;
+            int indEnd;
             String[] groups = day.split(" / ");
-            for (int i = 0; i < groups.length; i++) {
-                int indStart;
-                int indEnd;
-                String[] subgroups = groups[i].split("-");
+            for (String g : groups) {
+                String[] subgroups = g.split("-");
                 indStart = getIndexFromTime(subgroups[0], start);
                 indEnd = getIndexFromTime(subgroups[1], start);
                 for (int n = indStart; n < indEnd; n++) {
