@@ -37,14 +37,20 @@ public class InfoList<Info> extends ArrayAdapter<Info> {
 
         info = (ch.epfl.sweng.vanjel.Info) infoList.get(position);
 
-        /*if(infoList.getClass().getComponentType().isAssignableFrom(Surgery.class)) {
+        if(info instanceof Surgery) {
             textView.setText(((Surgery) info).type + " in " + ((Surgery) info).getYear());
             //textViewDrugReactions.setText(drugReaction.getDrug() + " : " + drugReaction.getReaction());
-        } else {
+        } else if (info instanceof DrugReaction) {
+            textView.setText(((DrugReaction) info).getDrug() + " : " + ((DrugReaction) info).getReaction());
+        } else if(info instanceof Drug) {
+            textView.setText(((Drug) info).getDrug() + " " + ((Drug) info).getDosage()+ ", " +
+                    ((Drug) info).getFrequency() + " times per day");
+        }
+        else {
             textView.setText(info.getAndroidInfo());
-        }*/
+        }
 
-        textView.setText(info.getAndroidInfo());
+        //textView.setText(info.getAndroidInfo());
 
 
         return listViewItem;

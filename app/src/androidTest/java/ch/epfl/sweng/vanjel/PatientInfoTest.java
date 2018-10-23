@@ -42,19 +42,27 @@ PatientInfoTest {
 
     private LoginHelper helper = new LoginHelper();
 
-    private String condition = "Good condition";
-    private String smoking = "Often";
-    private String drinking = "never";
-    private String exercise = "everyday";
-    private String amount = "18";
+    private String cond1 = "Heart failure";
+    private String cond2 = "Diabetes";
+    private String smoking = "40";
+    private String drinking = "10";
+    private String exercise = "0";
+    //private String amount = "18";
     private String id = "ABLlrLukjAaPzaf5GA03takkw5k2";
-    private String al1 = "Bees";
-    private String al2 = "Bs";
-    private String surgery1 = "foot surgery";
+    private String al1 = "Peanuts";
+    private String al2 = "Cats";
+    private String surgery1 = "THA";
     private String surgery1Year = "2000";
-    private String surgery2 = "arm surgery";
+    private String surgery2 = "Cholecystectomy";
     private String surgery2Year = "2005";
+    private String drDrug1 = "Carbamazepine";
+    private String drReaction1 = "TEN";
+    private String drDrug2 = "Contrast";
+    private String drReaction2 = "Rashes";
 
+
+
+    private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
     private ArrayList<Surgery> surgeries;
     private ArrayList<DrugReaction> drugReactions;
@@ -63,7 +71,7 @@ PatientInfoTest {
     public static void loginPatientInfoUser() throws InterruptedException {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            FirebaseAuth.getInstance().signInWithEmailAndPassword("PatientInfo@test.ch", "123456");
+            FirebaseAuth.getInstance().signInWithEmailAndPassword("infoPatient@test.ch", "123456");
         }
 
         TimeUnit.SECONDS.sleep(10);
@@ -78,10 +86,18 @@ PatientInfoTest {
     @Before
     public void setUp() throws Exception
     {
+        populateConditions();
         populateAllergies();
         populateSurgeries();
         populateDrugs();
 
+    }
+
+    private void populateConditions()
+    {
+        conditions = new ArrayList<InfoString>();
+        conditions.add(new InfoString(cond1));
+        conditions.add(new InfoString(cond2));
     }
 
     private void populateAllergies()
@@ -101,15 +117,21 @@ PatientInfoTest {
     private void populateDrugs()
     {
         drugReactions = new ArrayList<DrugReaction>();
-        drugReactions.add(new DrugReaction("paracetamol", "skin reaction"));
-        drugReactions.add(new DrugReaction("tramadol", "indigestion"));
+        drugReactions.add(new DrugReaction(drDrug1, drReaction1));
+        drugReactions.add(new DrugReaction(drDrug2, drReaction2));
     }
 
     @Test
-    public void testAddCondition(){
-        onView(withId(R.id.ptGeneralInfos)).perform(scrollTo());
-        onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition), closeSoftKeyboard());
-        onView(withId(R.id.buttonPriorConditions)).perform(scrollTo(), click());
+    public void testAddAndRecoverCondition() throws InterruptedException {
+        onView(withId(R.id.buttonAllergy)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(5);
+        for (InfoString condition : conditions) {
+            onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());
+            onView(withId(R.id.buttonPriorConditions)).perform(click());
+        }
+        TimeUnit.SECONDS.sleep(5);
+
+
     }
 
     //@Test
@@ -147,12 +169,12 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverSmoking() {
-        addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, amount);
+        addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, smoking);
     }
 
     @Test
     public void testAddAndRecoverDrinking() {
-        addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, amount);
+        addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, drinking);
     }
 
     @Test
