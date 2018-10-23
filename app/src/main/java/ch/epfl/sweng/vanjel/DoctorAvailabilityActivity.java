@@ -122,31 +122,6 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     public Map<String, Object> getDayAvailability(int start) {
         Map<String, Object> day = new HashMap<>();
-/*        int isChain = 0;
-        int minutes = 480;
-        String t = "";
-        for (int i=start;i<start+22;i++) {
-            if(slots[i] == true) {
-                if (isChain == 0) {
-                    isChain = minutes;
-                }
-            } else {
-                if (isChain != 0) {
-                    if (t.length() > 1) {
-                        t = t + " / " + minutesToTime(isChain)+"-"+minutesToTime(minutes);
-                    } else {
-                        t = t + minutesToTime(isChain)+"-"+minutesToTime(minutes);
-                    }
-                }
-                isChain = 0;
-            }
-            minutes +=30;
-        }*/
-        day.put("availability", getTimeFromSlots(start));
-        return day;
-    }
-
-    private String getTimeFromSlots(int start) {
         int isChain = 0;
         int minutes = 480;
         String t = "";
@@ -156,18 +131,24 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
                     isChain = minutes;
                 }
             } else {
-                if (isChain != 0) {
-                    if (t.length() > 1) {
-                        t = t + " / " + minutesToTime(isChain)+"-"+minutesToTime(minutes);
-                    } else {
-                        t = t + minutesToTime(isChain)+"-"+minutesToTime(minutes);
-                    }
-                }
+                t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
                 isChain = 0;
             }
             minutes +=30;
         }
-        return t;
+        day.put("availability", t);
+        return day;
+    }
+
+    private String buildAvailabilityString(int start, int end, boolean firstTime) {
+        if (start != 0) {
+            if (firstTime) {
+                return minutesToTime(start)+"-"+minutesToTime(end);
+            } else {
+                return " / " + minutesToTime(start)+"-"+minutesToTime(end);
+            }
+        }
+        return "";
     }
 
     private String minutesToTime(int total) {
