@@ -1,5 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
+import android.text.format.Time;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -157,8 +159,27 @@ public class TimeAvailabilityTest {
 
     @Test
     public void idValuesTest() {
-        for (int i=0; i<NUMBER_OF_SLOTS;i++) {
+        for (int i = 0; i < NUMBER_OF_SLOTS; i++) {
             assertEquals(TimeAvailability.times[i], idValues[i]);
         }
+    }
+
+    @Test
+    public void testGetDayAvailability() {
+        boolean[] actuals = {false, false, false, false, false, false, false, false, false, false, true, false,
+                true, true, false, false, false, false, false, false, false, false
+                , false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false
+                , false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false
+                , false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false
+                , false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false
+                , false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false};
+
+        assertArrayEquals(TimeAvailability.getDayAvailability(TimeAvailability.MONDAY,
+                "13:00-13:30 / 14:00-15:00"), actuals);
     }
 }

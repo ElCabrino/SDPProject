@@ -139,7 +139,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     private String getStringFromSlots(int start) {
         int isChain = 0;
-        int minutes = 480;
+        int minutes = 480; //480 minutes corresponds to 8:00
         String t = "-";
         for (int i=start;i<start+22;i++) {
             if(slots[i] == true && isChain == 0) {

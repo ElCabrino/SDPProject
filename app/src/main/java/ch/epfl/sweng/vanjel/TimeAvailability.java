@@ -1,7 +1,12 @@
 package ch.epfl.sweng.vanjel;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 public class TimeAvailability {
 
+    private static final String TAG = "TimeAvailability";
     public static int MONDAY = 0;
     public static int TUESDAY = 22;
     public static int WEDNESDAY = 44;
@@ -158,21 +163,25 @@ public class TimeAvailability {
     public static boolean[] getDayAvailability(int start, String day) {
         boolean[] slots = new boolean[getIdLength()];
         if (day != null && !day.equals("-")) {
-            int[] r = getRange(day, start);
-            for (int n = r[0]; n < r[1]; n++) {
-                slots[n] = true;
+            ArrayList<Integer> r = getRange(day, start);
+            for(int i = 0; i < r.size()-1; i+=2){
+                System.out.println("i : " + i);
+                for(int j = r.get(i); j < r.get(i+1); ++j){
+                    System.out.println("    j : " + j);
+                    slots[j] = true;
+                }
             }
         }
         return slots;
     }
 
-    private static int[] getRange(String s, int start) {
-        int[] res = new int[2];
+    private static ArrayList<Integer> getRange(String s, int start) {
+        ArrayList<Integer> res = new ArrayList<>();
         String[] groups = s.split(" / ");
         for (String g : groups) {
             String[] subgroups = g.split("-");
-            res[0] = getIndexFromTime(subgroups[0], start);
-            res[1] = getIndexFromTime(subgroups[1], start);
+            res.add(getIndexFromTime(subgroups[0], start));
+            res.add(getIndexFromTime(subgroups[1], start));
         }
         return res;
     }
