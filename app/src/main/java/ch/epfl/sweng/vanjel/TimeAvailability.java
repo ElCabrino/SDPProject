@@ -162,18 +162,8 @@ public class TimeAvailability {
                 int indStart = 999;
                 int indEnd = 999;
                 String[] subgroups = groups[i].split("-");
-                String[] timeStart = subgroups[0].split(":");
-                String[] timeEnd = subgroups[1].split(":");
-                if (Integer.parseInt(timeStart[1]) == 0) {
-                    indStart = start + (2 * Integer.parseInt(timeStart[0]) - 16);
-                } else {
-                    indStart = start + (2 * Integer.parseInt(timeStart[0]) - 15);
-                }
-                if (Integer.parseInt(timeEnd[1]) == 0) {
-                    indEnd = start + (2 * Integer.parseInt(timeEnd[0]) - 16);
-                } else {
-                    indEnd = start + (2 * Integer.parseInt(timeEnd[0]) - 15);
-                }
+                indStart = getIndexFromTime(subgroups[0], start);
+                indEnd = getIndexFromTime(subgroups[1], start);
                 if (indStart < slots.length && indEnd < slots.length) {
                     for (int n = indStart; n < indEnd; n++) {
                         slots[n] = true;
@@ -182,5 +172,14 @@ public class TimeAvailability {
             }
         }
         return slots;
+    }
+
+    private static int getIndexFromTime(String t, int start) {
+        String[] time = t.split(":");
+        if (Integer.parseInt(time[1]) == 0) {
+            return start + (2 * Integer.parseInt(time[0]) - 16);
+        } else {
+            return start + (2 * Integer.parseInt(time[0]) - 15);
+        }
     }
 }
