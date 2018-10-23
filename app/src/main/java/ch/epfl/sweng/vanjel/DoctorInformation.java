@@ -199,20 +199,27 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
-        gmap.setMinZoomPreference(12);
-
-
+        gmap.setMinZoomPreference(15);
 
         LatLng doctorLocation = getLocationFromAddress(doctor);
+
+
+        // if address does not exist, we zoom in Lausanne and don't put any marker
+        if(doctorLocation == null){
+            doctorLocation = new LatLng(	46.519962, 	6.633597);
+        } else {
+            // put the pin (marker)
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(doctorLocation);
+            markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
+            gmap.addMarker(markerOptions);
+        }
 
         // move the camera
         gmap.moveCamera(CameraUpdateFactory.newLatLng(doctorLocation));
 
-        // put the pin (marker)
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(doctorLocation);
-        markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
-        gmap.addMarker(markerOptions);
+
+
 
     }
 
@@ -223,14 +230,14 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         Geocoder coder = new Geocoder(this);
         List<Address> address;
-        // default value Lausanne
+        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
         LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
 
 
         try {
             address = coder.getFromLocationName(strAddress,5);
             if (address.isEmpty()){
-                return locationForMap;
+                return null;
             }
             Address location=address.get(0);
             location.getLatitude();
