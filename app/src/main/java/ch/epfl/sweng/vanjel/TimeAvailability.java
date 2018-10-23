@@ -1,8 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
-import android.util.Log;
-
 import java.util.ArrayList;
+
 
 public class TimeAvailability {
 
@@ -175,6 +174,7 @@ public class TimeAvailability {
         return slots;
     }
 
+
     private static ArrayList<Integer> getRange(String s, int start) {
         ArrayList<Integer> res = new ArrayList<>();
         String[] groups = s.split(" / ");
@@ -182,6 +182,7 @@ public class TimeAvailability {
             String[] subgroups = g.split("-");
             res.add(getIndexFromTime(subgroups[0], start));
             res.add(getIndexFromTime(subgroups[1], start));
+
         }
         return res;
     }
