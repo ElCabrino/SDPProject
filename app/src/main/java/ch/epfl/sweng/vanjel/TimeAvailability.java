@@ -159,15 +159,13 @@ public class TimeAvailability {
         if (day != null) {
             String[] groups = day.split(" / ");
             for (int i = 0; i < groups.length; i++) {
-                int indStart = 999;
-                int indEnd = 999;
+                int indStart;
+                int indEnd;
                 String[] subgroups = groups[i].split("-");
                 indStart = getIndexFromTime(subgroups[0], start);
                 indEnd = getIndexFromTime(subgroups[1], start);
-                if (indStart < slots.length && indEnd < slots.length) {
-                    for (int n = indStart; n < indEnd; n++) {
-                        slots[n] = true;
-                    }
+                for (int n = indStart; n < indEnd; n++) {
+                    slots[n] = true;
                 }
             }
         }
