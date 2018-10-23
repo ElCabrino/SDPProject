@@ -163,16 +163,21 @@ public class TimeAvailability {
         boolean[] slots = new boolean[getIdLength()];
         if (day != null && !day.equals("-")) {
             ArrayList<Integer> r = getRange(day, start);
+            slots = setSlots(r);
+        }
+        return slots;
+    }
+
+        private static boolean[] setSlots(ArrayList<Integer> r) {
+            boolean[] slots = new boolean[getIdLength()];
             for(int i = 0; i < r.size()-1; i+=2){
-                System.out.println("i : " + i);
                 for(int j = r.get(i); j < r.get(i+1); ++j){
                     System.out.println("    j : " + j);
                     slots[j] = true;
                 }
             }
+            return slots;
         }
-        return slots;
-    }
 
     private static ArrayList<Integer> getRange(String s, int start) {
         ArrayList<Integer> res = new ArrayList<>();
