@@ -1,5 +1,8 @@
 package ch.epfl.sweng.vanjel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TimeAvailability {
 
     public static int MONDAY = 0;
@@ -158,23 +161,27 @@ public class TimeAvailability {
     public static boolean[] getDayAvailability(int start, String day) {
         boolean[] slots = new boolean[getIdLength()];
         if (day != null && !day.equals("-")) {
-            int[] r = getRange(day, start);
-            for (int n = r[0]; n < r[1]; n++) {
-                slots[n] = true;
+            List<int[]> allRes = getRange(day, start);
+            for (int[] r: allRes) {
+                for (int n = r[0]; n < r[1]; n++) {
+                    slots[n] = true;
+                }
             }
         }
         return slots;
     }
 
-    private static int[] getRange(String s, int start) {
+    private static List<int[]> getRange(String s, int start) {
+        List<int[]> allRes = new ArrayList<>();
         int[] res = new int[2];
         String[] groups = s.split(" / ");
         for (String g : groups) {
             String[] subgroups = g.split("-");
             res[0] = getIndexFromTime(subgroups[0], start);
             res[1] = getIndexFromTime(subgroups[1], start);
+            allRes.add(res);
         }
-        return res;
+        return allRes;
     }
 
     private static int getIndexFromTime(String t, int start) {
