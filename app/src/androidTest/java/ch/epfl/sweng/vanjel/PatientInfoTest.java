@@ -56,28 +56,41 @@ PatientInfoTest {
     private String surgery1Year = "2000";
     private String surgery2 = "Cholecystectomy";
     private String surgery2Year = "2005";
+    private String expectedSurgery1 = surgery1 + " in " + surgery1Year;
+    private String expectedSurgery2 = surgery2 + " in " + surgery2Year;
+
     private String drDrug1 = "Carbamazepine";
     private String drReaction1 = "TEN";
     private String drDrug2 = "Contrast";
     private String drReaction2 = "Rashes";
+    private String expectedDrugReaction1 = drDrug1 + " : " + drReaction1;
+    private String expectedDrugReaction2 = drDrug2 + " : " + drReaction2;
+
+
     private String drugDrug1 = "Enalapril";
     private String drugDosage1 = "10mg";
     private String drugFreq1 = "1";
     private String drugDrug2 = "Propranolol";
     private String drugDosage2 = "80mg";
     private String drugFreq2 = "2";
+    private String expectedDrug1 = drugDrug1 + " " + drugDosage1 + ", " + drugFreq1 + " per day";
+    private String expectedDrug2 = drugDrug2 + " " + drugDosage2 + ", " + drugFreq2 + " per day";
+
 
     private String smoking = "40";
     private String drinking = "10";
     private String exercise = "0";
 
 
-
     private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
     private ArrayList<InfoString> substances;
     private ArrayList<Surgery> surgeries;
+    private ArrayList<String> expectedSurgeries;
     private ArrayList<DrugReaction> drugReactions;
+    private ArrayList<String> expectedDrugReactions;
+    private ArrayList<Drug> drugs;
+    private ArrayList<String> expectedDrugs;
 
     @BeforeClass
     public static void loginPatientInfoUser() throws InterruptedException {
@@ -104,6 +117,7 @@ PatientInfoTest {
         populateAllergies();
         populateSubstances();
         populateSurgeries();
+        populateDrugReactions();
         populateDrugs();
 
     }
@@ -138,13 +152,30 @@ PatientInfoTest {
         surgeries = new ArrayList<Surgery>();
         surgeries.add(new Surgery(surgery1, surgery1Year));
         surgeries.add(new Surgery(surgery2, surgery2Year));
+        expectedSurgeries = new ArrayList<String>();
+        expectedSurgeries.add(expectedSurgery1);
+        expectedSurgeries.add(expectedSurgery2);
+
     }
 
-    private void populateDrugs()
+    private void populateDrugReactions()
     {
         drugReactions = new ArrayList<DrugReaction>();
         drugReactions.add(new DrugReaction(drDrug1, drReaction1));
         drugReactions.add(new DrugReaction(drDrug2, drReaction2));
+        expectedDrugReactions = new ArrayList<String>();
+        expectedDrugReactions.add(expectedDrugReaction1);
+        expectedDrugReactions.add(expectedDrugReaction2);
+    }
+
+    private void populateDrugs()
+    {
+        drugs = new ArrayList<Drug>();
+        drugs.add(new Drug(drugDrug1, drugDosage1, drugFreq1));
+        drugs.add(new Drug(drugDrug2, drugDosage2,drugFreq2));
+        expectedDrugs = new ArrayList<String>();
+        expectedDrugs.add(expectedDrug1);
+        expectedDrugs.add(expectedDrug2);
     }
 
     @Test
@@ -182,7 +213,7 @@ PatientInfoTest {
 
     }
 
-    @Test
+    //@Test
     public void testAddAndRecoverSubstance() throws InterruptedException {
         onView(withId(R.id.buttonSubstance)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
@@ -200,6 +231,25 @@ PatientInfoTest {
 
     }
 
+    @Test
+    public void testAddAndRecoverSurgery() throws InterruptedException {
+        onView(withId(R.id.buttonSurgery)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(4);
+        for (Surgery surgery: surgeries) {
+            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()), closeSoftKeyboard());
+            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()), closeSoftKeyboard());
+            onView(withId(R.id.buttonSurgery)).perform(click());
+        }
+
+        TimeUnit.SECONDS.sleep(5);
+        for ( int i = 0; i < expectedSurgeries.size(); i++ ) {
+            onView(allOf(withId(R.id.textViewSurgeries), withText(expectedSurgeries.get(i))))
+                    .check(matches(withText(expectedSurgeries.get(i))));
+
+        }
+
+    }
+
 
     @Test
     public void testAddAndRecoverDrugReaction() throws InterruptedException {
@@ -210,16 +260,32 @@ PatientInfoTest {
             onView(withId(R.id.ptDrugReactionReactionReg)).perform(setTextInTextView(reaction.getReaction()), closeSoftKeyboard());
             onView(withId(R.id.buttonDrugReaction)).perform(click());
         }
+
+        TimeUnit.SECONDS.sleep(5);
+        for ( int i = 0; i < expectedDrugReactions.size(); i++ ) {
+            onView(allOf(withId(R.id.textViewDrugReactions), withText(expectedDrugReactions.get(i))))
+                    .check(matches(withText(expectedDrugReactions.get(i))));
+
+        }
+
     }
 
     @Test
-    public void testAddAndRecoverSurgery() throws InterruptedException {
-        onView(withId(R.id.buttonSurgery)).perform(scrollTo());
+    public void testAddAndRecoverDrug() throws InterruptedException {
+        onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(4);
-        for (Surgery surgery: surgeries) {
-            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()), closeSoftKeyboard());
-            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()), closeSoftKeyboard());
-            onView(withId(R.id.buttonSurgery)).perform(click());
+        for (Drug drug : drugs) {
+            onView(withId(R.id.ptDrugRegimenDrugReg)).perform(setTextInTextView(drug.getDrug()), closeSoftKeyboard());
+            onView(withId(R.id.ptDrugRegimenDosageReg)).perform(setTextInTextView(drug.getDosage()), closeSoftKeyboard());
+            onView(withId(R.id.ptDrugRegimenTimesReg)).perform(setTextInTextView(drug.getFrequency()), closeSoftKeyboard());
+            onView(withId(R.id.buttonDrugRegimen)).perform(click());
+        }
+
+        TimeUnit.SECONDS.sleep(5);
+        for ( int i = 0; i < expectedDrugs.size(); i++ ) {
+            onView(allOf(withId(R.id.textViewDrugs), withText(expectedDrugs.get(i))))
+                    .check(matches(withText(expectedDrugs.get(i))));
+
         }
 
     }
