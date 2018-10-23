@@ -42,15 +42,16 @@ PatientInfoTest {
 
     private LoginHelper helper = new LoginHelper();
 
+    private String id = "ABLlrLukjAaPzaf5GA03takkw5k2";
+
     private String cond1 = "Heart failure";
     private String cond2 = "Diabetes";
-    private String smoking = "40";
-    private String drinking = "10";
-    private String exercise = "0";
-    //private String amount = "18";
-    private String id = "ABLlrLukjAaPzaf5GA03takkw5k2";
     private String al1 = "Peanuts";
     private String al2 = "Cats";
+    private String sub1 = "Cocaine";
+    private String sub2 = "Krokodil";
+
+
     private String surgery1 = "THA";
     private String surgery1Year = "2000";
     private String surgery2 = "Cholecystectomy";
@@ -59,20 +60,33 @@ PatientInfoTest {
     private String drReaction1 = "TEN";
     private String drDrug2 = "Contrast";
     private String drReaction2 = "Rashes";
+    private String drugDrug1 = "Enalapril";
+    private String drugDosage1 = "10mg";
+    private String drugFreq1 = "1";
+    private String drugDrug2 = "Propranolol";
+    private String drugDosage2 = "80mg";
+    private String drugFreq2 = "2";
+
+    private String smoking = "40";
+    private String drinking = "10";
+    private String exercise = "0";
 
 
 
     private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
+    private ArrayList<InfoString> substances;
     private ArrayList<Surgery> surgeries;
     private ArrayList<DrugReaction> drugReactions;
 
     @BeforeClass
     public static void loginPatientInfoUser() throws InterruptedException {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             FirebaseAuth.getInstance().signInWithEmailAndPassword("infoPatient@test.ch", "123456");
-        }
+        }*/
+        // run tests on a specific user
+        FirebaseAuth.getInstance().signInWithEmailAndPassword("infoPatient@test.ch", "123456");
 
         TimeUnit.SECONDS.sleep(10);
 
@@ -88,8 +102,13 @@ PatientInfoTest {
     {
         populateConditions();
         populateAllergies();
+        populateSubstances();
         populateSurgeries();
         populateDrugs();
+
+    }
+
+    private void populateArray(ArrayList<Info> list, Info e1, Info e2) {
 
     }
 
@@ -105,6 +124,13 @@ PatientInfoTest {
         allergies = new ArrayList<InfoString>();
         allergies.add(new InfoString(al1));
         allergies.add(new InfoString(al2));
+    }
+
+    private void populateSubstances()
+    {
+        substances = new ArrayList<InfoString>();
+        substances.add(new InfoString(sub1));
+        substances.add(new InfoString(sub2));
     }
 
     private void populateSurgeries()
@@ -130,11 +156,15 @@ PatientInfoTest {
             onView(withId(R.id.buttonPriorConditions)).perform(click());
         }
         TimeUnit.SECONDS.sleep(5);
+        for ( int i = 0; i < conditions.size(); i++ ) {
+            onView(allOf(withId(R.id.textViewConditions), withText(conditions.get(i).getInfo())))
+                    .check(matches(withText(conditions.get(i).getInfo())));
 
+        }
 
     }
 
-    //@Test
+    @Test
     public void testAddAndRecoverAllergy() throws InterruptedException {
         onView(withId(R.id.buttonAllergy)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
@@ -142,7 +172,34 @@ PatientInfoTest {
             onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonAllergy)).perform(click());
         }
+
+        TimeUnit.SECONDS.sleep(5);
+        for ( int i = 0; i < allergies.size(); i++ ) {
+            onView(allOf(withId(R.id.textViewAllergies), withText(allergies.get(i).getInfo())))
+                    .check(matches(withText(allergies.get(i).getInfo())));
+
+        }
+
     }
+
+    @Test
+    public void testAddAndRecoverSubstance() throws InterruptedException {
+        onView(withId(R.id.buttonSubstance)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(5);
+        for (InfoString substance : substances) {
+            onView(withId(R.id.ptSubstanceReg)).perform(setTextInTextView(substance.getInfo()), closeSoftKeyboard());
+            onView(withId(R.id.buttonSubstance)).perform(click());
+        }
+
+        TimeUnit.SECONDS.sleep(5);
+        for ( int i = 0; i < substances.size(); i++ ) {
+            onView(allOf(withId(R.id.textViewSubstances), withText(substances.get(i).getInfo())))
+                    .check(matches(withText(substances.get(i).getInfo())));
+
+        }
+
+    }
+
 
     @Test
     public void testAddAndRecoverDrugReaction() throws InterruptedException {
@@ -188,6 +245,7 @@ PatientInfoTest {
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).check(matches(withText(text)));
     }
+
 
     private static ViewAction setTextInTextView(final String value){
         return new ViewAction() {

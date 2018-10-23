@@ -44,7 +44,7 @@ public class InfoList<Info> extends ArrayAdapter<Info> {
             textView.setText(((DrugReaction) info).getDrug() + " : " + ((DrugReaction) info).getReaction());
         } else if(info instanceof Drug) {
             textView.setText(((Drug) info).getDrug() + " " + ((Drug) info).getDosage()+ ", " +
-                    ((Drug) info).getFrequency() + " times per day");
+                    ((Drug) info).getFrequency() + " per day");
         }
         else {
             textView.setText(info.getAndroidInfo());
