@@ -133,7 +133,12 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
             }
             minutes +=30;
         }*/
-        day.put("availability", getStringFromSlots(start));
+        String res = getStringFromSlots(start);
+        if (res.equals("")) {
+            day.put("availability", "-");
+        } else {
+            day.put("availability", res);
+        }
         return day;
     }
 
@@ -141,22 +146,16 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         int isChain = 0;
         int minutes = 480; //480 minutes corresponds to 8:00
         String t = "-";
-        String temp = "";
         for (int i=start;i<start+22;i++) {
             if(slots[i] == true && isChain == 0) {
                 isChain = minutes;
             } else {
-                temp = temp+buildAvailabilityString(isChain, minutes, temp.equals(""));
+                t = t+buildAvailabilityString(isChain, minutes, t.equals("-"));
                 isChain = 0;
             }
             minutes +=30;
         }
-        if (temp.length() < t.length()) {
-            return t;
-        }
-        else {
-            return temp;
-        }
+        return t;
     }
 
     private String buildAvailabilityString(int start, int end, boolean firstTime) {
