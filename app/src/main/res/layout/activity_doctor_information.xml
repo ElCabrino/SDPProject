@@ -109,6 +109,11 @@
             android:layout_height="wrap_content"
             android:text="Take Appointment"/>
 
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapViewDoctorInfo"
+            android:layout_width="match_parent"
+            android:layout_height="340dp" />
+
         <!--<TextView-->
             <!--android:id="@+id/doctorUID"-->
             <!--android:layout_width="wrap_content"-->

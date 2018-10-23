@@ -11,13 +11,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.maps.model.LatLng;
 
-public class DoctorInformation extends AppCompatActivity implements View.OnClickListener {
+public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     TextView lastName, firstName, activity, street, streetNumber, city, country;
     private Bundle bundle;
@@ -29,6 +34,12 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     private Button takeAppointment;
 
+    // map
+    private MapView mapView;
+    private GoogleMap gmap;
+
+    private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +47,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         init();
 
+        // we see if we have the doctor details, otherwise we quit
         doctorUID = bundle.getString("doctorUID");
-
-//        TextView refDoctorUID = findViewById(R.id.doctorUID);
-//        refDoctorUID.setText(doctorUID);
 
         if(doctorUID == null){
             Toast.makeText(DoctorInformation.this, "No doctor content to display", Toast.LENGTH_SHORT).show();
@@ -51,7 +60,13 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         }
 
+        Bundle mapViewBundle = null;
+        if(savedInstanceState != null){
+            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        }
 
+        mapView.onCreate(mapViewBundle);
+        mapView.getMapAsync(this);
 
 
 
@@ -59,8 +74,9 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     }
 
     private void init(){
+        // bundle ref to get Extras
         bundle = getIntent().getExtras();
-
+        // doctor details
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         activity = findViewById(R.id.activity);
@@ -68,13 +84,13 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         streetNumber = findViewById(R.id.streetNumber);
         city = findViewById(R.id.city);
         country = findViewById(R.id.country);
-
+        // take appointment button
         takeAppointment = findViewById(R.id.buttonTakeAppointment);
         takeAppointment.setOnClickListener(this);
-
-
+        // database reference
         database = FirebaseDatabase.getInstance();
-
+        // map reference
+        mapView = findViewById(R.id.mapViewDoctorInfo);
 
     }
 
@@ -85,11 +101,9 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             intent.putExtra("doctorUID", doctorUID);
 
             startActivity(intent);
-
         }
-
-
     }
+
     private void getDocWithUID(String uid){
 
 
@@ -125,4 +139,57 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        if (mapViewBundle == null) {
+            mapViewBundle = new Bundle();
+            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
+        }
+
+        mapView.onSaveInstanceState(mapViewBundle);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+    @Override
+    protected void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
+    @Override
+    protected void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gmap = googleMap;
+        gmap.setMinZoomPreference(12);
+        LatLng ny = new LatLng(40.7143528, -74.0059731);
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+    }
 }
+
