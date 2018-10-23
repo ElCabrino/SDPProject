@@ -12,20 +12,20 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ChooseRegistration" />
-        <activity android:name=".Registration" />
-        <activity android:name=".DoctorCalendar" />
-        <activity android:name=".Profile" />
-        <activity android:name=".PatientInfo" />
-        <activity android:name=".FilteredDoctors" />
-        <activity android:name=".SearchDoctor">
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ChooseRegistration" />
+        <activity android:name=".Registration" />
+        <activity android:name=".DoctorCalendar" />
+        <activity android:name=".Profile" />
+        <activity android:name=".PatientInfo" />
+        <activity android:name=".FilteredDoctors" />
+        <activity android:name=".SearchDoctor"/>
         <activity android:name=".PatientCalendarActivity"></activity>
         <activity android:name=".PatientAppointmentActivity"></activity>
         <activity android:name=".DoctorInformation"></activity>
