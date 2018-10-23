@@ -2,6 +2,8 @@ package ch.epfl.sweng.vanjel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +17,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.List;
 
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
@@ -152,6 +158,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         mapView.onSaveInstanceState(mapViewBundle);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -169,27 +176,69 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         super.onStop();
         mapView.onStop();
     }
+
     @Override
     protected void onPause() {
         mapView.onPause();
         super.onPause();
     }
+
     @Override
     protected void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
+    // method that display the wanted element
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(12);
-        LatLng ny = new LatLng(40.7143528, -74.0059731);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+
+
+        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
+
+        LatLng doctorLocation = getLocationFromAddress(strAddress);
+        // move the camera
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(doctorLocation));
+
+        // put the pin (marker)
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(doctorLocation);
+        gmap.addMarker(markerOptions);
+
+
+    }
+
+    public LatLng getLocationFromAddress(String strAddress){
+
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        LatLng locationForMap = new LatLng(40.7143528, -74.0059731); // default value New york?
+
+        try {
+            address = coder.getFromLocationName(strAddress,5);
+            if (address==null) {
+                return null;
+            }
+            Address location=address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            locationForMap = new LatLng(location.getLatitude(), location.getLongitude());
+
+            return locationForMap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return locationForMap;
     }
 }
 
