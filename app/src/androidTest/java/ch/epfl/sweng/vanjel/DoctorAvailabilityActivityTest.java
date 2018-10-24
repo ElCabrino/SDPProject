@@ -3,6 +3,9 @@ package ch.epfl.sweng.vanjel;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -17,6 +20,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.IsNot.not;
 
 public class DoctorAvailabilityActivityTest {
+
+    @BeforeClass
+    public static void signOutUser() {
+        FirebaseAuth.getInstance().signOut();
+    }
 
     private int[] toCheck = {
             0,

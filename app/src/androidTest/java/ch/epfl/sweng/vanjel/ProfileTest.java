@@ -9,6 +9,9 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +50,11 @@ public class ProfileTest {
     @Rule
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
+
+    @BeforeClass
+    public static void signOutUser() {
+        FirebaseAuth.getInstance().signOut();
+    }
 
     @Test
     public void outputTest() throws Exception {
