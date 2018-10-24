@@ -15,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -39,6 +41,8 @@ public class FilteredDoctors extends AppCompatActivity {
     private String specialisation;
     private String city;
 
+    private HashMap<String, Doctor> doctorHashMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,8 @@ public class FilteredDoctors extends AppCompatActivity {
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         doctors = new ArrayList<Doctor>();
-        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
+        doctorHashMap = new HashMap<>();
+        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
         recyclerView.setAdapter(adapter);
         bundle = getIntent().getExtras();
     }
@@ -79,9 +84,13 @@ public class FilteredDoctors extends AppCompatActivity {
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
-        ArrayList<Doctor> newDoctors = new ArrayList<Doctor>();
 
-        for (Doctor doc: doctors){
+        // local hashMap to store the selected doctors only
+        HashMap<String, Doctor> selectedDoctorsHashMap = new HashMap<>();
+
+
+        for (Map.Entry<String, Doctor> oneDoc : doctorHashMap.entrySet()) {
+            Doctor doc = oneDoc.getValue();
 
             Boolean b1 = compareString(doc.getFirstName(), firstName);
             Boolean b2 = compareString(doc.getLastName(), lastName);
@@ -89,10 +98,11 @@ public class FilteredDoctors extends AppCompatActivity {
             Boolean b4 = compareString(doc.getCity(), city);
 
             if (b1 || b2 || b3 || b4)
-                newDoctors.add(doc);
+                selectedDoctorsHashMap.put(oneDoc.getKey(), doc);
+
 
         }
-        doctors = newDoctors;
+        doctorHashMap = selectedDoctorsHashMap;
         adapter.notifyDataSetChanged();
     }
     public void databaseListener(){
@@ -110,10 +120,12 @@ public class FilteredDoctors extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
+                    String key = dataSnapshot1.getKey();
+                    doctorHashMap.put(key, myDoctor);
                     doctors.add(myDoctor);
                 }
                 select(); // remove unwanted doctors
-                adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
+                adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
