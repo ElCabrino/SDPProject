@@ -42,7 +42,6 @@ public class DoctorAvailabilityActivityTest {
 
     @Test
     public void canSelectAvailabilityTest() throws Exception {
-
         TimeUnit.SECONDS.sleep(2);
         clickTestSlots();
         for (int j: toCheck) {
