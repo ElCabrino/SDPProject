@@ -1,9 +1,12 @@
 package ch.epfl.sweng.vanjel;
 
 import android.support.test.rule.ActivityTestRule;
+import android.widget.ToggleButton;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -20,7 +23,7 @@ public class DoctorAvailabilityActivityTest {
             new ActivityTestRule<>(DoctorAvailabilityActivity.class);
 
     @Test
-    public void canSelectAvailabilityTest() {
+    public void canSelectAvailabilityTest() throws Exception {
         int[] toCheck = {
                 0,
                 5,
@@ -38,6 +41,7 @@ public class DoctorAvailabilityActivityTest {
                 124,
                 130
         };
+        TimeUnit.SECONDS.sleep(2);
         for (int i: toCheck) {
             onView(withId(TimeAvailability.times[i])).perform(scrollTo(), click());
         }

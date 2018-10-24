@@ -121,18 +121,6 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     public Map<String, Object> getDayAvailability(int start) {
         Map<String, Object> day = new HashMap<>();
-/*        int isChain = 0;
-        int minutes = 480;
-        String t = "";
-        for (int i=start;i<start+22;i++) {
-            if(slots[i] == true && isChain == 0) {
-                isChain = minutes;
-            } else {
-                t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
-                isChain = 0;
-            }
-            minutes +=30;
-        }*/
         String res = getStringFromSlots(start);
         if (res.equals("")) {
             day.put("availability", "-");
@@ -198,7 +186,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map<String, Object> tm = (Map<String, Object>) dataSnapshot.getValue();
                 if (tm != null) {
-                    setOldSlots(TimeAvailability.getDayAvailability(dayindex, tm.get("availability").toString()), dayindex);
+                    setOldSlots(TimeAvailability.getAvailability(dayindex, tm.get("availability").toString()), dayindex);
                 } else {
                     Log.d("ERROR", "tm is null");
                 }

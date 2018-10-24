@@ -159,7 +159,7 @@ public class TimeAvailability {
         return times.length;
     }
 
-    public static boolean[] getDayAvailability(int start, String day) {
+    public static boolean[] getAvailability(int start, String day) {
         boolean[] slots = new boolean[getIdLength()];
         if (day != null && !day.equals("-")) {
             ArrayList<Integer> r = getRange(day, start);
@@ -172,7 +172,6 @@ public class TimeAvailability {
             boolean[] slots = new boolean[getIdLength()];
             for(int i = 0; i < r.size()-1; i+=2){
                 for(int j = r.get(i); j < r.get(i+1); ++j){
-                    System.out.println("    j : " + j);
                     slots[j] = true;
                 }
             }
