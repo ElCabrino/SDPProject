@@ -133,12 +133,12 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     private String getStringFromSlots(int start) {
         int isChain = 0;
         int minutes = 480; //480 minutes corresponds to 8:00
-        String t = "-";
+        String t = "";
         for (int i=start;i<start+22;i++) {
             if(slots[i] == true && isChain == 0) {
                 isChain = minutes;
             } else {
-                t = t+buildAvailabilityString(isChain, minutes, t.equals("-"));
+                t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
                 isChain = 0;
             }
             minutes +=30;

@@ -179,7 +179,7 @@ public class TimeAvailabilityTest {
                 , false, false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false, false};
 
-        assertArrayEquals(TimeAvailability.getDayAvailability(TimeAvailability.MONDAY,
+        assertArrayEquals(TimeAvailability.getAvailability(TimeAvailability.MONDAY,
                 "13:00-13:30 / 14:00-15:00"), actuals);
     }
 }

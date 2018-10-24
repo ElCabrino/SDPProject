@@ -1,7 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
-import android.widget.ToggleButton;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,9 +14,27 @@ import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.core.IsNot.not;
 
 public class DoctorAvailabilityActivityTest {
 
+    private int[] toCheck = {
+            0,
+            5,
+            18,
+            23,
+            38,
+            46,
+            51,
+            68,
+            72,
+            85,
+            98,
+            101,
+            114,
+            124,
+            130
+    };
 
     @Rule
     public ActivityTestRule<DoctorAvailabilityActivity> mActivityRule =
@@ -24,29 +42,38 @@ public class DoctorAvailabilityActivityTest {
 
     @Test
     public void canSelectAvailabilityTest() throws Exception {
-        int[] toCheck = {
-                0,
-                5,
-                18,
-                23,
-                38,
-                46,
-                51,
-                68,
-                72,
-                85,
-                98,
-                101,
-                114,
-                124,
-                130
-        };
+
         TimeUnit.SECONDS.sleep(2);
-        for (int i: toCheck) {
-            onView(withId(TimeAvailability.times[i])).perform(scrollTo(), click());
-        }
+        clickTestSlots();
         for (int j: toCheck) {
             onView(withId(TimeAvailability.times[j])).perform(scrollTo()).check(matches(isChecked()));
+        }
+    }
+
+    @Test
+    public void validateTest() throws Exception {
+        TimeUnit.SECONDS.sleep(2);
+        for (int i=0;i<TimeAvailability.getIdLength();i++) {
+            onView(withId(TimeAvailability.times[i])).perform(scrollTo()).check(matches(not(isChecked())));
+        }
+        clickTestSlots();
+        onView(withId(R.id.valid)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        mActivityRule.finishActivity();
+        mActivityRule.launchActivity(intent);
+        TimeUnit.SECONDS.sleep(2);
+        for (int k: toCheck) {
+            onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+        }
+        clickTestSlots();
+        onView(withId(R.id.valid)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
+    }
+
+    private void clickTestSlots() {
+        for (int i: toCheck) {
+            onView(withId(TimeAvailability.times[i])).perform(scrollTo(), click());
         }
     }
 }
