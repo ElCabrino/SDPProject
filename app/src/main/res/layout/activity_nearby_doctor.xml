@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +8,37 @@
     tools:context=".NearbyDoctor">
 
     <TextView
+        android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nearby Doctor layout"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="123dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Latitude:"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/latitude_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/latitude"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/latitude"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Longitude:"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/longitude_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/longitude"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/longitude"
+        android:textSize="16sp"/>
+
+</RelativeLayout>
