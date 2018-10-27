@@ -26,7 +26,7 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_doctor);
         getAllFields();
-
+        getAllButtons();
         searchButton.setOnClickListener(this);
     }
 
@@ -53,6 +53,9 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
         this.lastName = findViewById(R.id.lastNameSearch);
         this.specialisation = findViewById(R.id.specialisationSearch);
         this.city = findViewById(R.id.citySearch);
+
+    }
+    private void getAllButtons() {
         this.searchButton = findViewById(R.id.buttonSearch);
     }
 

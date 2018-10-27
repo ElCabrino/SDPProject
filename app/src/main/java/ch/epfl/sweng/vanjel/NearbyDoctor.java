@@ -35,8 +35,8 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
     private Location mLocation;
 
     private LocationRequest mLocationRequest;
-    private long UPDATE_INTERVAL = 2 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
+    private long UPDATE_INTERVAL = 2 * 1000;  // 10 secs
+    private long FASTEST_INTERVAL = 2000; // 2 secs
 
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
 
@@ -66,18 +66,11 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
-                    PERMISSION_ACCESS_COARSE_LOCATION);
-            return;
-        }
         startLocationUpdates();
 
-        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(!requestLocationService()) return;
 
-        if(mLocation == null){
+        if (mLocation == null) {
             startLocationUpdates();
         }
 
@@ -126,15 +119,7 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
         // Request location updates
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSION_ACCESS_COARSE_LOCATION);
-            return;
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                mLocationRequest, this);
+        if(!requestLocationService()) return;
         Log.d("reque", "--->>>>");
     }
 
@@ -144,7 +129,7 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
         mLatitudeTextView.setText(String.valueOf(location.getLatitude()));
-        mLongitudeTextView.setText(String.valueOf(location.getLongitude() ));
+        mLongitudeTextView.setText(String.valueOf(location.getLongitude()));
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         // update the latLng field to display on the Google Map
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -152,10 +137,11 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
 
     /**
      * Verify if the phone has location enabled and show an alert to turn it on if it doesn't
+     *
      * @return is the location enabled
      */
     private boolean checkLocation() {
-        if(!isLocationEnabled())
+        if (!isLocationEnabled())
             showAlert();
         return isLocationEnabled();
     }
@@ -186,6 +172,7 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
 
     /**
      * A method that checks if the location is enabled on the phone
+     *
      * @return is the location enabled
      */
     private boolean isLocationEnabled() {
@@ -208,4 +195,19 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
+    /**
+     * A method the requests the location service and resquests the location updates if it access is granted
+     * @return is access granted
+     */
+    private boolean requestLocationService(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
+                    PERMISSION_ACCESS_COARSE_LOCATION);
+            return false;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        return true;
+    }
 }
