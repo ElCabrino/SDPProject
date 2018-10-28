@@ -17,6 +17,8 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     //Appointment with the doctor of this ID
     String doctorUID;
 
+    String selectedDate;
+
     Boolean slotSelected = new Boolean(false);
 
     HashMap<Integer, Button> buttonsAppointment = new HashMap<Integer, Button>();
@@ -29,6 +31,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
         //get the doctor ID
         doctorUID = getIntent().getStringExtra("doctorUID");
+        selectedDate = getIntent().getStringExtra("date");
 
         //buttons for the timetable
         getAllButton();
@@ -113,7 +116,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonAppointment){
-            Toast.makeText(this, doctorUID, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
         }
