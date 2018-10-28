@@ -153,7 +153,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
             }
         });
-        
+
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSettingsClient = LocationServices.getSettingsClient(this);
@@ -290,14 +290,8 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         switch (requestCode) {
             // Check for the integer request code originally supplied to startResolutionForResult().
             case REQUEST_CHECK_SETTINGS:
-                switch (resultCode) {
-                    case Activity.RESULT_OK:
-                        // Nothing to do. startLocationupdates() gets called in onResume again.
-                        break;
-                    case Activity.RESULT_CANCELED:
-                        mRequestingLocationUpdates = false;
-                        break;
-                }
+                if(resultCode == Activity.RESULT_CANCELED)
+                    mRequestingLocationUpdates = false;
                 break;
         }
     }
