@@ -86,7 +86,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private Location mCurrentLocation;
 
     // boolean flag to toggle the ui
-    private Boolean mRequestingLocationUpdates;
+    private Boolean mRequestingLocationUpdates = false;
 
     // map
     private MapView mapView;
@@ -113,7 +113,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_doctor);
 
-        // initialize the necessary libraries
+        // initialize the necessary libraries and values
         init();
 
         // map bundle
@@ -149,8 +149,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             }
         };
 
-        mRequestingLocationUpdates = false;
-
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
@@ -182,10 +180,8 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    // retrieve doctor
-                    Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
-                    // add it to the array
-                    doctors.add(myDoctor);
+                    // retrieve doctor & add it to the array
+                    doctors.add(dataSnapshot1.getValue(Doctor.class));
                 }
 
             }
@@ -208,12 +204,8 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             // update position
             userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
 
-            // move the camera
-            if(!alreadyCentered){
-                gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
-                alreadyCentered = true;
-            }
-
+            // move the camera if not already centered to our position
+            if(!alreadyCentered){ gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition)); alreadyCentered = true; }
 
         }
     }
@@ -260,8 +252,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                                     // result in onActivityResult().
                                     ResolvableApiException rae = (ResolvableApiException) e;
                                     rae.startResolutionForResult(NearbyDoctor.this, REQUEST_CHECK_SETTINGS);
-                                } catch (IntentSender.SendIntentException sie) {
-                                }
+                                } catch (IntentSender.SendIntentException sie) {  }
                                 break;
                             case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                         }
@@ -365,8 +356,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 gmap.addMarker(markerOptions);
             }
         }
-        if(userPosition != null)
-            gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
+
+        // if the user position is defined, we move the camera
+        if(userPosition != null) { gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition)); }
 
     }
 
