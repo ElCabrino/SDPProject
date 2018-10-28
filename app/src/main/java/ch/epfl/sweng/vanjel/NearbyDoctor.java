@@ -115,11 +115,18 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_doctor);
 
-        fields();
-
         // initialize the necessary libraries
         init();
 
+        // restore the values from saved instance state
+        bundleRestore(savedInstanceState);
+
+        startLocation();
+    }
+
+    public void bundleRestore(Bundle savedInstanceState){
+
+        // map bundle
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
@@ -129,16 +136,25 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
 
 
-        // restore the values from saved instance state
-        restoreValuesFromBundle(savedInstanceState);
+        // bundle values
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey("is_requesting_updates")) {
+                mRequestingLocationUpdates = savedInstanceState.getBoolean("is_requesting_updates");
+            }
 
-        startLocation();
+            if (savedInstanceState.containsKey("last_known_location")) {
+                mCurrentLocation = savedInstanceState.getParcelable("last_known_location");
+            }
+
+            if (savedInstanceState.containsKey("last_updated_on")) {
+                mLastUpdateTime = savedInstanceState.getString("last_updated_on");
+            }
+        }
+
+        updateLocationUI();
+
     }
 
-    private void fields() {
-        txtLocationResult = findViewById(R.id.location_result);
-        txtUpdatedOn = findViewById(R.id.updated_on);
-    }
 
     private void init() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -177,6 +193,10 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
         // get all doctors
         getAllDoctors();
+
+        // text field
+        txtLocationResult = findViewById(R.id.location_result);
+        txtUpdatedOn = findViewById(R.id.updated_on);
     }
 
     /**
@@ -206,31 +226,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-
-    /**
-     * Restoring values from saved instance state
-     */
-    private void restoreValuesFromBundle(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            restoreFromBundle(savedInstanceState);
-        }
-
-        updateLocationUI();
-    }
-
-    private void restoreFromBundle(Bundle savedInstanceState) {
-        if (savedInstanceState.containsKey("is_requesting_updates")) {
-            mRequestingLocationUpdates = savedInstanceState.getBoolean("is_requesting_updates");
-        }
-
-        if (savedInstanceState.containsKey("last_known_location")) {
-            mCurrentLocation = savedInstanceState.getParcelable("last_known_location");
-        }
-
-        if (savedInstanceState.containsKey("last_updated_on")) {
-            mLastUpdateTime = savedInstanceState.getString("last_updated_on");
-        }
-    }
 
     /**
      * Update the UI displaying the location data
