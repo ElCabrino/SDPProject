@@ -1,44 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".NearbyDoctor">
 
     <TextView
-        android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Latitude:"
-        android:textSize="18sp" />
-    <TextView
-        android:id="@+id/latitude_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/latitude"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/latitude"
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Longitude:"
-        android:layout_marginTop="24dp"
-        android:textSize="18sp" />
-    <TextView
-        android:id="@+id/longitude_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/longitude"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/longitude"
-        android:textSize="16sp"/>
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:text="Location updates will be received only when app is foreground" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/location_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#333"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/updated_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="11dp" />
+</LinearLayout>
