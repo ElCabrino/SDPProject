@@ -284,7 +284,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 }).check();
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
