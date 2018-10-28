@@ -15,8 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,22 +128,25 @@ public class NearbyDoctor extends AppCompatActivity {
      */
     private void restoreValuesFromBundle(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey("is_requesting_updates")) {
-                mRequestingLocationUpdates = savedInstanceState.getBoolean("is_requesting_updates");
-            }
-
-            if (savedInstanceState.containsKey("last_known_location")) {
-                mCurrentLocation = savedInstanceState.getParcelable("last_known_location");
-            }
-
-            if (savedInstanceState.containsKey("last_updated_on")) {
-                mLastUpdateTime = savedInstanceState.getString("last_updated_on");
-            }
+            restoreFromBundle(savedInstanceState);
         }
 
         updateLocationUI();
     }
 
+    private void restoreFromBundle(Bundle savedInstanceState){
+        if (savedInstanceState.containsKey("is_requesting_updates")) {
+            mRequestingLocationUpdates = savedInstanceState.getBoolean("is_requesting_updates");
+        }
+
+        if (savedInstanceState.containsKey("last_known_location")) {
+            mCurrentLocation = savedInstanceState.getParcelable("last_known_location");
+        }
+
+        if (savedInstanceState.containsKey("last_updated_on")) {
+            mLastUpdateTime = savedInstanceState.getString("last_updated_on");
+        }
+    }
 
     /**
      * Update the UI displaying the location data
