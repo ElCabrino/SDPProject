@@ -50,8 +50,8 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_doctor);
 
-        mLatitudeTextView = (TextView) findViewById((R.id.latitude_textview));
-        mLongitudeTextView = (TextView) findViewById((R.id.longitude_textview));
+        mLatitudeTextView = findViewById((R.id.latitude_textview));
+        mLongitudeTextView = findViewById((R.id.longitude_textview));
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -59,7 +59,7 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
                 .addApi(LocationServices.API)
                 .build();
 
-        LocationManager mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         checkLocation(); //check whether location service is enable or not in your phone
     }
@@ -176,7 +176,7 @@ public class NearbyDoctor extends AppCompatActivity implements GoogleApiClient.C
      * @return is the location enabled
      */
     private boolean isLocationEnabled() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
