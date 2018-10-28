@@ -7,10 +7,14 @@ import android.view.View;
 
 public class PatientCalendarActivity extends AppCompatActivity implements View.OnClickListener{
 
+    String doctorUID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_calendar);
+
+        doctorUID = getIntent().getStringExtra("doctorUID");
 
         findViewById(R.id.buttonSelectSchedule).setOnClickListener(this);
     }
@@ -25,6 +29,7 @@ public class PatientCalendarActivity extends AppCompatActivity implements View.O
 
     private void launchAppointmentActiviy() {
         Intent intent = new Intent(PatientCalendarActivity.this,PatientAppointmentActivity.class);
+        intent.putExtra("doctorUID", doctorUID);
         startActivity(intent);
     }
 }

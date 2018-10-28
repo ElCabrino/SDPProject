@@ -14,6 +14,9 @@ import java.util.Map;
 
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //Appointment with the doctor of this ID
+    String doctorUID;
+
     Boolean slotSelected = new Boolean(false);
 
     HashMap<Integer, Button> buttonsAppointment = new HashMap<Integer, Button>();
@@ -23,6 +26,9 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_appointment);
+
+        //get the doctor ID
+        doctorUID = getIntent().getStringExtra("doctorUID");
 
         //buttons for the timetable
         getAllButton();
@@ -91,12 +97,14 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
             buttonsState.put(i, true);
             slotSelected = true;
         }
-        //case where we deselect a time slot
+        //case deselect a time slot
         else if ((buttonsState.get(i)) && slotSelected){
             findViewById(i).setBackgroundColor(0xFF3F51B5);
             buttonsState.put(i, false);
             slotSelected = false;
-        } else {
+        }
+        //case time slot already selected
+        else {
             Toast.makeText(this, "You've already picked a time slot", Toast.LENGTH_SHORT).show();
         }
     }
@@ -105,7 +113,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonAppointment){
-            Toast.makeText(this, "Yeeeee", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, doctorUID, Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
         }
