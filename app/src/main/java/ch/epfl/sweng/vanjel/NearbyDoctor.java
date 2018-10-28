@@ -102,7 +102,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     // Database
     FirebaseDatabase database;
-    DatabaseReference ref;
 
     // this will contain the doctors
     ArrayList<Doctor> doctors = new ArrayList<>();
@@ -133,6 +132,29 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
 
     private void init() {
+        // map reference
+        mapView = findViewById(R.id.mapViewNearbyDoctor);
+
+        // database reference
+        database = FirebaseDatabase.getInstance();
+
+        // get all doctors: Will get all doctors in database and put them in doctors ArrayList
+        database.getReference().child("Doctor").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    // retrieve doctor & add it to the array
+                    doctors.add(dataSnapshot1.getValue(Doctor.class));
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSettingsClient = LocationServices.getSettingsClient(this);
 
@@ -157,40 +179,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(mLocationRequest);
         mLocationSettingsRequest = builder.build();
-
-        // map reference
-        mapView = findViewById(R.id.mapViewNearbyDoctor);
-
-        // database reference
-        database = FirebaseDatabase.getInstance();
-
-        // get all doctors
-        getAllDoctors();
-
-    }
-
-    /**
-     * Will get all doctors in database and put them in doctors ArrayList
-     */
-    public void getAllDoctors(){
-
-        ref = database.getReference().child("Doctor");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    // retrieve doctor & add it to the array
-                    doctors.add(dataSnapshot1.getValue(Doctor.class));
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
 
@@ -347,7 +335,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             LatLng doctorLocation = doctor.getLocationFromAddress(this);
             // if doctor address is incorrect we do not put his marker
             if (doctorLocation == null) {
-                Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT);
+                Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
             } else {
                 // put the pin (marker)
                 MarkerOptions markerOptions = new MarkerOptions();
