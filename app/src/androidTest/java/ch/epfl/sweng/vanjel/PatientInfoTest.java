@@ -5,6 +5,7 @@ import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +29,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
@@ -39,6 +41,7 @@ import static org.hamcrest.core.AllOf.allOf;
 //@RunWith(AndroidJUnit4.class)
 public class
 PatientInfoTest {
+
 
     private LoginHelper helper = new LoginHelper();
 
@@ -216,7 +219,7 @@ PatientInfoTest {
     }
 
 
-    //@Test
+    @Test
     public void testAddAndRecoverSubstance() throws InterruptedException {
         onView(withId(R.id.buttonSubstance)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
@@ -238,6 +241,7 @@ PatientInfoTest {
     @Test
     public void testAddAndRecoverSurgery() throws InterruptedException {
         onView(withId(R.id.buttonSurgery)).perform(scrollTo());
+        //onView(withId(R.id.patientInfoListView)).pageScroll(View.FOCUS_UP);
         TimeUnit.SECONDS.sleep(4);
         for (Surgery surgery: surgeries) {
             onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()), closeSoftKeyboard());
@@ -276,7 +280,7 @@ PatientInfoTest {
 
     }
 
-    //@Test
+    @Test
     public void testAddAndRecoverDrug() throws InterruptedException {
         onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(4);
@@ -297,23 +301,24 @@ PatientInfoTest {
 
     }
 
-    //@Test
+    @Test
     public void testAddAndRecoverSmoking() {
         addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, smoking);
     }
 
-    //@Test
+    @Test
     public void testAddAndRecoverDrinking() {
         addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, drinking);
     }
 
-    //@Test
+    @Test
     public void testAddAndRecoverExercise() {
         addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }
 
     private void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo(), closeSoftKeyboard());
+        //onView(withId(R.id.ptDrugReactionList)).perform(swipeDown());
         onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).perform(scrollTo());

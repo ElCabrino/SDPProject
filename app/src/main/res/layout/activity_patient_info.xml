@@ -8,6 +8,7 @@
     tools:context=".PatientInfo">
 
     <ScrollView
+        android:id="@+id/patientInfoScrollView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true"
