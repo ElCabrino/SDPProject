@@ -118,14 +118,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         // initialize the necessary libraries
         init();
 
-        // restore the values from saved instance state
-        bundleRestore(savedInstanceState);
-
-        startLocation();
-    }
-
-    public void bundleRestore(Bundle savedInstanceState){
-
         // map bundle
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -135,25 +127,11 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
 
-
-        // bundle values
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey("is_requesting_updates")) {
-                mRequestingLocationUpdates = savedInstanceState.getBoolean("is_requesting_updates");
-            }
-
-            if (savedInstanceState.containsKey("last_known_location")) {
-                mCurrentLocation = savedInstanceState.getParcelable("last_known_location");
-            }
-
-            if (savedInstanceState.containsKey("last_updated_on")) {
-                mLastUpdateTime = savedInstanceState.getString("last_updated_on");
-            }
-        }
-
         updateLocationUI();
 
+        startLocation();
     }
+
 
 
     private void init() {
@@ -195,8 +173,8 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         getAllDoctors();
 
         // text field
-        txtLocationResult = findViewById(R.id.location_result);
-        txtUpdatedOn = findViewById(R.id.updated_on);
+//        txtLocationResult = findViewById(R.id.location_result);
+//        txtUpdatedOn = findViewById(R.id.updated_on);
     }
 
     /**
@@ -233,18 +211,17 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void updateLocationUI() {
         if (mCurrentLocation != null) {
-            txtLocationResult.setText(
-                    "Lat: " + mCurrentLocation.getLatitude() + ", " +
-                            "Lng: " + mCurrentLocation.getLongitude()
-            );
-
-            // giving a blink animation on TextView
-            txtLocationResult.setAlpha(0);
-            txtLocationResult.animate().alpha(1).setDuration(300);
-
-            // location last updated time
-            txtUpdatedOn.setText("Last updated on: " + mLastUpdateTime);
-
+//            txtLocationResult.setText(
+//                    "Lat: " + mCurrentLocation.getLatitude() + ", " +
+//                            "Lng: " + mCurrentLocation.getLongitude()
+//            );
+//
+//            // giving a blink animation on TextView
+//            txtLocationResult.setAlpha(0);
+//            txtLocationResult.animate().alpha(1).setDuration(300);
+//
+//            // location last updated time
+//            txtUpdatedOn.setText("Last updated on: " + mLastUpdateTime);
 
             // update position
             userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
@@ -280,9 +257,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     @SuppressLint("MissingPermission")
                     @Override
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                        Log.i(TAG, "All location settings are satisfied.");
-
-                        Toast.makeText(getApplicationContext(), "Started location updates!", Toast.LENGTH_SHORT).show();
 
                         //noinspection MissingPermission
                         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
@@ -293,8 +267,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                         gmap.setMyLocationEnabled(true);
                         gmap.getUiSettings().setMyLocationButtonEnabled(true);
 
-
-
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -303,25 +275,16 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                         int statusCode = ((ApiException) e).getStatusCode();
                         switch (statusCode) {
                             case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                Log.i(TAG, "Location settings are not satisfied. Attempting to upgrade " +
-                                        "location settings ");
                                 try {
                                     // Show the dialog by calling startResolutionForResult(), and check the
                                     // result in onActivityResult().
                                     ResolvableApiException rae = (ResolvableApiException) e;
                                     rae.startResolutionForResult(NearbyDoctor.this, REQUEST_CHECK_SETTINGS);
                                 } catch (IntentSender.SendIntentException sie) {
-                                    Log.i(TAG, "PendingIntent unable to execute request.");
                                 }
                                 break;
                             case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                String errorMessage = "Location settings are inadequate, and cannot be " +
-                                        "fixed here. Fix in Settings.";
-                                Log.e(TAG, errorMessage);
-
-                                Toast.makeText(NearbyDoctor.this, errorMessage, Toast.LENGTH_LONG).show();
                         }
-
                         updateLocationUI();
                     }
                 });
@@ -370,11 +333,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             case REQUEST_CHECK_SETTINGS:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
-                        Log.e(TAG, "User agreed to make required location settings changes.");
                         // Nothing to do. startLocationupdates() gets called in onResume again.
                         break;
                     case Activity.RESULT_CANCELED:
-                        Log.e(TAG, "User chose not to make required location settings changes.");
                         mRequestingLocationUpdates = false;
                         break;
                 }
@@ -407,19 +368,19 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onPause() {
         super.onPause();
-
-        if (mRequestingLocationUpdates) {
-            // pausing location updates
-            // Removing location updates (stopLocationServices)
-            mFusedLocationClient
-                    .removeLocationUpdates(mLocationCallback)
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getApplicationContext(), "Location updates stopped!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+//
+//        if (mRequestingLocationUpdates) {
+//            // pausing location updates
+//            // Removing location updates (stopLocationServices)
+//            mFusedLocationClient
+//                    .removeLocationUpdates(mLocationCallback)
+//                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            Toast.makeText(getApplicationContext(), "Location updates stopped!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//        }
 
         mapView.onPause();
     }
