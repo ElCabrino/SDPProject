@@ -14,14 +14,11 @@ import java.util.Map;
 
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button button0800;
-    Button button0830;
-
-    boolean button0800State;
-    boolean button0830State;
+    Boolean slotSelected = new Boolean(false);
 
     HashMap<Integer, Button> buttonsAppointment = new HashMap<Integer, Button>();
     HashMap<Integer, Boolean> buttonsState= new HashMap<Integer, Boolean>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +85,19 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     //Change state of button
     void changeState(int i){
-        if (!(buttonsState.get(i))) {
+        //case where no time slot is selected
+        if (!(buttonsState.get(i)) && !slotSelected) {
             findViewById(i).setBackgroundColor(0xFF303F9F);
             buttonsState.put(i, true);
+            slotSelected = true;
         }
-        else {
+        //case where we deselect a time slot
+        else if ((buttonsState.get(i)) && slotSelected){
             findViewById(i).setBackgroundColor(0xFF3F51B5);
             buttonsState.put(i, false);
+            slotSelected = false;
+        } else {
+            Toast.makeText(this, "You've already picked a time slot", Toast.LENGTH_SHORT).show();
         }
     }
 
