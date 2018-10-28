@@ -439,7 +439,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
         // for each doctor, we put a pin
         for (Doctor doctor: doctors) {
-            LatLng doctorLocation = getLocationFromAddress(doctor);
+            LatLng doctorLocation = doctor.getLocationFromAddress(this);
             // if doctor address is incorrect we do not put his marker
             if (doctorLocation == null) {
                 Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT);
@@ -487,33 +487,33 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onStop();
     }
 
-    public LatLng getLocationFromAddress(User user){
-
-        //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
-        String strAddress = user.getStreet() + " " + user.getStreetNumber() + ", " + user.getCity() + ", " + user.getCountry();
-
-        Geocoder coder = new Geocoder(this);
-        List<Address> address;
-        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
-//        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
-        LatLng locationForMap = null;
-
-        try {
-            address = coder.getFromLocationName(strAddress,5);
-            if (address.isEmpty()){
-                return null;
-            }
-            Address location=address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            locationForMap = new LatLng(location.getLatitude(), location.getLongitude());
-
-            return locationForMap;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return locationForMap;
-    }
+//    public LatLng getLocationFromAddress(User user){
+//
+//        //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
+//        String strAddress = user.getStreet() + " " + user.getStreetNumber() + ", " + user.getCity() + ", " + user.getCountry();
+//
+//        Geocoder coder = new Geocoder(this);
+//        List<Address> address;
+//        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
+////        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
+//        LatLng locationForMap = null;
+//
+//        try {
+//            address = coder.getFromLocationName(strAddress,5);
+//            if (address.isEmpty()){
+//                return null;
+//            }
+//            Address location=address.get(0);
+//            location.getLatitude();
+//            location.getLongitude();
+//
+//            locationForMap = new LatLng(location.getLatitude(), location.getLongitude());
+//
+//            return locationForMap;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return locationForMap;
+//    }
 }
