@@ -342,7 +342,17 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     public void onPermissionDenied(PermissionDeniedResponse response) {
                         // open device settings when the permission is
                         // denied permanently
-                        if (response.isPermanentlyDenied()) openSettings();
+                        if (response.isPermanentlyDenied()){
+                            // open settings
+                            Intent intent = new Intent();
+                            intent.setAction(
+                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package",
+                                    BuildConfig.APPLICATION_ID, null);
+                            intent.setData(uri);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
                     }
 
                     @Override
@@ -352,17 +362,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 }).check();
     }
 
-    public void stopLocationUpdates() {
-        // Removing location updates
-        mFusedLocationClient
-                .removeLocationUpdates(mLocationCallback)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(), "Location updates stopped!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -383,16 +382,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void openSettings() {
-        Intent intent = new Intent();
-        intent.setAction(
-                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package",
-                BuildConfig.APPLICATION_ID, null);
-        intent.setData(uri);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
     @Override
     public void onResume() {
@@ -421,7 +410,15 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
         if (mRequestingLocationUpdates) {
             // pausing location updates
-            stopLocationUpdates();
+            // Removing location updates (stopLocationServices)
+            mFusedLocationClient
+                    .removeLocationUpdates(mLocationCallback)
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getApplicationContext(), "Location updates stopped!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
 
         mapView.onPause();
