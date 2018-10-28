@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,10 +36,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -45,8 +53,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -90,6 +101,13 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private LatLng userPosition;
 
     private Boolean alreadyCentered = false;
+
+    // Database
+    FirebaseDatabase database;
+    DatabaseReference ref;
+
+    // this will contain the doctors
+    ArrayList<Doctor> doctors = new ArrayList<>();
 
 
     @Override
@@ -151,8 +169,43 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         builder.addLocationRequest(mLocationRequest);
         mLocationSettingsRequest = builder.build();
 
+        // map reference
         mapView = findViewById(R.id.mapViewNearbyDoctor);
+
+        // database reference
+        database = FirebaseDatabase.getInstance();
+
+        // get all doctors
+        getAllDoctors();
     }
+
+    /**
+     * Will get all doctors in database and put them in doctors ArrayList
+     */
+    public void getAllDoctors(){
+
+        ref = database.getReference().child("Doctor");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    // retrieve doctor
+                    Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
+                    // add it to the array
+                    doctors.add(myDoctor);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 
     /**
      * Restoring values from saved instance state
@@ -196,6 +249,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
             // location last updated time
             txtUpdatedOn.setText("Last updated on: " + mLastUpdateTime);
+
 
             // update position
             userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
@@ -383,6 +437,20 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         gmap = googleMap;
         gmap.setMinZoomPreference(15);
 
+        // for each doctor, we put a pin
+        for (Doctor doctor: doctors) {
+            LatLng doctorLocation = getLocationFromAddress(doctor);
+            // if doctor address is incorrect we do not put his marker
+            if (doctorLocation == null) {
+                Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT);
+            } else {
+                // put the pin (marker)
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(doctorLocation);
+                markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
+                gmap.addMarker(markerOptions);
+            }
+        }
         if(userPosition != null)
             gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
 
@@ -417,5 +485,35 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     protected void onStop() {
         super.onStop();
         mapView.onStop();
+    }
+
+    public LatLng getLocationFromAddress(User user){
+
+        //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
+        String strAddress = user.getStreet() + " " + user.getStreetNumber() + ", " + user.getCity() + ", " + user.getCountry();
+
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
+//        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
+        LatLng locationForMap = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress,5);
+            if (address.isEmpty()){
+                return null;
+            }
+            Address location=address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            locationForMap = new LatLng(location.getLatitude(), location.getLongitude());
+
+            return locationForMap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return locationForMap;
     }
 }
