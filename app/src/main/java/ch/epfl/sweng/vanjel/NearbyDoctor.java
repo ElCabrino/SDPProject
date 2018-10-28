@@ -446,8 +446,8 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 // put the pin (marker)
                 MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(doctorLocation);
                 markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
+                markerOptions.position(doctorLocation);
                 gmap.addMarker(markerOptions);
             }
         }
