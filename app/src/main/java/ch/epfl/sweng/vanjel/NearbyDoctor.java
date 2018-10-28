@@ -89,6 +89,8 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     // user position with latitude and longitude
     private LatLng userPosition;
 
+    private Boolean alreadyCentered = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,7 +201,11 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
 
             // move the camera
-            gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
+            if(!alreadyCentered){
+                gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
+                alreadyCentered = true;
+            }
+
 
         }
     }
