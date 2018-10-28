@@ -65,8 +65,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     private TextView txtLocationResult, txtUpdatedOn;
 
-    // location last updated time
-    private String mLastUpdateTime;
 
     // location updates interval - 10sec
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
@@ -144,7 +142,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 super.onLocationResult(locationResult);
                 // location is received
                 mCurrentLocation = locationResult.getLastLocation();
-                mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
                 userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
 
@@ -172,9 +169,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         // get all doctors
         getAllDoctors();
 
-        // text field
-//        txtLocationResult = findViewById(R.id.location_result);
-//        txtUpdatedOn = findViewById(R.id.updated_on);
     }
 
     /**
@@ -195,7 +189,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
@@ -211,17 +204,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void updateLocationUI() {
         if (mCurrentLocation != null) {
-//            txtLocationResult.setText(
-//                    "Lat: " + mCurrentLocation.getLatitude() + ", " +
-//                            "Lng: " + mCurrentLocation.getLongitude()
-//            );
-//
-//            // giving a blink animation on TextView
-//            txtLocationResult.setAlpha(0);
-//            txtLocationResult.animate().alpha(1).setDuration(300);
-//
-//            // location last updated time
-//            txtUpdatedOn.setText("Last updated on: " + mLastUpdateTime);
 
             // update position
             userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
@@ -241,8 +223,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         super.onSaveInstanceState(outState);
         outState.putBoolean("is_requesting_updates", mRequestingLocationUpdates);
         outState.putParcelable("last_known_location", mCurrentLocation);
-        outState.putString("last_updated_on", mLastUpdateTime);
-
     }
 
     /**
@@ -365,25 +345,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-//
-//        if (mRequestingLocationUpdates) {
-//            // pausing location updates
-//            // Removing location updates (stopLocationServices)
-//            mFusedLocationClient
-//                    .removeLocationUpdates(mLocationCallback)
-//                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            Toast.makeText(getApplicationContext(), "Location updates stopped!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//        }
-
-        mapView.onPause();
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -407,34 +368,22 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         if(userPosition != null)
             gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
 
-//        LatLng location = new LatLng(34.1786998, -86.6154153);
-//
-//        gmap.moveCamera(CameraUpdateFactory.newLatLng(location));
-
     }
 
     @Override
-    protected void onDestroy() {
-        mapView.onDestroy();
-        super.onDestroy();
-    }
+    protected void onDestroy() { mapView.onDestroy(); super.onDestroy(); }
 
     @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
+    public void onLowMemory() { super.onLowMemory(); mapView.onLowMemory(); }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        mapView.onStart();
-    }
+    protected void onStart() { super.onStart(); mapView.onStart(); }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        mapView.onStop();
-    }
+    protected void onStop() { super.onStop(); mapView.onStop(); }
+
+    @Override
+    protected void onPause() { super.onPause(); mapView.onPause(); }
+
 
 }
