@@ -29,4 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:textSize="11dp" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapViewNearbyDoctor"
+        android:layout_width="match_parent"
+        android:layout_height="340dp" />
 </LinearLayout>

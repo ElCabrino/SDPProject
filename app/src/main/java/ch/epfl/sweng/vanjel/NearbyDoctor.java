@@ -29,6 +29,11 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +48,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class NearbyDoctor extends AppCompatActivity {
+public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = NearbyDoctor.class.getSimpleName();
 
@@ -74,6 +79,17 @@ public class NearbyDoctor extends AppCompatActivity {
     // boolean flag to toggle the ui
     private Boolean mRequestingLocationUpdates;
 
+    // map
+    private MapView mapView;
+    private GoogleMap gmap;
+
+    private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
+
+
+    // user position with latitude and longitude
+    private LatLng userPosition;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,13 +100,22 @@ public class NearbyDoctor extends AppCompatActivity {
         // initialize the necessary libraries
         init();
 
+        Bundle mapViewBundle = null;
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        }
+
+        mapView.onCreate(mapViewBundle);
+        mapView.getMapAsync(this);
+
+
         // restore the values from saved instance state
         restoreValuesFromBundle(savedInstanceState);
 
         startLocation();
     }
 
-    private void fields(){
+    private void fields() {
         txtLocationResult = findViewById(R.id.location_result);
         txtUpdatedOn = findViewById(R.id.updated_on);
     }
@@ -107,6 +132,8 @@ public class NearbyDoctor extends AppCompatActivity {
                 mCurrentLocation = locationResult.getLastLocation();
                 mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
+                userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+
                 updateLocationUI();
             }
         };
@@ -121,6 +148,8 @@ public class NearbyDoctor extends AppCompatActivity {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(mLocationRequest);
         mLocationSettingsRequest = builder.build();
+
+        mapView = findViewById(R.id.mapViewNearbyDoctor);
     }
 
     /**
@@ -134,7 +163,7 @@ public class NearbyDoctor extends AppCompatActivity {
         updateLocationUI();
     }
 
-    private void restoreFromBundle(Bundle savedInstanceState){
+    private void restoreFromBundle(Bundle savedInstanceState) {
         if (savedInstanceState.containsKey("is_requesting_updates")) {
             mRequestingLocationUpdates = savedInstanceState.getBoolean("is_requesting_updates");
         }
@@ -165,6 +194,13 @@ public class NearbyDoctor extends AppCompatActivity {
 
             // location last updated time
             txtUpdatedOn.setText("Last updated on: " + mLastUpdateTime);
+
+            // update position
+            userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+
+            // move the camera
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
+
         }
     }
 
@@ -198,6 +234,12 @@ public class NearbyDoctor extends AppCompatActivity {
                                 mLocationCallback, Looper.myLooper());
 
                         updateLocationUI();
+
+                        gmap.setMyLocationEnabled(true);
+                        gmap.getUiSettings().setMyLocationButtonEnabled(true);
+
+
+
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -307,6 +349,7 @@ public class NearbyDoctor extends AppCompatActivity {
             startLocationUpdates();
         }
 
+        mapView.onResume();
         updateLocationUI();
     }
 
@@ -325,5 +368,48 @@ public class NearbyDoctor extends AppCompatActivity {
             // pausing location updates
             stopLocationUpdates();
         }
+
+        mapView.onPause();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gmap = googleMap;
+        gmap.setMinZoomPreference(15);
+
+        if(userPosition != null)
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
+
+//        LatLng location = new LatLng(34.1786998, -86.6154153);
+//
+//        gmap.moveCamera(CameraUpdateFactory.newLatLng(location));
+
+
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
     }
 }
