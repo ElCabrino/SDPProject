@@ -1,12 +1,19 @@
 package ch.epfl.sweng.vanjel;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -116,9 +123,58 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonAppointment){
+            storeAppointment(i);
             Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
+        }
+    }
+
+    // Store appointment request in Firebase
+    private void storeAppointment(int id) {
+        for (Integer i: buttonsAppointment.keySet()) {
+            if (buttonsState.get(i) == true) {
+                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString());
+                FirebaseDatabase.getInstance().getReference("Doctor").child(doctorUID + "/Requests").updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(PatientAppointmentActivity.this, "Failed request appointment.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
+
+    // Generate date, time and id for appointment
+    private Map<String, Object> generateAppointmentValues(String time) {
+        Map<String, Object> res = new HashMap<>();
+        res.put("patient", getUserFirebaseID());
+        res.put("date", parseSelectedDate());
+        res.put("time", time);
+        return res;
+    }
+
+    // Return parsed selectedDate by removing time and GMT+01:00
+    private String parseSelectedDate() {
+        String res = "";
+        String[] subStrings = selectedDate.split("[0-9]{2}:[0-9]{2}:[0-9]{2}.+[0-9]{2}:[0-9]{2}");
+        for (String s : subStrings) {
+            res+=s;
+        }
+        return res.replaceAll("\\s\\s", " ");
+    }
+
+    // Return id of connected User, or ID of dummy User if no one is connected.
+    public String getUserFirebaseID() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } else {
+            return "ATtZ76LvUMb4wGaSS9Y3SYm0Glj2";
         }
     }
 }

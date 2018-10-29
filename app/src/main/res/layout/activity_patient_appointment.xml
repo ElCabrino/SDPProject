@@ -48,6 +48,7 @@
 
                 <Button
                     android:id="@+id/button0800"
+                    android:contentDescription="08:00"
                     android:layout_width="@android:dimen/thumbnail_width"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -68,6 +69,7 @@
 
                 <Button
                     android:id="@+id/button0830"
+                    android:contentDescription="08:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -88,6 +90,7 @@
 
                 <Button
                     android:id="@+id/button0900"
+                    android:contentDescription="09:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -108,6 +111,7 @@
 
                 <Button
                     android:id="@+id/button0930"
+                    android:contentDescription="09:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -128,6 +132,7 @@
 
                 <Button
                     android:id="@+id/button1000"
+                    android:contentDescription="10:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -148,6 +153,7 @@
 
                 <Button
                     android:id="@+id/button1030"
+                    android:contentDescription="10:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -168,6 +174,7 @@
 
                 <Button
                     android:id="@+id/button1100"
+                    android:contentDescription="11:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -188,6 +195,7 @@
 
                 <Button
                     android:id="@+id/button1130"
+                    android:contentDescription="11:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -208,6 +216,7 @@
 
                 <Button
                     android:id="@+id/button1200"
+                    android:contentDescription="12:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -228,6 +237,7 @@
 
                 <Button
                     android:id="@+id/button1230"
+                    android:contentDescription="12:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -248,6 +258,7 @@
 
                 <Button
                     android:id="@+id/button1300"
+                    android:contentDescription="13:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -268,6 +279,7 @@
 
                 <Button
                     android:id="@+id/button1330"
+                    android:contentDescription="13:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -287,6 +299,7 @@
 
                 <Button
                     android:id="@+id/button1400"
+                    android:contentDescription="14:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -306,6 +319,7 @@
 
                 <Button
                     android:id="@+id/button1430"
+                    android:contentDescription="14:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -326,6 +340,7 @@
 
                 <Button
                     android:id="@+id/button1500"
+                    android:contentDescription="15:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -345,6 +360,7 @@
 
                 <Button
                     android:id="@+id/button1530"
+                    android:contentDescription="15:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -364,6 +380,7 @@
 
                 <Button
                     android:id="@+id/button1600"
+                    android:contentDescription="16:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -382,6 +399,7 @@
 
                 <Button
                     android:id="@+id/button1630"
+                    android:contentDescription="16:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -400,6 +418,7 @@
 
                 <Button
                     android:id="@+id/button1700"
+                    android:contentDescription="17:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -419,6 +438,7 @@
 
                 <Button
                     android:id="@+id/button1730"
+                    android:contentDescription="17:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -438,6 +458,7 @@
 
                 <Button
                     android:id="@+id/button1800"
+                    android:contentDescription="18:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -457,6 +478,7 @@
 
                 <Button
                     android:id="@+id/button1830"
+                    android:contentDescription="18:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -476,6 +498,7 @@
 
                 <Button
                     android:id="@+id/button1900"
+                    android:contentDescription="19:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
@@ -495,6 +518,7 @@
 
                 <Button
                     android:id="@+id/button1930"
+                    android:contentDescription="19:30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary" />
