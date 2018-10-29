@@ -3,7 +3,6 @@ package ch.epfl.sweng.vanjel;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,8 +46,9 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                     apList.add(ap);
                 }
 
-                //PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
-                //listViewAp.setAdapter(adapter);
+
+                PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
+                listViewAp.setAdapter(adapter);
             }
 
             @Override

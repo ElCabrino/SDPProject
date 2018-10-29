@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/common_google_signin_btn_text_light_focused"
-        android:textSize="14sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textViewAppointmentInfo"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/common_google_signin_btn_text_light_focused"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
 
 </LinearLayout>
