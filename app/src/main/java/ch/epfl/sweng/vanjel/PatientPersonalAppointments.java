@@ -40,8 +40,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         dbAp.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                apList.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    apList.clear();
                     PtPersonalAppointment ap = ds.getValue(PtPersonalAppointment.class);
                     apList.add(ap);
                 }
