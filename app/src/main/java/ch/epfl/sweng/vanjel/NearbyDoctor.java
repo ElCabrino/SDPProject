@@ -100,19 +100,28 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION && grantResults.length > 0) {
+        Boolean request = requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION;
+        Boolean result = grantResults.length > 0;
+
+        if (request && result) {
             int grantResult = grantResults[0];
-            if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                getLocation();
-            } else {
-                isPermissionAlreadyDenied = true;
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_short);
-                } else {
-                    permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_long);
-                }
-                permissionDeniedView.setVisibility(View.VISIBLE);
+
+            switch (grantResult){
+                case PackageManager.PERMISSION_GRANTED:
+                    getLocation();
+                default:
+                    isPermissionAlreadyDenied = true;
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_short);
+                    } else {
+                        permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_long);
+                    }
+
+                    permissionDeniedView.setVisibility(View.VISIBLE);
             }
+
+
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
