@@ -30,6 +30,9 @@
         <activity android:name=".PatientCalendarActivity"></activity>
         <activity android:name=".PatientAppointmentActivity"></activity>
         <activity android:name=".DoctorInformation"></activity>
+
+        <service android:name=".AppointmentNotificationBackgroundService">
+        </service>
     </application>
 
 </manifest>
