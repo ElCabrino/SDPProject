@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,9 +37,11 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     String selectedDate;
 
     Boolean slotSelected = new Boolean(false);
+    boolean[] slotsAvailability;
 
     HashMap<Integer, Button> buttonsAppointment = new HashMap<Integer, Button>();
     HashMap<Integer, Boolean> buttonsState= new HashMap<Integer, Boolean>();
+    HashMap<Integer, Integer> slotState = new HashMap<Integer, Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,40 +57,43 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         addButtonListener();
         initButtonState();
 
+        getDoctorAvailability();
+
         //validate appointment button
         findViewById(R.id.buttonAppointment).setOnClickListener(this);
     }
 
     //Fill the button hasmap
     void getAllButton(){
-        addButton(R.id.button0800);
-        addButton(R.id.button0830);
-        addButton(R.id.button0900);
-        addButton(R.id.button0930);
-        addButton(R.id.button1000);
-        addButton(R.id.button1030);
-        addButton(R.id.button1100);
-        addButton(R.id.button1130);
-        addButton(R.id.button1200);
-        addButton(R.id.button1230);
-        addButton(R.id.button1300);
-        addButton(R.id.button1330);
-        addButton(R.id.button1400);
-        addButton(R.id.button1430);
-        addButton(R.id.button1500);
-        addButton(R.id.button1530);
-        addButton(R.id.button1600);
-        addButton(R.id.button1630);
-        addButton(R.id.button1700);
-        addButton(R.id.button1730);
-        addButton(R.id.button1800);
-        addButton(R.id.button1830);
-        addButton(R.id.button1900);
-        addButton(R.id.button1930);
+        addButton(R.id.button0800, 0);
+        addButton(R.id.button0830, 1);
+        addButton(R.id.button0900, 2);
+        addButton(R.id.button0930, 3);
+        addButton(R.id.button1000, 4);
+        addButton(R.id.button1030, 5);
+        addButton(R.id.button1100, 6);
+        addButton(R.id.button1130, 7);
+        addButton(R.id.button1200, 8);
+        addButton(R.id.button1230, 9);
+        addButton(R.id.button1300, 10);
+        addButton(R.id.button1330, 11);
+        addButton(R.id.button1400, 12);
+        addButton(R.id.button1430, 13);
+        addButton(R.id.button1500, 14);
+        addButton(R.id.button1530, 15);
+        addButton(R.id.button1600, 16);
+        addButton(R.id.button1630, 17);
+        addButton(R.id.button1700, 18);
+        addButton(R.id.button1730, 19);
+        addButton(R.id.button1800, 20);
+        addButton(R.id.button1830, 21);
+//        addButton(R.id.button1900, 22);
+//        addButton(R.id.button1930, 23);
     }
 
-    void addButton(int i) {
+    void addButton(int i, int slot_i) {
         buttonsAppointment.put(i, (Button)findViewById(i));
+        slotState.put(slot_i, i);
     }
 
     //Fill the state hashmap with a loop
@@ -185,4 +193,58 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
             return "ATtZ76LvUMb4wGaSS9Y3SYm0Glj2";
         }
     }
+
+    private void getDoctorAvailability() {
+        slotsAvailability = new boolean[TimeAvailability.getIdLength()/6];
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctor/"+doctorUID+"/Availability");
+        String weekday = parseSelectedDate().substring(0,Math.min(parseSelectedDate().length(), 3));
+        switch (weekday) {
+            case "Mon":
+                weekday = "Monday";
+                break;
+            case "Tue":
+                weekday = "Tuesday";
+                break;
+            case "Wed":
+                weekday = "Wednesday";
+                break;
+            case "Thu":
+                weekday = "Thursday";
+                break;
+            case "Fri":
+                weekday = "Friday";
+                break;
+            case "Sat":
+                weekday = "Saturday";
+                break;
+        }
+        ref.child(weekday).addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        GenericTypeIndicator<HashMap<String, String>> genericType = new GenericTypeIndicator<HashMap<String, String>>() {};
+                        HashMap<String, String> av = dataSnapshot.getValue(genericType);
+                        // If Doctor has not set availability, we consider he is available all time.
+                        if (av != null) {
+                            slotsAvailability = TimeAvailability.parseTimeStringToSlots(av.get("availability"));
+                            setDoctorAvailability();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );
+    }
+
+    private void setDoctorAvailability() {
+        for (int i=0; i<slotsAvailability.length;i++)
+            if (slotsAvailability[i] == false) {
+                findViewById(slotState.get(i)).setBackgroundColor(0xFFFFFFFF);
+                findViewById(slotState.get(i)).setEnabled(false);
+                buttonsState.put(slotState.get(i), false);
+            }
+        }
 }
