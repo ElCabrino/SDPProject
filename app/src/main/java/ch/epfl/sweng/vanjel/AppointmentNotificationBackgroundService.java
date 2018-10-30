@@ -1,10 +1,13 @@
 package ch.epfl.sweng.vanjel;
 
 import android.app.ActivityManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -35,6 +38,8 @@ public class AppointmentNotificationBackgroundService extends Service {
     @Override
     public void onCreate() {
 
+        createNotificationChannel();
+
         //FirebaseDatabase.getInstance().getReference("TEST").setValue(100000);
 
         Toast.makeText(this, "Service started", Toast.LENGTH_LONG).show();
@@ -53,16 +58,15 @@ public class AppointmentNotificationBackgroundService extends Service {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
-                    String doctor = dayRequest.child("doctor").getValue().toString();
-                    notifyDoctor(doctor);
-                }
-
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
+                    String doctor = dayRequest.child("doctor").getValue().toString();
+                    notifyDoctor(doctor);
+                }
             }
 
             @Override
@@ -76,17 +80,31 @@ public class AppointmentNotificationBackgroundService extends Service {
         });
     }
 
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "appointmentChannel";
+            String description = "appointment";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("appointmentID", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
     private void notifyDoctor(String id) {
         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
             Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
 
-//            ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
-//            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-//            //create notification
-//            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(Profile.class)
-//                    .setContentTitle("yo")
-//                    .setContentText("notiif")
-//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            //create notification
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                    .setContentTitle("yo")
+                    .setContentText("notiif")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         }
     }
 }
