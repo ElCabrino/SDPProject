@@ -17,8 +17,10 @@ import java.util.List;
 public class PatientPersonalAppointments extends AppCompatActivity {
 
     DatabaseReference dbAp;
+    DatabaseReference dbDoc;
 
     ListView listViewAp;
+    String id = "Gaq9alb1yohthmwm1A9GrkVrBgp2";
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
 
@@ -27,7 +29,11 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        dbAp = FirebaseDatabase.getInstance().getReference("Patient/I3h9NVPXwmb0Ab2auVnaMSgjaLY2/Appointments");
+        // to be corrected
+        //dbAp = FirebaseDatabase.getInstance().getReference("Patient/I3h9NVPXwmb0Ab2auVnaMSgjaLY2/Appointments");
+
+        dbAp = FirebaseDatabase.getInstance().getReference("Requests");
+        dbDoc = FirebaseDatabase.getInstance().getReference("Doctor");
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
 
@@ -41,9 +47,16 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    PtPersonalAppointment ap = ds.getValue(PtPersonalAppointment.class);
-                    apList.add(ap);
+                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                    //PtPersonalAppointment ap = ds.getValue(PtPersonalAppointment.class);
+                    String date = dateSnapshot.getKey();
+                        for (DataSnapshot ds : dateSnapshot.getChildren()) {
+                            if (ds.child("patient").getValue(String.class).equals(id)) {
+                                String a = ds.child("patient").getValue(String.class);
+                                PtPersonalAppointment ap = new PtPersonalAppointment(date, a, "b", "c");
+                                apList.add(ap);
+                            }
+                        }
                 }
 
 
