@@ -33,7 +33,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
+/**
+ * Handles interaction with activity_nearby_doctor
+ *
+ * @author Etienne Caquot
+ * @author Aslam Cader
+ */
 public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = NearbyDoctor.class.getSimpleName();
@@ -47,7 +52,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     private boolean isPermissionAlreadyDenied;
 
-    //user Location
+    //to get user Location
     private FusedLocationProviderClient mFusedLocationClient;
 
     // map
@@ -68,7 +73,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         this.permissionDeniedView = findViewById(R.id.permission_denied_view);
         this.permissionDeniedRationaleView = findViewById(R.id.permission_denied_rationale);
 
-        // initialize the necessary libraries and values
         init();
 
         // map bundle
@@ -85,10 +89,10 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onResume() {
         super.onResume();
-
+        //get
         int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-            getLocation();
+            checkLocation();
         } else if (!isPermissionAlreadyDenied) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
@@ -103,7 +107,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION && grantResults.length > 0) {
             int grantResult = grantResults[0];
             if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                getLocation();
+                checkLocation();
             } else {
                 isPermissionAlreadyDenied = true;
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -138,6 +142,11 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Method called when the user click on the Grant Permission button. Either Asks for Location
+     * permission or go to settings if user wants to grant permission but alredy checked "Don't Ask Again"
+      * @param view
+     */
     public void onGrantPermission(View view) {
         permissionDeniedView.setVisibility(View.INVISIBLE);
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -148,6 +157,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Opens the settings App
+     */
     private void goToSettings() {
         permissionDeniedView.setVisibility(View.INVISIBLE);
         Uri uri = Uri.fromParts("package", getPackageName(), null);
@@ -156,7 +168,10 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(settingsIntent);
     }
 
-    private void getLocation() {
+    /**
+     * Get the user Location and initialize the Google Maps if there is a non-null location
+     */
+    private void checkLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
@@ -175,6 +190,10 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Initialize the Google Maps map components that require user Location
+     * @param location
+     */
     private void initMap(Location location){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -187,13 +206,14 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         gmap.animateCamera(yourLocation);
     }
 
+    /**
+     * Initialize the necessary libraries and references
+     */
     private void init() {
         // map reference
         mapView = findViewById(R.id.mapViewNearbyDoctor);
-
         // database reference
         database = FirebaseDatabase.getInstance();
-
         // get all doctors: Will get all doctors in database and put them in doctors ArrayList
         database.getReference().child("Doctor").addValueEventListener(new ValueEventListener() {
             @Override
@@ -208,8 +228,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // user Location
+        // user position
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 }
