@@ -29,12 +29,12 @@ import static org.junit.Assert.*;
 public class DoctorInformationTest {
 
     @Rule
-    public final ActivityTestRule<SearchDoctor> mActivityRule =
-            new ActivityTestRule<>(SearchDoctor.class);
+    public final ActivityTestRule<DoctorInformation> mActivityRule =
+            new ActivityTestRule<>(DoctorInformation.class);
 
     @Test
     public void nothing(){
-
+        
     }
 //
 //    @Before
