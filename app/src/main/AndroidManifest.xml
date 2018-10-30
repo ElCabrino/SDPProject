@@ -24,11 +24,11 @@
         <activity android:name=".Registration" />
         <activity android:name=".DoctorCalendar" />
         <activity android:name=".Profile" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".PatientInfo" />
         <activity android:name=".FilteredDoctors" />

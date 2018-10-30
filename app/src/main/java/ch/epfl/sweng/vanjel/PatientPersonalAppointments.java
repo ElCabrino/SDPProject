@@ -1,6 +1,8 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -13,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,8 +38,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        // to be corrected
-        //dbAp = FirebaseDatabase.getInstance().getReference("Patient/I3h9NVPXwmb0Ab2auVnaMSgjaLY2/Appointments");
         id = FirebaseAuth.getInstance().getUid();
         if (id == null) { id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";}
 
@@ -52,7 +53,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
+        //recover doctor names
         dbDoc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,6 +79,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         });
 
         dbAp.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
@@ -97,7 +99,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                         }
                 }
 
-
+                apList.sort(new appointmentsComparator());
                 PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
                 listViewAp.setAdapter(adapter);
             }
@@ -108,6 +110,73 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             }
         });
 
+    }
+
+    private class appointmentsComparator implements Comparator<PtPersonalAppointment> {
+        @Override
+        public int compare(PtPersonalAppointment ap1, PtPersonalAppointment ap2) {
+            return parseDate(ap1.getDate())- parseDate(ap2.getDate());
+        }
+
+        private int parseDate(String date) {
+            String d = date.substring(8,10);
+            String m = date.substring(4,7);
+            String y = date.substring(11,15);
+            return yearNum(y) + monthNum(m) + dayNum(d);
+        }
+
+    }
+
+
+    private int dayNum(String d) {
+        return Integer.parseInt(d);
+    }
+
+    private int monthNum(String m) {
+        int i = 1;
+        switch (m) {
+            case "Jan":
+                break;
+            case "Feb":
+                i = 2;
+                break;
+            case "Mar":
+                i = 3;
+                break;
+            case "Apr":
+                i = 4;
+                break;
+            case "May":
+                i = 5;
+                break;
+            case "Jun":
+                i = 6;
+                break;
+            case "Jul":
+                i = 7;
+                break;
+            case "Aug":
+                i = 8;
+                break;
+            case "Sep":
+                i = 9;
+                break;
+            case "Oct":
+                i = 10;
+                break;
+            case "Nov":
+                i = 11;
+                break;
+            case "Dec":
+                i = 12;
+                break;
+        }
+        return i*100;
+    }
+
+    private int yearNum(String y) {
+        int i = Integer.parseInt(y);
+        return i * 10000;
     }
 
 }
