@@ -115,7 +115,11 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     private class appointmentsComparator implements Comparator<PtPersonalAppointment> {
         @Override
         public int compare(PtPersonalAppointment ap1, PtPersonalAppointment ap2) {
-            return parseDate(ap1.getDate())- parseDate(ap2.getDate());
+            int diff = parseDate(ap1.getDate())- parseDate(ap2.getDate());
+            if (diff == 0) {
+                return parseTime(ap1.getTime())- parseTime(ap2.getTime());
+            }
+            return diff;
         }
 
         private int parseDate(String date) {
@@ -125,58 +129,64 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             return yearNum(y) + monthNum(m) + dayNum(d);
         }
 
-    }
-
-
-    private int dayNum(String d) {
-        return Integer.parseInt(d);
-    }
-
-    private int monthNum(String m) {
-        int i = 1;
-        switch (m) {
-            case "Jan":
-                break;
-            case "Feb":
-                i = 2;
-                break;
-            case "Mar":
-                i = 3;
-                break;
-            case "Apr":
-                i = 4;
-                break;
-            case "May":
-                i = 5;
-                break;
-            case "Jun":
-                i = 6;
-                break;
-            case "Jul":
-                i = 7;
-                break;
-            case "Aug":
-                i = 8;
-                break;
-            case "Sep":
-                i = 9;
-                break;
-            case "Oct":
-                i = 10;
-                break;
-            case "Nov":
-                i = 11;
-                break;
-            case "Dec":
-                i = 12;
-                break;
+        private int parseTime(String time) {
+            return Integer.parseInt(time.substring(0,2))*100+
+                    Integer.parseInt(time.substring(3,5));
         }
-        return i*100;
+
+        private int dayNum(String d) {
+            return Integer.parseInt(d);
+        }
+
+        private int monthNum(String m) {
+            int i = 1;
+            switch (m) {
+                case "Jan":
+                    break;
+                case "Feb":
+                    i = 2;
+                    break;
+                case "Mar":
+                    i = 3;
+                    break;
+                case "Apr":
+                    i = 4;
+                    break;
+                case "May":
+                    i = 5;
+                    break;
+                case "Jun":
+                    i = 6;
+                    break;
+                case "Jul":
+                    i = 7;
+                    break;
+                case "Aug":
+                    i = 8;
+                    break;
+                case "Sep":
+                    i = 9;
+                    break;
+                case "Oct":
+                    i = 10;
+                    break;
+                case "Nov":
+                    i = 11;
+                    break;
+                case "Dec":
+                    i = 12;
+                    break;
+            }
+            return i*100;
+        }
+
+        private int yearNum(String y) {
+            int i = Integer.parseInt(y);
+            return i * 10000;
+        }
+
     }
 
-    private int yearNum(String y) {
-        int i = Integer.parseInt(y);
-        return i * 10000;
-    }
+
 
 }
