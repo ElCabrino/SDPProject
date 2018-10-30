@@ -45,7 +45,7 @@ public class DoctorInformationTest {
 
         intended(hasComponent(FilteredDoctors.class.getName()));
 
-        onView(withId(R.id.lastName)).check(matches(withText(lastName))).perform(click());
+        onView(withId(R.id.docInfo_lastName)).check(matches(withText(lastName))).perform(click());
 
 
         TimeUnit.SECONDS.sleep(5); // wait for data retrieving
