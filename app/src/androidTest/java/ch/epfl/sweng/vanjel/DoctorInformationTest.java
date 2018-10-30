@@ -1,5 +1,8 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
@@ -30,10 +33,19 @@ import static org.junit.Assert.*;
 public class DoctorInformationTest {
 
     @Rule
-    public final ActivityTestRule<SearchDoctor> mActivityRule =
-            new ActivityTestRule<>(SearchDoctor.class);
+    public final ActivityTestRule<DoctorInformation> mActivityRule =
+            new ActivityTestRule<DoctorInformation>(DoctorInformation.class) {
+                @Override
+                protected Intent getActivityIntent() {
+                    Context targetContext = InstrumentationRegistry.getInstrumentation()
+                            .getTargetContext();
+                    Intent result = new Intent(targetContext, DoctorInformation.class);
+                    result.putExtra("lastName", "Smith");
+                    return result;
+                }
+            };
 
-    @Before
+/*    @Before
     public void setUp() throws Exception{
 
         Intents.init();
@@ -46,7 +58,7 @@ public class DoctorInformationTest {
 
         intended(hasComponent(FilteredDoctors.class.getName()));
 
-        onView(withContentDescription("doctor information last name")).check(matches(withText(lastName))).perform(click());
+        //onView(withContentDescription("doctor information last name")).check(matches(withText(lastName))).perform(click());
 
 
         TimeUnit.SECONDS.sleep(5); // wait for data retrieving
@@ -54,7 +66,7 @@ public class DoctorInformationTest {
 
 
 
-    }
+    }*/
 
     @Test
     public void onCreateTest(){
