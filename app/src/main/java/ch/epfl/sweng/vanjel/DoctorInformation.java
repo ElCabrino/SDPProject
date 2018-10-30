@@ -84,7 +84,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         bundle = getIntent().getExtras();
         // doctor details
         firstName = findViewById(R.id.firstName);
-        lastName = findViewById(R.id.lastName);
+        lastName = findViewById(R.id.docInfo_lastName);
         activity = findViewById(R.id.activity);
         street = findViewById(R.id.street);
         streetNumber = findViewById(R.id.streetNumber);
