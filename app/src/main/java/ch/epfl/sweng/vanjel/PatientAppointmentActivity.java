@@ -3,6 +3,7 @@ package ch.epfl.sweng.vanjel;
 import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    Toast mToast;
 
     //Appointment with the doctor of this ID
     String doctorUID;
@@ -116,7 +120,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         }
         //case time slot already selected
         else {
-            Toast.makeText(this, "You've already picked a time slot", Toast.LENGTH_SHORT).show();
+            mToast.makeText(this, "You've already picked a time slot", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -141,12 +145,12 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
                 ref.child(parseSelectedDate()+"/"+key).updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
+                        mToast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(PatientAppointmentActivity.this, "Failed request appointment.", Toast.LENGTH_SHORT).show();
+                        mToast.makeText(PatientAppointmentActivity.this, "Failed request appointment.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
