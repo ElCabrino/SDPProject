@@ -54,29 +54,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onStart();
 
         //recover doctor names
-        dbDoc.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                idToDoc.clear();
-                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                    String name = idSnapshot.child("lastName").getValue(String.class);
-                    String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
-                            idSnapshot.child("street").getValue(String.class) + " " +
-                            idSnapshot.child("city").getValue(String.class);
-                    String docId = idSnapshot.getKey();
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(name);
-                    list.add(location);
-                    idToDoc.put(docId,list);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        populateDocMap();
 
         dbAp.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -184,6 +162,33 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             int i = Integer.parseInt(y);
             return i * 10000;
         }
+
+    }
+
+    private void populateDocMap() {
+        //recover doctor names
+        dbDoc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                idToDoc.clear();
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    String name = idSnapshot.child("lastName").getValue(String.class);
+                    String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
+                            idSnapshot.child("street").getValue(String.class) + " " +
+                            idSnapshot.child("city").getValue(String.class);
+                    String docId = idSnapshot.getKey();
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(name);
+                    list.add(location);
+                    idToDoc.put(docId,list);
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
