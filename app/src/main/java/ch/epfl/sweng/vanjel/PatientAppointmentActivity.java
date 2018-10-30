@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.graphics.Color;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -48,8 +51,6 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         //validate appointment button
         findViewById(R.id.buttonAppointment).setOnClickListener(this);
     }
-
-
 
     //Fill the button hasmap
     void getAllButton(){
@@ -124,7 +125,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         int i = v.getId();
         if (i == R.id.buttonAppointment){
             storeAppointment(i);
-            Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
         }
@@ -132,10 +133,12 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     // Store appointment request in Firebase
     private void storeAppointment(int id) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
         for (Integer i: buttonsAppointment.keySet()) {
             if (buttonsState.get(i) == true) {
-                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString());
-                FirebaseDatabase.getInstance().getReference("Doctor").child(doctorUID + "/Requests").updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
+                String key = ref.push().getKey();
+                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, getUserFirebaseID());
+                ref.child(parseSelectedDate()+"/"+key).updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
@@ -151,11 +154,11 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     }
 
     // Generate date, time and id for appointment
-    private Map<String, Object> generateAppointmentValues(String time) {
+    private Map<String, Object> generateAppointmentValues(String time, String docId, String patientId) {
         Map<String, Object> res = new HashMap<>();
-        res.put("patient", getUserFirebaseID());
-        res.put("date", parseSelectedDate());
         res.put("time", time);
+        res.put("doctor", docId);
+        res.put("patient", patientId);
         return res;
     }
 
