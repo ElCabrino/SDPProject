@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -98,13 +99,18 @@ public class AppointmentNotificationBackgroundService extends Service {
 
     private void notifyDoctor(String id) {
         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
-            Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
 
             //create notification
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("yo")
                     .setContentText("notiif")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setPriority(Notification.PRIORITY_MAX);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.notify(0 , mBuilder.build());
         }
     }
 }
