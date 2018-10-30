@@ -102,24 +102,45 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION && grantResults.length > 0) {
-            int grantResult = grantResults[0];
-            if (grantResult == PackageManager.PERMISSION_GRANTED) {
+
+    /**
+     * This method checks the grantResult and display message
+     * depending on user's device preference toward GPS usage on app
+     * @param grantResult
+     */
+    public void permissionsMessage(int grantResult){
+
+        switch (grantResult){
+            case PackageManager.PERMISSION_GRANTED:
                 checkLocation();
-            } else {
+            default:
                 isPermissionAlreadyDenied = true;
+
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                     permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_short);
                 } else {
                     permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_long);
                 }
+
                 permissionDeniedView.setVisibility(View.VISIBLE);
-            }
+
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        Boolean request = requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION;
+        Boolean result = grantResults.length > 0;
+
+        if(requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION && result){
+            permissionsMessage(grantResults[0]);
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+
     }
 
     @Override
