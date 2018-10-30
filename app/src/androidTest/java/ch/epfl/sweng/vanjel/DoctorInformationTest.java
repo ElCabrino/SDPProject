@@ -21,6 +21,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
@@ -45,7 +46,7 @@ public class DoctorInformationTest {
 
         intended(hasComponent(FilteredDoctors.class.getName()));
 
-        onView(withId(R.id.docInfo_lastName)).check(matches(withText(lastName))).perform(click());
+        onView(withContentDescription("doctor information last name")).check(matches(withText(lastName))).perform(click());
 
 
         TimeUnit.SECONDS.sleep(5); // wait for data retrieving
