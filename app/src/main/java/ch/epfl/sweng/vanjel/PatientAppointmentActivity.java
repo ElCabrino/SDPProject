@@ -159,6 +159,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         res.put("time", time);
         res.put("doctor", docId);
         res.put("patient", patientId);
+        res.put("duration", "0");
         return res;
     }
 
