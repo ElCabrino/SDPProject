@@ -5,14 +5,16 @@ public class PtPersonalAppointment {
     String location;
     String date;
     String time;
+    String duration;
 
     PtPersonalAppointment() {}
 
-    public PtPersonalAppointment(String doctor, String location, String date, String time) {
+    public PtPersonalAppointment(String doctor, String location, String date, String time, String duration) {
         this.doctor = doctor;
         this.location = location;
         this.date = date;
         this.time = time;
+        this.duration = duration;
     }
 
     public String getDoctor() {
@@ -29,5 +31,9 @@ public class PtPersonalAppointment {
 
     public String getTime() {
         return time;
+    }
+
+    public String getDuration() {
+        return duration;
     }
 }

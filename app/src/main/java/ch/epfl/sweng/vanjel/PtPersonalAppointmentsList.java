@@ -33,7 +33,8 @@ public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointme
         PtPersonalAppointment ap = (PtPersonalAppointment) appointmentList.get(position);
 
         textViewDoctor.setText(ap.getDoctor());
-        textViewInfo.setText(ap.getLocation() + " " + ap.getDate() + " " + ap.getTime());
+        textViewInfo.setText(ap.getLocation() + " " + ap.getDate() + " " + ap.getTime() + " for " + ap.getDuration() +
+        "minutes");
 
         return listViewItem;
 

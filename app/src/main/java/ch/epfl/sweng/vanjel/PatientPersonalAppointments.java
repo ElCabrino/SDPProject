@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PatientPersonalAppointments extends AppCompatActivity {
@@ -20,9 +21,11 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     DatabaseReference dbDoc;
 
     ListView listViewAp;
-    String id = "Gaq9alb1yohthmwm1A9GrkVrBgp2";
+    String id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
+    // to optimize
+    HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,37 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
 
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        dbDoc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                idToDoc.clear();
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    String name = idSnapshot.child("lastName").getValue(String.class);
+                    String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
+                            idSnapshot.child("street").getValue(String.class) + " " +
+                            idSnapshot.child("city").getValue(String.class);
+                    String docId = idSnapshot.getKey();
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(name);
+                    list.add(location);
+                    idToDoc.put(docId,list);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         dbAp.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,8 +81,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                     String date = dateSnapshot.getKey();
                         for (DataSnapshot ds : dateSnapshot.getChildren()) {
                             if (ds.child("patient").getValue(String.class).equals(id)) {
-                                String a = ds.child("patient").getValue(String.class);
-                                PtPersonalAppointment ap = new PtPersonalAppointment(date, a, "b", "c");
+                                String docId = ds.child("doctor").getValue(String.class);
+                                String doc = idToDoc.get(docId).get(0);
+                                String loc = idToDoc.get(docId).get(1);
+                                String time = ds.child("time").getValue(String.class);
+                                String duration = ds.child("duration").getValue(String.class);
+                                PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration);
                                 apList.add(ap);
                             }
                         }
@@ -71,4 +104,5 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         });
 
     }
+
 }
