@@ -104,9 +104,10 @@ public class AppointmentNotificationBackgroundService extends Service {
             //create notification
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("yo")
-                    .setContentText("notiif")
-                    .setPriority(Notification.PRIORITY_MAX);
+                    .setContentTitle("New appointment")
+                    .setContentText("A patient took a new appointment!")
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setPriority(0x00000002);
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
