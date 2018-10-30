@@ -71,7 +71,12 @@ public class DoctorAvailabilityActivityTest {
         mActivityRule.launchActivity(intent);
         TimeUnit.SECONDS.sleep(2);
         for (int k: toCheck) {
-            onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+            try {
+                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+            } catch (Exception e) {
+                clickTestSlots();
+                onView(withId(R.id.valid)).perform(scrollTo(), click());
+            }
         }
         clickTestSlots();
         onView(withId(R.id.valid)).perform(scrollTo(), click());

@@ -21,6 +21,6 @@ public class PatientAppointmentTest {
     @Test
     public void testAppointment(){
         onView(withId(R.id.button0800)).perform(scrollTo(), click());
-        onView((withId(R.id.buttonAppointment))).perform(click());
+        onView((withId(R.id.buttonAppointment))).perform(scrollTo(), click());
     }
 }
