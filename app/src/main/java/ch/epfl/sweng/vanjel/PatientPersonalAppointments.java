@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,11 +22,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     DatabaseReference dbDoc;
 
     ListView listViewAp;
-    String id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";
+    String id;
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
     // to optimize
     HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
         // to be corrected
         //dbAp = FirebaseDatabase.getInstance().getReference("Patient/I3h9NVPXwmb0Ab2auVnaMSgjaLY2/Appointments");
+        id = FirebaseAuth.getInstance().getUid();
+        if (id == null) { id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";}
 
         dbAp = FirebaseDatabase.getInstance().getReference("Requests");
         dbDoc = FirebaseDatabase.getInstance().getReference("Doctor");
@@ -41,12 +46,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
 
 
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
 
         dbDoc.addValueEventListener(new ValueEventListener() {
             @Override

@@ -27,14 +27,15 @@ public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointme
         LayoutInflater inflater = context.getLayoutInflater();
 
         View listViewItem = inflater.inflate(R.layout.list_pt_personal_appointments,null,true);
-        TextView textViewDoctor = (TextView) listViewItem.findViewById(R.id.textViewAppointmentDoctor);
-        TextView textViewInfo = (TextView) listViewItem.findViewById(R.id.textViewAppointmentInfo);
+        TextView textViewDoctorDate = (TextView) listViewItem.findViewById(R.id.textViewAppointmentDoctorDate);
+        TextView textViewTime = (TextView) listViewItem.findViewById(R.id.textViewAppointmentTime);
+        TextView textViewLocation = (TextView) listViewItem.findViewById(R.id.textViewAppointmentLocation);
 
         PtPersonalAppointment ap = (PtPersonalAppointment) appointmentList.get(position);
 
-        textViewDoctor.setText(ap.getDoctor());
-        textViewInfo.setText(ap.getLocation() + " " + ap.getDate() + " " + ap.getTime() + " for " + ap.getDuration() +
-        "minutes");
+        textViewDoctorDate.setText(ap.getDate() + " - Dr." + ap.getDoctor());
+        textViewTime.setText(ap.getTime() + ", " + ap.getDuration() + " minutes");
+        textViewLocation.setText(ap.getLocation());
 
         return listViewItem;
 
