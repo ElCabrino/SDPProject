@@ -60,9 +60,6 @@ dependencies {
 //    testImplementation 'junit:junit:4.12'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
-
-    // dexter runtime permissions
-    implementation 'com.karumi:dexter:4.2.0'
 }
 
 

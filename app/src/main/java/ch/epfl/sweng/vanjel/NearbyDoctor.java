@@ -1,104 +1,58 @@
 package ch.epfl.sweng.vanjel;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
 
 public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = NearbyDoctor.class.getSimpleName();
 
-    private TextView txtLocationResult, txtUpdatedOn;
+    private static final int REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION = 0x01;
 
+    private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
 
-    // location updates interval - 10sec
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    private View permissionDeniedView;
+    private TextView permissionDeniedRationaleView;
 
-    // fastest updates interval - 5 sec
-    // location updates will be received if another app is requesting the locations
-    // than your app can handle
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+    private boolean isPermissionAlreadyDenied;
 
-    private static final int REQUEST_CHECK_SETTINGS = 100;
-
-
-    // bunch of location related apis
+    //user Location
     private FusedLocationProviderClient mFusedLocationClient;
-    private SettingsClient mSettingsClient;
-    private LocationRequest mLocationRequest;
-    private LocationSettingsRequest mLocationSettingsRequest;
-    private LocationCallback mLocationCallback;
-    private Location mCurrentLocation;
-
-    // boolean flag to toggle the ui
-    private Boolean mRequestingLocationUpdates = false;
 
     // map
     private MapView mapView;
     private GoogleMap gmap;
-
-    private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
-
-
-    // user position with latitude and longitude
-    private LatLng userPosition;
-
-    private Boolean alreadyCentered = false;
 
     // Database
     FirebaseDatabase database;
@@ -106,11 +60,13 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     // this will contain the doctors
     ArrayList<Doctor> doctors = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_doctor);
+
+        this.permissionDeniedView = findViewById(R.id.permission_denied_view);
+        this.permissionDeniedRationaleView = findViewById(R.id.permission_denied_rationale);
 
         // initialize the necessary libraries and values
         init();
@@ -124,12 +80,112 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
 
-        updateLocationUI();
-
-        startLocation();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+            getLocation();
+        } else if (!isPermissionAlreadyDenied) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+        }
+
+        mapView.onResume();
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION && grantResults.length > 0) {
+            int grantResult = grantResults[0];
+            if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                getLocation();
+            } else {
+                isPermissionAlreadyDenied = true;
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_short);
+                } else {
+                    permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_long);
+                }
+                permissionDeniedView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gmap = googleMap;
+        gmap.getUiSettings().setZoomControlsEnabled(true);
+        // for each doctor, we put a pin
+        for (Doctor doctor : doctors) {
+            LatLng doctorLocation = doctor.getLocationFromAddress(this);
+            // if doctor address is incorrect we do not put his marker
+            if (doctorLocation == null) {
+                Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
+            } else {
+                // put the pin (marker)
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
+                markerOptions.position(doctorLocation);
+                gmap.addMarker(markerOptions);
+            }
+        }
+    }
+
+    public void onGrantPermission(View view) {
+        permissionDeniedView.setVisibility(View.INVISIBLE);
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+        } else {
+            goToSettings();
+        }
+    }
+
+    private void goToSettings() {
+        permissionDeniedView.setVisibility(View.INVISIBLE);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        Intent settingsIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri);
+        settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(settingsIntent);
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+        }else {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    // Got last known location. In some rare situations this can be null.
+                    if (location != null) {
+                        initMap(location);
+                    } else {
+                        Toast.makeText(NearbyDoctor.this, "Cannot find your Location", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    private void initMap(Location location){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+        }
+        mapView.setVisibility(View.VISIBLE);
+        LatLng userPosition = new LatLng(location.getLatitude(),location.getLongitude());
+        gmap.setMyLocationEnabled(true);
+        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userPosition, 18);
+        gmap.animateCamera(yourLocation);
+    }
 
     private void init() {
         // map reference
@@ -146,7 +202,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     // retrieve doctor & add it to the array
                     doctors.add(dataSnapshot1.getValue(Doctor.class));
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -154,209 +209,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-
+        // user Location
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mSettingsClient = LocationServices.getSettingsClient(this);
-
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                // location is received
-                mCurrentLocation = locationResult.getLastLocation();
-
-                userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-
-                updateLocationUI();
-            }
-        };
-
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
-        builder.addLocationRequest(mLocationRequest);
-        mLocationSettingsRequest = builder.build();
     }
-
-
-    /**
-     * Update the UI displaying the location data
-     * and toggling the buttons
-     */
-    private void updateLocationUI() {
-        if (mCurrentLocation != null) {
-
-            // update position
-            userPosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-
-            // move the camera if not already centered to our position
-            if(!alreadyCentered){ gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition)); alreadyCentered = true; }
-
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("is_requesting_updates", mRequestingLocationUpdates);
-        outState.putParcelable("last_known_location", mCurrentLocation);
-    }
-
-    /**
-     * Starting location updates
-     * Check whether location settings are satisfied and then
-     * location updates will be requested
-     */
-    private void startLocationUpdates() {
-        mSettingsClient
-                .checkLocationSettings(mLocationSettingsRequest)
-                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-                    @SuppressLint("MissingPermission")
-                    @Override
-                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-
-                        //noinspection MissingPermission
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                                mLocationCallback, Looper.myLooper());
-
-                        updateLocationUI();
-
-                        gmap.setMyLocationEnabled(true);
-                        gmap.getUiSettings().setMyLocationButtonEnabled(true);
-
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        int statusCode = ((ApiException) e).getStatusCode();
-                        switch (statusCode) {
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                try {
-                                    // Show the dialog by calling startResolutionForResult(), and check the
-                                    // result in onActivityResult().
-                                    ResolvableApiException rae = (ResolvableApiException) e;
-                                    rae.startResolutionForResult(NearbyDoctor.this, REQUEST_CHECK_SETTINGS);
-                                } catch (IntentSender.SendIntentException sie) {  }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        }
-                        updateLocationUI();
-                    }
-                });
-    }
-
-    public void startLocation() {
-        // Requesting ACCESS_FINE_LOCATION using Dexter library
-        Dexter.withActivity(this)
-                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        mRequestingLocationUpdates = true;
-                        startLocationUpdates();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        // open device settings when the permission is
-                        // denied permanently
-                        if (response.isPermanentlyDenied()){
-                            // open settings
-                            Intent intent = new Intent();
-                            intent.setAction(
-                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package",
-                                    BuildConfig.APPLICATION_ID, null);
-                            intent.setData(uri);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            // Check for the integer request code originally supplied to startResolutionForResult().
-            case REQUEST_CHECK_SETTINGS:
-                if(resultCode == Activity.RESULT_CANCELED)
-                    mRequestingLocationUpdates = false;
-                break;
-        }
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Resuming location updates depending on button state and
-        // allowed permissions
-        if (mRequestingLocationUpdates && checkPermissions()) {
-            startLocationUpdates();
-        }
-
-        mapView.onResume();
-        updateLocationUI();
-    }
-
-    private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
-    }
-
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        gmap = googleMap;
-        gmap.setMinZoomPreference(15);
-
-        // for each doctor, we put a pin
-        for (Doctor doctor: doctors) {
-            LatLng doctorLocation = doctor.getLocationFromAddress(this);
-            // if doctor address is incorrect we do not put his marker
-            if (doctorLocation == null) {
-                Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
-            } else {
-                // put the pin (marker)
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
-                markerOptions.position(doctorLocation);
-                gmap.addMarker(markerOptions);
-            }
-        }
-
-        // if the user position is defined, we move the camera
-        if(userPosition != null) { gmap.moveCamera(CameraUpdateFactory.newLatLng(userPosition)); }
-
-    }
-
-    @Override
-    protected void onDestroy() { mapView.onDestroy(); super.onDestroy(); }
-
-    @Override
-    public void onLowMemory() { super.onLowMemory(); mapView.onLowMemory(); }
-
-    @Override
-    protected void onStart() { super.onStart(); mapView.onStart(); }
-
-    @Override
-    protected void onStop() { super.onStop(); mapView.onStop(); }
-
-    @Override
-    protected void onPause() { super.onPause(); mapView.onPause(); }
-
-
 }
