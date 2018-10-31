@@ -81,10 +81,10 @@ public class NearbyDoctorTest {
 //        openPermissions(device);
 //        grantPermission(device, "Location");
 //    }
-//
-//    @Test
-//    public void d_shouldDoSomethingIfPermissionWasGranted() throws Exception {
-//        onView(withId(R.id.mapViewNearbyDoctor)).check(matches(isDisplayed()));
-//    }
+
+    @Test
+    public void d_shouldDoSomethingIfPermissionWasGranted() {
+        onView(withId(R.id.mapViewNearbyDoctor)).check(matches(isDisplayed()));
+    }
 
 }
