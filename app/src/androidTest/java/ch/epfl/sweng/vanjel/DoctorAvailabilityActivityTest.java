@@ -57,26 +57,26 @@ public class DoctorAvailabilityActivityTest {
         }
     }
 
-//    @Test
-//    public void validateTest() throws Exception {
-//        TimeUnit.SECONDS.sleep(2);
-//        for (int i=0;i<TimeAvailability.getIdLength();i++) {
-//            onView(withId(TimeAvailability.times[i])).perform(scrollTo()).check(matches(not(isChecked())));
-//        }
-//        clickTestSlots();
-//        onView(withId(R.id.valid)).perform(scrollTo(), click());
-//        TimeUnit.SECONDS.sleep(1);
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        mActivityRule.finishActivity();
-//        mActivityRule.launchActivity(intent);
-//        TimeUnit.SECONDS.sleep(2);
-//        for (int k: toCheck) {
-//            onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
-//        }
-//        clickTestSlots();
-//        onView(withId(R.id.valid)).perform(scrollTo(), click());
-//        TimeUnit.SECONDS.sleep(1);
-//    }
+    @Test
+    public void validateTest() throws Exception {
+        TimeUnit.SECONDS.sleep(2);
+        for (int i=0;i<TimeAvailability.getIdLength();i++) {
+            onView(withId(TimeAvailability.times[i])).perform(scrollTo()).check(matches(not(isChecked())));
+        }
+        clickTestSlots();
+        onView(withId(R.id.valid)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        mActivityRule.finishActivity();
+        mActivityRule.launchActivity(intent);
+        TimeUnit.SECONDS.sleep(2);
+        for (int k: toCheck) {
+            onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+        }
+        clickTestSlots();
+        onView(withId(R.id.valid)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
+    }
 
     private void clickTestSlots() {
         for (int i: toCheck) {

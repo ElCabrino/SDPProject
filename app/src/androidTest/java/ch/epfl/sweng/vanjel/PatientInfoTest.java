@@ -122,16 +122,16 @@ PatientInfoTest {
         }
     }
 
-//    @Test
-//    public void testAddAndRecoverDrugReaction() throws InterruptedException {
-//        onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
-//        TimeUnit.SECONDS.sleep(5);
-//        for (DrugReaction reaction: drugReactions) {
-//            onView(withId(R.id.ptDrugReactionDrugReg)).perform(scrollTo(), setTextInTextView(reaction.getDrug()), closeSoftKeyboard());
-//            onView(withId(R.id.ptDrugReactionReactionReg)).perform(scrollTo(), setTextInTextView(reaction.getReaction()), closeSoftKeyboard());
-//            onView(withId(R.id.buttonDrugReaction)).perform(scrollTo(), click());
-//        }
-//    }
+    @Test
+    public void testAddAndRecoverDrugReaction() throws InterruptedException {
+        onView(withId(R.id.buttonDrugRegimen)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(5);
+        for (DrugReaction reaction: drugReactions) {
+            onView(withId(R.id.ptDrugReactionDrugReg)).perform(scrollTo(), setTextInTextView(reaction.getDrug()), closeSoftKeyboard());
+            onView(withId(R.id.ptDrugReactionReactionReg)).perform(scrollTo(), setTextInTextView(reaction.getReaction()), closeSoftKeyboard());
+            onView(withId(R.id.buttonDrugReaction)).perform(scrollTo(), click());
+        }
+    }
 
     @Test
     public void testAddAndRecoverSurgery() throws InterruptedException {
