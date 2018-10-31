@@ -1,5 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
@@ -8,6 +10,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,7 +59,7 @@ public class NearbyDoctorTest {
     }
 
     private void allowPermissionsIfNeeded()  {
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 22) {
             UiObject allowPermissions = device.findObject(new UiSelector().text("ALLOW"));
             if (allowPermissions.exists()) {
                 try {
