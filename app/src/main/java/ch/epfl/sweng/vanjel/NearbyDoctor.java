@@ -149,6 +149,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         switch (grantResult){
             case PackageManager.PERMISSION_GRANTED:
                 checkLocation();
+                break;
             default:
                 isPermissionAlreadyDenied = true;
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -158,6 +159,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 permissionDeniedView.setVisibility(View.VISIBLE);
+                break;
         }
 
     }
