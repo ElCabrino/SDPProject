@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
@@ -7,6 +8,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,6 +33,7 @@ import static ch.epfl.sweng.vanjel.utils.UiAutomatorUtils.denyCurrentPermission;
 import static ch.epfl.sweng.vanjel.utils.UiAutomatorUtils.denyCurrentPermissionPermanently;
 import static ch.epfl.sweng.vanjel.utils.UiAutomatorUtils.grantPermission;
 import static ch.epfl.sweng.vanjel.utils.UiAutomatorUtils.openPermissions;
+import static com.googlecode.eyesfree.utils.LogUtils.TAG;
 import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NearbyDoctorTest {
@@ -49,6 +52,21 @@ public class NearbyDoctorTest {
     @Before
     public void setUp() {
         this.device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        allowPermissionsIfNeeded();
+    }
+
+    private void allowPermissionsIfNeeded()  {
+        if (Build.VERSION.SDK_INT >= 23) {
+            UiObject allowPermissions = device.findObject(new UiSelector().text("ALLOW"));
+            if (allowPermissions.exists()) {
+                try {
+                    allowPermissions.click();
+                } catch (UiObjectNotFoundException e) {
+                    Log.d("NearbyDoctorTest", "allowPermissionsIfNeeded: No permission dialog to interact with");
+//                    log.e(e, "There is no permissions dialog to interact with ");
+                }
+            }
+        }
     }
     
 
