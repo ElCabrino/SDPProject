@@ -89,11 +89,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (type.compareTo("Patient") == 0) {
-                    setTextFields(dataSnapshot, Patient.class);
-                } else if (type.compareTo("Doctor") == 0) {
-                    setTextFields(dataSnapshot, Doctor.class);
-                }
+                if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
+                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
             }
 
             @Override
@@ -125,14 +122,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         switch (i) {
             case R.id.logoutButton:
                 logOut();
-                break;
             case R.id.patientInfoButton:
                 if (isPatient) {
                     intent = new Intent(this, PatientInfo.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-                }
+                } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
                 break;
             case R.id.editButton:
                 setEditText(true, View.GONE, View.VISIBLE);
@@ -143,25 +137,20 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                intent = new Intent(this, SearchDoctor.class);
-                startActivity(intent);
+                startActivity(new Intent(this, SearchDoctor.class));
                 break;
             case R.id.setAvailabilityButton:
-                intent = new Intent(this, DoctorAvailabilityActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
             case R.id.nearbyDoctorButton:
-                Intent intent2 = new Intent(this, NearbyDoctor.class);
-                startActivity(intent2);
-                break;
+                startActivity(new Intent(this, NearbyDoctor.class));
 
         }
     }
 
     private void logOut(){
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
@@ -181,7 +170,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.searchButton = findViewById(R.id.searchDoctorButton);
         this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
-
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -288,10 +276,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
     public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
-        }
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) { return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } else { return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2"; }
     }
 }
