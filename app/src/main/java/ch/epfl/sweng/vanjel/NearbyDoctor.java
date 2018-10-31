@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -90,17 +91,17 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void onResume() {
         super.onResume();
         //get permissions
-//        findViewById(R.id.FrameLayout).post(new Runnable() {
-//            public void run() {
-//                int permissionStatus = ContextCompat.checkSelfPermission(NearbyDoctor.this, Manifest.permission.ACCESS_FINE_LOCATION);
-//                if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-//                    checkLocation();
-//                } else if (!isPermissionAlreadyDenied) {
-//                    ActivityCompat.requestPermissions(NearbyDoctor.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                            REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
-//                }
-//            }
-//        });
+        findViewById(R.id.FrameLayout).post(new Runnable() {
+            public void run() {
+                int permissionStatus = ContextCompat.checkSelfPermission(NearbyDoctor.this, Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+                    checkLocation();
+                } else if (!isPermissionAlreadyDenied) {
+                    ActivityCompat.requestPermissions(NearbyDoctor.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+                }
+            }
+        });
         mapView.onResume();
     }
 
@@ -122,6 +123,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 gmap.addMarker(markerOptions);
             }
         }
+
+        checkLocation();
+
     }
 
     @Override
@@ -130,6 +134,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         Boolean result = grantResults.length > 0;
         if(request && result){
             permissionsMessage(grantResults[0]);
+
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -198,7 +203,11 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     if (location != null) {
                         initMap(location);
                     } else {
-                        Toast.makeText(NearbyDoctor.this, "Cannot find your Location", Toast.LENGTH_SHORT).show();
+                        Location defaultLocation = new Location(LocationManager.GPS_PROVIDER);
+                        defaultLocation.setLatitude(46.519962);
+                        defaultLocation.setLongitude(6.633597);
+                        initMap(defaultLocation);
+                        Toast.makeText(NearbyDoctor.this, "Cannot find your Location, default Location: Lausanne", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -219,6 +228,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         gmap.setMyLocationEnabled(true);
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userPosition, 18);
         gmap.animateCamera(yourLocation);
+        gmap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
     /**
