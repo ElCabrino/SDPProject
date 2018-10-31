@@ -90,17 +90,17 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void onResume() {
         super.onResume();
         //get permissions
-        findViewById(R.id.FrameLayout).post(new Runnable() {
-            public void run() {
-                int permissionStatus = ContextCompat.checkSelfPermission(NearbyDoctor.this, Manifest.permission.ACCESS_FINE_LOCATION);
-                if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-                    checkLocation();
-                } else if (!isPermissionAlreadyDenied) {
-                    ActivityCompat.requestPermissions(NearbyDoctor.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
-                }
-            }
-        });
+//        findViewById(R.id.FrameLayout).post(new Runnable() {
+//            public void run() {
+//                int permissionStatus = ContextCompat.checkSelfPermission(NearbyDoctor.this, Manifest.permission.ACCESS_FINE_LOCATION);
+//                if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+//                    checkLocation();
+//                } else if (!isPermissionAlreadyDenied) {
+//                    ActivityCompat.requestPermissions(NearbyDoctor.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                            REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+//                }
+//            }
+//        });
         mapView.onResume();
     }
 

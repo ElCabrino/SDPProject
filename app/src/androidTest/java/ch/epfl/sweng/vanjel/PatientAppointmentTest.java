@@ -101,17 +101,17 @@ public class PatientAppointmentTest {
     public void doctorAvailabilityDisplayTest() {
         onView(withId(R.id.button0800)).check(matches(not(isEnabled())));
         onView(withId(R.id.button0830)).check(matches(isEnabled()));
-        onView(withId(R.id.button0900)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button0900)).check(matches(isEnabled()));
         onView(withId(R.id.button0930)).check(matches(isEnabled()));
-        onView(withId(R.id.button1000)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1000)).check(matches(isEnabled()));
         onView(withId(R.id.button1030)).check(matches(isEnabled()));
         onView(withId(R.id.button1100)).check(matches(not(isEnabled())));
         onView(withId(R.id.button1130)).check(matches(not(isEnabled())));
         onView(withId(R.id.button1200)).check(matches(not(isEnabled())));
         onView(withId(R.id.button1230)).check(matches(isEnabled()));
-        onView(withId(R.id.button1300)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1300)).check(matches(isEnabled()));
         onView(withId(R.id.button1330)).check(matches(isEnabled()));
-        onView(withId(R.id.button1400)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1400)).check(matches(isEnabled()));
         onView(withId(R.id.button1430)).check(matches(isEnabled()));
         onView(withId(R.id.button1500)).check(matches(not(isEnabled())));
         onView(withId(R.id.button1530)).check(matches(not(isEnabled())));
