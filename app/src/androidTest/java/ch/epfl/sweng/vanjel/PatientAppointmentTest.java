@@ -24,11 +24,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
@@ -47,7 +50,7 @@ public class PatientAppointmentTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, PatientAppointmentActivity.class);
-                    result.putExtra("doctorUID", "W7ReyyyOwAQKaganjsMQuHRb0Aj2");
+                    result.putExtra("doctorUID", "eUy36LW1d2Reyp3Y2h7lL70ccxG3");
                     result.putExtra("date", d);
                     return result;
                 }
@@ -55,16 +58,17 @@ public class PatientAppointmentTest {
 
     @Test
     public void testAppointmentHighlight(){
-        onView(withId(R.id.button0800)).perform(scrollTo(), click());
-        onView(withId(R.id.button0800)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF303F9F)));
-        onView(withId(R.id.button0800)).perform(scrollTo(), click());
-        onView(withId(R.id.button0800)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF3F51B5)));
+        onView(withId(R.id.button0830)).perform(scrollTo(), click());
+        onView(withId(R.id.button0830)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF303F9F)));
+        onView(withId(R.id.button0830)).perform(scrollTo(), click());
+        onView(withId(R.id.button0830)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF3F51B5)));
     }
 
     @Test
-    public void testDoubleSelection() {
-        onView(withId(R.id.button0800)).perform(scrollTo(), click());
-        onView(withId(R.id.button0900)).perform(scrollTo(), click());
+    public void testDoubleSelection() throws Exception {
+        onView(withId(R.id.button0830)).perform(scrollTo(), click());
+        onView(withId(R.id.button0930)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
         onView(withText("You've already picked a time slot")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
@@ -87,10 +91,36 @@ public class PatientAppointmentTest {
 
     @Test
     public void requestAppointmentTest() {
-        onView(withId(R.id.button1130)).perform(scrollTo(), click());
+        onView(withId(R.id.button1030)).perform(scrollTo(), click());
         onView(withId(R.id.buttonAppointment)).perform(click());
         onView(withText("Appointment successfully requested.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
         removeTestData(d);
+    }
+
+    @Test
+    public void doctorAvailabilityDisplayTest() {
+        onView(withId(R.id.button0800)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button0830)).check(matches(isEnabled()));
+        onView(withId(R.id.button0900)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button0930)).check(matches(isEnabled()));
+        onView(withId(R.id.button1000)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1030)).check(matches(isEnabled()));
+        onView(withId(R.id.button1100)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1130)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1200)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1230)).check(matches(isEnabled()));
+        onView(withId(R.id.button1300)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1330)).check(matches(isEnabled()));
+        onView(withId(R.id.button1400)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1430)).check(matches(isEnabled()));
+        onView(withId(R.id.button1500)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1530)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1600)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1630)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1700)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1730)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1800)).check(matches(not(isEnabled())));
+        onView(withId(R.id.button1830)).check(matches(not(isEnabled())));
     }
 
     // Remove appointment request generated by test.

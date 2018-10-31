@@ -1,15 +1,11 @@
 package ch.epfl.sweng.vanjel;
 
-import android.graphics.Color;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -136,7 +132,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonAppointment){
-            storeAppointment(i);
+            storeAppointment();
 //            Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
@@ -144,7 +140,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     }
 
     // Store appointment request in Firebase
-    private void storeAppointment(int id) {
+    private void storeAppointment() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
         for (Integer i: buttonsAppointment.keySet()) {
             if (buttonsState.get(i) == true) {
