@@ -59,7 +59,7 @@ public class NearbyDoctorTest {
     }
 
     private void allowPermissionsIfNeeded()  {
-        if (Build.VERSION.SDK_INT >= 22) {
+        if (Build.VERSION.SDK_INT >= 23) {
             UiObject allowPermissions = device.findObject(new UiSelector().text("ALLOW"));
             if (allowPermissions.exists()) {
                 try {
