@@ -9,6 +9,11 @@ android:
     - android-22
     # The system image, to run an emulator during the tests
     - sys-img-armeabi-v7a-google_apis-28
+    # Google play services (for maps)
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-28
 before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t android-28 --abi google_apis/armeabi-v7a
@@ -33,8 +38,4 @@ after_script:
   - ./cc-test-reporter upload-coverage
 after_failure:
   - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
-  # Google play services (for maps)
-  - extra-google-google_play_services
-  - extra-google-m2repository
-  - extra-android-m2repository
-  - addon-google_apis-google-28
+
