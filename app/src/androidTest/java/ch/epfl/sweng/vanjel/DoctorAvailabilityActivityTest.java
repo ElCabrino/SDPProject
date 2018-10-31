@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -48,6 +49,13 @@ public class DoctorAvailabilityActivityTest {
     public ActivityTestRule<DoctorAvailabilityActivity> mActivityRule =
             new ActivityTestRule<>(DoctorAvailabilityActivity.class);
 
+    @Before
+    public void refreshActivity() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        mActivityRule.finishActivity();
+        mActivityRule.launchActivity(intent);
+    }
+
     @Test
     public void canSelectAvailabilityTest() throws Exception {
         TimeUnit.SECONDS.sleep(2);
@@ -60,9 +68,6 @@ public class DoctorAvailabilityActivityTest {
     @Test
     public void validateTest() throws Exception {
         TimeUnit.SECONDS.sleep(2);
-        for (int i=0;i<TimeAvailability.getIdLength();i++) {
-            onView(withId(TimeAvailability.times[i])).perform(scrollTo()).check(matches(not(isChecked())));
-        }
         clickTestSlots();
         onView(withId(R.id.valid)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
@@ -71,7 +76,12 @@ public class DoctorAvailabilityActivityTest {
         mActivityRule.launchActivity(intent);
         TimeUnit.SECONDS.sleep(2);
         for (int k: toCheck) {
-            onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+            try {
+                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+            } catch (Exception e) {
+                clickTestSlots();
+                onView(withId(R.id.valid)).perform(scrollTo(), click());
+            }
         }
         clickTestSlots();
         onView(withId(R.id.valid)).perform(scrollTo(), click());
