@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -57,7 +58,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         populateDocMap();
 
         dbAp.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
