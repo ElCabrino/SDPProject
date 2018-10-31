@@ -33,11 +33,16 @@
         <activity android:name=".PatientInfo" />
         <activity android:name=".FilteredDoctors" />
         <activity android:name=".DoctorAvailabilityActivity" />
+
         <activity android:name=".SearchDoctor" />
         <activity android:name=".PatientCalendarActivity" />
         <activity android:name=".PatientAppointmentActivity" />
         <activity android:name=".DoctorInformation" />
         <activity android:name=".NearbyDoctor"></activity>
+
+        <service android:name=".AppointmentNotificationBackgroundService">
+        </service>
+
     </application>
 
 </manifest>

@@ -159,6 +159,23 @@ public class TimeAvailability {
         return times.length;
     }
 
+    public static boolean[] parseTimeStringToSlots(String time) {
+        boolean[] slots = new boolean[getIdLength()/6];
+        if (time.equals("-")) {
+            return slots;
+        }
+        String[] subtime = time.split(" / ");
+        for (String t: subtime) {
+            String[] hour = t.split("-");
+            int s = getIndexFromTime(hour[0], 0);
+            int f = getIndexFromTime(hour[1], 0);
+            for (int i=s;i<f;i++) {
+                slots[i] = true;
+            }
+        }
+        return slots;
+    }
+
     public static boolean[] getAvailability(int start, String day) {
         boolean[] slots = new boolean[getIdLength()];
         if (day != null && !day.equals("-")) {

@@ -46,6 +46,10 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
 
+    // confirmation value that database and map are ready, the second element that calls will launch the marker
+    private Boolean isDatabaseReady = false;
+    private Boolean isMapReady = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +124,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             public void onDataChange(DataSnapshot snapshot) {
                 doctor = snapshot.getValue(Doctor.class);
                 setData();
+                isDatabaseReady = true;
+                putMarkerOnMap();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -139,6 +145,27 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         streetNumber.setText(doctor.getStreetNumber());
         city.setText(doctor.getCity());
         country.setText(doctor.getCountry());
+    }
+
+    public void putMarkerOnMap(){
+        if(isMapReady && isDatabaseReady) {
+            LatLng doctorLocation = doctor.getLocationFromAddress(this);
+
+            // if address does not exist, we zoom in Lausanne and don't put any marker
+            if (doctorLocation == null) {
+                doctorLocation = new LatLng(46.519962, 6.633597);
+            } else {
+                // put the pin (marker)
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(doctorLocation);
+                markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
+                gmap.addMarker(markerOptions);
+            }
+
+            // move the camera
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(doctorLocation));
+        }
+
     }
 
     @Override
@@ -201,23 +228,9 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         gmap = googleMap;
         gmap.setMinZoomPreference(15);
 
-        LatLng doctorLocation = doctor.getLocationFromAddress(this);
 
-
-        // if address does not exist, we zoom in Lausanne and don't put any marker
-        if(doctorLocation == null){
-            Toast.makeText(this, "This doctor's address is incorrect.", Toast.LENGTH_SHORT).show();
-            doctorLocation = new LatLng(	46.519962, 	6.633597);
-        } else {
-            // put the pin (marker)
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(doctorLocation);
-            markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
-            gmap.addMarker(markerOptions);
-        }
-
-        // move the camera
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(doctorLocation));
+        isMapReady = true;
+        putMarkerOnMap();
 
     }
 

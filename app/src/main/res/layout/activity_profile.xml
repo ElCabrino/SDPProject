@@ -177,9 +177,21 @@
                     android:id="@+id/searchDoctorButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_weight="1"
                     android:contentDescription="profile search button"
                     android:text="Search" />
+
+
+                <Button
+                    android:id="@+id/setAvailabilityButton"
+                    android:contentDescription="set availability button"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Availability"
+                    android:layout_weight="1"/>
+
             </LinearLayout>
 
         </LinearLayout>
