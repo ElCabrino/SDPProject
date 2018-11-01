@@ -9,26 +9,26 @@ android:
     # The SDK version used to compile your project
     - android-28
     # The SDK version used by the system image
-    - android-24
+    - android-22
     # Google play services (for maps)
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-24
+    - addon-google_apis-google-22
     # The system image, to run an emulator during the tests
-    - sys-img-armeabi-v7a-google_apis-24
+    - sys-img-armeabi-v7a-google_apis-22
 
 env:
   global:
     - ABD_INSTALL_TIMEOUT=8
 
 before_install:
-- yes | sdkmanager "platforms;android-24"
+- yes | sdkmanager "platforms;android-22"
 - chmod +x gradlew
 
 before_script:
   # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t android-24 --abi google_apis/armeabi-v7a
+  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
   - travis_wait emulator -avd test -no-window &
   - android-wait-for-emulator
   - adb shell settings put global window_animation_scale 0.0
