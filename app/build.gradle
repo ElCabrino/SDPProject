@@ -18,6 +18,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
+    adbOptions {
+        timeOutInMs 10 * 60 * 1000  // 10 minutes
+        installOptions "-d","-t"
+    }
+
     buildTypes {
         debug {
             testCoverageEnabled true

@@ -1,23 +1,35 @@
 language: android
 android:
   components:
+    - tools
+    - platform-tools
+    - tools
     # The BuildTools version used by your project
     - build-tools-27.0.3
     # The SDK version used to compile your project
     - android-28
     # The SDK version used by the system image
     - android-24
+    - android-21
     # Google play services (for maps)
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
     - addon-google_apis-google-24
     # The system image, to run an emulator during the tests
-    - sys-img-armeabi-v7a-google_apis-24
+    - sys-img-armeabi-v7a-google_apis-21
+
+env:
+  global:
+    - ABD_INSTALL_TIMEOUT=8
+
+before_install:
+- yes | sdkmanager "platforms;android-27"
+- chmod +x gradlew
 
 before_script:
   # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t android-24 --abi google_apis/armeabi-v7a
+  - echo no | android create avd --force -n test -t android-21 --abi google_apis/armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell settings put global window_animation_scale 0.0
@@ -31,7 +43,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - travis_wait 30 ./gradlew build connectedCheck jacocoTestReport --info
+  - ./gradlew build connectedCheck jacocoTestReport --info
 after_script:
   # Report test coverage to Code Climate
   - export JACOCO_SOURCE_PATH=app/src/main/java/
