@@ -182,4 +182,34 @@ public class TimeAvailabilityTest {
         assertArrayEquals(TimeAvailability.getAvailability(TimeAvailability.MONDAY,
                 "13:00-13:30 / 14:00-15:00"), actuals);
     }
+
+    @Test
+    public void parseTimeStringTest() {
+        String time = "13:00-13:30 / 14:00-15:00";
+        boolean[] expected = {
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+        };
+        assertArrayEquals(expected, TimeAvailability.parseTimeStringToSlots(time));
+    }
 }
