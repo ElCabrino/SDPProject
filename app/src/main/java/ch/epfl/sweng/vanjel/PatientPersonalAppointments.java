@@ -167,7 +167,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     }
 
     private void populateDocMap() {
-        //recover doctor names
+        //recover doctor names and locations
         dbDoc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
