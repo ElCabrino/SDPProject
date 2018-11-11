@@ -54,7 +54,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     Button setAvailabilityButton;
 
-
     String userType;
 
     Boolean isPatient = new Boolean(false);
@@ -72,7 +71,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_profile);
         getAllTextView();
 
-
         patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
 
@@ -84,7 +82,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         appointmentsButton.setOnClickListener(this);
 
         setAvailabilityButton.setOnClickListener(this);
-
 
         isPatientUser();
     }
@@ -99,7 +96,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     setTextFields(dataSnapshot, Doctor.class);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
@@ -182,7 +178,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
-
         this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
     }
