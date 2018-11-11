@@ -126,7 +126,6 @@ PatientInfoTest {
     }
 
     private void populateArray(ArrayList<Info> list, Info e1, Info e2) {
-
     }
 
     private void populateConditions()
