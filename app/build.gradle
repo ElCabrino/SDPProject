@@ -52,8 +52,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.3'
 
     // mockito
-    androidTestImplementation 'org.mockito:mockito-core:2.7.15'
-    androidTestImplementation 'org.mockito:mockito-android:2.7.15'
+//    androidTestImplementation 'org.mockito:mockito-core:2.7.15'
+//    androidTestImplementation 'org.mockito:mockito-android:2.7.15'
+
+    implementation 'org.mockito:mockito-core:2.7.15'
+    implementation 'org.mockito:mockito-android:2.7.15'
 
 //    implementation 'javax.mail:javax.mail-api:1.6.2';
 
