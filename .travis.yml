@@ -26,17 +26,15 @@ before_install:
 - yes | sdkmanager "platforms;android-22"
 - chmod +x gradlew
 
-install: travis_wait mvn install
-
 before_script:
   # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
-  - travis_wait emulator -avd test -no-window &
-  - android-wait-for-emulator
-  - adb shell settings put global window_animation_scale 0.0
-  - adb shell settings put global transition_animation_scale 0.0
-  - adb shell settings put global animator_duration_scale 0.0
-  - adb shell input keyevent 82
+  - travis_wait 30 echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
+  - travis_wait 30 emulator -avd test -no-window &
+  - travis_wait 30 android-wait-for-emulator
+  - travis_wait 30 adb shell settings put global window_animation_scale 0.0
+  - travis_wait 30 adb shell settings put global transition_animation_scale 0.0
+  - travis_wait 30 adb shell settings put global animator_duration_scale 0.0
+  - travis_wait 30 adb shell input keyevent 82
 
  # This should be in the `before_script` entry
   # Set up Code Climate test reporter
