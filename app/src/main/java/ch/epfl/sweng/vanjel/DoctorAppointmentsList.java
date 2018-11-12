@@ -30,7 +30,7 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         this.uid = FirebaseAuth.getInstance().getUid();
         this.dbReferenceAppointments = FirebaseDatabase.getInstance().getReference().child("Requests");
         initAdapter();
-        getAppointments(this.uid);
+        if (this.uid != null) getAppointments(this.uid);
     }
 
     private void initAdapter() {
