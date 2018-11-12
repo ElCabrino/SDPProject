@@ -65,7 +65,7 @@ public class DoctorAppointmentsList extends AppCompatActivity {
     }
 
     private void fillAppointmentsList(String day, String hour, String patientUid, String doctorUid) {
-        if (true) { //(this.uid.equals(doctorUid)){
+        if (this.uid.equals(doctorUid)){
             Appointment appointment = new Appointment(day, hour, doctorUid, patientUid);
             appointmentsList.add(appointment);
             adapter = new DoctorAppointmentListAdapter(this, appointmentsList);

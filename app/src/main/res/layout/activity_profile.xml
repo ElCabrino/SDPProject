@@ -168,6 +168,13 @@
                     android:layout_height="wrap_content"
                     android:text="Set Availability"
                     android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/appointmentRequestsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="requests" />
             </LinearLayout>
 
         </LinearLayout>
