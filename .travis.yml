@@ -1,40 +1,33 @@
 language: android
 android:
   components:
-    # The BuildTools version used by your project
-    - build-tools-27.0.3
-    # The SDK version used to compile your project
-    - android-28
-    # The SDK version used by the system image
-    - android-22
-    # The system image, to run an emulator during the tests
-    - sys-img-armeabi-v7a-android-22
+  - build-tools-27.0.3
+  - android-28
+  - android-22
+  - sys-img-armeabi-v7a-android-22
 before_script:
-  # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell settings put global window_animation_scale 0.0
-  - adb shell settings put global transition_animation_scale 0.0
-  - adb shell settings put global animator_duration_scale 0.0
-  - adb shell input keyevent 82
-
- # This should be in the `before_script` entry
-  # Set up Code Climate test reporter
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+- emulator -avd test -no-audio -no-window &
+- android-wait-for-emulator
+- adb shell settings put global window_animation_scale 0.0
+- adb shell settings put global transition_animation_scale 0.0
+- adb shell settings put global animator_duration_scale 0.0
+- adb shell input keyevent 82
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
-  - ./gradlew build connectedCheck jacocoTestReport --info
+- "./gradlew build connectedCheck jacocoTestReport --info"
 after_script:
-  # Report test coverage to Code Climate
-  - export JACOCO_SOURCE_PATH=app/src/main/java/
-  - ./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml --input-type jacoco
-  - ./cc-test-reporter upload-coverage
+- export JACOCO_SOURCE_PATH=app/src/main/java/
+- "./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+  --input-type jacoco"
+- "./cc-test-reporter upload-coverage"
 after_failure:
-  - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
-
+- cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
 deploy:
   provider: testfairy
-  api-key: 56548e84cf296c5618aafe0efd63989c06b0e825
-  app-file: /app/build/outputs/apk/debug/app-debug.apk
+  api-key:
+    secure: czU1P+j0s5Z52eudvPlaKBtRucyPy31+L4rIgU0P7IEYhOHtyxKKAPNGBmaRSC4exMhXruzbdKIKNFw6m/RWJh3lYmy5YZ4DoGfYVeCLUf5WJxqIehdpySugA4xTQCQB4pv5oYlfIEUIVY/h3Gf19hKK92DfIic23ODOQOyeThgiqZaOpL+3OK9eRPAcdUnRfgBctQOlptsNTjDf9rThF1x1bJT3jsJl+IV5iLmPXBT6Qf7mvK/6lceMsWr2m21t+FkI1BeBe9kR7CWHjR0xVQFT0wCQunlFR5JvxN2Hq82Jg1lXbAUO+gVx2XsoPWPB4D32YHb8943yq5vBpO1C1BOTwVSu4z56EXeoAe1pq2oCf65RXtwF5kwMVNlB8+WXBjLeFiJcUWdmrRYoGMbF8FdF3g/YCeFYJa2ESls3+fe1EaSwH2U/7I0AF3vienuY7ITq291EYAz+ka7cTI2iIZ0jRMSe7pIPi3VJLpPU8u8D88isUuZ/sacxE251Wt9QrOkpwRqDRSY7lJ2BRczsfoKg+k6Lgcaqn0ghtgr9F9Tn2h3O2Vf6OmuU4s83VQc9gwejnbWGJ7S5k4phxlxlD9W56GZJuGrvf0daS2oJSvnjrcxodTqZLpD8ZqUX6NzC7gFKl5nJ88aHOW9cDXqgxZAblSONXk8dCRosMz///NA=
+  app-file: "/app/build/outputs/apk/debug/app-debug.apk"
