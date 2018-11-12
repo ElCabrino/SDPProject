@@ -26,6 +26,8 @@ before_install:
 - yes | sdkmanager "platforms;android-22"
 - chmod +x gradlew
 
+install: travis_wait 20 mvn install
+
 before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
