@@ -26,7 +26,7 @@ before_install:
 - yes | sdkmanager "platforms;android-22"
 - chmod +x gradlew
 
-install: travis_wait 20 mvn install
+install: travis_wait mvn install
 
 before_script:
   # Emulator Management: Create, Start and Wait
