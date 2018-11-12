@@ -33,3 +33,8 @@ after_script:
   - ./cc-test-reporter upload-coverage
 after_failure:
   - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
+
+deploy:
+  provider: testfairy
+  api-key: 56548e84cf296c5618aafe0efd63989c06b0e825
+  app-file: /app/build/outputs/apk/debug/app-debug.apk
