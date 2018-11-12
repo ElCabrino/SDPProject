@@ -67,6 +67,7 @@ public class PatientAppointmentTest {
     @Test
     public void testDoubleSelection() throws Exception {
         onView(withId(R.id.button0830)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.button0930)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
         onView(withText("You've already picked a time slot")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
