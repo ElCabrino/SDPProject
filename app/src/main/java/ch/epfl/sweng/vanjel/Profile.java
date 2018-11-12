@@ -124,35 +124,26 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         switch (i) {
             case R.id.logoutButton:
                 logOut();
-                break;
             case R.id.patientInfoButton:
                 if (isPatient) {
                     intent = new Intent(this, PatientInfo.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-                }
-                break;
+                } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
             case R.id.editButton:
                 setEditText(true, View.GONE, View.VISIBLE);
-                break;
             case R.id.saveButton:
                 getStringFromFields();
                 saveNewValues();
                 setEditText(false, View.VISIBLE, View.GONE);
-                break;
             case R.id.searchDoctorButton:
                 intent = new Intent(this, SearchDoctor.class);
                 startActivity(intent);
-                break;
             case R.id.setAvailabilityButton:
                 intent = new Intent(this, DoctorAvailabilityActivity.class);
                 startActivity(intent);
             case R.id.appointmentRequestsButton:
-                if (!isPatient) {
-                    intent = new Intent(this, DoctorAppointmentsList.class);
-                    startActivity(intent);
-                }
+                intent = new Intent(this, DoctorAppointmentsList.class);
+                startActivity(intent);
         }
     }
 
@@ -285,10 +276,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
     public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
-        }
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        else return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2"; 
     }
 }
