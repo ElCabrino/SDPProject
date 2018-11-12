@@ -28,7 +28,7 @@ before_install:
 
 before_script:
   # Emulator Management: Create, Start and Wait
-  - travis_wait 30 echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
+  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
   - travis_wait 30 emulator -avd test -no-window &
   - travis_wait 30 android-wait-for-emulator
   - travis_wait 30 adb shell settings put global window_animation_scale 0.0
