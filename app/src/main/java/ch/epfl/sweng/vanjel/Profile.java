@@ -54,7 +54,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     String userType;
 
     Boolean isPatient = new Boolean(false);
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +151,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
-        FirebaseAuth.getInstance().signOut();
+        auth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -212,8 +213,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                if (auth.getCurrentUser() != null) {
+                    if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
                         isPatient = true;
                         searchButton.setVisibility(View.VISIBLE);
                         setAvailabilityButton.setVisibility(View.GONE);
@@ -277,8 +278,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
     public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (auth.getCurrentUser() != null) {
+            return auth.getCurrentUser().getUid();
         } else {
             return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
         }
