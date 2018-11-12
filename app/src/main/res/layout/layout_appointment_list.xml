@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/day"
+            android:id="@+id/dayCardView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Day:"
@@ -48,7 +48,7 @@
 
         <!-- adresse -->
         <TextView
-            android:id="@+id/hour"
+            android:id="@+id/hourCardview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/streetNumber"
@@ -72,7 +72,7 @@
                 android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/streetNumber"
+                android:id="@+id/toTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="to"
