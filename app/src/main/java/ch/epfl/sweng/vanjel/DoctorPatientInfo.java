@@ -17,8 +17,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
 
     PatientInfoDatabaseService patientInfoDatabaseService;
 
-    Button saveButton;
-
     ListView listViewConditions;
     ListView listViewSurgeries;
     ListView listViewAllergies;
@@ -50,8 +48,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
             patientInfoDatabaseService =
                     new PatientInfoDatabaseService("I3h9NVPXwmb0Ab2auVnaMSgjaLY2", this);
         }
-
-        saveButton = findViewById(R.id.doctorButtonGenInfoPtReg);
 
         getAllPatientInfoFields();
 
