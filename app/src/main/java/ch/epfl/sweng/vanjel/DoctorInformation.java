@@ -149,7 +149,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     public void putMarkerOnMap(){
         if(isMapReady && isDatabaseReady) {
-            LatLng doctorLocation = getLocationFromAddress(doctor);
+            LatLng doctorLocation = doctor.getLocationFromAddress(this);
 
             // if address does not exist, we zoom in Lausanne and don't put any marker
             if (doctorLocation == null) {
@@ -231,36 +231,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         isMapReady = true;
         putMarkerOnMap();
 
-    }
-
-    public LatLng getLocationFromAddress(User user){
-
-        //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
-        String strAddress = user.getStreet() + " " + user.getStreetNumber() + ", " + user.getCity() + ", " + user.getCountry();
-
-        Geocoder coder = new Geocoder(this);
-        List<Address> address;
-        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
-        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
-
-
-        try {
-            address = coder.getFromLocationName(strAddress,5);
-            if (address.isEmpty()){
-                return null;
-            }
-            Address location=address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            locationForMap = new LatLng(location.getLatitude(), location.getLongitude());
-
-            return locationForMap;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return locationForMap;
     }
 }
 

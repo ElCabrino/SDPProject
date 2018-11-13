@@ -70,7 +70,6 @@ public class ListNearbyDoctors extends AppCompatActivity {
      * Method to initialize Firebase and layout.
      */
     private void begin() {
-        Log.d(TAG,"BEGIN STARTED");
         //data
         doctorHashMap = new HashMap<>();
 
@@ -85,24 +84,20 @@ public class ListNearbyDoctors extends AppCompatActivity {
 
         //location
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        Log.d(TAG,"BEGIN END");
     }
 
     /**
      *
      */
     private void getDoctors() {
-        Log.d(TAG,"GETTING DOC");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG,"DATA CHANGE");
                 for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
                 }
-                Log.d(TAG,"ORDERING");
                 orderDoctors(doctorHashMap,userLocation);
             }
 
@@ -117,16 +112,13 @@ public class ListNearbyDoctors extends AppCompatActivity {
      *
      */
     private void getUserLocation() {
-        Log.d(TAG,"GET USER LOC");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
         } else {
             mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    Log.d(TAG,"GOT LOCATION");
                     if (location != null) {
-                        Log.d(TAG,"GOT NOT NULL");
                         userLocation = new LatLng(location.getLatitude(),location.getLongitude());
                         getDoctors();
                     } else {
@@ -164,34 +156,32 @@ public class ListNearbyDoctors extends AppCompatActivity {
      * @param userLocation
      */
     private void orderDoctors(HashMap<String, Doctor> doctorhashMap, LatLng userLocation) {
-        Log.d(TAG,"ORDER DOC");
-        if (userLocation == null) {
-            getUserLocation();
-        } else if (doctorhashMap.isEmpty()) {
-            orderDoctors(doctorhashMap,userLocation);
-        }else {
-            HashMap<String,Double> distanceHashMap = new HashMap<>();
+        HashMap<String,Double> distanceHashMap = createDistanceHashMap(doctorhashMap,userLocation);
 
-            for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
-                Double doctorDistance = entry.getValue().getDistance(userLocation,this);
-                distanceHashMap.put(entry.getKey(),doctorDistance);
-            }
+        LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>();
 
-            LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>();
-
-            for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
-                doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
-            }
-
-            mRecyclerView.setVisibility(View.VISIBLE);
-            mAdapter = new ListNearbyDoctorsAdapter(ListNearbyDoctors.this, doctorHashMapSorted,userLocation);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-            Log.d(TAG,"TEST");
+        for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
+            doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
         }
+
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mAdapter = new ListNearbyDoctorsAdapter(ListNearbyDoctors.this, doctorHashMapSorted,userLocation);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
-    public LinkedHashMap<String,Double> sortHashMapOnValues(HashMap<String,Double> hm) {
+    private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorhashMap, LatLng userLocation){
+        HashMap<String,Double> distanceHashMap = new HashMap<>();
+
+        for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
+            Double doctorDistance = entry.getValue().getDistance(userLocation,this);
+            distanceHashMap.put(entry.getKey(),doctorDistance);
+        }
+
+        return distanceHashMap;
+    }
+
+    private LinkedHashMap<String,Double> sortHashMapOnValues(HashMap<String,Double> hm) {
         List<Map.Entry<String,Double>> list = new LinkedList<>(hm.entrySet());
         // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
