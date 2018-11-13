@@ -178,29 +178,16 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initPatientInfoMock() {
-        when(patientRef.child("patientid1").child("Condition")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Surgery")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Allergy")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("DrugReaction")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Drug")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Substance")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Exercise")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Smoking")).thenReturn(patientCategoryRef);
-        when(patientRef.child("patientid1").child("Drinking")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Condition")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Surgery")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Allergy")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("DrugReaction")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Drug")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Substance")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Exercise")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Smoking")).thenReturn(patientCategoryRef);
+        when(patient1DB.child("Drinking")).thenReturn(patientCategoryRef);
         when(patientCategoryRef.child(any(String.class))).thenReturn(patientSubCategoryRef);
-
-
-//        when(patientRef.child("patientid").child("Condition").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Surgery").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Allergy").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("DrugReaction").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Drug").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Substance").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Exercise").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Smoking").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-//        when(patientRef.child("patientid").child("Drinking").setValue(any(Object.class))).thenReturn(setValueInfoPatientTask);
-
-
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
@@ -214,20 +201,6 @@ public final class FirebaseDatabaseCustomBackend {
                 return listener;
             }
         }).when(patientCategoryRef).addValueEventListener(any(ValueEventListener.class));
-
-//        doAnswer(new Answer<ValueEventListener>() {
-//            @Override
-//            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
-//                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-//                if (isCancelled) {
-//                    listener.onCancelled(patientError);
-//                } else {
-//                    listener.onDataChange(patient1Snapshot);
-//                }
-//                return listener;
-//            }
-//        }).when(patientCategoryRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
-
     }
 
     private void initDBListeners() {
