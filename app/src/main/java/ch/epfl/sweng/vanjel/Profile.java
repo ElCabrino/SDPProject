@@ -109,7 +109,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         lastName.setText(user.getLastName());
         firstName.setText(user.getFirstName());
         birthday.setText(user.getBirthday());
-        gender.setText(user.getGender().toString());
+//        gender.setText(user.getGender().toString());
         email.setText(user.getEmail());
         street.setText(user.getStreet());
         streetNumber.setText(user.getStreetNumber());
