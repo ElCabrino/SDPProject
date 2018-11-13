@@ -2,27 +2,18 @@ package ch.epfl.sweng.vanjel;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.DatePicker;
 
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
-
-import android.support.test.espresso.contrib.PickerActions;
-
 
 /**
  Test class for Patient Registration form
@@ -49,10 +40,6 @@ public class PatientRegistrationTest {
     private String country = "EPFL Land";
     private String postCode = "1212";
 
-//        int month = 10;
-//        int year = 1997;
-//        int day = 9;
-
     private String birthday = "09/10/1997";
 
     @Test
@@ -62,16 +49,10 @@ public class PatientRegistrationTest {
 
         assertEquals("Unexpected Activity before adding elements", mActivityRule.getActivity().getClass().getName(), Registration.class.getName());
 //        intended(hasComponent(PatientRegistration.class.getName()));
-
     }
 
     @Test
     public void testForm() {
-
-
-
-
-
         onView(withId(R.id.mailReg)).perform(scrollTo(), typeText(email)).perform(closeSoftKeyboard());
         onView(withId(R.id.passwordReg)).perform(scrollTo(), typeText(password)).perform(closeSoftKeyboard());
         onView(withId(R.id.confirmPasswordReg)).perform(scrollTo(), typeText(confirmedPassword)).perform(closeSoftKeyboard());
@@ -97,8 +78,6 @@ public class PatientRegistrationTest {
 //        assertEquals("Unexpected Activity after putting data", mActivityRule.getActivity().getClass().getName(), Registration.class.getName());
         onView(withId(R.id.confirmPasswordReg)).perform(scrollTo(), typeText("6")).perform(closeSoftKeyboard());
         onView(withId(R.id.buttonReg)).perform(scrollTo(), click());
-
-
     }
 
     @Test
