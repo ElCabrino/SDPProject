@@ -207,18 +207,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (auth.getCurrentUser() != null) {
-                    if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
-                        userType = "Patient";
-                        searchButton.setVisibility(View.VISIBLE);
-                        setAvailabilityButton.setVisibility(View.GONE);
-                        database.getReference("Patient").child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Patient"));
-                    } else {
-                        userType = "Doctor";
-                        searchButton.setVisibility(View.GONE);
-                        setAvailabilityButton.setVisibility(View.VISIBLE);
-                        database.getReference("Doctor").child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Doctor"));
-                    }
+                if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
+                    setUserAs("Patient", View.VISIBLE, View.GONE);
+                } else {
+                    setUserAs("Doctor", View.GONE, View.VISIBLE);
                 }
             }
 
@@ -227,6 +219,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+    private void setUserAs(String type, int v1, int v2) {
+        userType = type;
+        searchButton.setVisibility(v1);
+        setAvailabilityButton.setVisibility(v2);
+        database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
+    }
+
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
