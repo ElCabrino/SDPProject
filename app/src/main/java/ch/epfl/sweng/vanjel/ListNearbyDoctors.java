@@ -54,7 +54,6 @@ public class ListNearbyDoctors extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
     private LatLng userLocation;
 
-    private Boolean isPermissionAlreadyDenied;
     private View permissionDeniedView;
     private TextView permissionDeniedRationaleView;
 
@@ -132,21 +131,33 @@ public class ListNearbyDoctors extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CODE && grantResults.length > 0) {
-            int grantResult = grantResults[0];
-            if (grantResult == PackageManager.PERMISSION_GRANTED) {
+        Boolean request = requestCode == REQUEST_CODE;
+        Boolean result = grantResults.length > 0;
+        if(request && result){
+            permissionsMessage(grantResults[0]);
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    /**
+     * This method checks the grantResult and display message
+     * depending on user's device preference toward GPS usage on app
+     * @param grantResult
+     */
+    public void permissionsMessage(int grantResult){
+        switch (grantResult){
+            case PackageManager.PERMISSION_GRANTED:
                 getUserLocation();
-            } else {
-                isPermissionAlreadyDenied = true;
+                break;
+            default:
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                     permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_short);
                 } else {
                     permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_long);
                 }
                 permissionDeniedView.setVisibility(View.VISIBLE);
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
         }
     }
 
@@ -170,6 +181,12 @@ public class ListNearbyDoctors extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     *
+     * @param doctorhashMap
+     * @param userLocation
+     * @return
+     */
     private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorhashMap, LatLng userLocation){
         HashMap<String,Double> distanceHashMap = new HashMap<>();
 
@@ -181,6 +198,11 @@ public class ListNearbyDoctors extends AppCompatActivity {
         return distanceHashMap;
     }
 
+    /**
+     *
+     * @param hm
+     * @return
+     */
     private LinkedHashMap<String,Double> sortHashMapOnValues(HashMap<String,Double> hm) {
         List<Map.Entry<String,Double>> list = new LinkedList<>(hm.entrySet());
         // Sort the list
