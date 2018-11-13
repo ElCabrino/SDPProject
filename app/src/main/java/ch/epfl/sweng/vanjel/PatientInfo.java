@@ -179,30 +179,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        /*if (i == R.id.buttonPriorConditions){
-            patientInfoDatabaseService.
-                    addConditionToDatabase(priorConditionsReg.getText().toString().trim());
-        } else if (i == R.id.buttonSurgery) {
-            patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
-                    surgeriesYearReg.getText().toString().trim());
-        } else if (i == R.id.buttonAllergy) {
-            patientInfoDatabaseService.addAllergy(allergyReg.getText().toString().trim());
-        } else if (i == R.id.buttonDrugRegimen) {
-            patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
-                    drugRegimenDosageReg.getText().toString().trim(),
-                    drugRegimenTimesReg.getText().toString().trim());
-        } else if (i == R.id.buttonDrugReaction) {
-            patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
-                    drugReactionReactionReg.getText().toString().trim());
-        } else if (i == R.id.buttonSubstance) {
-            patientInfoDatabaseService.addSubstance(substancesReg.getText().toString().trim());
-        } else if (i == R.id.buttonSmoking) {
-            patientInfoDatabaseService.addSmoking(smokingReg.getText().toString().trim());
-        } else if (i == R.id.buttonDrinking) {
-            patientInfoDatabaseService.addDrinking(drinkingReg.getText().toString().trim());
-        } else if (i == R.id.buttonExercise) {
-            patientInfoDatabaseService.addExercise(exerciseReg.getText().toString().trim());
-        }*/
         switch (i){
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
@@ -229,8 +205,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
             case R.id.buttonDrugReaction:
                 patientInfoDatabaseService.addItemToDatabase(drugReactionDrugReg.getText().toString().trim(),
                         "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg), getTextFromField(drugReactionReactionReg)));
-                /*patientInfoDatabaseService.addDrugReaction(drugReactionDrugReg.getText().toString().trim(),
-                        drugReactionReactionReg.getText().toString().trim());*/
                 break;
             case R.id.buttonSubstance:
                 patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new InfoString(substancesReg.getText().toString().trim()));

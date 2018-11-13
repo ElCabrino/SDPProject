@@ -157,14 +157,13 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverExercise() {
-        addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
+        addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, amount);
     }
 
     private void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo(), closeSoftKeyboard());
         onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
-        //TODO: check why assert doesn't match with mock
         //onView(withId(idTextField)).check(matches(withText(text)));
     }
 
