@@ -39,6 +39,9 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     HashMap<Integer, Boolean> buttonsState= new HashMap<Integer, Boolean>();
     HashMap<Integer, Integer> slotState = new HashMap<Integer, Integer>();
 
+    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,11 +144,11 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     // Store appointment request in Firebase
     private void storeAppointment() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
+        DatabaseReference ref = database.getReference("Requests");
         for (Integer i: buttonsAppointment.keySet()) {
             if (buttonsState.get(i) == true) {
                 String key = ref.push().getKey();
-                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, getUserFirebaseID());
+                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, auth.getCurrentUser().getUid());
                 ref.child(parseSelectedDate()+"/"+key).updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -181,18 +184,9 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         return res.replaceAll("\\s\\s", " ");
     }
 
-    // Return id of connected User, or ID of dummy User if no one is connected.
-    public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            return "ATtZ76LvUMb4wGaSS9Y3SYm0Glj2";
-        }
-    }
-
     private void getDoctorAvailability() {
         slotsAvailability = new boolean[TimeAvailability.getIdLength()/6];
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctor/"+doctorUID+"/Availability");
+        DatabaseReference ref = database.getReference("Doctor/"+doctorUID+"/Availability");
         String weekday = parseSelectedDate().substring(0,Math.min(parseSelectedDate().length(), 3));
         switch (weekday) {
             case "Mon":
