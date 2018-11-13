@@ -217,7 +217,6 @@ PatientInfoTest {
 
     }
 
-
     @Test
     public void testAddAndRecoverSubstance() throws InterruptedException {
         onView(withId(R.id.buttonSubstance)).perform(scrollTo());
