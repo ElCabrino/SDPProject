@@ -66,13 +66,13 @@ public class ListNearbyDoctors extends AppCompatActivity {
     }
 
     /**
-     * Method to initialize Firebase and layout.
+     * Method to initialize data, firebase, layout and location.
      */
     private void begin() {
         //data
         doctorHashMap = new HashMap<>();
 
-        //Firebase
+        //firebase
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor");
 
         //layout
@@ -86,29 +86,7 @@ public class ListNearbyDoctors extends AppCompatActivity {
     }
 
     /**
-     *
-     */
-    private void getDoctors() {
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
-                    Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
-                    String key = dataSnapshotChild.getKey();
-                    doctorHashMap.put(key, myDoctor);
-                }
-                orderDoctors(doctorHashMap,userLocation);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-    }
-
-    /**
-     *
+     * Method to get user location, store it in userLocation if not null and then call method to fetch Doctors
      */
     private void getUserLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -127,6 +105,28 @@ public class ListNearbyDoctors extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    /**
+     * Method to fetch all doctors from firebase and add them to doctorHasMap and then call sort method them by distance.
+     */
+    private void getDoctors() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
+                    Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
+                    String key = dataSnapshotChild.getKey();
+                    doctorHashMap.put(key, myDoctor);
+                }
+                orderDoctors(doctorHashMap,userLocation);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
     @Override
@@ -162,19 +162,16 @@ public class ListNearbyDoctors extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method orders the HashMap with Doctors and their ids according to distance to user and then finalize the activity's screen.
      * @param doctorhashMap
      * @param userLocation
      */
     private void orderDoctors(HashMap<String, Doctor> doctorhashMap, LatLng userLocation) {
         HashMap<String,Double> distanceHashMap = createDistanceHashMap(doctorhashMap,userLocation);
-
-        LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>();
-
+        LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>(); //use LinkedHashMap to keep order
         for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
             doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
         }
-
         mRecyclerView.setVisibility(View.VISIBLE);
         mAdapter = new ListNearbyDoctorsAdapter(ListNearbyDoctors.this, doctorHashMapSorted,userLocation);
         mRecyclerView.setAdapter(mAdapter);
@@ -182,45 +179,36 @@ public class ListNearbyDoctors extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method creates a HashMap with key : id of doctors and values : distance to doctor for user.
      * @param doctorhashMap
      * @param userLocation
      * @return
      */
     private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorhashMap, LatLng userLocation){
         HashMap<String,Double> distanceHashMap = new HashMap<>();
-
         for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
             Double doctorDistance = entry.getValue().getDistance(userLocation,this);
             distanceHashMap.put(entry.getKey(),doctorDistance);
         }
-
         return distanceHashMap;
     }
 
     /**
-     *
-     * @param hm
-     * @return
+     * This method sorts a HashMap on its values
+     * @param hm HashMap
+     * @return LinkedHashMap sorted hm
      */
     private LinkedHashMap<String,Double> sortHashMapOnValues(HashMap<String,Double> hm) {
         List<Map.Entry<String,Double>> list = new LinkedList<>(hm.entrySet());
-        // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
-            public int compare(Map.Entry<String, Double> o1,
-                               Map.Entry<String, Double> o2)
-            {
+            public int compare(Map.Entry<String, Double> o1,Map.Entry<String, Double> o2) {
                 return (o1.getValue()).compareTo(o2.getValue());
             }
         });
-
-        //update
         LinkedHashMap<String,Double> sorted = new LinkedHashMap<>();
-
         for (Map.Entry<String, Double> entry : list) {
             sorted.put(entry.getKey(), entry.getValue());
         }
-
         return sorted;
     }
 
