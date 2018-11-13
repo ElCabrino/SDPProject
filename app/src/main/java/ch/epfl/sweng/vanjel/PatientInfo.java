@@ -60,19 +60,22 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     List<Drug> drugList;
     List<InfoString> substanceList;
 
+    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-        String UserID = FirebaseAuth.getInstance().getUid();
-        if (UserID!=null) {
-            patientInfoDatabaseService =
-                    new PatientInfoDatabaseService(UserID, this);
-        } else {
-            patientInfoDatabaseService =
-                    new PatientInfoDatabaseService("I3h9NVPXwmb0Ab2auVnaMSgjaLY2", this);
-        }
+        String UserID = auth.getUid();
+        patientInfoDatabaseService = new PatientInfoDatabaseService(this);
+//        if (UserID!=null) {
+//            patientInfoDatabaseService =
+//                    new PatientInfoDatabaseService(UserID, this);
+//        } else {
+//            patientInfoDatabaseService =
+//                    new PatientInfoDatabaseService("I3h9NVPXwmb0Ab2auVnaMSgjaLY2", this);
+//        }
 
         saveButton = findViewById(R.id.buttonGenInfoPtReg);
 
