@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,7 @@ public class ListNearbyDoctors extends AppCompatActivity {
      * Method to initialize Firebase and layout.
      */
     private void begin() {
+        Log.d(TAG,"BEGIN STARTED");
         //data
         doctorHashMap = new HashMap<>();
 
@@ -78,27 +80,29 @@ public class ListNearbyDoctors extends AppCompatActivity {
         //layout
         mRecyclerView = findViewById(R.id.listNearbyDoctors);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new FilteredDoctorAdapter(ListNearbyDoctors.this, doctorHashMap);
-        mRecyclerView.setAdapter(mAdapter);
         permissionDeniedView = findViewById(R.id.permission_denied_view);
         permissionDeniedRationaleView = findViewById(R.id.permission_denied_rationale);
 
         //location
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        Log.d(TAG,"BEGIN END");
     }
 
     /**
      *
      */
     private void getDoctors() {
+        Log.d(TAG,"GETTING DOC");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG,"DATA CHANGE");
                 for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
                 }
+                Log.d(TAG,"ORDERING");
                 orderDoctors(doctorHashMap,userLocation);
             }
 
@@ -113,13 +117,16 @@ public class ListNearbyDoctors extends AppCompatActivity {
      *
      */
     private void getUserLocation() {
+        Log.d(TAG,"GET USER LOC");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
         } else {
             mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
+                    Log.d(TAG,"GOT LOCATION");
                     if (location != null) {
+                        Log.d(TAG,"GOT NOT NULL");
                         userLocation = new LatLng(location.getLatitude(),location.getLongitude());
                         getDoctors();
                     } else {
@@ -153,40 +160,39 @@ public class ListNearbyDoctors extends AppCompatActivity {
 
     /**
      *
-     * @param hashMap
+     * @param doctorhashMap
      * @param userLocation
      */
-    private void orderDoctors(HashMap<String, Doctor> hashMap, LatLng userLocation) {
+    private void orderDoctors(HashMap<String, Doctor> doctorhashMap, LatLng userLocation) {
+        Log.d(TAG,"ORDER DOC");
         if (userLocation == null) {
             getUserLocation();
-        } else if (hashMap.isEmpty()) {
-            orderDoctors(hashMap,userLocation);
+        } else if (doctorhashMap.isEmpty()) {
+            orderDoctors(doctorhashMap,userLocation);
         }else {
             HashMap<String,Double> distanceHashMap = new HashMap<>();
 
-            for(Map.Entry<String,Doctor> entry : hashMap.entrySet()){
+            for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
                 Double doctorDistance = entry.getValue().getDistance(userLocation,this);
                 distanceHashMap.put(entry.getKey(),doctorDistance);
             }
 
-            sortHashMapOnValues(distanceHashMap);
+            LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>();
 
-            HashMap<String, Doctor> hashMapCopy = new HashMap<>(hashMap);
-            hashMap.clear();
-
-            for (Map.Entry<String,Double> entry : distanceHashMap.entrySet()){
-                hashMap.put(entry.getKey(),hashMapCopy.get(entry.getKey()));
+            for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
+                doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
             }
+
             mRecyclerView.setVisibility(View.VISIBLE);
-            mAdapter = new FilteredDoctorAdapter(ListNearbyDoctors.this, doctorHashMap);
+            mAdapter = new ListNearbyDoctorsAdapter(ListNearbyDoctors.this, doctorHashMapSorted,userLocation);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
+            Log.d(TAG,"TEST");
         }
     }
 
-    public void sortHashMapOnValues(HashMap<String,Double> hm) {
-        List<Map.Entry<String,Double> > list = new LinkedList<>(hm.entrySet());
-
+    public LinkedHashMap<String,Double> sortHashMapOnValues(HashMap<String,Double> hm) {
+        List<Map.Entry<String,Double>> list = new LinkedList<>(hm.entrySet());
         // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
             public int compare(Map.Entry<String, Double> o1,
@@ -196,13 +202,14 @@ public class ListNearbyDoctors extends AppCompatActivity {
             }
         });
 
-        //clear input
-        hm.clear();
-
         //update
-        for (Map.Entry<String, Double> aa : list) {
-            hm.put(aa.getKey(), aa.getValue());
+        LinkedHashMap<String,Double> sorted = new LinkedHashMap<>();
+
+        for (Map.Entry<String, Double> entry : list) {
+            sorted.put(entry.getKey(), entry.getValue());
         }
+
+        return sorted;
     }
 
     /**

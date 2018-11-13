@@ -1,6 +1,8 @@
 package ch.epfl.sweng.vanjel;
 
 import android.content.Context;
+import android.location.Location;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,30 +25,11 @@ public class Doctor extends User {
         this.activity = activity;
     }
 
-    public double getDistance(LatLng userLocation, Context context){
-
-        //LatLng doctorLocation = this.getLocationFromAddress(context);
-
-        LatLng doctorLocation = new LatLng(0,0);
-
-//        if(doctorLocation.equals(null)) return null;
-
-        double latA = userLocation.latitude;
-        double lonA = userLocation.longitude;
-
-        double latB = doctorLocation.latitude;
-        double lonB = doctorLocation.longitude;
-
-        double earthRadius = 6367445; // in meter
-
-        double distance = earthRadius*Math.acos(Math.sin(latA)*Math.sin(latB) + Math.cos(latA)*Math.cos(latB)*Math.cos(lonA - lonB));
-
-        return distance;
-
+    public double getDistance(LatLng userLocation, Context context) {
+        float[] results = new float[1];
+        LatLng doctorLocation = this.getLocationFromAddress(context);
+//      if(doctorLocation.equals(null)) return null;
+        Location.distanceBetween(userLocation.latitude, userLocation.longitude, doctorLocation.latitude, doctorLocation.longitude, results);
+        return results[0];
     }
-
-
-
-
-
 }

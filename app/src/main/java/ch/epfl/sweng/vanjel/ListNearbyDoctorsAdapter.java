@@ -9,34 +9,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
+public class ListNearbyDoctorsAdapter extends recyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
 
     ArrayList<Doctor> doctors;
     HashMap<String, Doctor> doctorHashMap;
     Context context;
+    private LatLng userLocation;
 
 
-    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data){
+    public ListNearbyDoctorsAdapter(Context context, HashMap<String, Doctor> data, LatLng userLocation) {
 
         this.doctorHashMap = data;
         this.context = context;
+        this.userLocation = userLocation;
 
         doctors = new ArrayList<>();
 
 //         loop for to take doctorHashmap to doctor
-        for(Doctor doc: doctorHashMap.values())
+        for (Doctor doc : doctorHashMap.values())
             doctors.add(doc);
+
 
     }
 
     @NonNull
     @Override
-    public FilteredDoctorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new FilteredDoctorAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
+    public ListNearbyDoctorsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new ListNearbyDoctorsAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_distance, viewGroup, false));
 //        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_doctor_cardview,
 //                viewGroup,false);
 //        ViewHolder holder = new ViewHolder(view);
@@ -46,15 +51,10 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
-        viewHolder.street.setText(doctors.get(i).getStreet());
-        viewHolder.streetNumber.setText(doctors.get(i).getStreetNumber());
-        viewHolder.city.setText(doctors.get(i).getCity());
-        viewHolder.country.setText(doctors.get(i).getCountry());
-
+        viewHolder.distance.setText(String.format("%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0) + " km");
         final int id = i;
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +64,8 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
                 // we need to give the uid of the doctor the user want to see
                 String key = "";
-                for(Map.Entry entry: doctorHashMap.entrySet()){
-                    if(doctors.get(id).equals(entry.getValue())){
+                for (Map.Entry entry : doctorHashMap.entrySet()) {
+                    if (doctors.get(id).equals(entry.getValue())) {
                         key = (String) entry.getKey();
                         break; //breaking because its one to one map
                     }
@@ -83,7 +83,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, street, streetNumber, city, country;
+        TextView firstName, lastName, activity, distance;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,11 +91,9 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
             firstName = itemView.findViewById(R.id.firstName);
             lastName = itemView.findViewById(R.id.lastName);
             activity = itemView.findViewById(R.id.activity);
-            street = itemView.findViewById(R.id.street);
-            streetNumber = itemView.findViewById(R.id.streetNumber);
-            city = itemView.findViewById(R.id.city);
-            country = itemView.findViewById(R.id.country);
+            distance = itemView.findViewById(R.id.distance);
 
         }
+
     }
 }
