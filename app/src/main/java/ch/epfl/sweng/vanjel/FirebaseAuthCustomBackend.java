@@ -10,11 +10,17 @@ import static org.mockito.Mockito.when;
 
 public class FirebaseAuthCustomBackend {
 
+    static boolean mockPatient = true;
+
     @Mock
     private FirebaseAuth mockAuth;
 
     @Mock
     private FirebaseUser mockUser;
+
+    public static void setMockPatient(boolean b) {
+        mockPatient = b;
+    }
 
     private static boolean isTestRunning() {
         boolean res;
@@ -38,7 +44,11 @@ public class FirebaseAuthCustomBackend {
     private FirebaseAuth initMocks() {
         MockitoAnnotations.initMocks(this);
         initAuthBehaviour();
-        initMockUser();
+        if (mockPatient) {
+            initMockPatient();
+        } else {
+            initMockDoctor();
+        }
         return mockAuth;
     }
 
@@ -46,7 +56,11 @@ public class FirebaseAuthCustomBackend {
         when(mockAuth.getCurrentUser()).thenReturn(mockUser);
     }
 
-    private void initMockUser() {
+    public void initMockPatient() {
         when(mockUser.getUid()).thenReturn("patientid1");
+    }
+
+    public void initMockDoctor() {
+        when(mockUser.getUid()).thenReturn("doctorid1");
     }
 }
