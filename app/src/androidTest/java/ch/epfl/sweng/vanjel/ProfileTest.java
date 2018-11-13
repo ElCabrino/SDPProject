@@ -52,11 +52,6 @@ public class ProfileTest {
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
 
-/*    @BeforeClass
-    public static void signOutUser() {
-        FirebaseAuth.getInstance().signOut();
-    }*/
-
     @Test
     public void outputTest() throws Exception {
         // The app needs a few seconds to load the content
@@ -74,7 +69,7 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
     }
 
-/*    @Test
+    @Test
     public void testEditText() throws Exception {
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);
@@ -90,6 +85,7 @@ public class ProfileTest {
         onView(withContentDescription("profile street")).perform(ViewActions.scrollTo(), replaceText(newStreet));
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo(), replaceText(newNumberStreet));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo(), replaceText(newCity));
+        TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
 
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(newLastName)));
@@ -102,10 +98,10 @@ public class ProfileTest {
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText(newCity)));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(expectedCountry)));
 
-        restoreEditTest();
-    }*/
+//        restoreEditTest();
+    }
 
-    private void restoreEditTest() {
+/*    private void restoreEditTest() {
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo(), replaceText(expectedLastname));
         onView(withContentDescription("profile name")).perform(ViewActions.scrollTo(), replaceText(expectedName));
@@ -113,7 +109,7 @@ public class ProfileTest {
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo(), replaceText(expectedStreetNumber));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo(), replaceText(expectedCity));
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
-    }
+    }*/
 
     @Test
     public void editButtonTest() throws Exception {
@@ -135,11 +131,12 @@ public class ProfileTest {
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(isEnabled()));
     }
 
-/*    @Test
+    @Test
     public void saveButtonTest() throws Exception {
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile save button")).perform(ViewActions.scrollTo(), click());
 
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo()).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
@@ -155,7 +152,7 @@ public class ProfileTest {
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(not(isEnabled())));
-    }*/
+    }
 
     @Test
     public void searchDoctorButtonTest() throws Exception {

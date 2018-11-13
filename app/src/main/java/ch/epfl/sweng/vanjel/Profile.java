@@ -1,6 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +52,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     String userType;
 
-    Boolean isPatient = new Boolean(false);
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
@@ -122,7 +120,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 logOut();
                 break;
             case R.id.patientInfoButton:
-                if (isPatient) {
+                if (userType.equals("Patient")) {
                     intent = new Intent(this, PatientInfo.class);
                     startActivity(intent);
                 } else {
@@ -211,15 +209,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (auth.getCurrentUser() != null) {
                     if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
-                        isPatient = true;
+                        userType = "Patient";
                         searchButton.setVisibility(View.VISIBLE);
                         setAvailabilityButton.setVisibility(View.GONE);
-                        database.getReference("Patient").child(getUserFirebaseID()).addValueEventListener(createValueEventListener("Patient"));
+                        database.getReference("Patient").child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Patient"));
                     } else {
-                        isPatient = false;
+                        userType = "Doctor";
                         searchButton.setVisibility(View.GONE);
                         setAvailabilityButton.setVisibility(View.VISIBLE);
-                        database.getReference("Doctor").child(getUserFirebaseID()).addValueEventListener(createValueEventListener("Doctor"));
+                        database.getReference("Doctor").child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener("Doctor"));
                     }
                 }
             }
@@ -232,7 +230,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
-        database.getReference(userType).child(getUserFirebaseID()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+        database.getReference(userType).child(auth.getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
@@ -254,14 +252,5 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
         return userValues;
-    }
-
-    // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
-    public String getUserFirebaseID() {
-        if (auth.getCurrentUser() != null) {
-            return auth.getCurrentUser().getUid();
-        } else {
-            return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
-        }
     }
 }
