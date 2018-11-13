@@ -61,7 +61,14 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DoctorInformation.class);
-                String key = HashMapHelper.getKeyByValue(doctorHashMap,doctors.get(id));
+                // we need to give the uid of the doctor the user want to see
+                String key = "";
+                for (Map.Entry entry : doctorHashMap.entrySet()) {
+                    if (doctors.get(id).equals(entry.getValue())) {
+                        key = (String) entry.getKey();
+                        break; //breaking because its one to one map
+                    }
+                }
                 intent.putExtra("doctorUID", key);
                 context.startActivity(intent);
             }

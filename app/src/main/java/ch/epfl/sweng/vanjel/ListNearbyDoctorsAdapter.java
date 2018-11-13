@@ -55,14 +55,18 @@ public class ListNearbyDoctorsAdapter extends recyclerViewAdapter<ListNearbyDoct
         viewHolder.lastName.setText(doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
         viewHolder.distance.setText(String.format("%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0) + " km");
+
         final int id = i;
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DoctorInformation.class);
-                String key = HashMapHelper.getKeyByValue(doctorHashMap,doctors.get(id));
-                intent.putExtra("doctorUID", key);
+                for (Map.Entry<String,Doctor> entry : doctorHashMap.entrySet()) {
+                    if (doctors.get(id).equals(entry.getValue())) {
+                        intent.putExtra("doctorUID", entry.getKey());
+                    }
+                }
                 context.startActivity(intent);
             }
         });
