@@ -41,6 +41,7 @@ public class DoctorPatientInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_patient_info);
 
+        //TODO: add corect uid
         String UserID = FirebaseAuth.getInstance().getUid();
         if (UserID!=null) {
             patientInfoDatabaseService =
@@ -78,9 +79,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
         textViewExercise = findViewById(R.id.doctorPtExerciseValue);
     }
 
-    private void getAllButtons() {
-
-    }
 
     @Override
     protected void onStart() {
@@ -105,8 +103,4 @@ public class DoctorPatientInfo extends AppCompatActivity {
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
     }
 
-
-    String getTextFromField(EditText field){
-        return field.getText().toString().trim();
-    }
 }
