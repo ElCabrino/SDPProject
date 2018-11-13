@@ -1,11 +1,15 @@
 package ch.epfl.sweng.vanjel;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,7 +51,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
 
-
     }
 
     @Override
@@ -81,6 +84,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 apList.sort(new appointmentsComparator());
                 PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
                 listViewAp.setAdapter(adapter);
+                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
+                        startActivity(appInfo);
+                    }
+                });*/
             }
 
             @Override
@@ -90,6 +100,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         });
 
     }
+
+
 
     private class appointmentsComparator implements Comparator<PtPersonalAppointment> {
         @Override
@@ -192,6 +204,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         });
 
     }
+
 
 
 
