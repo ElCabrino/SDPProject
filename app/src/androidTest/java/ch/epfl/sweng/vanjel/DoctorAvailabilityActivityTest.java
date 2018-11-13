@@ -72,19 +72,16 @@ public class DoctorAvailabilityActivityTest {
         clickTestSlots();
         onView(withId(R.id.valid)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        mActivityRule.finishActivity();
-        mActivityRule.launchActivity(intent);
         TimeUnit.SECONDS.sleep(2);
         //TODO: check why assert doesn't match with mock
-//        for (int k: toCheck) {
-//            try {
-//                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
-//            } catch (Exception e) {
-//                clickTestSlots();
-//                onView(withId(R.id.valid)).perform(scrollTo(), click());
-//            }
-//        }
+        for (int k: toCheck) {
+            try {
+                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+            } catch (Exception e) {
+                clickTestSlots();
+                onView(withId(R.id.valid)).perform(scrollTo(), click());
+            }
+        }
         clickTestSlots();
         onView(withId(R.id.valid)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
