@@ -76,6 +76,7 @@ public class DoctorAvailabilityActivityTest {
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(intent);
         TimeUnit.SECONDS.sleep(2);
+        //TODO: check why assert doesn't match with mock
 //        for (int k: toCheck) {
 //            try {
 //                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
