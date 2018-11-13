@@ -28,10 +28,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText emailField;
     private EditText passwordField;
 
+    private AppointmentNotificationBackgroundService appointmentBackgroundService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         //Views
         emailField = findViewById(R.id.mailLogin);
@@ -47,6 +51,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private void startAppointmentService(){
+        Intent serviceIntent = new Intent(this, AppointmentNotificationBackgroundService.class);
+        startService(serviceIntent);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -60,6 +69,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // user is logged, open his profile page
         Intent intent = new Intent(LoginActivity.this,Profile.class);
         startActivity(intent);
+
+
+        startAppointmentService();
 
     }
 

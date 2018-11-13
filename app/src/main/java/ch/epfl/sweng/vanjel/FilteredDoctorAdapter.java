@@ -1,8 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,25 +12,37 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static ch.epfl.sweng.vanjel.R.layout.layout_doctor_cardview;
 
 public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
     ArrayList<Doctor> doctors;
+    HashMap<String, Doctor> doctorHashMap;
     Context context;
 
 
-    public FilteredDoctorAdapter(Context context, ArrayList<Doctor> data){
-        this.doctors = data;
+    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data){
+
+        this.doctorHashMap = data;
         this.context = context;
+
+        doctors = new ArrayList<>();
+
+//         loop for to take doctorHashmap to doctor
+        for(Doctor doc: doctorHashMap.values())
+            doctors.add(doc);
+
+
     }
 
 
     @NonNull
     @Override
     public FilteredDoctorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-       return new FilteredDoctorAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
+        return new FilteredDoctorAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
 //        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_doctor_cardview,
 //                viewGroup,false);
 //        ViewHolder holder = new ViewHolder(view);
@@ -37,7 +51,8 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FilteredDoctorAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
@@ -45,6 +60,26 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         viewHolder.streetNumber.setText(doctors.get(i).getStreetNumber());
         viewHolder.city.setText(doctors.get(i).getCity());
         viewHolder.country.setText(doctors.get(i).getCountry());
+
+        final int id = i;
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DoctorInformation.class);
+
+                // we need to give the uid of the doctor the user want to see
+                String key = "";
+                for(Map.Entry entry: doctorHashMap.entrySet()){
+                    if(doctors.get(id).equals(entry.getValue())){
+                        key = (String) entry.getKey();
+                        break; //breaking because its one to one map
+                    }
+                }
+                intent.putExtra("doctorUID", key);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

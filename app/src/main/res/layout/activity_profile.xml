@@ -159,6 +159,15 @@
                     android:layout_height="wrap_content"
                     android:text="Search"
                     android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/setAvailabilityButton"
+                    android:contentDescription="set availability button"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Availability"
+                    android:layout_weight="1"/>
             </LinearLayout>
 
         </LinearLayout>
