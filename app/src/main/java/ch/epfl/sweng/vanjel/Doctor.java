@@ -25,7 +25,9 @@ public class Doctor extends User {
 
     public double getDistance(LatLng userLocation, Context context){
 
-        LatLng doctorLocation = this.getLocationFromAddress(context);
+        //LatLng doctorLocation = this.getLocationFromAddress(context);
+
+        LatLng doctorLocation = new LatLng(0,0);
 
 //        if(doctorLocation.equals(null)) return null;
 

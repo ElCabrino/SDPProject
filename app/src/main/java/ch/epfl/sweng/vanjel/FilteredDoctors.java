@@ -1,11 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -58,7 +57,7 @@ public class FilteredDoctors extends AppCompatActivity {
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        doctors = new ArrayList<Doctor>();
+        doctors = new ArrayList<>();
         doctorHashMap = new HashMap<>();
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
         recyclerView.setAdapter(adapter);
