@@ -35,6 +35,9 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     private Boolean[] slots;
 
+    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +82,8 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
         int i = 0;
         for (String d: days) {
-            FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID() + "/Availability/"+d).updateChildren(availabilities.get(i++)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            String s = auth.getCurrentUser().getUid() + "/Availability/"+d;
+            database.getReference("Doctor").child(s).updateChildren(availabilities.get(i++)).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(DoctorAvailabilityActivity.this, "Doctor availability successfully updated.", Toast.LENGTH_SHORT).show();
@@ -95,8 +99,8 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     }
 
     public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (auth.getCurrentUser() != null) {
+            return auth.getCurrentUser().getUid();
         } else {
             return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
         }

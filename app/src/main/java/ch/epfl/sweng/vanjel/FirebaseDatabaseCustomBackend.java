@@ -1,5 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -14,6 +16,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -42,6 +46,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference patient1DB;
     @Mock
     private DatabaseReference doctor1DB;
+    @Mock
+    private DatabaseReference doctorAvailabilityRef;
 
     @Mock
     private DatabaseError patientError;
@@ -57,6 +63,10 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> updatePatientTask;
     @Mock
     private Task<Void> updateDoctorTask;
+    @Mock
+    private Task<Void> updateAvailabilityTask;
+    @Mock
+    private Task<Void> updateSuccessAvailabilityTask;
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -94,6 +104,7 @@ public final class FirebaseDatabaseCustomBackend {
         initPatientSnapshots();
         initDoctorSnapshots();
         initDBListeners();
+        initDoctorAvailabilityValidate();
         return mockDB;
     }
 
@@ -120,6 +131,43 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1Snapshot.getValue(Doctor.class)).thenReturn(defDoctor1);
         when(doctor1Snapshot.hasChild("patientid1")).thenReturn(false);
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
+    }
+
+    private void initDoctorAvailabilityValidate() {
+        List<String> days = new ArrayList<>();
+        days.add("Monday");
+        days.add("Tuesday");
+        days.add("Wednesday");
+        days.add("Thursday");
+        days.add("Friday");
+        days.add("Saturday");
+        for (String d: days) {
+            when(doctorRef.child("doctorid1/Availability/" + d)).thenReturn(doctorAvailabilityRef);
+            when(doctorRef.child("patientid1/Availability/" + d)).thenReturn(doctorAvailabilityRef);
+        }
+
+        when(doctorAvailabilityRef.updateChildren(any(Map.class))).thenReturn(updateAvailabilityTask);
+
+
+        //listener on success
+        doAnswer(new Answer<OnSuccessListener>() {
+
+            @Override
+            public OnSuccessListener answer(InvocationOnMock invocation) throws Throwable {
+                return null;
+            }
+        }).when(updateAvailabilityTask).addOnSuccessListener(any(OnSuccessListener.class));
+
+        when(updateAvailabilityTask.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(updateSuccessAvailabilityTask);
+
+        //listener on failure
+        doAnswer(new Answer<OnFailureListener>() {
+
+            @Override
+            public OnFailureListener answer(InvocationOnMock invocation) throws Throwable {
+                return null;
+            }
+        }).when(updateSuccessAvailabilityTask).addOnFailureListener(any(OnFailureListener.class));
     }
 
     private void initDBListeners() {

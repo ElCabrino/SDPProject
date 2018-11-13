@@ -22,7 +22,7 @@ import static org.hamcrest.core.IsNot.not;
 
 public class DoctorAvailabilityActivityTest {
 
-    @BeforeClass
+    //@BeforeClass
     public static void signOutUser() {
         FirebaseAuth.getInstance().signOut();
     }
@@ -54,6 +54,7 @@ public class DoctorAvailabilityActivityTest {
         Intent intent = new Intent(Intent.ACTION_PICK);
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(intent);
+        //FirebaseAuthCustomBackend.setMockPatient(false);
     }
 
     @Test
@@ -75,14 +76,14 @@ public class DoctorAvailabilityActivityTest {
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(intent);
         TimeUnit.SECONDS.sleep(2);
-        for (int k: toCheck) {
-            try {
-                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
-            } catch (Exception e) {
-                clickTestSlots();
-                onView(withId(R.id.valid)).perform(scrollTo(), click());
-            }
-        }
+//        for (int k: toCheck) {
+//            try {
+//                onView(withId(TimeAvailability.times[k])).perform(scrollTo()).check(matches(isChecked()));
+//            } catch (Exception e) {
+//                clickTestSlots();
+//                onView(withId(R.id.valid)).perform(scrollTo(), click());
+//            }
+//        }
         clickTestSlots();
         onView(withId(R.id.valid)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
