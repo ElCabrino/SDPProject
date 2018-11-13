@@ -60,15 +60,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchUserIn("Patient");
-        searchUserIn("Doctor");
         loadContent();
     }
 
     private void loadContent() {
         setContentView(R.layout.activity_profile);
         getAllTextView();
-
 
         patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
@@ -176,7 +173,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     // Enables editing of some fields and replaces Edit button with Save.
     private void setEditText(boolean set, int s1, int s2 ) {
-        getAllTextView();
         this.lastName.setEnabled(set);
         this.lastName.requestFocus();
         this.firstName.setEnabled(set);
@@ -218,10 +214,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                         isPatient = true;
                         searchButton.setVisibility(View.VISIBLE);
                         setAvailabilityButton.setVisibility(View.GONE);
+                        database.getReference("Patient").child(getUserFirebaseID()).addValueEventListener(createValueEventListener("Patient"));
                     } else {
                         isPatient = false;
                         searchButton.setVisibility(View.GONE);
                         setAvailabilityButton.setVisibility(View.VISIBLE);
+                        database.getReference("Doctor").child(getUserFirebaseID()).addValueEventListener(createValueEventListener("Doctor"));
                     }
                 }
             }
@@ -256,24 +254,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
         return userValues;
-    }
-
-    // Get the reference to the logged in user.
-    void searchUserIn(final String category) {
-        DatabaseReference patientRef = database.getReference(category);
-        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(getUserFirebaseID())) {
-                        userType = category;
-                        database.getReference(category).child(getUserFirebaseID()).addValueEventListener(createValueEventListener(category));
-                        loadContent();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
     }
 
     // Gets the ID of the logged user. If no user is logged, get mock data of a test user.

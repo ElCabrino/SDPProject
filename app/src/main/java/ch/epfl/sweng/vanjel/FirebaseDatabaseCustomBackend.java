@@ -71,7 +71,7 @@ public final class FirebaseDatabaseCustomBackend {
     private static boolean isTestRunning() {
         boolean res;
         try {
-            Class.forName("ch.epfl.sweng.vanjel.androidTest.TestIndicator");
+            Class.forName("android.support.test.espresso.Espresso");
             res = true;
         } catch (final Exception e) {
             res = false;
@@ -134,7 +134,20 @@ public final class FirebaseDatabaseCustomBackend {
                 }
                 return listener;
             }
-        }).when(patient1DB).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(patientRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(patientError);
+                } else {
+                    listener.onDataChange(patient1Snapshot);
+                }
+                return listener;
+            }
+        }).when(patient1DB).addValueEventListener(any(ValueEventListener.class));
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
@@ -147,7 +160,20 @@ public final class FirebaseDatabaseCustomBackend {
                 }
                 return listener;
             }
-        }).when(doctor1DB).addListenerForSingleValueEvent(any(ValueEventListener.class));
+        }).when(doctorRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(doctorError);
+                } else {
+                    listener.onDataChange(doctor1Snapshot);
+                }
+                return listener;
+            }
+        }).when(doctor1DB).addValueEventListener(any(ValueEventListener.class));
 
         when(updatePatientTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override

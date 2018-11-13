@@ -19,7 +19,7 @@ public class FirebaseAuthCustomBackend {
     private static boolean isTestRunning() {
         boolean res;
         try {
-            Class.forName("ch.epfl.sweng.vanjel.androidTest.TestIndicator");
+            Class.forName("android.support.test.espresso.Espresso");
             res = true;
         } catch (final Exception e) {
             res = false;
