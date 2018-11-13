@@ -28,7 +28,8 @@ import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuthCustomBackend.getInstance();
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     // attribute that will contain pointer
     private EditText mailReg;
@@ -143,11 +144,9 @@ public class Registration extends AppCompatActivity {
     Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
         Task<Void> val;
         if(DoctorReg) {
-            val = FirebaseDatabase.getInstance().getReference("Doctor").child(FirebaseAuth.
-                    getInstance().getCurrentUser().getUid()).setValue(doctor);
+            val = database.getReference("Doctor").child(mAuth.getCurrentUser().getUid()).setValue(doctor);
         } else {
-            val = FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.
-                    getInstance().getCurrentUser().getUid()).setValue(patient);
+            val = database.getReference("Patient").child(mAuth.getCurrentUser().getUid()).setValue(patient);
         }
         return val;
     }
@@ -168,8 +167,6 @@ public class Registration extends AppCompatActivity {
     }
 
     void getAllFields(){
-        mAuth = FirebaseAuth.getInstance();
-
         //Button
         buttonReg = findViewById(R.id.buttonReg);
 

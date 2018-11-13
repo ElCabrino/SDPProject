@@ -1,11 +1,20 @@
 package ch.epfl.sweng.vanjel;
 
+import android.app.Activity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 public class FirebaseAuthCustomBackend {
@@ -17,6 +26,11 @@ public class FirebaseAuthCustomBackend {
 
     @Mock
     private FirebaseUser mockUser;
+
+    @Mock
+    private Task<AuthResult> mockRegistrationTask;
+    @Mock
+    Task<AuthResult> mockCompleteTask;
 
     public static void setMockPatient(boolean b) {
         mockPatient = b;
@@ -49,11 +63,13 @@ public class FirebaseAuthCustomBackend {
         } else {
             initMockDoctor();
         }
+        initListenerAuth();
         return mockAuth;
     }
 
     private void initAuthBehaviour() {
         when(mockAuth.getCurrentUser()).thenReturn(mockUser);
+        when(mockAuth.createUserWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockRegistrationTask);
     }
 
     public void initMockPatient() {
@@ -62,5 +78,9 @@ public class FirebaseAuthCustomBackend {
 
     public void initMockDoctor() {
         when(mockUser.getUid()).thenReturn("doctorid1");
+    }
+
+    private void initListenerAuth() {
+        when(mockRegistrationTask.addOnCompleteListener(any(Activity.class), any(OnCompleteListener.class))).thenReturn(mockCompleteTask);
     }
 }
