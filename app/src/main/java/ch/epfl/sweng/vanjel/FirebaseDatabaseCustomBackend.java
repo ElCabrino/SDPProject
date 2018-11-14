@@ -1,8 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-import android.renderscript.Sampler;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,6 +44,8 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private FirebaseDatabase mockDB;
 
+    @Mock
+    private DatabaseReference DBRef;
     @Mock
     private DatabaseReference patientRef;
     @Mock
@@ -135,6 +134,7 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initDatabase() {
+        when(mockDB.getReference()).thenReturn(DBRef);
         when(mockDB.getReference("Patient")).thenReturn(patientRef);
         when(mockDB.getReference("Doctor")).thenReturn(doctorRef);
         when(mockDB.getReference("Doctor/doctorid1/Availability")).thenReturn(doctorRef);
@@ -144,6 +144,8 @@ public final class FirebaseDatabaseCustomBackend {
     private void initRefDatabase() {
         when(patientRef.child(patient1ID)).thenReturn(patient1DB);
         when(doctorRef.child(doctor1ID)).thenReturn(doctor1DB);
+
+        when(DBRef.child("Doctor")).thenReturn(doctorRef);
 
         when(patient1DB.updateChildren(any(Map.class))).thenReturn(updatePatientTask);
         when(doctor1DB.updateChildren(any(Map.class))).thenReturn(updateDoctorTask);

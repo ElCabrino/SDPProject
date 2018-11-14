@@ -40,7 +40,7 @@ public class DoctorInformationTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, DoctorInformation.class);
-                    result.putExtra("doctorUID", "ZPUbDzdeiHT9mGn2Tq4fWSTtkzD3");
+                    result.putExtra("doctorUID", "doctorid1");
                     return result;
                 }
             };

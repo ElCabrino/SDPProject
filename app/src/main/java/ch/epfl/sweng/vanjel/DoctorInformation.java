@@ -1,13 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,7 +32,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private Doctor doctor;
     String doctorUID;
     // database
-    FirebaseDatabase database;
+    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     DatabaseReference ref;
 
     private Button takeAppointment;
@@ -97,8 +94,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         // take appointment button
         takeAppointment = findViewById(R.id.buttonTakeAppointment);
         takeAppointment.setOnClickListener(this);
-        // database reference
-        database = FirebaseDatabase.getInstance();
         // map reference
         mapView = findViewById(R.id.mapViewDoctorInfo);
 
