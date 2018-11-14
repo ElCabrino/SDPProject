@@ -26,7 +26,7 @@ import java.util.Map;
 public class FilteredDoctors extends AppCompatActivity {
 
     private static final String TAG = "OKLM2727";
-    private FirebaseDatabase database;
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;
     private ArrayList<Doctor> doctors;
@@ -54,7 +54,6 @@ public class FilteredDoctors extends AppCompatActivity {
 
     public void init(){
         // get Database pointer
-        database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
