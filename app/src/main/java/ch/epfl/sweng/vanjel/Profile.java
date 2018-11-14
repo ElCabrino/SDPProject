@@ -224,7 +224,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userType = type;
         searchButton.setVisibility(v1);
         setAvailabilityButton.setVisibility(v2);
-        database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
+        String s = auth.getCurrentUser().getUid();
+        database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
     }
 
     // Updates user with values in the fields.
