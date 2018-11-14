@@ -50,7 +50,7 @@ public class PatientAppointmentTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, PatientAppointmentActivity.class);
-                    result.putExtra("doctorUID", "eUy36LW1d2Reyp3Y2h7lL70ccxG3");
+                    result.putExtra("doctorUID", "doctorid1");
                     result.putExtra("date", d);
                     return result;
                 }

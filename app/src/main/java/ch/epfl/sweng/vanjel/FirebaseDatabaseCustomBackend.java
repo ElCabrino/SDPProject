@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import org.mockito.Mock;
@@ -17,6 +18,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,12 @@ public final class FirebaseDatabaseCustomBackend {
 
     private final static String doctor1ID = "doctorid1";
     private final static Doctor defDoctor1 = new Doctor("doctor1@test.ch", "fn_dtest1", "ln_dtest1", "11/11/2011", "street_dtest1", "11", "city_dtest1", "country_ptest1", Gender.Male, DoctorActivity.Dentist);
+
+    private final static HashMap<String, String> av;
+    static {
+        av = new HashMap<>();
+        av.put("availability", "8:30-11:00 / 12:30-15:00");
+    }
 
     private static boolean isCancelled = false;
     private static boolean shouldFail = false;
@@ -52,6 +60,10 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference patientCategoryRef;
     @Mock
     private DatabaseReference patientSubCategoryRef;
+    @Mock
+    private DatabaseReference requestsRef;
+    @Mock
+    private DatabaseReference apt1Ref;
 
     @Mock
     private DatabaseError patientError;
@@ -62,6 +74,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot patient1Snapshot;
     @Mock
     private DataSnapshot doctor1Snapshot;
+    @Mock
+    private DataSnapshot doctorAvailabilitySnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -73,6 +87,8 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> updateSuccessAvailabilityTask;
     @Mock
     private Task<Void> setValueInfoPatientTask;
+    @Mock
+    private Task<Void> updateApt1Task;
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -109,6 +125,7 @@ public final class FirebaseDatabaseCustomBackend {
         initRefDatabase();
         initPatientSnapshots();
         initDoctorSnapshots();
+        initDoctorAvailabilitySnapshots();
         initDBListeners();
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
@@ -118,6 +135,8 @@ public final class FirebaseDatabaseCustomBackend {
     private void initDatabase() {
         when(mockDB.getReference("Patient")).thenReturn(patientRef);
         when(mockDB.getReference("Doctor")).thenReturn(doctorRef);
+        when(mockDB.getReference("Doctor/doctorid1/Availability")).thenReturn(doctorRef);
+        when(mockDB.getReference("Requests")).thenReturn(requestsRef);
     }
 
     private void initRefDatabase() {
@@ -126,6 +145,10 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(patient1DB.updateChildren(any(Map.class))).thenReturn(updatePatientTask);
         when(doctor1DB.updateChildren(any(Map.class))).thenReturn(updateDoctorTask);
+        when(requestsRef.push()).thenReturn(requestsRef);
+        when(requestsRef.getKey()).thenReturn("apt1");
+        when(requestsRef.child("Mon Oct 29 2018/apt1")).thenReturn(apt1Ref);
+        when(apt1Ref.updateChildren(any(Map.class))).thenReturn(updateApt1Task);
     }
 
     private void initPatientSnapshots() {
@@ -140,6 +163,10 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
     }
 
+    private void initDoctorAvailabilitySnapshots() {
+        when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+    }
+
     private void initDoctorAvailabilityValidate() {
         List<String> days = new ArrayList<>();
         days.add("Monday");
@@ -149,6 +176,7 @@ public final class FirebaseDatabaseCustomBackend {
         days.add("Friday");
         days.add("Saturday");
         for (String d: days) {
+            when(doctorRef.child(d)).thenReturn(doctorAvailabilityRef);
             when(doctorRef.child("doctorid1/Availability/" + d)).thenReturn(doctorAvailabilityRef);
             when(doctorRef.child("patientid1/Availability/" + d)).thenReturn(doctorAvailabilityRef);
         }
@@ -299,5 +327,40 @@ public final class FirebaseDatabaseCustomBackend {
                 return updateDoctorTask;
             }
         });
+
+        when(updateApt1Task.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return updateApt1Task;
+            }
+        });
+
+        when(updateApt1Task.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
+                if (shouldFail) {
+                    listener.onFailure(new IllegalStateException("Appointment request failed."));
+                }
+                return updateApt1Task;
+            }
+        });
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(doctorError);
+                } else {
+                    listener.onDataChange(doctorAvailabilitySnapshot);
+                }
+                return listener;
+            }
+        }).when(doctorAvailabilityRef).addValueEventListener(any(ValueEventListener.class));
     }
 }

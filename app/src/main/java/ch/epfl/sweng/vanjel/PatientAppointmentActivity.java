@@ -86,8 +86,6 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         addButton(R.id.button1730, 19);
         addButton(R.id.button1800, 20);
         addButton(R.id.button1830, 21);
-//        addButton(R.id.button1900, 22);
-//        addButton(R.id.button1930, 23);
     }
 
     void addButton(int i, int slot_i) {
@@ -136,7 +134,6 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         int i = v.getId();
         if (i == R.id.buttonAppointment){
             storeAppointment();
-//            Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
         }
