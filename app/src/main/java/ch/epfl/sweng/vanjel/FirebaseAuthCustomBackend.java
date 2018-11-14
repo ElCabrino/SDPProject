@@ -35,6 +35,8 @@ public class FirebaseAuthCustomBackend {
     private Task<AuthResult> mockCompleteTask;
     @Mock
     private Task<AuthResult> mockLoginTask;
+    @Mock
+    private Task<AuthResult> mockUserTask;
 
     public static void setMockPatient(boolean b) {
         mockPatient = b;
@@ -71,6 +73,7 @@ public class FirebaseAuthCustomBackend {
         } else {
             initMockDoctor();
         }
+        initUserTask();
         initListenerAuth();
         return mockAuth;
     }
@@ -85,19 +88,24 @@ public class FirebaseAuthCustomBackend {
         when(mockAuth.createUserWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockLoginTask);
     }
 
-    public static void initMockPatient() {
+    private void initMockPatient() {
         when(mockUser.getUid()).thenReturn("patientid1");
     }
 
-    public static void initMockDoctor() {
+    private void initMockDoctor() {
         when(mockUser.getUid()).thenReturn("doctorid1");
     }
 
+    private void initUserTask() {
+        when(mockUserTask.isSuccessful()).thenReturn(true);
+    }
+
     private void initListenerAuth() {
-        doAnswer((new Answer<ValueEventListener>() {
+        doAnswer((new Answer<OnCompleteListener<AuthResult>>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
-                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+            public OnCompleteListener<AuthResult> answer(InvocationOnMock invocation) throws Throwable {
+                OnCompleteListener<AuthResult> listener = (OnCompleteListener<AuthResult>) invocation.getArguments()[0];
+                listener.onComplete(mockUserTask);
                 return listener;
             }
         })).when(mockLoginTask).addOnCompleteListener(any(OnCompleteListener.class));
