@@ -111,14 +111,18 @@ public class ListNearbyDoctors extends AppCompatActivity {
      * Method to fetch all doctors from firebase and add them to doctorHasMap and then call sort method them by distance.
      */
     private void getDoctors() {
+        Log.d(TAG,"GETTING DOCS");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG,"DATA CHANGE");
                 for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
+                    Log.d(TAG,"EACH DOC");
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
                 }
+                Log.d(TAG,"GOT ALL DOC");
                 orderDoctors(doctorHashMap,userLocation);
             }
 
@@ -167,15 +171,21 @@ public class ListNearbyDoctors extends AppCompatActivity {
      * @param userLocation
      */
     private void orderDoctors(HashMap<String, Doctor> doctorhashMap, LatLng userLocation) {
+        Log.d(TAG,"-ORDERING");
         HashMap<String,Double> distanceHashMap = createDistanceHashMap(doctorhashMap,userLocation);
+        Log.d(TAG,"-CREATED DSITANCE");
         LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>(); //use LinkedHashMap to keep order
+        Log.d(TAG,"-PUT INTO LINKEDHASH");
         for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
+            Log.d(TAG,"-PUTTING INTO LINKEDHASH");
             doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
         }
+        Log.d(TAG,"- DONE PUT");
         mRecyclerView.setVisibility(View.VISIBLE);
         mAdapter = new ListNearbyDoctorsAdapter(ListNearbyDoctors.this, doctorHashMapSorted,userLocation);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+        Log.d(TAG,"- DONE");
     }
 
     /**
@@ -185,11 +195,14 @@ public class ListNearbyDoctors extends AppCompatActivity {
      * @return
      */
     private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorhashMap, LatLng userLocation){
+        Log.d(TAG,"-- CREATE DISTANCE");
         HashMap<String,Double> distanceHashMap = new HashMap<>();
         for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
+            Log.d(TAG,"-- CREATE DISTANCE ONE BY ONE");
             Double doctorDistance = entry.getValue().getDistance(userLocation,this);
             distanceHashMap.put(entry.getKey(),doctorDistance);
         }
+        Log.d(TAG,"-- CREATED DISTANCE");
         return distanceHashMap;
     }
 

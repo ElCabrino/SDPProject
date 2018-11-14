@@ -26,6 +26,7 @@ public class Doctor extends User {
     }
 
     public double getDistance(LatLng userLocation, Context context) {
+        Log.d("DOC","-- CREATE DISTANCE ONE BY ONE");
         float[] results = new float[1];
         LatLng doctorLocation = this.getLocationFromAddress(context);
 //      if(doctorLocation.equals(null)) return null;
