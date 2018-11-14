@@ -57,7 +57,7 @@ public class FilteredDoctors extends AppCompatActivity {
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        doctors = new ArrayList<Doctor>();
+        doctors = new ArrayList<>();
         doctorHashMap = new HashMap<>();
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
         recyclerView.setAdapter(adapter);

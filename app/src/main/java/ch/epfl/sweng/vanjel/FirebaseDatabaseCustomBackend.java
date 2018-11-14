@@ -162,9 +162,12 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initDoctorSnapshots() {
+        List<DataSnapshot> listDoc = new ArrayList<>();
+        listDoc.add(doctor1Snapshot);
         when(doctor1Snapshot.getValue(Doctor.class)).thenReturn(defDoctor1);
         when(doctor1Snapshot.hasChild("patientid1")).thenReturn(false);
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
+        when(doctor1Snapshot.getChildren()).thenReturn(listDoc);
     }
 
     private void initDoctorAvailabilitySnapshots() {
@@ -284,6 +287,19 @@ public final class FirebaseDatabaseCustomBackend {
                 return listener;
             }
         }).when(doctorRef).addListenerForSingleValueEvent(any(ValueEventListener.class));
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(doctorError);
+                } else {
+                    listener.onDataChange(doctor1Snapshot);
+                }
+                return listener;
+            }
+        }).when(doctorRef).addValueEventListener(any(ValueEventListener.class));
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
