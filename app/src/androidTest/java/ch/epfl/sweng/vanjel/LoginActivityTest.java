@@ -43,6 +43,11 @@ public class LoginActivityTest {
         FirebaseAuthCustomBackend.setNullUser(true);
     }
 
+    @After
+    public void reset() {
+        FirebaseAuthCustomBackend.setNullUser(false);
+    }
+
     @Rule
     public final IntentsTestRule<LoginActivity> ActivityRule =
             new IntentsTestRule<>(LoginActivity.class);

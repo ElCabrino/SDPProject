@@ -42,7 +42,6 @@ public class FirebaseAuthCustomBackend {
 
     static void setNullUser(boolean b) {
         nullUser = b;
-        getInstance();
     }
 
     private static boolean isTestRunning() {
@@ -83,6 +82,7 @@ public class FirebaseAuthCustomBackend {
             when(mockAuth.getCurrentUser()).thenReturn(null);
         }
         when(mockAuth.signInWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockLoginTask);
+        when(mockAuth.createUserWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockLoginTask);
     }
 
     public static void initMockPatient() {

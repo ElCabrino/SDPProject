@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -184,6 +185,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     private void getDoctorAvailability() {
         slotsAvailability = new boolean[TimeAvailability.getIdLength()/6];
         DatabaseReference ref = database.getReference("Doctor/"+doctorUID+"/Availability");
+        Log.d("TESTRUNNING", "Doctor/"+doctorUID+"/Availability");
         String weekday = parseSelectedDate().substring(0,Math.min(parseSelectedDate().length(), 3));
         switch (weekday) {
             case "Mon":
