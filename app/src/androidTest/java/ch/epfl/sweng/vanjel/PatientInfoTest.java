@@ -59,17 +59,6 @@ PatientInfoTest {
     private ArrayList<Surgery> surgeries;
     private ArrayList<DrugReaction> drugReactions;
 
-    //@BeforeClass
-    public static void loginPatientInfoUser() throws InterruptedException {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            FirebaseAuth.getInstance().signInWithEmailAndPassword("PatientInfo@test.ch", "123456");
-        }
-
-        TimeUnit.SECONDS.sleep(10);
-
-    }
-
     @Rule
     public final IntentsTestRule<PatientInfo> ActivityRule =
             new IntentsTestRule<>(PatientInfo.class);
