@@ -38,57 +38,11 @@ public class LoginActivityTestAuxiliaire {
     public final IntentsTestRule<LoginActivity> activityRule =
             new IntentsTestRule<>(LoginActivity.class);
 
-    @Before
-    public void setUp() throws Exception {
-        TimeUnit.SECONDS.sleep(5);
-
-
-
-        String email = "test@test.ch";
-        String password = "123456";
-
-
-
-        signOutIfPossible();
-
-        enterEmail(email);
-
-        enterPassword(password);
-
-        onView(withId(R.id.buttonLogin)).perform(click());
-    }
-
-
-    // Check if already connected --> correct view
-    @Test
-    public void updateUITest() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(5);
-
-        // TODO: Build does not pass in Travis
-//        intended(hasComponent(Profile.class.getName()));
-
-        signOutIfPossible();
-
-    }
-
     // check if disconnecting brings to correct activity
     @Test
     public void logoutTest() throws InterruptedException {
         TimeUnit.SECONDS.sleep(3);
         signOutIfPossible();
-        // TODO: build does not pass in Travis
-//        TimeUnit.SECONDS.sleep(5);
-//        intended(hasComponent(LoginActivity.class.getName()));
-
-
-    }
-
-    private void enterEmail(String email) {
-        onView(withId(R.id.mailLogin)).perform(replaceText(email));
-    }
-
-    private void enterPassword(String password) {
-        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
     }
 
     private void signOutIfPossible() {
@@ -97,6 +51,5 @@ public class LoginActivityTestAuxiliaire {
         } catch (NoMatchingViewException e) {
             // Ignore
         }
-
     }
 }

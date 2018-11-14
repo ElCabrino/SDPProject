@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.renderscript.Sampler;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -129,6 +130,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDBListeners();
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
+        //initProfileListener();
         return mockDB;
     }
 
@@ -229,6 +231,16 @@ public final class FirebaseDatabaseCustomBackend {
                 return listener;
             }
         }).when(patientCategoryRef).addValueEventListener(any(ValueEventListener.class));
+    }
+
+    private void initProfileListener() {
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                return listener;
+            }
+        }).when(patient1DB).addValueEventListener(any(ValueEventListener.class));
     }
 
     private void initDBListeners() {

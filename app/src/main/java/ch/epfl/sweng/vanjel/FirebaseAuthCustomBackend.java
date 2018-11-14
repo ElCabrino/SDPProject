@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ValueEventListener;
 
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,21 +20,29 @@ import static org.mockito.Mockito.when;
 
 public class FirebaseAuthCustomBackend {
 
-    static boolean mockPatient = true;
+    private static boolean mockPatient = true;
+    private static boolean nullUser = false;
 
     @Mock
     private FirebaseAuth mockAuth;
 
     @Mock
-    private FirebaseUser mockUser;
+    private static FirebaseUser mockUser;
 
     @Mock
     private Task<AuthResult> mockRegistrationTask;
     @Mock
-    Task<AuthResult> mockCompleteTask;
+    private Task<AuthResult> mockCompleteTask;
+    @Mock
+    private Task<AuthResult> mockLoginTask;
 
     public static void setMockPatient(boolean b) {
         mockPatient = b;
+    }
+
+    static void setNullUser(boolean b) {
+        nullUser = b;
+        getInstance();
     }
 
     private static boolean isTestRunning() {
@@ -68,19 +77,29 @@ public class FirebaseAuthCustomBackend {
     }
 
     private void initAuthBehaviour() {
-        when(mockAuth.getCurrentUser()).thenReturn(mockUser);
-        when(mockAuth.createUserWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockRegistrationTask);
+        if (!nullUser) {
+            when(mockAuth.getCurrentUser()).thenReturn(mockUser);
+        } else {
+            when(mockAuth.getCurrentUser()).thenReturn(null);
+        }
+        when(mockAuth.signInWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockLoginTask);
     }
 
-    public void initMockPatient() {
+    public static void initMockPatient() {
         when(mockUser.getUid()).thenReturn("patientid1");
     }
 
-    public void initMockDoctor() {
+    public static void initMockDoctor() {
         when(mockUser.getUid()).thenReturn("doctorid1");
     }
 
     private void initListenerAuth() {
-        when(mockRegistrationTask.addOnCompleteListener(any(Activity.class), any(OnCompleteListener.class))).thenReturn(mockCompleteTask);
+        doAnswer((new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                return listener;
+            }
+        })).when(mockLoginTask).addOnCompleteListener(any(OnCompleteListener.class));
     }
 }
