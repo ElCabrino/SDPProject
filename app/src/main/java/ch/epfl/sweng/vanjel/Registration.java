@@ -167,9 +167,6 @@ public class Registration extends AppCompatActivity {
     }
 
     void getAllFields(){
-        //Button
-        buttonReg = findViewById(R.id.buttonReg);
-
         // getting pointer to corresponding element on screen
         mailReg = findViewById(R.id.mailReg);
         passwordReg = findViewById(R.id.passwordReg);
@@ -181,7 +178,13 @@ public class Registration extends AppCompatActivity {
         numberReg = findViewById(R.id.numberReg);
         cityReg = findViewById(R.id.cityReg);
         countryReg = findViewById(R.id.countryReg);
+        getOtherFields();
+    }
 
+    // Separation required to avoid CodeClimate duplicate with getAllEditText() from PatientInfo.java
+    private void getOtherFields() {
+        //Button
+        buttonReg = findViewById(R.id.buttonReg);
         //Spinner
         genderReg = findViewById(R.id.genderReg);
         activityReg = findViewById(R.id.activityReg);

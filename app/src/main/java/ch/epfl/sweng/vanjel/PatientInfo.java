@@ -67,21 +67,11 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-        String UserID = auth.getUid();
         patientInfoDatabaseService = new PatientInfoDatabaseService(this);
-//        if (UserID!=null) {
-//            patientInfoDatabaseService =
-//                    new PatientInfoDatabaseService(UserID, this);
-//        } else {
-//            patientInfoDatabaseService =
-//                    new PatientInfoDatabaseService("I3h9NVPXwmb0Ab2auVnaMSgjaLY2", this);
-//        }
 
         saveButton = findViewById(R.id.buttonGenInfoPtReg);
 
         getAllEditText();
-
-        getAllButtons();
 
         getAllPatientInfoFields();
 
@@ -132,10 +122,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         buttonExercise = findViewById(R.id.buttonExercise);
     }
 
-    private void getAllButtons() {
-
-    }
-
     private void getAllEditText() {
         priorConditionsReg = findViewById(R.id.ptPriorConditionsReg);
         surgeriesReg = findViewById(R.id.ptSurgeryReg);
@@ -151,7 +137,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         drinkingReg = findViewById(R.id.ptDrinkingReg);
         exerciseReg = findViewById(R.id.ptExerciseReg);
     }
-
 
     @Override
     protected void onStart() {
@@ -183,12 +168,9 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
                         addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition", new InfoString(priorConditionsReg.getText().toString().trim()));
-                        //addConditionToDatabase(priorConditionsReg.getText().toString().trim());
                 break;
             case R.id.buttonSurgery:
                 patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(), "Surgery", new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
-                /*patientInfoDatabaseService.addSurgery(surgeriesReg.getText().toString().trim(),
-                        surgeriesYearReg.getText().toString().trim());*/
                 break;
             case R.id.buttonAllergy:
                 patientInfoDatabaseService.addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
@@ -198,9 +180,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 Drug drug = new Drug(drugRegimenDrugReg.getText().toString().trim(), drugRegimenDosageReg.getText().toString().trim(),
                         drugRegimenTimesReg.getText().toString().trim());
                 patientInfoDatabaseService.addItemToDatabase(drugRegimenDrugReg.getText().toString().trim(), "Drug",drug);
-                /*patientInfoDatabaseService.addDrug(drugRegimenDrugReg.getText().toString().trim(),
-                        drugRegimenDosageReg.getText().toString().trim(),
-                        drugRegimenTimesReg.getText().toString().trim());*/
                 break;
             case R.id.buttonDrugReaction:
                 patientInfoDatabaseService.addItemToDatabase(drugReactionDrugReg.getText().toString().trim(),
