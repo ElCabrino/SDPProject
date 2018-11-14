@@ -151,7 +151,12 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1DB.updateChildren(any(Map.class))).thenReturn(updateDoctorTask);
         when(requestsRef.push()).thenReturn(requestsRef);
         when(requestsRef.getKey()).thenReturn("apt1");
-        when(requestsRef.child("Mon Oct 29 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Mon Oct 22 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Tue Oct 23 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Wed Oct 24 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Thu Oct 25 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Fri Oct 26 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Sat Oct 27 2018/apt1")).thenReturn(apt1Ref);
         when(apt1Ref.updateChildren(any(Map.class))).thenReturn(updateApt1Task);
     }
 
