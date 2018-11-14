@@ -2,8 +2,6 @@ package ch.epfl.sweng.vanjel;
 
 import android.support.test.espresso.NoMatchingViewException;
 
-import java.util.concurrent.TimeUnit;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;

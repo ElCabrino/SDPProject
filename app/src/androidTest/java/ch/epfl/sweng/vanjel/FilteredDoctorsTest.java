@@ -15,11 +15,10 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-
-import static android.support.test.espresso.Espresso.onView;
 
 /**
  * @author Aslam CADER
@@ -65,6 +64,6 @@ public class FilteredDoctorsTest {
         onView(withId(R.id.city)).check(matches(withText("city_dtest1")));
         onView(withId(R.id.street)).check(matches(withText("street_dtest1")));
         onView(withId(R.id.streetNumber)).check(matches(withText("11")));
-        onView(withId(R.id.country)).check(matches(withText("country_ptest1")));
+        onView(withId(R.id.country)).check(matches(withText("country_dtest1")));
     }
 }
