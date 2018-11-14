@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.ComponentNameMatchers.hasClassName;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -47,7 +48,7 @@ public class LoginActivityTestAuxiliaire {
 
     private void signOutIfPossible() {
         try {
-            onView(withId(R.id.logoutButton)).perform(click());
+            onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
         } catch (NoMatchingViewException e) {
             // Ignore
         }
