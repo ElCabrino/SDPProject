@@ -31,6 +31,9 @@ public class AppointmentNotificationBackgroundService extends Service {
     private Runnable runnable;
     private Context context = this;
 
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -55,7 +58,7 @@ public class AppointmentNotificationBackgroundService extends Service {
     }
 
     private void createDatabaseAppointmentListener() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
+        DatabaseReference ref = database.getReference("Requests");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -98,7 +101,7 @@ public class AppointmentNotificationBackgroundService extends Service {
     }
 
     private void notifyDoctor(String id) {
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
+        if (auth.getCurrentUser().getUid().equals(id)){
             //Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
 
             //create notification
