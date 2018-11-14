@@ -10,6 +10,10 @@ android {
     compileSdkVersion 28
     buildToolsVersion "27.0.3"
 
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+
     defaultConfig {
         applicationId "ch.epfl.sweng.vanjel"
         minSdkVersion 15
