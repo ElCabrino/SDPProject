@@ -6,9 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".Profile">
 
+    <Button
+        android:id="@+id/requestsListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="73dp"
+        android:text="Requests"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,59 +36,59 @@
                 android:id="@+id/titleProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:height="100dp"
+                android:gravity="center"
                 android:text="@string/your_profile"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/lastnameProfile"
-                android:contentDescription="profile last name"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile last name"
+                android:enabled="false"
                 android:gravity="start"
                 android:text=""
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/nameProfile"
-                android:contentDescription="profile name"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile name"
+                android:enabled="false"
                 android:gravity="start"
                 android:text=""
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
 
             <TextView
                 android:id="@+id/birthdayProfile"
-                android:contentDescription="profile birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile birthday"
                 android:gravity="start"
                 android:text=""
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
 
             <TextView
                 android:id="@+id/genderProfile"
-                android:contentDescription="profile gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile gender"
                 android:gravity="start"
                 android:text=""
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/emailProfile"
-                android:contentDescription="profile email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile email"
                 android:gravity="start"
                 android:text=""
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,63 +97,63 @@
 
                 <EditText
                     android:id="@+id/streetProfile"
-                    android:contentDescription="profile street"
-                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
                     android:layout_weight="1"
+                    android:contentDescription="profile street"
+                    android:enabled="false"
+                    android:text=""
                     android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/numberStreetProfile"
-                    android:contentDescription="profile street number"
-                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
                     android:layout_weight="2"
+                    android:contentDescription="profile street number"
+                    android:enabled="false"
+                    android:text=""
                     android:textSize="20sp" />
 
             </LinearLayout>
 
             <EditText
                 android:id="@+id/cityProfile"
-                android:contentDescription="profile city"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile city"
+                android:enabled="false"
                 android:text=""
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/countryProfile"
-                android:contentDescription="profile country"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="profile country"
+                android:enabled="false"
                 android:gravity="start"
                 android:text=""
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/saveButton"
-                android:contentDescription="profile save button"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:contentDescription="profile save button"
+                android:text="Save"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/editButton"
-                android:contentDescription="profile edit button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:contentDescription="profile edit button"
+                android:text="Edit" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,28 +162,28 @@
 
                 <Button
                     android:id="@+id/logoutButton"
-                    android:contentDescription="profile logout button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:contentDescription="profile logout button"
+                    android:text="Logout" />
 
                 <Button
                     android:id="@+id/searchDoctorButton"
-                    android:contentDescription="profile search button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Search"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:contentDescription="profile search button"
+                    android:text="Search" />
 
                 <Button
                     android:id="@+id/setAvailabilityButton"
-                    android:contentDescription="set availability button"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="set availability button"
                     android:text="Set Availability"
-                    android:layout_weight="1"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -176,19 +192,12 @@
 
     <Button
         android:id="@+id/patientInfoButton"
-        android:contentDescription="patient info button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:contentDescription="patient info button"
         android:text="Patient Info"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/appointmentRequestsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="requests" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
 </android.support.constraint.ConstraintLayout>

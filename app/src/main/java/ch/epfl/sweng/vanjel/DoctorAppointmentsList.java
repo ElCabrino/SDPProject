@@ -70,7 +70,6 @@ public class DoctorAppointmentsList extends AppCompatActivity {
             appointmentsList.add(appointment);
             adapter = new DoctorAppointmentListAdapter(this, appointmentsList);
             recyclerView.setAdapter(adapter);
-            //adapter.notifyDataSetChanged();
         }
 
     }

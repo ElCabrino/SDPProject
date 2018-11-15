@@ -21,16 +21,9 @@ public class AppointmentRequestListTest {
     public final IntentsTestRule<Profile> ActivityRule =
             new IntentsTestRule<>(Profile.class);
 
-    @Before
-    public void setUp() {
-        helper.signOutIfPossible();
-        helper.enterEmail("doctor@doctor.ch");
-        helper.enterPassword("123456");
-    }
-
     @Test
     public void testRequestButton() {
-        onView(withId(R.id.appointmentRequestsButton)).perform(click());
+        onView(withId(R.id.requestsListButton)).perform(click());
     }
 
 }

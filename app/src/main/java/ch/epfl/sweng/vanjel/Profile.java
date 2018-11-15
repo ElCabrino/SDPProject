@@ -104,7 +104,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         lastName.setText(user.getLastName());
         firstName.setText(user.getFirstName());
         birthday.setText(user.getBirthday());
-//        gender.setText(user.getGender().toString());
+        gender.setText(user.getGender().toString());
         email.setText(user.getEmail());
         street.setText(user.getStreet());
         streetNumber.setText(user.getStreetNumber());
@@ -117,27 +117,35 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         int i = v.getId();
         Intent intent;
         switch (i) {
+            case R.id.requestsListButton:
+                intent = new Intent(this ,DoctorAppointmentsList.class);
+                startActivity(intent);
+                break;
             case R.id.logoutButton:
                 logOut();
+                break;
             case R.id.patientInfoButton:
                 if (userType.equals("Patient")) {
                     intent = new Intent(this, PatientInfo.class);
                     startActivity(intent);
-                } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
+                } else {
+                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
+                }
+                break;
             case R.id.editButton:
                 setEditText(true, View.GONE, View.VISIBLE);
+                break;
             case R.id.saveButton:
                 getStringFromFields();
                 saveNewValues();
                 setEditText(false, View.VISIBLE, View.GONE);
+                break;
             case R.id.searchDoctorButton:
                 intent = new Intent(this, SearchDoctor.class);
                 startActivity(intent);
+                break;
             case R.id.setAvailabilityButton:
                 intent = new Intent(this, DoctorAvailabilityActivity.class);
-                startActivity(intent);
-            case R.id.appointmentRequestsButton:
-                intent = new Intent(this, DoctorAppointmentsList.class);
                 startActivity(intent);
         }
     }
@@ -164,7 +172,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
-        this.requestsListButton = findViewById(R.id.appointmentRequestsButton);
+        this.requestsListButton = findViewById(R.id.requestsListButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -251,29 +259,5 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
         return userValues;
-    }
-
-    // Get the reference to the logged in user.
-    void searchUserIn(final String category) {
-        DatabaseReference patientRef = database.getReference(category);
-        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(getUserFirebaseID())) {
-                        userType = category;
-                        database.getReference(category).child(getUserFirebaseID()).addValueEventListener(createValueEventListener(category));
-                        loadContent();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
-
-    // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
-    public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        else return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2"; 
     }
 }
