@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -48,13 +49,17 @@ public class DoctorAppointmentsList extends AppCompatActivity {
     }
 
     public ValueEventListener getAppointmentValueEventListener() {
+        Log.d("TESTRUNNING", "in eve list");
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String day, hour, patientUid, doctorUid;
+                Log.d("TESTRUNNING", "in datachange");
                 for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
+                    Log.d("TESTRUNNING", "in for loop");
                     day = dayRequest.getKey();
                     for (DataSnapshot req: dayRequest.getChildren()) {
+                        Log.d("TESTRUNNING", "in for loop2");
                         doctorUid = req.child("doctor").getValue().toString();
                         hour = req.child("time").getValue().toString();
                         patientUid = req.child("patient").getValue().toString();
