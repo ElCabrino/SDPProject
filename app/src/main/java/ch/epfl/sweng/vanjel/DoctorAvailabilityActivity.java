@@ -1,8 +1,8 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +34,9 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     private ToggleButton[] buttons;
 
     private Boolean[] slots;
+
+    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,8 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
         int i = 0;
         for (String d: days) {
-            FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID() + "/Availability/"+d).updateChildren(availabilities.get(i++)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            String s = auth.getCurrentUser().getUid() + "/Availability/"+d;
+            database.getReference("Doctor").child(s).updateChildren(availabilities.get(i++)).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(DoctorAvailabilityActivity.this, "Doctor availability successfully updated.", Toast.LENGTH_SHORT).show();
@@ -92,14 +96,6 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
             });
         }
 
-    }
-
-    public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
-        }
     }
 
     private List<Map<String, Object>> storeAvailability() {
@@ -172,12 +168,12 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     }
 
     private void loadAvailability() {
-        FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID()+"/Availability/Monday").addValueEventListener(createValueEventListener(TimeAvailability.MONDAY));
-        FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID()+"/Availability/Tuesday").addValueEventListener(createValueEventListener(TimeAvailability.TUESDAY));
-        FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID()+"/Availability/Wednesday").addValueEventListener(createValueEventListener(TimeAvailability.WEDNESDAY));
-        FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID()+"/Availability/Thursday").addValueEventListener(createValueEventListener(TimeAvailability.THURSDAY));
-        FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID()+"/Availability/Friday").addValueEventListener(createValueEventListener(TimeAvailability.FRIDAY));
-        FirebaseDatabase.getInstance().getReference("Doctor").child(getUserFirebaseID()+"/Availability/Saturday").addValueEventListener(createValueEventListener(TimeAvailability.SATURDAY));
+        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Monday").addValueEventListener(createValueEventListener(TimeAvailability.MONDAY));
+        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Tuesday").addValueEventListener(createValueEventListener(TimeAvailability.TUESDAY));
+        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Wednesday").addValueEventListener(createValueEventListener(TimeAvailability.WEDNESDAY));
+        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Thursday").addValueEventListener(createValueEventListener(TimeAvailability.THURSDAY));
+        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Friday").addValueEventListener(createValueEventListener(TimeAvailability.FRIDAY));
+        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Saturday").addValueEventListener(createValueEventListener(TimeAvailability.SATURDAY));
     }
 
     private ValueEventListener createValueEventListener(final int dayindex) {
