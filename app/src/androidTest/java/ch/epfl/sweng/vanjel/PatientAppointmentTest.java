@@ -3,18 +3,11 @@ package ch.epfl.sweng.vanjel;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -30,17 +23,22 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 public class PatientAppointmentTest {
 
-    private String d = "Mon Oct 29 2018";
+    private String monday = "Mon Oct 22 2018";
+    private String tuesday = "Tue Oct 23 2018";
+    private String wednesday = "Wed Oct 24 2018";
+    private String thursday = "Thu Oct 25 2018";
+    private String friday = "Fri Oct 26 2018";
+    private String saturday = "Sat Oct 27 2018";
 
     @Rule
     public final IntentsTestRule<PatientAppointmentActivity> ActivityRule =
@@ -50,8 +48,8 @@ public class PatientAppointmentTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, PatientAppointmentActivity.class);
-                    result.putExtra("doctorUID", "eUy36LW1d2Reyp3Y2h7lL70ccxG3");
-                    result.putExtra("date", d);
+                    result.putExtra("doctorUID", "doctorid1");
+                    result.putExtra("date", monday);
                     return result;
                 }
             };
@@ -67,6 +65,7 @@ public class PatientAppointmentTest {
     @Test
     public void testDoubleSelection() throws Exception {
         onView(withId(R.id.button0830)).perform(scrollTo(), click());
+        TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.button0930)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
         onView(withText("You've already picked a time slot")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
@@ -94,11 +93,38 @@ public class PatientAppointmentTest {
         onView(withId(R.id.button1030)).perform(scrollTo(), click());
         onView(withId(R.id.buttonAppointment)).perform(click());
         onView(withText("Appointment successfully requested.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-        removeTestData(d);
     }
 
     @Test
-    public void doctorAvailabilityDisplayTest() {
+    public void doctorAvailabilityDisplayTest() throws Exception {
+        loadDayAvailability(monday);
+        checkAvailability();
+        TimeUnit.SECONDS.sleep(1);
+        loadDayAvailability(tuesday);
+        checkAvailability();
+        TimeUnit.SECONDS.sleep(1);
+        loadDayAvailability(wednesday);
+        checkAvailability();
+        TimeUnit.SECONDS.sleep(1);
+        loadDayAvailability(thursday);
+        checkAvailability();
+        TimeUnit.SECONDS.sleep(1);
+        loadDayAvailability(friday);
+        checkAvailability();
+        TimeUnit.SECONDS.sleep(1);
+        loadDayAvailability(saturday);
+        checkAvailability();
+    }
+
+    private void loadDayAvailability(String d) {
+        ActivityRule.finishActivity();
+        Intent i = new Intent();
+        i.putExtra("doctorUID", "doctorid1");
+        i.putExtra("date", d);
+        ActivityRule.launchActivity(i);
+    }
+
+    private void checkAvailability() {
         onView(withId(R.id.button0800)).check(matches(not(isEnabled())));
         onView(withId(R.id.button0830)).check(matches(isEnabled()));
         onView(withId(R.id.button0900)).check(matches(isEnabled()));
@@ -121,24 +147,6 @@ public class PatientAppointmentTest {
         onView(withId(R.id.button1730)).check(matches(not(isEnabled())));
         onView(withId(R.id.button1800)).check(matches(not(isEnabled())));
         onView(withId(R.id.button1830)).check(matches(not(isEnabled())));
-    }
-
-    // Remove appointment request generated by test.
-    private void removeTestData(String day) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
-        ref.child(day).addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().setValue(null);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                }
-        );
     }
 
     // Cancel toast after test is finished, if it is still visible

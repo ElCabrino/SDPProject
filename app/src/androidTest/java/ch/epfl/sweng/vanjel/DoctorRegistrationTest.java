@@ -26,20 +26,16 @@ public class DoctorRegistrationTest {
     @Test
     public void testForm() {
         // Check if register without anything affect
-//        onView(withId(R.id.buttonDocReg)).perform(ViewActions.scrollTo()).check(ViewAssertions‌​.matches(isDisplayed()));
         onView(withId(R.id.buttonReg)).perform(scrollTo(), click());
 
 
         assertEquals("Unexpected Activity before adding elements", mActivityRule.getActivity().getClass().getName(), Registration.class.getName());
-//        intended(hasComponent(PatientRegistration.class.getName()));
-
 
         String email = "test@test.ch";
         String password = "123456";
         String confirmedPassword = "123455"; // not the same
         String firstName = "John";
         String lastName = "Smith";
-        String birthday = "27/09/2018";
         String street = "Best avenue";
         String streetNumber = "42";
         String city = "Gaillard";
@@ -51,24 +47,14 @@ public class DoctorRegistrationTest {
         onView(withId(R.id.confirmPasswordReg)).perform(scrollTo(), typeText(confirmedPassword)).perform(closeSoftKeyboard());
         onView(withId(R.id.firstNameReg)).perform(scrollTo(), typeText(firstName)).perform(closeSoftKeyboard());
         onView(withId(R.id.lastNameReg)).perform(scrollTo(), typeText(lastName)).perform(closeSoftKeyboard());
-//        OnView(withId(R.id.birthdayReg)).perform(scrollTo(), typeText(birthday)).perform(closeSoftKeyboard());
         onView(withId(R.id.streetReg)).perform(scrollTo(), typeText(street)).perform(closeSoftKeyboard());
         onView(withId(R.id.numberReg)).perform(scrollTo(), typeText(streetNumber)).perform(closeSoftKeyboard());
         onView(withId(R.id.cityReg)).perform(scrollTo(), typeText(city)).perform(closeSoftKeyboard());
         onView(withId(R.id.countryReg)).perform(scrollTo(), typeText(country)).perform(closeSoftKeyboard());
         onView(withId(R.id.postcodeReg)).perform(scrollTo(), typeText(postCode)).perform(closeSoftKeyboard());
 
-
         onView(withId(R.id.buttonReg)).perform(scrollTo(), click());
 
-
         assertEquals("Unexpected Activity after putting data", mActivityRule.getActivity().getClass().getName(), Registration.class.getName());
-
-
     }
-
-//    @Test
-//    public void testCanGreetUsers() {
-//
-//    }
 }

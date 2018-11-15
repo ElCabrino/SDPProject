@@ -1,11 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +25,7 @@ import java.util.Map;
 public class FilteredDoctors extends AppCompatActivity {
 
     private static final String TAG = "OKLM2727";
-    private FirebaseDatabase database;
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;
     private ArrayList<Doctor> doctors;
@@ -54,11 +53,10 @@ public class FilteredDoctors extends AppCompatActivity {
 
     public void init(){
         // get Database pointer
-        database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        doctors = new ArrayList<Doctor>();
+        doctors = new ArrayList<>();
         doctorHashMap = new HashMap<>();
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
         recyclerView.setAdapter(adapter);

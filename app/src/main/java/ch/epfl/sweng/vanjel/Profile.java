@@ -1,11 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
-
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,21 +51,18 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     String userType;
 
-    Boolean isPatient = new Boolean(false);
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchUserIn("Patient");
-        searchUserIn("Doctor");
         loadContent();
     }
 
     private void loadContent() {
         setContentView(R.layout.activity_profile);
         getAllTextView();
-
 
         patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
@@ -124,7 +119,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 logOut();
                 break;
             case R.id.patientInfoButton:
-                if (isPatient) {
+                if (userType.equals("Patient")) {
                     intent = new Intent(this, PatientInfo.class);
                     startActivity(intent);
                 } else {
@@ -150,7 +145,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
-        FirebaseAuth.getInstance().signOut();
+        auth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -175,7 +170,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     // Enables editing of some fields and replaces Edit button with Save.
     private void setEditText(boolean set, int s1, int s2 ) {
-        getAllTextView();
         this.lastName.setEnabled(set);
         this.lastName.requestFocus();
         this.firstName.setEnabled(set);
@@ -212,16 +206,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        isPatient = true;
-                        searchButton.setVisibility(View.VISIBLE);
-                        setAvailabilityButton.setVisibility(View.GONE);
-                    } else {
-                        isPatient = false;
-                        searchButton.setVisibility(View.GONE);
-                        setAvailabilityButton.setVisibility(View.VISIBLE);
-                    }
+                if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
+                    setUserAs("Patient", View.VISIBLE, View.GONE);
+                } else {
+                    setUserAs("Doctor", View.GONE, View.VISIBLE);
                 }
             }
 
@@ -230,10 +218,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+    private void setUserAs(String type, int v1, int v2) {
+        userType = type;
+        searchButton.setVisibility(v1);
+        setAvailabilityButton.setVisibility(v2);
+        String s = auth.getCurrentUser().getUid();
+        database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
+    }
+
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
-        database.getReference(userType).child(getUserFirebaseID()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+        database.getReference(userType).child(auth.getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
@@ -255,32 +252,5 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
         return userValues;
-    }
-
-    // Get the reference to the logged in user.
-    void searchUserIn(final String category) {
-        DatabaseReference patientRef = database.getReference(category);
-        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(getUserFirebaseID())) {
-                        userType = category;
-                        database.getReference(category).child(getUserFirebaseID()).addValueEventListener(createValueEventListener(category));
-                        loadContent();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
-
-    // Gets the ID of the logged user. If no user is logged, get mock data of a test user.
-    public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            return "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
-        }
     }
 }
