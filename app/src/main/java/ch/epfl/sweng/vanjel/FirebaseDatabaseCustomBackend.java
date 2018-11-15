@@ -68,6 +68,13 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference appointmentReqRef;
 
     @Mock
+    private DataSnapshot docaptRef;
+    @Mock
+    private DataSnapshot timaptRef;
+    @Mock
+    private DataSnapshot pataptRef;
+
+    @Mock
     private DatabaseError patientError;
     @Mock
     private DatabaseError doctorError;
@@ -182,7 +189,17 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initDoctorAvailabilitySnapshots() {
+        List<DataSnapshot> listApp = new ArrayList<>();
+        listApp.add(appointmentSnapshot);
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+        when(appointmentSnapshot.getChildren()).thenReturn(listApp);
+        when(appointmentSnapshot.getKey()).thenReturn("Monday");
+        when(appointmentSnapshot.child("doctor")).thenReturn(docaptRef);
+        when(appointmentSnapshot.child("time")).thenReturn(timaptRef);
+        when(appointmentSnapshot.child("patient")).thenReturn(pataptRef);
+        when(docaptRef.getValue()).thenReturn("doctorid1");
+        when(timaptRef.getValue()).thenReturn("timApt");
+        when(pataptRef.getValue()).thenReturn("patApt");
     }
 
     private void initAppointmentRequestsListMock() {
