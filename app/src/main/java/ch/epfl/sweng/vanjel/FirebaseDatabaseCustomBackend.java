@@ -188,14 +188,14 @@ public final class FirebaseDatabaseCustomBackend {
     private void initAppointmentRequestsListMock() {
         when(DBRef.child("Requests")).thenReturn(appointmentReqRef);
 
-        doAnswer(new Answer<ValueEventListener>() {
+        when(appointmentReqRef.addValueEventListener(any(ValueEventListener.class))).thenAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation){
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 listener.onDataChange(appointmentSnapshot);
                 return listener;
             }
-        }).when(appointmentReqRef).addValueEventListener(any(ValueEventListener.class));
+        });
     }
 
     private void initDoctorAvailabilityValidate() {
