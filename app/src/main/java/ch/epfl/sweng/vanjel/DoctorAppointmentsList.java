@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,7 +42,13 @@ public class DoctorAppointmentsList extends AppCompatActivity {
     }
 
     private void getAppointments() {
-        ValueEventListener valueListener = new ValueEventListener() {
+        ValueEventListener valueListener = getAppointmentValueEventListener();
+
+        dbReferenceAppointments.addValueEventListener(valueListener);
+    }
+
+    public ValueEventListener getAppointmentValueEventListener() {
+        return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String day, hour, patientUid, doctorUid;
@@ -60,8 +67,6 @@ public class DoctorAppointmentsList extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         };
-
-        dbReferenceAppointments.addValueEventListener(valueListener);
     }
 
     private void fillAppointmentsList(String day, String hour, String patientUid, String doctorUid) {
