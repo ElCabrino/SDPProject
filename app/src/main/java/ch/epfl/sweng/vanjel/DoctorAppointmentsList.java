@@ -30,7 +30,7 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         this.uid = FirebaseAuth.getInstance().getUid();
         this.dbReferenceAppointments = FirebaseDatabase.getInstance().getReference().child("Requests");
         initAdapter();
-        if (this.uid != null) getAppointments(this.uid);
+        if (this.uid != null) getAppointments();
     }
 
     private void initAdapter() {
@@ -40,7 +40,7 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private void getAppointments(final String uid) {
+    private void getAppointments() {
         ValueEventListener valueListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
