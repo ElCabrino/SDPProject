@@ -64,6 +64,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference requestsRef;
     @Mock
     private DatabaseReference apt1Ref;
+    @Mock
+    private DatabaseReference appointmentReqRef;
 
     @Mock
     private DatabaseError patientError;
@@ -129,6 +131,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDBListeners();
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
+        initAppointmentRequestsListMock();
         //initProfileListener();
         return mockDB;
     }
@@ -177,6 +180,10 @@ public final class FirebaseDatabaseCustomBackend {
 
     private void initDoctorAvailabilitySnapshots() {
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+    }
+
+    private void initAppointmentRequestsListMock() {
+        when(DBRef.child("Requests")).thenReturn(appointmentReqRef);
     }
 
     private void initDoctorAvailabilityValidate() {

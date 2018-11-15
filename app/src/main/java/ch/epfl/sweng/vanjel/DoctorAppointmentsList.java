@@ -28,9 +28,9 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_appointment_list);
         this.appointmentsList = new ArrayList<>();
         this.uid = FirebaseAuth.getInstance().getUid();
-        this.dbReferenceAppointments = FirebaseDatabase.getInstance().getReference().child("Requests");
+        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference().child("Requests");
         initAdapter();
-        if (this.uid != null) getAppointments();
+        getAppointments();
     }
 
     private void initAdapter() {
