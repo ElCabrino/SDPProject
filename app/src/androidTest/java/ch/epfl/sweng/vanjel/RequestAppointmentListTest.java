@@ -24,7 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withContentDesc
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
-public class AppointmentRequestListTest {
+public class RequestAppointmentListTest {
 
     @Before
     public void init() {
