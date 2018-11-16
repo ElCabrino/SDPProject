@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -27,8 +28,10 @@ public class AppointmentRequestListTest {
 
     @Before
     public void init() {
+        ActivityRule.finishActivity();
         FirebaseAuthCustomBackend.setNullUser(false);
         FirebaseAuthCustomBackend.setMockPatient(false);
+        ActivityRule.launchActivity(new Intent());
     }
 
     @Rule
