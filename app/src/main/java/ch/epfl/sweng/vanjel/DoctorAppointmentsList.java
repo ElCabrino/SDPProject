@@ -29,8 +29,8 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_appointment_list);
         this.appointmentsList = new ArrayList<>();
-        this.uid = FirebaseAuth.getInstance().getUid();
-        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
+        this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference().child("Requests");
         initAdapter();
         getAppointments();
     }
@@ -54,7 +54,7 @@ public class DoctorAppointmentsList extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String day, hour, patientUid, doctorUid;
-                Log.d("TESTRUNNING", "in datachange");
+                Log.d("TESTRUNNING", "in datachange: " +  dataSnapshot.toString());
                 for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
                     Log.d("TESTRUNNING", "in for loop");
                     day = dayRequest.getKey();

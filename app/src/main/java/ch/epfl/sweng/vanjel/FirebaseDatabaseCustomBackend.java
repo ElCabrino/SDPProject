@@ -68,11 +68,11 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference appointmentReqRef;
 
     @Mock
-    private DataSnapshot docaptRef;
+    private DataSnapshot docIdAppointmentSnapshot;
     @Mock
-    private DataSnapshot timaptRef;
+    private DataSnapshot timeDurationAppointmentSnapshot;
     @Mock
-    private DataSnapshot pataptRef;
+    private DataSnapshot patIdAppointmentSnapshot;
 
     @Mock
     private DatabaseError patientError;
@@ -194,25 +194,25 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
         when(appointmentSnapshot.getChildren()).thenReturn(listApp);
         when(appointmentSnapshot.getKey()).thenReturn("Monday");
-        when(appointmentSnapshot.child("doctor")).thenReturn(docaptRef);
-        when(appointmentSnapshot.child("time")).thenReturn(timaptRef);
-        when(appointmentSnapshot.child("patient")).thenReturn(pataptRef);
-        when(docaptRef.getValue()).thenReturn("doctorid1");
-        when(timaptRef.getValue()).thenReturn("timApt");
-        when(pataptRef.getValue()).thenReturn("patApt");
+        when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
+        when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
+        when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
+        when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
+        when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
+        when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
     }
 
     private void initAppointmentRequestsListMock() {
         when(DBRef.child("Requests")).thenReturn(appointmentReqRef);
 
-        when(appointmentReqRef.addValueEventListener(any(ValueEventListener.class))).thenAnswer(new Answer<ValueEventListener>() {
+        doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation){
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 listener.onDataChange(appointmentSnapshot);
                 return listener;
             }
-        });
+        }).when(appointmentReqRef).addValueEventListener(any(ValueEventListener.class));
     }
 
     private void initDoctorAvailabilityValidate() {
