@@ -1,58 +1,54 @@
 language: android
+# These two lines probably don't change anything
+dist: trusty # choose the type of operating system (Ubuntu 14)
+sudo: required # toggle sudo mode (should be a bit faster)
 android:
   components:
     - tools
     - platform-tools
-    - tools
-    # The BuildTools version used by your project
-    - build-tools-27.0.3
-    # The SDK version used to compile your project
-    - android-28
-    # The SDK version used by the system image
+    - tools # needed twice because travis is stupid
+    - build-tools-27.0.3 # your build tools version
+    - android-28 # your app's target api level
     - android-22
-    # Google play services (for maps)
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-22
-    # The system image, to run an emulator during the tests
-    - sys-img-armeabi-v7a-google_apis-22
+    - extra-google-google_play_services # use google play services
+    - extra-google-m2repository # needed for play services
+    - extra-android-m2repository # needed for play services
+    - addon-google_apis-google-19 # google apis
+    - sys-img-armeabi-v7a-google_apis-22 # image to be used for emulator, make sure it's a apis-google one
 
+# Uncomment if you are getting install timeouts
 env:
   global:
-    - ABD_INSTALL_TIMEOUT=8
+    - ADB_INSTALL_TIMEOUT=8
 
+
+# For some reason Travis can't accept the license for 27 automatically...
 before_install:
-- yes | sdkmanager "platforms;android-22"
+- yes | sdkmanager "platforms;android-27"
 - chmod +x gradlew
 
 before_script:
-  # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
-  - travis_wait 30 emulator -avd test -no-window -no-audio &
-  - travis_wait 30 android-wait-for-emulator
-  - travis_wait 30 adb shell settings put global window_animation_scale 0.0
-  - travis_wait 30 adb shell settings put global transition_animation_scale 0.0
-  - travis_wait 30 adb shell settings put global animator_duration_scale 0.0
-  - travis_wait 30 adb shell input keyevent 82
-
- # This should be in the `before_script` entry
+  # Emulator Management: Create, Start and Wait: put the android version you chose for emulator and make sure you put the right abi (google_apis/armeabi-v7a)
+  - echo no | android create avd --force -n test -t android-21 --abi google_apis/armeabi-v7a
+  - emulator -avd test -no-window &
+  - android-wait-for-emulator
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
   # Set up Code Climate test reporter
+  - adb shell input keyevent 82 &
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+
 script:
-  # - ./gradlew build connectedCheck jacocoTestReport --info
-  - ./gradlew build connectedCheck jacocoTestReport
+  - ./gradlew connectedCheck jacocoTestReport -i
+
 after_script:
   # Report test coverage to Code Climate
   - export JACOCO_SOURCE_PATH=app/src/main/java/
   - ./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml --input-type jacoco
   - ./cc-test-reporter upload-coverage
 after_failure:
-  - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
-#
-# deploy:
-#   provider: testfairy
-#   api-key: 56548e84cf296c5618aafe0efd63989c06b0e825
-#   app-file: /app/build/outputs/apk/release/app-release-unsigned.apk
+# - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
+  - cat /home/travis/build/ElCabrino/SDPProject/app/build/outputs/androidTest-results/connected/TEST-test(AVD)\ -\ 5.1.1-app-.xml
