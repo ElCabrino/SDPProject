@@ -29,7 +29,7 @@ before_install:
 before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
-  - travis_wait 30 emulator -avd test -no-window &
+  - travis_wait 30 emulator -avd test -no-window -no-audio &
   - travis_wait 30 android-wait-for-emulator
   - travis_wait 30 adb shell settings put global window_animation_scale 0.0
   - travis_wait 30 adb shell settings put global transition_animation_scale 0.0
@@ -42,7 +42,8 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - ./gradlew build connectedCheck jacocoTestReport --info
+  # - ./gradlew build connectedCheck jacocoTestReport --info
+  - ./gradlew build connectedCheck jacocoTestReport
 after_script:
   # Report test coverage to Code Climate
   - export JACOCO_SOURCE_PATH=app/src/main/java/
@@ -50,8 +51,8 @@ after_script:
   - ./cc-test-reporter upload-coverage
 after_failure:
   - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
-
-deploy:
-  provider: testfairy
-  api-key: 56548e84cf296c5618aafe0efd63989c06b0e825
-  app-file: /app/build/outputs/apk/release/app-release-unsigned.apk
+#
+# deploy:
+#   provider: testfairy
+#   api-key: 56548e84cf296c5618aafe0efd63989c06b0e825
+#   app-file: /app/build/outputs/apk/release/app-release-unsigned.apk
