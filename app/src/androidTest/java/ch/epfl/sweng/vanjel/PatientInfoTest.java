@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -46,6 +47,18 @@ PatientInfoTest {
     private ArrayList<InfoString> allergies;
     private ArrayList<Surgery> surgeries;
     private ArrayList<DrugReaction> drugReactions;
+
+    @BeforeClass
+    public static void beforeClass(){
+        FirebaseAuthCustomBackend.setMockPatient(true);
+        FirebaseAuthCustomBackend.setNullUser(false);
+    }
+
+    @Before
+    public void before(){
+        FirebaseAuthCustomBackend.setMockPatient(true);
+        FirebaseAuthCustomBackend.setNullUser(false);
+    }
 
     @Rule
     public final IntentsTestRule<PatientInfo> ActivityRule =
