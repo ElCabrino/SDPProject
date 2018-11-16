@@ -25,8 +25,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class AppointmentRequestListTest {
 
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void init() {
         FirebaseAuthCustomBackend.setNullUser(false);
         FirebaseAuthCustomBackend.setMockPatient(false);
     }
