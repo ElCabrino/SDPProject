@@ -48,6 +48,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button saveButton;
     Button searchButton;
     Button setAvailabilityButton;
+    Button requestsListButton;
 
     String userType;
 
@@ -73,6 +74,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
+        requestsListButton.setOnClickListener(this);
 
         isPatientUser();
     }
@@ -115,6 +117,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         int i = v.getId();
         Intent intent;
         switch (i) {
+            case R.id.requestsListButton:
+                intent = new Intent(this ,DoctorAppointmentsList.class);
+                startActivity(intent);
+                break;
             case R.id.logoutButton:
                 logOut();
                 break;
@@ -166,6 +172,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
+        this.requestsListButton = findViewById(R.id.requestsListButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.

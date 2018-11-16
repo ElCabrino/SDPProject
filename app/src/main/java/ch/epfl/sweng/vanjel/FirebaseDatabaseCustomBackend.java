@@ -64,6 +64,15 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference requestsRef;
     @Mock
     private DatabaseReference apt1Ref;
+    @Mock
+    private DatabaseReference appointmentReqRef;
+
+    @Mock
+    private DataSnapshot docIdAppointmentSnapshot;
+    @Mock
+    private DataSnapshot timeDurationAppointmentSnapshot;
+    @Mock
+    private DataSnapshot patIdAppointmentSnapshot;
 
     @Mock
     private DatabaseError patientError;
@@ -76,6 +85,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot doctor1Snapshot;
     @Mock
     private DataSnapshot doctorAvailabilitySnapshot;
+    @Mock
+    private DataSnapshot appointmentSnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -89,6 +100,7 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> setValueInfoPatientTask;
     @Mock
     private Task<Void> updateApt1Task;
+
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -129,6 +141,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDBListeners();
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
+        initAppointmentRequestsListMock();
         //initProfileListener();
         return mockDB;
     }
@@ -176,7 +189,30 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initDoctorAvailabilitySnapshots() {
+        List<DataSnapshot> listApp = new ArrayList<>();
+        listApp.add(appointmentSnapshot);
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+        when(appointmentSnapshot.getChildren()).thenReturn(listApp);
+        when(appointmentSnapshot.getKey()).thenReturn("Monday");
+        when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
+        when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
+        when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
+        when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
+        when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
+        when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
+    }
+
+    private void initAppointmentRequestsListMock() {
+        when(DBRef.child("Requests")).thenReturn(appointmentReqRef);
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation){
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                listener.onDataChange(appointmentSnapshot);
+                return listener;
+            }
+        }).when(appointmentReqRef).addValueEventListener(any(ValueEventListener.class));
     }
 
     private void initDoctorAvailabilityValidate() {

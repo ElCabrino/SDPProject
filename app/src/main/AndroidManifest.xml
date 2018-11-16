@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
-        <activity android:name=".LoginActivity" >
+
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,13 +31,15 @@
         <activity android:name=".PatientInfo" />
         <activity android:name=".FilteredDoctors" />
         <activity android:name=".DoctorAvailabilityActivity" />
-        <activity android:name=".SearchDoctor"/>
-        <activity android:name=".PatientCalendarActivity"></activity>
-        <activity android:name=".PatientAppointmentActivity"></activity>
-        <activity android:name=".DoctorInformation"></activity>
+        <activity android:name=".SearchDoctor" />
+        <activity android:name=".PatientCalendarActivity" />
+        <activity android:name=".PatientAppointmentActivity" />
+        <activity android:name=".DoctorInformation" />
 
-        <service android:name=".AppointmentNotificationBackgroundService">
-        </service>
+        <service android:name=".AppointmentNotificationBackgroundService"></service>
+
+        <activity android:name=".DoctorAppointmentsList">
+        </activity>
     </application>
 
 </manifest>
