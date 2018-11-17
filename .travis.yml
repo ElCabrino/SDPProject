@@ -30,8 +30,6 @@ before_script:
 script:
   - travis_wait 50 ./gradlew build connectedCheck jacocoTestReport
 after_script:
-  - cp ./app/build/generated/source/apt/release/ch/epfl/sweng/swengproject/storage/db/AppDatabase_Impl.java ./app/src/main/java/ch/epfl/sweng/swengproject/storage/db/
-  - cp ./app/build/generated/source/apt/release/ch/epfl/sweng/swengproject/storage/db/UserDao_Impl.java ./app/src/main/java/ch/epfl/sweng/swengproject/storage/db/
   # Report test coverage to Code Climate
   - export JACOCO_SOURCE_PATH=app/src/main/java/
   - ./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml --input-type jacoco
