@@ -44,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference ref;
 
     private String senderUid;
-    private String contactUid = getIntent().getExtras().getString("doctorUID");
+    private String contactUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
         messageList = new ArrayList<>();
         senderUid = auth.getUid();
         messageRecycler.setLayoutManager(new LinearLayoutManager(this));
+        contactUid = getIntent().getExtras().getString("doctorInfos");
     }
 
     /**
@@ -79,7 +80,6 @@ public class ChatActivity extends AppCompatActivity {
             messageList.add(new Message(dateString,message.getText().toString(),senderUid));
             messageAdapter = new MessageListAdapter(this, messageList, senderUid);
             messageRecycler.setAdapter(messageAdapter);
-            messageAdapter.notifyDataSetChanged();
             message.setText("");
         }
     }

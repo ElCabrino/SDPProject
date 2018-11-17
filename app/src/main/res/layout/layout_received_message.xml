@@ -16,6 +16,7 @@
         android:maxWidth="200dp"
         android:padding="5dp"
         android:text="fsbdifugsdiufbisdubfisdubfiusdbifubdsif sdijf isdufisdj  fdsfdsf"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +24,11 @@
         android:id="@+id/receivedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="1dp"
         android:text="Date"
-        app:layout_constraintStart_toEndOf="@+id/receiveMessage"
-        app:layout_constraintTop_toBottomOf="@+id/receiveMessage" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/receiveMessage" />
 </android.support.constraint.ConstraintLayout>

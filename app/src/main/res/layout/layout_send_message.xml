@@ -16,6 +16,7 @@
         android:maxWidth="200dp"
         android:padding="5dp"
         android:text="fsbdifugsdiufbisdubfisdubfiusdbifubdsif sdijf isdufisdj  fdsfdsf"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +24,11 @@
         android:id="@+id/sendDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
         android:text="Date"
-        app:layout_constraintEnd_toStartOf="@+id/sendMessage"
-        app:layout_constraintTop_toBottomOf="@+id/sendMessage" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sendMessage" />
 </android.support.constraint.ConstraintLayout>
