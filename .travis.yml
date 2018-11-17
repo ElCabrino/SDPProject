@@ -1,57 +1,44 @@
 language: android
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
     # The BuildTools version used by your project
     - build-tools-27.0.3
     # The SDK version used to compile your project
     - android-28
     # The SDK version used by the system image
     - android-22
-    # Google play services (for maps)
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-22
+    - addon-google_apis-google-26
     # The system image, to run an emulator during the tests
-    - sys-img-armeabi-v7a-google_apis-22
-
-env:
-  global:
-    - ABD_INSTALL_TIMEOUT=8
-
-before_install:
-- yes | sdkmanager "platforms;android-22"
-- chmod +x gradlew
-
+    - sys-img-armeabi-v7a-android-22
 before_script:
   # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
-  - travis_wait 30 emulator -avd test -no-window &
-  - travis_wait 30 android-wait-for-emulator
-  - travis_wait 30 adb shell settings put global window_animation_scale 0.0
-  - travis_wait 30 adb shell settings put global transition_animation_scale 0.0
-  - travis_wait 30 adb shell settings put global animator_duration_scale 0.0
-  - travis_wait 30 adb shell input keyevent 82
-
- # This should be in the `before_script` entry
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator  
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - adb shell input keyevent 82
+  # This should be in the `before_script` entry
   # Set up Code Climate test reporter
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  # - ./gradlew build connectedCheck jacocoTestReport --info
-  - ./gradlew build connectedCheck jacocoTestReport
+  - travis_wait 50 ./gradlew build connectedCheck jacocoTestReport
 after_script:
+  - cp ./app/build/generated/source/apt/release/ch/epfl/sweng/swengproject/storage/db/AppDatabase_Impl.java ./app/src/main/java/ch/epfl/sweng/swengproject/storage/db/
+  - cp ./app/build/generated/source/apt/release/ch/epfl/sweng/swengproject/storage/db/UserDao_Impl.java ./app/src/main/java/ch/epfl/sweng/swengproject/storage/db/
   # Report test coverage to Code Climate
   - export JACOCO_SOURCE_PATH=app/src/main/java/
   - ./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml --input-type jacoco
   - ./cc-test-reporter upload-coverage
-after_failure:
-  - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
-  - cat /home/travis/build/ElCabrino/SDPProject/app/build/outputs/androidTest-results/connected/TEST-test(AVD)\ -\ 5.1.1-app-.xml
+  after_failure:
+    - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
+#  - cat /home/travis/build/ElCabrino/SDPProject/app/build/outputs/androidTest-results/connected/TEST-test(AVD)\ -\ 5.1.1-app-.xml
 #
 # deploy:
 #   provider: testfairy
