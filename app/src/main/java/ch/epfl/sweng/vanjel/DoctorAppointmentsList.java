@@ -57,14 +57,11 @@ public class DoctorAppointmentsList extends AppCompatActivity {
                 Log.d("TESTRUNNING", "in datachange: " +  dataSnapshot.toString());
                 for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
                     Log.d("TESTRUNNING", "in for loop");
-                    day = dayRequest.getKey();
-                    for (DataSnapshot req: dayRequest.getChildren()) {
-                        Log.d("TESTRUNNING", "in for loop2");
-                        doctorUid = req.child("doctor").getValue().toString();
-                        hour = req.child("time").getValue().toString();
-                        patientUid = req.child("patient").getValue().toString();
-                        fillAppointmentsList(day, hour, patientUid, doctorUid);
-                    }
+                    day = dayRequest.child("date").getValue().toString();
+                    doctorUid = dayRequest.child("doctor").getValue().toString();
+                    hour = dayRequest.child("time").getValue().toString();
+                    patientUid = dayRequest.child("patient").getValue().toString();
+                    fillAppointmentsList(day, hour, patientUid, doctorUid);
                 }
             }
 
