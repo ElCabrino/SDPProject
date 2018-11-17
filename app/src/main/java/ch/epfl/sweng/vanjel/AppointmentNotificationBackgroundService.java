@@ -63,10 +63,8 @@ public class AppointmentNotificationBackgroundService extends Service {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
-                    String doctor = dayRequest.child("doctor").getValue().toString();
-                    notifyDoctor(doctor);
-                }
+                String doctor = dataSnapshot.child("doctor").getValue().toString();
+                notifyDoctor(doctor);
             }
 
             @Override
