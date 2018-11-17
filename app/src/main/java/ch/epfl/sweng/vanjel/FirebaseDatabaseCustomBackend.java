@@ -66,6 +66,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference apt1Ref;
     @Mock
     private DatabaseReference appointmentReqRef;
+    @Mock
+    private DatabaseReference appointmentReqKeyRef;
 
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
@@ -100,7 +102,8 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> setValueInfoPatientTask;
     @Mock
     private Task<Void> updateApt1Task;
-
+    @Mock
+    private Task<Void> appointmentRequestTask;
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -163,14 +166,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(patient1DB.updateChildren(any(Map.class))).thenReturn(updatePatientTask);
         when(doctor1DB.updateChildren(any(Map.class))).thenReturn(updateDoctorTask);
         when(requestsRef.push()).thenReturn(requestsRef);
-        when(requestsRef.getKey()).thenReturn("apt1");
-        when(requestsRef.child("Mon Oct 22 2018/apt1")).thenReturn(apt1Ref);
-        when(requestsRef.child("Tue Oct 23 2018/apt1")).thenReturn(apt1Ref);
-        when(requestsRef.child("Wed Oct 24 2018/apt1")).thenReturn(apt1Ref);
-        when(requestsRef.child("Thu Oct 25 2018/apt1")).thenReturn(apt1Ref);
-        when(requestsRef.child("Fri Oct 26 2018/apt1")).thenReturn(apt1Ref);
-        when(requestsRef.child("Sat Oct 27 2018/apt1")).thenReturn(apt1Ref);
-        when(apt1Ref.updateChildren(any(Map.class))).thenReturn(updateApt1Task);
+        when(requestsRef.updateChildren(any(Map.class))).thenReturn(updateApt1Task);
     }
 
     private void initPatientSnapshots() {
@@ -203,8 +199,6 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initAppointmentRequestsListMock() {
-        when(DBRef.child("Requests")).thenReturn(appointmentReqRef);
-
         doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation){
@@ -212,7 +206,7 @@ public final class FirebaseDatabaseCustomBackend {
                 listener.onDataChange(appointmentSnapshot);
                 return listener;
             }
-        }).when(appointmentReqRef).addValueEventListener(any(ValueEventListener.class));
+        }).when(requestsRef).addValueEventListener(any(ValueEventListener.class));
     }
 
     private void initDoctorAvailabilityValidate() {
