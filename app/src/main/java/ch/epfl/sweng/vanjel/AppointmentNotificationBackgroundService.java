@@ -69,6 +69,20 @@ public class AppointmentNotificationBackgroundService extends Service {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+                String patient = dataSnapshot.child("patient").getValue().toString();
+                String bool = dataSnapshot.child("userNotified").getValue().toString();
+                String durationString = dataSnapshot.child("duration").getValue().toString();
+
+                int duration = Integer.parseInt(durationString);
+                Boolean notify = Boolean.parseBoolean(bool);
+
+                Boolean isAppointmentNull = duration == 0;
+                
+                if(!notify && !isAppointmentNull){
+                    dataSnapshot.getRef().child("userNotified").setValue(true);
+                    notifyPatient(patient);
+                }
             }
 
             @Override
@@ -108,6 +122,22 @@ public class AppointmentNotificationBackgroundService extends Service {
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("New appointment")
                     .setContentText("A patient took a new appointment!")
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setPriority(0x00000002);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.notify(0 , mBuilder.build());
+        }
+    }
+
+    private void notifyPatient(String id) {
+        if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
+            // create notification
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("One of your appointment has been updated!")
+                    .setContentText("A doctor saw your appointment request and accepted it, come and look which one is it!")
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setPriority(0x00000002);
 
