@@ -36,8 +36,8 @@ after_script:
   - export JACOCO_SOURCE_PATH=app/src/main/java/
   - ./cc-test-reporter format-coverage ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml --input-type jacoco
   - ./cc-test-reporter upload-coverage
-  after_failure:
-    - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
+after_failure:
+  - cat /home/travis/build/ElCabrino/SDPProject/app/build/reports/androidTests/connected/index.html
 #  - cat /home/travis/build/ElCabrino/SDPProject/app/build/outputs/androidTest-results/connected/TEST-test(AVD)\ -\ 5.1.1-app-.xml
 #
 # deploy:
