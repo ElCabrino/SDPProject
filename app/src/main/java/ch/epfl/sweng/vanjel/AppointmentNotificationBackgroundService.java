@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,13 +59,18 @@ public class AppointmentNotificationBackgroundService extends Service {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-
+                Log.d("LISTENERTEST", dataSnapshot.toString());
+                Log.d("LISTENERTEST", dataSnapshot.child("doctor").toString());
+                String doctor = dataSnapshot.child("doctor").getValue().toString();
+                Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
+                if (!notify) {
+                    dataSnapshot.getRef().child("doctorNotified").setValue("true");
+                    notifyDoctor(doctor);
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                String doctor = dataSnapshot.child("doctor").getValue().toString();
-                notifyDoctor(doctor);
             }
 
             @Override
@@ -96,6 +102,7 @@ public class AppointmentNotificationBackgroundService extends Service {
 
     private void notifyDoctor(String id) {
         if (auth.getCurrentUser().getUid().equals(id)){
+
             //Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
 
             //create notification

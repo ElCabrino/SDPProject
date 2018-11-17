@@ -171,6 +171,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         res.put("duration", "0");
         res.put("date", parseSelectedDate());
         res.put("userNotified", false);
+        res.put("doctorNotified", false);
         return res;
     }
 
