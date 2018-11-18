@@ -38,6 +38,8 @@ public final class FirebaseDatabaseCustomBackend {
         av.put("availability", "8:30-11:00 / 12:30-15:00");
     }
 
+    private final static String appointmentKey = "aptKey";
+
     private static boolean isCancelled = false;
     private static boolean shouldFail = false;
 
@@ -195,6 +197,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
         when(appointmentSnapshot.getChildren()).thenReturn(listApp);
+        when(appointmentSnapshot.getKey()).thenReturn(appointmentKey);
         when(appointmentSnapshot.child("date")).thenReturn(dateAppointmentSnapshot);
         when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);

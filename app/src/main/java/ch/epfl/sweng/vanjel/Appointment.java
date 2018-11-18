@@ -6,6 +6,15 @@ public class Appointment {
     private Integer duration;
     private String doctorUid;
     private String patientUid;
+    private String appointmentID;
+
+    public Appointment(String day, String hour, String doctorUid, String patientUid, String appointmentID) {
+        this.day = day;
+        this.hour = hour;
+        this.doctorUid = doctorUid;
+        this.patientUid = patientUid;
+        this.appointmentID = appointmentID;
+    }
 
     public Appointment(String day, String hour, Integer duration, String doctorUid, String patientUid) {
         this.day = day;
@@ -62,4 +71,8 @@ public class Appointment {
     public void setPatientUid(String patientUid) {
         this.patientUid = patientUid;
     }
+
+    public String getAppointmentID() { return appointmentID; }
+
+    public void setAppointmentID(String appointmentID) { this.appointmentID = appointmentID; }
 }

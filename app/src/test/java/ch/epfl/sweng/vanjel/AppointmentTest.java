@@ -17,6 +17,7 @@ public class AppointmentTest {
     private Integer duration2 = 10;
     private String doctorUid2 = "dId2";
     private String patientUid2 = "pId2";
+    private String appointmentID = "aptID";
 
     @Test
     public void getterTestConstructor1() {
@@ -52,6 +53,19 @@ public class AppointmentTest {
         assertEquals(doctorUid2, a.getDoctorUid());
         assertEquals(patientUid2, a.getPatientUid());
     }
+
+    @Test
+    public void getterTestConstructor3() {
+        Appointment a = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
+        assertEquals(day, a.getDay());
+        assertEquals(hour, a.getHour());
+        assertEquals(doctorUid, a.getDoctorUid());
+        assertEquals(patientUid, a.getPatientUid());
+        assertEquals(appointmentID, a.getAppointmentID());
+        a.setAppointmentID("aptID2");
+        assertEquals("aptID2", a.getAppointmentID());
+    }
+
 
 
 

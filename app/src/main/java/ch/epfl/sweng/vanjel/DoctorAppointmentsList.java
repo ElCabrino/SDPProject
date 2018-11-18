@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -16,13 +19,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class DoctorAppointmentsList extends AppCompatActivity {
+public class DoctorAppointmentsList extends AppCompatActivity{
 
     private DoctorAppointmentListAdapter adapter;
     private RecyclerView recyclerView;
     private ArrayList<Appointment> appointmentsList;
     private DatabaseReference dbReferenceAppointments;
     private String uid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +53,17 @@ public class DoctorAppointmentsList extends AppCompatActivity {
     }
 
     public ValueEventListener getAppointmentValueEventListener() {
-        Log.d("TESTRUNNING", "in eve list");
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String day, hour, patientUid, doctorUid;
-                Log.d("TESTRUNNING", "in datachange: " +  dataSnapshot.toString());
+                String day, hour, patientUid, doctorUid, appointmentID;
                 for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
-                    Log.d("TESTRUNNING", "in for loop");
+                    appointmentID = dayRequest.getKey();
                     day = dayRequest.child("date").getValue().toString();
                     doctorUid = dayRequest.child("doctor").getValue().toString();
                     hour = dayRequest.child("time").getValue().toString();
                     patientUid = dayRequest.child("patient").getValue().toString();
-                    fillAppointmentsList(day, hour, patientUid, doctorUid);
+                    fillAppointmentsList(day, hour, patientUid, doctorUid, appointmentID);
                 }
             }
 
@@ -71,9 +73,9 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         };
     }
 
-    private void fillAppointmentsList(String day, String hour, String patientUid, String doctorUid) {
+    private void fillAppointmentsList(String day, String hour, String patientUid, String doctorUid, String appointmentID) {
         if (this.uid.equals(doctorUid)){
-            Appointment appointment = new Appointment(day, hour, doctorUid, patientUid);
+            Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
             appointmentsList.add(appointment);
             adapter = new DoctorAppointmentListAdapter(this, appointmentsList);
             recyclerView.setAdapter(adapter);
