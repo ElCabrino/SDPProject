@@ -209,7 +209,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
         when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
         when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
-        when(timeDurationAppointmentSnapshot.getValue()).thenReturn("0");
+        when(durationAppointmentSnapshot.getValue()).thenReturn("0");
     }
 
     //Initialize listener for event on 'Requests' child
