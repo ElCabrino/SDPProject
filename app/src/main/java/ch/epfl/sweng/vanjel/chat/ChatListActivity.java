@@ -21,6 +21,7 @@ import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.Patient;
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.User;
 
 /**
  * Class used to chat with a other user
@@ -87,7 +88,9 @@ public class ChatListActivity extends AppCompatActivity {
      * get all user of the application and put them in a map uid->names
      */
     private void getAllUsers() {
-        database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
+        getClassUsers(Patient.class, "Patient");
+        getClassUsers(Doctor.class, "Doctor");
+/*        database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -108,6 +111,24 @@ public class ChatListActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Patient patient = snapshot.getValue(Patient.class);
                     UidToName.put(snapshot.getKey(),patient.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+    }
+
+    private void getClassUsers(final Class<? extends User> c, String type) {
+        database.getReference(type).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(c);
+                    c.cast(user);
+                    UidToName.put(snapshot.getKey(),user.toString());
                 }
             }
 

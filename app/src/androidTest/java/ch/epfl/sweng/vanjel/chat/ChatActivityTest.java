@@ -52,9 +52,10 @@ public class ChatActivityTest {
     public void sendMessageTest() throws Exception {
         runAsPatient();
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.messageToSend)).perform(typeText("test"));
+        onView(withId(R.id.messageToSend)).perform(typeText("test message"));
         onView(withId(R.id.sendMessageButton)).perform(click());
         onView(withText("Message successfully sent.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+        onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
     }
 
 }
