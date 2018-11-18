@@ -14,6 +14,8 @@ public class InfoString extends Info{
         return info;
     }
 
+    public void setInfo(String info) { this.info = info; }
+
     String getAndroidInfo(){
         return getInfo();
     }

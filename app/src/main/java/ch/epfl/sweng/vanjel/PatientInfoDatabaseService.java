@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,14 +23,17 @@ class PatientInfoDatabaseService {
     private String UserID ; //FirebaseAuth.getInstance().getUid();
     private AppCompatActivity activity;
     private DatabaseReference userDatabaseReference;
+    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
 
     //TEMPORARY ID
     /*TODO: put the user ID of the logged user*/
-    PatientInfoDatabaseService(String userID, AppCompatActivity activity) {
-        UserID = userID;
+    PatientInfoDatabaseService(AppCompatActivity activity) {
         this.activity = activity;
-        this.userDatabaseReference = FirebaseDatabase.getInstance().getReference("Patient").child(UserID);
+        String s = auth.getCurrentUser().getUid();
+        this.userDatabaseReference = database.getReference("Patient").child(s);
+
     }
 
     //LISTENERS
