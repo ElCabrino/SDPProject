@@ -30,14 +30,19 @@ import java.util.Map;
 public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppointmentListAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Appointment> appointmentsList = new ArrayList<>();
+    ArrayList<Appointment> appointmentsList;
+
+    public DoctorAppointmentListAdapter(Context context){
+        this.context = context;
+
+        this.appointmentsList = new ArrayList<>();
+
+    }
 
     public DoctorAppointmentListAdapter(Context context, ArrayList<Appointment> appointments){
         this.context = context;
 
-        for (Appointment a: appointments){
-            this.appointmentsList.add(a);
-        }
+        this.appointmentsList = appointments;
 
     }
 
@@ -135,6 +140,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
 
     private void deleteRequestFirebase(int i){
         String appointmentID = appointmentsList.get(i).getAppointmentID();
+        appointmentsList = new ArrayList<>();
         FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Intent;
 import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ public class DoctorAppointmentsList extends AppCompatActivity{
 
     private DoctorAppointmentListAdapter adapter;
     private RecyclerView recyclerView;
-    private ArrayList<Appointment> appointmentsList;
     private DatabaseReference dbReferenceAppointments;
     private String uid;
 
@@ -32,7 +32,6 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_appointment_list);
-        this.appointmentsList = new ArrayList<>();
         this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
         this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
         initAdapter();
@@ -42,8 +41,14 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     private void initAdapter() {
         recyclerView = findViewById(R.id.appointmentCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new DoctorAppointmentListAdapter(this, this.appointmentsList);
+        adapter = new DoctorAppointmentListAdapter(this);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void refreshActivity(){
+        Intent intent = new Intent(this, DoctorAppointmentsList.class);
+        startActivity(intent);
+        finish();
     }
 
     private void getAppointments() {
@@ -76,8 +81,8 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     private void fillAppointmentsList(String day, String hour, String patientUid, String doctorUid, String appointmentID) {
         if (this.uid.equals(doctorUid)){
             Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
-            appointmentsList.add(appointment);
-            adapter = new DoctorAppointmentListAdapter(this, appointmentsList);
+            adapter.appointmentsList.add(appointment);
+            adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
         }
 
