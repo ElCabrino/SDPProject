@@ -62,10 +62,9 @@ public class AppointmentNotificationBackgroundService extends Service {
                 String doctor = dataSnapshot.child("doctor").getValue().toString();
                 Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
                 if (!notify) {
-                    dataSnapshot.getRef().child("doctorNotified").setValue(true);
                     String title = "New appointment";
                     String text = "A patient took a new appointment!";
-                    createNotification(doctor, title, text);
+                    changeStateAndNotify(dataSnapshot.getRef().child("doctorNotified"), doctor, title, text);
                 }
             }
 
@@ -82,10 +81,9 @@ public class AppointmentNotificationBackgroundService extends Service {
                 Boolean isAppointmentNull = duration == 0;
                 
                 if(!notify && !isAppointmentNull){
-                    dataSnapshot.getRef().child("userNotified").setValue(true);
                     String title = "One of your appointment has been updated!";
                     String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
-                    createNotification(patient, title, text);
+                    changeStateAndNotify(dataSnapshot.getRef().child("userNotified"), patient, title, text);
                 }
             }
 
@@ -133,6 +131,11 @@ public class AppointmentNotificationBackgroundService extends Service {
 //            createNotification(title, text);
 //        }
 //    }
+
+    private void changeStateAndNotify(DatabaseReference stateToChange, String id, String title, String text){
+        stateToChange.setValue(true);
+        createNotification(id, title, text);
+    }
 
     private void createNotification(String id, String title, String text){
         if(auth.getCurrentUser().getUid().equals(id)) {
