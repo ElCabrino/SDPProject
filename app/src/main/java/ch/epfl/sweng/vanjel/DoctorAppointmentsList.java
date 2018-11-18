@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,17 +62,11 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String day, hour, patientUid, doctorUid, appointmentID, duration;
+
                 Log.d("TESTAPPT", dataSnapshot.toString());
                 //if (dataSnapshot.getChildrenCount() == 0) initAdapter();
-                for (DataSnapshot dayRequest : dataSnapshot.getChildren()) {
-                    appointmentID = dayRequest.getKey();
-                    day = dayRequest.child("date").getValue().toString();
-                    doctorUid = dayRequest.child("doctor").getValue().toString();
-                    hour = dayRequest.child("time").getValue().toString();
-                    patientUid = dayRequest.child("patient").getValue().toString();
-                    duration = dayRequest.child("duration").getValue().toString();
-                    refreshAppointmentsList(day, hour, patientUid, doctorUid, appointmentID, duration);
+                for (DataSnapshot request : dataSnapshot.getChildren()) {
+                    refreshAppointmentsList(request);
                 }
             }
 
@@ -81,7 +76,14 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         };
     }
 
-    private void refreshAppointmentsList(String day, String hour, String patientUid, String doctorUid, String appointmentID, String duration) {
+    private void refreshAppointmentsList(DataSnapshot request) {
+        String day, hour, patientUid, doctorUid, appointmentID, duration;
+        appointmentID = request.getKey();
+        day = request.child("date").getValue().toString();
+        doctorUid = request.child("doctor").getValue().toString();
+        hour = request.child("time").getValue().toString();
+        patientUid = request.child("patient").getValue().toString();
+        duration = request.child("duration").getValue().toString();
         if ((this.uid.equals(doctorUid))&&(Integer.valueOf(duration) == 0)){ //refresh with new element
             Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
             adapter.appointmentsList.add(appointment);

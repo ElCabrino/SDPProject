@@ -211,27 +211,28 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
             case "Sun":
                 weekday = "Sunday";
         }
-        DatabaseReference t = ref.child(weekday);
-        t.addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        GenericTypeIndicator<HashMap<String, String>> genericType = new GenericTypeIndicator<HashMap<String, String>>() {};
-                        HashMap<String, String> av = dataSnapshot.getValue(genericType);
-                        // If Doctor has not set availability, we consider he is available all time.
-                        if (av != null) {
-                            slotsAvailability = TimeAvailability.parseTimeStringToSlots(av.get("availability"));
-                            setDoctorAvailability();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                }
-        );
+        ref.child(weekday).addValueEventListener(createWeekdayListener());
     }
+
+    private ValueEventListener createWeekdayListener() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<HashMap<String, String>> genericType = new GenericTypeIndicator<HashMap<String, String>>() {};
+                HashMap<String, String> av = dataSnapshot.getValue(genericType);
+                // If Doctor has not set availability, we consider he is available all time.
+                if (av != null) {
+                    slotsAvailability = TimeAvailability.parseTimeStringToSlots(av.get("availability"));
+                    setDoctorAvailability();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+    }
+
 
     private void setDoctorAvailability() {
         for (int i=0; i<slotsAvailability.length;i++)

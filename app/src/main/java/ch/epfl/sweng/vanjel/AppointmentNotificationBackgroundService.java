@@ -114,36 +114,32 @@ public class AppointmentNotificationBackgroundService extends Service {
 
     private void notifyDoctor(String id) {
         if (auth.getCurrentUser().getUid().equals(id)){
-
-            //Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
-
             //create notification
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("New appointment")
-                    .setContentText("A patient took a new appointment!")
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setPriority(0x00000002);
-
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            notificationManager.notify(0 , mBuilder.build());
+            String title = "New appointment";
+            String text = "A patient took a new appointment!";
+            createNotification(title, text);
         }
     }
 
     private void notifyPatient(String id) {
-        if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
+        if(auth.getCurrentUser().getUid().equals(id)){
             // create notification
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("One of your appointment has been updated!")
-                    .setContentText("A doctor saw your appointment request and accepted it, come and look which one is it!")
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setPriority(0x00000002);
-
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            notificationManager.notify(0 , mBuilder.build());
+            String title = "One of your appointment has been updated!";
+            String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
+            createNotification(title, text);
         }
+    }
+
+    private void createNotification(String title, String text){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(0x00000002);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 , mBuilder.build());
     }
 }
