@@ -208,8 +208,11 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
             case "Sat":
                 weekday = "Saturday";
                 break;
+            case "Sun":
+                weekday = "Sunday";
         }
-        ref.child(weekday).addValueEventListener(
+        DatabaseReference t = ref.child(weekday);
+        t.addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -226,6 +226,7 @@ public final class FirebaseDatabaseCustomBackend {
         days.add("Thursday");
         days.add("Friday");
         days.add("Saturday");
+        days.add("Sunday");
         for (String d: days) {
             when(doctorRef.child(d)).thenReturn(doctorAvailabilityRef);
             when(doctorRef.child("doctorid1/Availability/" + d)).thenReturn(doctorAvailabilityRef);
