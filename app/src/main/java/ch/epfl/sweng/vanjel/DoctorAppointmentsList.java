@@ -61,14 +61,17 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String day, hour, patientUid, doctorUid, appointmentID;
-                for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
+                String day, hour, patientUid, doctorUid, appointmentID, duration;
+                Log.d("TESTAPPT", dataSnapshot.toString());
+                //if (dataSnapshot.getChildrenCount() == 0) initAdapter();
+                for (DataSnapshot dayRequest : dataSnapshot.getChildren()) {
                     appointmentID = dayRequest.getKey();
                     day = dayRequest.child("date").getValue().toString();
                     doctorUid = dayRequest.child("doctor").getValue().toString();
                     hour = dayRequest.child("time").getValue().toString();
                     patientUid = dayRequest.child("patient").getValue().toString();
-                    fillAppointmentsList(day, hour, patientUid, doctorUid, appointmentID);
+                    duration = dayRequest.child("duration").getValue().toString();
+                    refreshAppointmentsList(day, hour, patientUid, doctorUid, appointmentID, duration);
                 }
             }
 
@@ -78,10 +81,13 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         };
     }
 
-    private void fillAppointmentsList(String day, String hour, String patientUid, String doctorUid, String appointmentID) {
-        if (this.uid.equals(doctorUid)){
+    private void refreshAppointmentsList(String day, String hour, String patientUid, String doctorUid, String appointmentID, String duration) {
+        if ((this.uid.equals(doctorUid))&&(Integer.valueOf(duration) == 0)){ //refresh with new element
             Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
             adapter.appointmentsList.add(appointment);
+            adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
+            recyclerView.setAdapter(adapter);
+        } else { //only refresh the view
             adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
         }

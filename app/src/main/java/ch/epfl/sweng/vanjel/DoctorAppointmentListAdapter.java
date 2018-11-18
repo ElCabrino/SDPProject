@@ -140,7 +140,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
 
     private void deleteRequestFirebase(int i){
         String appointmentID = appointmentsList.get(i).getAppointmentID();
-        appointmentsList = new ArrayList<>();
+        appointmentsList = new ArrayList<>(); //the list is refreshed in DoctorAppointmentList
         FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -156,6 +156,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
 
     private void modifyDurationFirebase(int i, String duration) {
         String appointmentID = appointmentsList.get(i).getAppointmentID();
+        appointmentsList = new ArrayList<>();
         FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

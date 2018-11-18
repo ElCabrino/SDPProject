@@ -93,6 +93,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot appointmentSnapshot;
     @Mock
     private DataSnapshot dateAppointmentSnapshot;
+    @Mock
+    private DataSnapshot durationAppointmentSnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -202,10 +204,12 @@ public final class FirebaseDatabaseCustomBackend {
         when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
+        when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
         when(dateAppointmentSnapshot.getValue()).thenReturn("Monday");
         when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
         when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
         when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
+        when(timeDurationAppointmentSnapshot.getValue()).thenReturn("0");
     }
 
     //Initialize listener for event on 'Requests' child
