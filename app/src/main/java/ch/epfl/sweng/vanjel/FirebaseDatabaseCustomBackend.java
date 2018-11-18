@@ -193,7 +193,7 @@ public final class FirebaseDatabaseCustomBackend {
 
 
 
-        //when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+        when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
         when(appointmentSnapshot.getChildren()).thenReturn(listApp);
         when(appointmentSnapshot.child("date")).thenReturn(dateAppointmentSnapshot);
         when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
