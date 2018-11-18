@@ -46,11 +46,6 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         recyclerView.setAdapter(adapter);
     }
 
-    private void refreshActivity(){
-        Intent intent = new Intent(this, DoctorAppointmentsList.class);
-        startActivity(intent);
-        finish();
-    }
 
     private void getAppointments() {
         ValueEventListener valueListener = getAppointmentValueEventListener();
@@ -69,10 +64,7 @@ public class DoctorAppointmentsList extends AppCompatActivity{
                     refreshAppointmentsList(request);
                 }
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            
         };
     }
 
