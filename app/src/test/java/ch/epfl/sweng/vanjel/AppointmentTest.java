@@ -19,15 +19,15 @@ public class AppointmentTest {
     private String patientUid2 = "pId2";
     private String appointmentID = "aptID";
 
-    @Test
-    public void getterTestConstructor1() {
-        Appointment a = new Appointment(day, hour, duration, doctorUid, patientUid);
-        assertEquals(day, a.getDay());
-        assertEquals(hour, a.getHour());
-        assertEquals(duration, a.getDuration());
-        assertEquals(doctorUid, a.getDoctorUid());
-        assertEquals(patientUid, a.getPatientUid());
-    }
+//    @Test
+//    public void getterTestConstructor1() {
+//        Appointment a = new Appointment(day, hour, duration, doctorUid, patientUid);
+//        assertEquals(day, a.getDay());
+//        assertEquals(hour, a.getHour());
+//        assertEquals(duration, a.getDuration());
+//        assertEquals(doctorUid, a.getDoctorUid());
+//        assertEquals(patientUid, a.getPatientUid());
+//    }
 
     @Test
     public void getterTestConstructor2() {

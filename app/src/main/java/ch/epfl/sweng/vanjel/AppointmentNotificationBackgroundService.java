@@ -63,7 +63,9 @@ public class AppointmentNotificationBackgroundService extends Service {
                 Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
                 if (!notify) {
                     dataSnapshot.getRef().child("doctorNotified").setValue(true);
-                    notifyDoctor(doctor);
+                    String title = "New appointment";
+                    String text = "A patient took a new appointment!";
+                    createNotification(doctor, title, text);
                 }
             }
 
@@ -81,7 +83,9 @@ public class AppointmentNotificationBackgroundService extends Service {
                 
                 if(!notify && !isAppointmentNull){
                     dataSnapshot.getRef().child("userNotified").setValue(true);
-                    notifyPatient(patient);
+                    String title = "One of your appointment has been updated!";
+                    String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
+                    createNotification(patient, title, text);
                 }
             }
 
@@ -111,35 +115,37 @@ public class AppointmentNotificationBackgroundService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
     }
+//
+//    private void notifyDoctor(String id) {
+//        if (auth.getCurrentUser().getUid().equals(id)){
+//            //create notification
+//            String title = "New appointment";
+//            String text = "A patient took a new appointment!";
+//            createNotification(title, text);
+//        }
+//    }
+//
+//    private void notifyPatient(String id) {
+//        if(auth.getCurrentUser().getUid().equals(id)){
+//            // create notification
+//            String title = "One of your appointment has been updated!";
+//            String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
+//            createNotification(title, text);
+//        }
+//    }
 
-    private void notifyDoctor(String id) {
-        if (auth.getCurrentUser().getUid().equals(id)){
-            //create notification
-            String title = "New appointment";
-            String text = "A patient took a new appointment!";
-            createNotification(title, text);
+    private void createNotification(String id, String title, String text){
+        if(auth.getCurrentUser().getUid().equals(id)) {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(title)
+                    .setContentText(text)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setPriority(0x00000002);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.notify(0, mBuilder.build());
         }
-    }
-
-    private void notifyPatient(String id) {
-        if(auth.getCurrentUser().getUid().equals(id)){
-            // create notification
-            String title = "One of your appointment has been updated!";
-            String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
-            createNotification(title, text);
-        }
-    }
-
-    private void createNotification(String title, String text){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setPriority(0x00000002);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0 , mBuilder.build());
     }
 }
