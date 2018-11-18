@@ -1,7 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-import android.util.Log;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -79,10 +77,8 @@ public class FirebaseAuthCustomBackend {
 
     private void initAuthBehaviour() {
         if (!nullUser) {
-            Log.d("TESTRUNNING", "set mock user");
             when(mockAuth.getCurrentUser()).thenReturn(mockUser);
         } else {
-            Log.d("TESTRUNNING", "set mock user null");
             when(mockAuth.getCurrentUser()).thenReturn(null);
         }
         when(mockAuth.signInWithEmailAndPassword(any(String.class), any(String.class))).thenReturn(mockLoginTask);

@@ -41,8 +41,8 @@ public class ChatActivityTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, ChatActivity.class);
-                    result.putExtra("doctorUID", "doctorid1");
-                    result.putExtra("doctorName", "fn_dtest1");
+                    result.putExtra("contactUID", "doctorid1");
+                    result.putExtra("contactName", "fn_dtest1");
                     return result;
                 }
             };
@@ -53,17 +53,8 @@ public class ChatActivityTest {
         runAsPatient();
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.messageToSend)).perform(typeText("test"));
-        onView(withId(R.id.sendMessageButton)).perform(scrollTo(), click());
+        onView(withId(R.id.sendMessageButton)).perform(click());
         onView(withText("Message successfully sent.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
-
-/*    // Set mock Firebase to connect as a Patient
-    private void runAsPatient() {
-        mActivityRule.finishActivity();
-        Intent i = new Intent();
-        i.putExtra("doctorUID", "doctorid1");
-        i.putExtra("doctorName", "fn_dtest1");
-        mActivityRule.launchActivity(i);
-    }*/
 
 }
