@@ -12,6 +12,8 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.R;
 
 /**
+ * Class used to populate the messages in the RecyclerView ChatActivity
+ *
  * @author Etienne Caquot
  */
 public class MessageListAdapter extends RecyclerView.Adapter {
@@ -23,9 +25,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     private String mUserUid;
 
     /**
-     *
-     * @param context
-     * @param messageList
+     * Constructor of MessageListAdapter
+     * @param context the context of Adapter
+     * @param messageList the list of all message to put in the adapter
      */
     public MessageListAdapter(Context context, List<Message> messageList, String userUid) {
         mContext = context;
@@ -38,25 +40,19 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         return mMessageList.size();
     }
 
-    // Determines the appropriate ViewType according to the sender of the message.
     @Override
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
-
-        if (!message.getSender().equals(mUserUid)) {
-            // If the current user is the sender of the message
+        if (message.getSenderUid().equals(mUserUid)) {
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
-            // If some other user sent the message
             return VIEW_TYPE_MESSAGE_RECEIVED;
         }
     }
 
-    // Inflates the appropriate layout according to the ViewType.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-
         if (viewType == VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_send_message, parent, false);
@@ -66,14 +62,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                     .inflate(R.layout.layout_received_message, parent, false);
             return new ReceivedMessageHolder(view);
         }
-
         return null;
     }
 
-    // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Message message = (Message) mMessageList.get(position);
+        Message message = mMessageList.get(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
@@ -84,61 +78,57 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
+
     /**
-     *
+     * A ViewHolder for sent messages
      */
     private class SentMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
         /**
-         *
-         * @param itemView
+         * Create ViewHolder
+         * @param itemView the View
          */
         SentMessageHolder(View itemView) {
             super(itemView);
-
-            messageText = (TextView) itemView.findViewById(R.id.sendMessage);
-            timeText = (TextView) itemView.findViewById(R.id.sendDate);
+            messageText = itemView.findViewById(R.id.sendMessage);
+            timeText = itemView.findViewById(R.id.sendDate);
         }
 
         /**
-         *
-         * @param message
+         * Populate the ViewHolder
+         * @param message the Message to display
          */
         void bind(Message message) {
             messageText.setText(message.getMessage());
-
-            // Format the stored timestamp into a readable String using method.
             timeText.setText(message.getTime());
         }
     }
 
+
     /**
-     *
+     * A ViewHolder for received messages
      */
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
         /**
-         *
-         * @param itemView
+         * Create ViewHolder
+         * @param itemView the View
          */
         ReceivedMessageHolder(View itemView) {
             super(itemView);
-
-            messageText = (TextView) itemView.findViewById(R.id.receiveMessage);
-            timeText = (TextView) itemView.findViewById(R.id.receivedDate);
+            messageText = itemView.findViewById(R.id.receiveMessage);
+            timeText = itemView.findViewById(R.id.receivedDate);
         }
 
         /**
-         *
-         * @param message
+         * Populate the ViewHolder
+         * @param message the Message to display
          */
         void bind(Message message) {
             messageText.setText(message.getMessage());
-
-            // Format the stored timestamp into a readable String using method.
             timeText.setText(message.getTime());
-            }
+        }
     }
 }

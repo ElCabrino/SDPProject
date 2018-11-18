@@ -1,29 +1,31 @@
 package ch.epfl.sweng.vanjel.chat;
 
 /**
+ * Class that represents a Message
+ *
  * @author Etienne Caquot
  */
 public class Message {
 
     private String time;
     private String message;
-    private String sender;
+    private String senderUid;
 
     /**
      *
-     * @param time
-     * @param message
-     * @param sender
+     * @param time a String to represent time of message
+     * @param message a String to represent message text
+     * @param senderUid a String to represent sender UID
      */
-    public Message(String time, String message, String sender) {
+    public Message(String time, String message, String senderUid) {
         this.time = time ;
         this.message = message;
-        this.sender = sender;
+        this.senderUid = senderUid;
     }
 
     /**
      *
-     * @return
+     * @return time of message
      */
     public String getTime() {
         return new String(time);
@@ -31,7 +33,7 @@ public class Message {
 
     /**
      *
-     * @return
+     * @return message text
      */
     public String getMessage() {
         return new String(message);
@@ -39,9 +41,9 @@ public class Message {
 
     /**
      *
-     * @return
+     * @return senderUid
      */
-    public String getSender() {
-        return new String(sender);
+    public String getSenderUid() {
+        return new String(senderUid);
     }
 }

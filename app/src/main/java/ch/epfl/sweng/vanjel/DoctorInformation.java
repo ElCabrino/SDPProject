@@ -116,8 +116,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         if(v.getId() == R.id.buttonChat){
             Intent intent = new Intent(this, ChatActivity.class);
 
-            intent.putExtra("doctorUID",doctorUID);
-            intent.putExtra("doctorName",doctor.toString());
+            intent.putExtra("contactUID",doctorUID);
+            intent.putExtra("contactName",doctor.toString());
 
             startActivity(intent);
         }
