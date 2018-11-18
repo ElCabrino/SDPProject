@@ -89,6 +89,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot doctorAvailabilitySnapshot;
     @Mock
     private DataSnapshot appointmentSnapshot;
+    @Mock
+    private DataSnapshot dateAppointmentSnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -184,20 +186,27 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1Snapshot.getChildren()).thenReturn(listDoc);
     }
 
+    //mock for the method DoctorAppointmentList.getAppointmentValueListener()
     private void initDoctorAvailabilitySnapshots() {
         List<DataSnapshot> listApp = new ArrayList<>();
         listApp.add(appointmentSnapshot);
-        when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+
+
+
+        //when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
         when(appointmentSnapshot.getChildren()).thenReturn(listApp);
-        when(appointmentSnapshot.getKey()).thenReturn("Monday");
+        when(appointmentSnapshot.child("date")).thenReturn(dateAppointmentSnapshot);
         when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
+        when(dateAppointmentSnapshot.getValue()).thenReturn("Monday");
         when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
         when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
         when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
     }
 
+    //Initialize listener for event on 'Requests' child
+    //makes the listener work on 'appointmentSnapshot'
     private void initAppointmentRequestsListMock() {
         doAnswer(new Answer<ValueEventListener>() {
             @Override

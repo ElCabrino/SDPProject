@@ -30,7 +30,7 @@ public class DoctorAppointmentsList extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_appointment_list);
         this.appointmentsList = new ArrayList<>();
         this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference().child("Requests");
+        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
         initAdapter();
         getAppointments();
     }
