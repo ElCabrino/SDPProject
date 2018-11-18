@@ -1,11 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -21,8 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Iterator;
-
 public class AppointmentNotificationBackgroundService extends Service {
 
     public static final String APPOINTMENT_SERVICE_INTENT = "ch.epfl.sweng.vanjel.appointmentService";
@@ -30,6 +26,9 @@ public class AppointmentNotificationBackgroundService extends Service {
     private Handler handler;
     private Runnable runnable;
     private Context context = this;
+
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -55,7 +54,7 @@ public class AppointmentNotificationBackgroundService extends Service {
     }
 
     private void createDatabaseAppointmentListener() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
+        DatabaseReference ref = database.getReference("Requests");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -98,7 +97,7 @@ public class AppointmentNotificationBackgroundService extends Service {
     }
 
     private void notifyDoctor(String id) {
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
+        if (auth.getCurrentUser().getUid().equals(id)){
             //Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
 
             //create notification

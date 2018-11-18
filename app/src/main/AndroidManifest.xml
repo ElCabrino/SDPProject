@@ -48,9 +48,10 @@
         <activity android:name=".DoctorInformation" />
         <activity android:name=".NearbyDoctor"></activity>
 
-        <service android:name=".AppointmentNotificationBackgroundService">
-        </service>
+        <service android:name=".AppointmentNotificationBackgroundService"></service>
 
+        <activity android:name=".DoctorAppointmentsList">
+        </activity>
     </application>
 
 </manifest>
