@@ -264,6 +264,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(patient1DB.child("Smoking")).thenReturn(patientCategoryRef);
         when(patient1DB.child("Drinking")).thenReturn(patientCategoryRef);
         when(patientCategoryRef.child(any(String.class))).thenReturn(patientSubCategoryRef);
+        //when(patientCategoryRef.getValue(any(GenericTypeIndicator.class)))).thenReturn(defDoctor1);
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
