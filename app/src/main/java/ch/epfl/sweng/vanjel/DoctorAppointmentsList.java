@@ -64,7 +64,10 @@ public class DoctorAppointmentsList extends AppCompatActivity{
                     refreshAppointmentsList(request);
                 }
             }
-            
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
         };
     }
 
