@@ -39,7 +39,7 @@ public class FirebaseAuthCustomBackend {
         mockPatient = b;
     }
 
-    static void setNullUser(boolean b) {
+    public static void setNullUser(boolean b) {
         nullUser = b;
     }
 

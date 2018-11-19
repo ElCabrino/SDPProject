@@ -71,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
         message = findViewById(R.id.messageToSend);
         messageRecycler = findViewById(R.id.RecyclerViewChat);
         messageList = new ArrayList<>();
-        senderUid = auth.getUid();
+        senderUid = auth.getCurrentUser().getUid();
         messageRecycler.setLayoutManager(new LinearLayoutManager(this));
         contactUid = getIntent().getExtras().getString("contactUID");
         if (senderUid.compareTo(contactUid) > 0) {

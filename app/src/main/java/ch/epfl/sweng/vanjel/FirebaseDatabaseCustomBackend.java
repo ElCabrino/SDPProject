@@ -66,6 +66,10 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference apt1Ref;
     @Mock
     private DatabaseReference appointmentReqRef;
+    @Mock
+    private DatabaseReference chatRef;
+    @Mock
+    private DatabaseReference chatHistoriqueRef;
 
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
@@ -100,6 +104,8 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> setValueInfoPatientTask;
     @Mock
     private Task<Void> updateApt1Task;
+    @Mock
+    private Task<Void> chatTask;
 
 
     private FirebaseDatabaseCustomBackend() {}
@@ -142,6 +148,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
+        initChatMock();
         //initProfileListener();
         return mockDB;
     }
@@ -231,7 +238,6 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(doctorAvailabilityRef.updateChildren(any(Map.class))).thenReturn(updateAvailabilityTask);
 
-
         //listener on success
         doAnswer(new Answer<OnSuccessListener>() {
 
@@ -251,6 +257,22 @@ public final class FirebaseDatabaseCustomBackend {
                 return null;
             }
         }).when(updateSuccessAvailabilityTask).addOnFailureListener(any(OnFailureListener.class));
+    }
+
+    private void initChatMock() {
+        when(mockDB.getReference("Chat")).thenReturn(chatRef);
+        when(chatRef.child(any(String.class))).thenReturn(chatHistoriqueRef);
+        when(chatHistoriqueRef.updateChildren(any(Map.class))).thenReturn(chatTask);
+        when(chatTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return chatTask;
+            }
+        });
     }
 
     private void initPatientInfoMock() {

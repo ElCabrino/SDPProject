@@ -49,17 +49,13 @@ public class DoctorAppointmentsList extends AppCompatActivity {
     }
 
     public ValueEventListener getAppointmentValueEventListener() {
-        Log.d("TESTRUNNING", "in eve list");
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String day, hour, patientUid, doctorUid;
-                Log.d("TESTRUNNING", "in datachange: " +  dataSnapshot.toString());
                 for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
-                    Log.d("TESTRUNNING", "in for loop");
                     day = dayRequest.getKey();
                     for (DataSnapshot req: dayRequest.getChildren()) {
-                        Log.d("TESTRUNNING", "in for loop2");
                         doctorUid = req.child("doctor").getValue().toString();
                         hour = req.child("time").getValue().toString();
                         patientUid = req.child("patient").getValue().toString();
