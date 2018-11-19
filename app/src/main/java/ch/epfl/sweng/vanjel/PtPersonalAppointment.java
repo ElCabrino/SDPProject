@@ -6,15 +6,18 @@ public class PtPersonalAppointment {
     String date;
     String time;
     String duration;
+    // 0 = appointment confirmed, 1 = pending
+    Boolean pendingStatus;
 
     PtPersonalAppointment() {}
 
-    public PtPersonalAppointment(String doctor, String location, String date, String time, String duration) {
+    public PtPersonalAppointment(String doctor, String location, String date, String time, String duration,Boolean pendingStatus) {
         this.doctor = doctor;
         this.location = location;
         this.date = date;
         this.time = time;
         this.duration = duration;
+        this.pendingStatus = pendingStatus;
     }
 
     public String getDoctor() {
@@ -36,4 +39,6 @@ public class PtPersonalAppointment {
     public String getDuration() {
         return duration;
     }
+
+    public Boolean getPendingStatus() {return pendingStatus; }
 }

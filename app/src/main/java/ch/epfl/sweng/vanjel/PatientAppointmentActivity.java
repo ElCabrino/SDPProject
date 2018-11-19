@@ -1,9 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -38,6 +38,9 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     HashMap<Integer, Button> buttonsAppointment = new HashMap<Integer, Button>();
     HashMap<Integer, Boolean> buttonsState= new HashMap<Integer, Boolean>();
     HashMap<Integer, Integer> slotState = new HashMap<Integer, Integer>();
+
+    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +86,6 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         addButton(R.id.button1730, 19);
         addButton(R.id.button1800, 20);
         addButton(R.id.button1830, 21);
-//        addButton(R.id.button1900, 22);
-//        addButton(R.id.button1930, 23);
     }
 
     void addButton(int i, int slot_i) {
@@ -133,7 +134,6 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         int i = v.getId();
         if (i == R.id.buttonAppointment){
             storeAppointment();
-//            Toast.makeText(this, "PLACEHOLDER YIHAAAAAA", Toast.LENGTH_LONG).show();
         } else {
             changeState(i);
         }
@@ -141,11 +141,11 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     // Store appointment request in Firebase
     private void storeAppointment() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
+        DatabaseReference ref = database.getReference("Requests");
         for (Integer i: buttonsAppointment.keySet()) {
             if (buttonsState.get(i) == true) {
                 String key = ref.push().getKey();
-                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, getUserFirebaseID());
+                Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, auth.getCurrentUser().getUid());
                 ref.child(parseSelectedDate()+"/"+key).updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -181,18 +181,9 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         return res.replaceAll("\\s\\s", " ");
     }
 
-    // Return id of connected User, or ID of dummy User if no one is connected.
-    public String getUserFirebaseID() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            return "ATtZ76LvUMb4wGaSS9Y3SYm0Glj2";
-        }
-    }
-
     private void getDoctorAvailability() {
         slotsAvailability = new boolean[TimeAvailability.getIdLength()/6];
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctor/"+doctorUID+"/Availability");
+        DatabaseReference ref = database.getReference("Doctor/"+doctorUID+"/Availability");
         String weekday = parseSelectedDate().substring(0,Math.min(parseSelectedDate().length(), 3));
         switch (weekday) {
             case "Mon":

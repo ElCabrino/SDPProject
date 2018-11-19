@@ -26,15 +26,19 @@ import java.util.List;
 
 public class PatientPersonalAppointments extends AppCompatActivity {
 
+    PatientInfoDatabaseService patientInfoDatabaseService;
     DatabaseReference dbAp;
     DatabaseReference dbDoc;
 
     ListView listViewAp;
-    String id;
+    String uid;
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
     // to optimize
     HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
+
+    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
 
 
@@ -43,11 +47,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        id = FirebaseAuth.getInstance().getUid();
-        if (id == null) { id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";}
-
-        dbAp = FirebaseDatabase.getInstance().getReference("Requests");
-        dbDoc = FirebaseDatabase.getInstance().getReference("Doctor");
+        //id = FirebaseAuth.getInstance().getUid();
+        //if (id == null) { id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";}
+        patientInfoDatabaseService = new PatientInfoDatabaseService(this);
+        uid = auth.getCurrentUser().getUid();
+        dbAp = database.getReference("Requests");
+        dbDoc = database.getReference("Doctor");
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
 
@@ -67,18 +72,22 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 apList.clear();
                 for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
                     //PtPersonalAppointment ap = ds.getValue(PtPersonalAppointment.class);
-                    String date = dateSnapshot.getKey();
-                        for (DataSnapshot ds : dateSnapshot.getChildren()) {
-                            if (ds.child("patient").getValue(String.class).equals(id)) {
-                                String docId = ds.child("doctor").getValue(String.class);
+                    //String data = dateSnapshot.getKey();
+                            /*System.out.println("BBBBBBB " + ds.getValue(String.class));
+                            if (ds.child("patient").getValue(String.class) == null) {
+                                System.out.println("AAAAAAAAAAAAAA " + uid);
+                            }*/
+                            if (dataSnapshot.child("patient").getValue(String.class).equals(uid)) {
+                                String docId = dataSnapshot.child("doctor").getValue(String.class);
                                 String doc = idToDoc.get(docId).get(0);
                                 String loc = idToDoc.get(docId).get(1);
-                                String time = ds.child("time").getValue(String.class);
-                                String duration = ds.child("duration").getValue(String.class);
-                                PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration);
+                                String date = dataSnapshot.child("date").getValue(String.class);
+                                String time = dataSnapshot.child("time").getValue(String.class);
+                                String duration = dataSnapshot.child("duration").getValue(String.class);
+                                Boolean pending = Integer.parseInt(duration) != 0;
+                                PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
                                 apList.add(ap);
                             }
-                        }
                 }
 
                 apList.sort(new appointmentsComparator());

@@ -22,13 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuthCustomBackend.getInstance();
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     // attribute that will contain pointer
     private EditText mailReg;
@@ -143,11 +143,9 @@ public class Registration extends AppCompatActivity {
     Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
         Task<Void> val;
         if(DoctorReg) {
-            val = FirebaseDatabase.getInstance().getReference("Doctor").child(FirebaseAuth.
-                    getInstance().getCurrentUser().getUid()).setValue(doctor);
+            val = database.getReference("Doctor").child(mAuth.getCurrentUser().getUid()).setValue(doctor);
         } else {
-            val = FirebaseDatabase.getInstance().getReference("Patient").child(FirebaseAuth.
-                    getInstance().getCurrentUser().getUid()).setValue(patient);
+            val = database.getReference("Patient").child(mAuth.getCurrentUser().getUid()).setValue(patient);
         }
         return val;
     }
@@ -168,11 +166,6 @@ public class Registration extends AppCompatActivity {
     }
 
     void getAllFields(){
-        mAuth = FirebaseAuth.getInstance();
-
-        //Button
-        buttonReg = findViewById(R.id.buttonReg);
-
         // getting pointer to corresponding element on screen
         mailReg = findViewById(R.id.mailReg);
         passwordReg = findViewById(R.id.passwordReg);
@@ -184,7 +177,13 @@ public class Registration extends AppCompatActivity {
         numberReg = findViewById(R.id.numberReg);
         cityReg = findViewById(R.id.cityReg);
         countryReg = findViewById(R.id.countryReg);
+        getOtherFields();
+    }
 
+    // Separation required to avoid CodeClimate duplicate with getAllEditText() from PatientInfo.java
+    private void getOtherFields() {
+        //Button
+        buttonReg = findViewById(R.id.buttonReg);
         //Spinner
         genderReg = findViewById(R.id.genderReg);
         activityReg = findViewById(R.id.activityReg);

@@ -1,7 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-import android.media.tv.TvView;
-
 public class Drug extends Info{
     private String drug;
     private String dosage;
