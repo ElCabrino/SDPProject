@@ -17,23 +17,22 @@ public class DoctorPatientInfo extends AppCompatActivity {
 
     PatientInfoDatabaseService patientInfoDatabaseService;
 
-    List<InfoString> condList;
-    List<Surgery> surList;
-    List<InfoString> allList;
-    List<DrugReaction> drugReacList;
+    ListView listViewConditions;
+    ListView listViewSurgeries;
+    ListView listViewAllergies;
+    ListView listViewDrugReactions;
+    ListView listViewDrugs;
+    ListView listViewSubstances;
+    TextView textViewSmoking;
+    TextView textViewDrinking;
+    TextView textViewExercise;
+
+    List<InfoString> conditionList;
+    List<Surgery> surgeryList;
+    List<InfoString> allergyList;
+    List<DrugReaction> drugReactionList;
     List<Drug> drugList;
     List<InfoString> substanceList;
-
-    ListView lvConditions;
-    ListView lvSurgeries;
-    ListView lvAllergies;
-    ListView lvDrugReactions;
-    ListView lvDrugs;
-    ListView lvSubstances;
-    TextView tvSmoking;
-    TextView tvDrinking;
-    TextView tvExercise;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,24 +49,24 @@ public class DoctorPatientInfo extends AppCompatActivity {
     }
 
     private void initializeLists() {
-        condList = new ArrayList<>();
-        surList = new ArrayList<>();
-        allList = new ArrayList<>();
-        drugReacList = new ArrayList<>();
+        conditionList = new ArrayList<>();
+        surgeryList = new ArrayList<>();
+        allergyList = new ArrayList<>();
+        drugReactionList = new ArrayList<>();
         drugList = new ArrayList<>();
         substanceList = new ArrayList<>();
     }
 
     private void getAllPatientInfoFields() {
-        lvConditions = findViewById(R.id.doctorPtPriorConditionsList);
-        lvSurgeries = findViewById(R.id.doctorPtSurgeryList);
-        lvAllergies = findViewById(R.id.doctorPtAllergyList);
-        lvDrugReactions = findViewById(R.id.doctorPtDrugReactionList);
-        lvDrugs = findViewById(R.id.doctorPtDrugRegimenList);
-        lvSubstances = findViewById(R.id.doctorPtSubstanceList);
-        tvSmoking = findViewById(R.id.doctorPtSmokingValue);
-        tvDrinking = findViewById(R.id.doctorPtDrinkingValue);
-        tvExercise = findViewById(R.id.doctorPtExerciseValue);
+        listViewConditions = findViewById(R.id.doctorPtPriorConditionsList);
+        listViewSurgeries = findViewById(R.id.doctorPtSurgeryList);
+        listViewAllergies = findViewById(R.id.doctorPtAllergyList);
+        listViewDrugReactions = findViewById(R.id.doctorPtDrugReactionList);
+        listViewDrugs = findViewById(R.id.doctorPtDrugRegimenList);
+        listViewSubstances = findViewById(R.id.doctorPtSubstanceList);
+        textViewSmoking = findViewById(R.id.doctorPtSmokingValue);
+        textViewDrinking = findViewById(R.id.doctorPtDrinkingValue);
+        textViewExercise = findViewById(R.id.doctorPtExerciseValue);
     }
 
 
@@ -75,23 +74,22 @@ public class DoctorPatientInfo extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // add the database listeners
-        patientInfoDatabaseService.addAmountListener(tvSmoking, "Smoking");
-        patientInfoDatabaseService.addAmountListener(tvDrinking, "Drinking");
-        patientInfoDatabaseService.addAmountListener(tvExercise, "Exercise");
-        patientInfoDatabaseService.addListListener(condList,lvConditions,"Condition",
-                InfoString.class, new InfoList<InfoString>(this, condList, R.layout.list_conditions_layout, R.id.textViewConditions));
-        patientInfoDatabaseService.addListListener(surList,lvSurgeries,"Surgery",
-                Surgery.class, new InfoList<Surgery>(this, surList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
-        patientInfoDatabaseService.addListListener(allList,lvAllergies,"Allergy",
-                InfoString.class, new InfoList<InfoString>(this, allList, R.layout.list_allergies_layout, R.id.textViewAllergies));
-        patientInfoDatabaseService.addListListener(drugReacList,lvDrugReactions,"DrugReaction",
-                DrugReaction.class, new InfoList<DrugReaction>(this, drugReacList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
-        patientInfoDatabaseService.addListListener(drugList,lvDrugs,"Drug",
+        patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
+        patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
+        patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
+        patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
+                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
+        patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
+                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
+        patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
+                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+        patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
+                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
+        patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
                 Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
 
-        patientInfoDatabaseService.addListListener(substanceList,lvSubstances,"Substance",
+        patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
                 InfoString.class, new InfoList<InfoString>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
-
     }
 
 }
