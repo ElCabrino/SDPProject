@@ -27,12 +27,12 @@ public class DoctorPatientInfo extends AppCompatActivity {
     TextView textViewDrinking;
     TextView textViewExercise;
 
-    List<InfoString> conditionList;
-    List<Surgery> surgeryList;
-    List<InfoString> allergyList;
-    List<DrugReaction> drugReactionList;
-    List<Drug> drugList;
-    List<InfoString> substanceList;
+    List<InfoString> conditionList = new ArrayList<>();
+    List<Surgery> surgeryList = new ArrayList<>();
+    List<InfoString> allergyList = new ArrayList<>();
+    List<DrugReaction> drugReactionList = new ArrayList<>();
+    List<Drug> drugList = new ArrayList<>();
+    List<InfoString> substanceList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +44,9 @@ public class DoctorPatientInfo extends AppCompatActivity {
         patientInfoDatabaseService = new PatientInfoDatabaseService(this);
 
         getAllPatientInfoFields();
-
-        initializeLists();
+        
     }
 
-    private void initializeLists() {
-        conditionList = new ArrayList<>();
-        surgeryList = new ArrayList<>();
-        allergyList = new ArrayList<>();
-        drugReactionList = new ArrayList<>();
-        drugList = new ArrayList<>();
-        substanceList = new ArrayList<>();
-    }
 
     private void getAllPatientInfoFields() {
         listViewConditions = findViewById(R.id.doctorPtPriorConditionsList);
