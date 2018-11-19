@@ -50,10 +50,10 @@ public class DoctorPatientInfo extends AppCompatActivity {
     }
 
     private void initializeLists() {
-        conditionList = new ArrayList<>();
-        surgeryList = new ArrayList<>();
-        allergyList = new ArrayList<>();
-        drugReactionList = new ArrayList<>();
+        condList = new ArrayList<>();
+        surList = new ArrayList<>();
+        allList = new ArrayList<>();
+        drugReacList = new ArrayList<>();
         drugList = new ArrayList<>();
         substanceList = new ArrayList<>();
     }
@@ -78,14 +78,14 @@ public class DoctorPatientInfo extends AppCompatActivity {
         patientInfoDatabaseService.addAmountListener(tvSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(tvDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(tvExercise, "Exercise");
-        patientInfoDatabaseService.addListListener(conditionList,lvConditions,"Condition",
-                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
-        patientInfoDatabaseService.addListListener(surgeryList,lvSurgeries,"Surgery",
-                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
-        patientInfoDatabaseService.addListListener(allergyList,lvAllergies,"Allergy",
-                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
-        patientInfoDatabaseService.addListListener(drugReactionList,lvDrugReactions,"DrugReaction",
-                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
+        patientInfoDatabaseService.addListListener(condList,lvConditions,"Condition",
+                InfoString.class, new InfoList<InfoString>(this, condList, R.layout.list_conditions_layout, R.id.textViewConditions));
+        patientInfoDatabaseService.addListListener(surList,lvSurgeries,"Surgery",
+                Surgery.class, new InfoList<Surgery>(this, surList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
+        patientInfoDatabaseService.addListListener(allList,lvAllergies,"Allergy",
+                InfoString.class, new InfoList<InfoString>(this, allList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+        patientInfoDatabaseService.addListListener(drugReacList,lvDrugReactions,"DrugReaction",
+                DrugReaction.class, new InfoList<DrugReaction>(this, drugReacList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,lvDrugs,"Drug",
                 Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
 
