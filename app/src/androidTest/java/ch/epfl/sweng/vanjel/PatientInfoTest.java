@@ -328,7 +328,6 @@ PatientInfoTest {
         onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).perform(scrollTo());
-        //
         // onView(withId(idTextField)).check(matches(withText(text)));
 
     }
