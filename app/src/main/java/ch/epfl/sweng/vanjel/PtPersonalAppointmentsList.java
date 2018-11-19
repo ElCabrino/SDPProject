@@ -33,7 +33,14 @@ public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointme
 
         PtPersonalAppointment ap = (PtPersonalAppointment) appointmentList.get(position);
 
-        textViewDoctorDate.setText(ap.getDate() + " - Dr." + ap.getDoctor());
+        String confirmationStatus;
+        if (ap.pendingStatus) {
+            confirmationStatus = "(pending)";
+        } else {
+            confirmationStatus = "(confirmed)";
+        }
+
+        textViewDoctorDate.setText(ap.getDate() + " - Dr." + ap.getDoctor() + " " + confirmationStatus);
         textViewTime.setText(ap.getTime() + ", " + ap.getDuration() + " minutes");
         textViewLocation.setText(ap.getLocation());
 

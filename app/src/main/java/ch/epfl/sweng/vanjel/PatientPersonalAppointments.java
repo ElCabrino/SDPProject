@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,7 +36,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
     // to optimize
-    HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
+    private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -53,8 +54,10 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         uid = auth.getCurrentUser().getUid();
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
+        //dbAp = database.getReference("Requests");
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
+        populateDocMap();
 
     }
 
@@ -63,28 +66,32 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onStart();
 
         //recover doctor names
-        populateDocMap();
+        //populateDocMap();
+        //System.out.println("BBBBB");
+        Log.e("SIZE", Integer.toString(idToDoc.size()));
+        //System.out.println(idToDoc.size());
+        //while (idToDoc.size() == 0) {}
+        /*for (String s : idToDoc.keySet()) {
+            System.out.println(s);
+        }*/
+        //System.out.println(idToDoc.get("W7ReyyyOwAQKaganjsMQuHRb0Aj2"));
 
         dbAp.addValueEventListener(new ValueEventListener() {
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
-                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
-                    //PtPersonalAppointment ap = ds.getValue(PtPersonalAppointment.class);
-                    //String data = dateSnapshot.getKey();
-                            /*System.out.println("BBBBBBB " + ds.getValue(String.class));
-                            if (ds.child("patient").getValue(String.class) == null) {
-                                System.out.println("AAAAAAAAAAAAAA " + uid);
-                            }*/
-                            if (dataSnapshot.child("patient").getValue(String.class).equals(uid)) {
-                                String docId = dataSnapshot.child("doctor").getValue(String.class);
-                                String doc = idToDoc.get(docId).get(0);
-                                String loc = idToDoc.get(docId).get(1);
-                                String date = dataSnapshot.child("date").getValue(String.class);
-                                String time = dataSnapshot.child("time").getValue(String.class);
-                                String duration = dataSnapshot.child("duration").getValue(String.class);
-                                Boolean pending = Integer.parseInt(duration) != 0;
+
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                            if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
+                                String docId = idSnapshot.child("doctor").getValue(String.class);
+                                //System.out.println("AAAA " + docId);
+                                String doc = "Doc"; //idToDoc.get(docId).get(0);
+                                String loc = "Loc"; //idToDoc.get(docId).get(1);
+                                String date = idSnapshot.child("date").getValue(String.class);
+                                String time = idSnapshot.child("time").getValue(String.class);
+                                String duration = idSnapshot.child("duration").getValue(String.class);
+                                Boolean pending = Integer.parseInt(duration) == 0;
                                 PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
                                 apList.add(ap);
                             }
@@ -189,10 +196,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     private void populateDocMap() {
         //recover doctor names and locations
+        //System.out.println("CCCC");
         dbDoc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                idToDoc.clear();
+                //idToDoc.clear();;
+                //System.out.println("DDDD");
+                //Log.e("wtf","BEFORE LOOP");
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
                     String name = idSnapshot.child("lastName").getValue(String.class);
                     String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
@@ -200,9 +210,14 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                             idSnapshot.child("city").getValue(String.class);
                     String docId = idSnapshot.getKey();
                     ArrayList<String> list = new ArrayList<>();
+                    //System.out.println("ID:" + docId);
+                    //System.out.println("NAME:" + name);
+                    //System.out.println("LOCATION:" + location);
                     list.add(name);
                     list.add(location);
                     idToDoc.put(docId,list);
+                    Log.e("POPULATE",idToDoc.get(docId).get(0));
+                    Log.e("SIZE AT END OF POPULATE", Integer.toString(idToDoc.size()));
 
                 }
             }
@@ -211,7 +226,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
             }
         });
-
     }
 
 
