@@ -81,6 +81,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot chatTextSnapshot;
     @Mock
     private DataSnapshot chatTimeSnapshot;
+    @Mock
+    private DataSnapshot chatReceiverSnapshot;
 
     @Mock
     private DatabaseError patientError;
@@ -306,9 +308,11 @@ public final class FirebaseDatabaseCustomBackend {
         when(chatSnapshot.getKey()).thenReturn("doctorid1patientid1");
         when(chatSnapshot.child("text")).thenReturn(chatTextSnapshot);
         when(chatSnapshot.child("time")).thenReturn(chatTimeSnapshot);
+        when(chatSnapshot.child("receiver")).thenReturn(chatReceiverSnapshot);
 
         when(chatTextSnapshot.getValue()).thenReturn("test message");
         when(chatTimeSnapshot.getValue()).thenReturn("07.30");
+        when(chatReceiverSnapshot.getValue()).thenReturn("patientid1");
     }
 
     private void initPatientInfoMock() {

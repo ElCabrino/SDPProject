@@ -162,7 +162,7 @@ public class ProfileTest {
         Intents.release();
     }
 
-    @Test
+/*    @Test
     public void patientInfoButtonAsPatientTest() throws Exception {
         runAsPatient();
         Intents.init();
@@ -170,7 +170,7 @@ public class ProfileTest {
         onView(withContentDescription("patient info button")).perform(click());
         intended(hasComponent(PatientInfo.class.getName()));
         Intents.release();
-    }
+    }*/
 
     @Test
     public void patientInfoButtonAsDoctorTest() throws Exception {
