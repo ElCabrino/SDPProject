@@ -134,7 +134,7 @@ PatientInfoTest {
     {
         conditions = new ArrayList<InfoString>();
         conditions.add(new InfoString(cond1));
-        conditions.add(new InfoString(cond2));
+        //conditions.add(new InfoString(cond2));
     }
 
     private void populateAllergies()
@@ -195,7 +195,6 @@ PatientInfoTest {
         for ( int i = 0; i < conditions.size(); i++ ) {
             onView(allOf(withId(R.id.textViewConditions), withText(conditions.get(i).getInfo())))
                     .check(matches(isDisplayed()));
-
         }*/
 
     }
