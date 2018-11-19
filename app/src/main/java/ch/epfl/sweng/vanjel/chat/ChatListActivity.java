@@ -47,12 +47,12 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-        userUid = auth.getUid();
+        userUid = auth.getCurrentUser().getUid();
         chats = new ArrayList<>();
         UidToName = new HashMap<>();
+        chatList = findViewById(R.id.chatList);
         getAllUsers();
         getChats();
-        chatList = findViewById(R.id.chatList);
         chatList.setLayoutManager(new LinearLayoutManager(this));
         chatListAdapter = new ChatListAdapter(this,chats);
         chatList.setAdapter(chatListAdapter);
@@ -90,35 +90,6 @@ public class ChatListActivity extends AppCompatActivity {
     private void getAllUsers() {
         getClassUsers(Patient.class, "Patient");
         getClassUsers(Doctor.class, "Doctor");
-/*        database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Doctor doctor = snapshot.getValue(Doctor.class);
-                    UidToName.put(snapshot.getKey(),doctor.toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        database.getReference("Patient").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Patient patient = snapshot.getValue(Patient.class);
-                    UidToName.put(snapshot.getKey(),patient.toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
     }
 
     private void getClassUsers(final Class<? extends User> c, String type) {

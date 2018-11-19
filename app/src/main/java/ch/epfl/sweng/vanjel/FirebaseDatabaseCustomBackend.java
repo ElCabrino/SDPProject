@@ -77,11 +77,17 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot timeDurationAppointmentSnapshot;
     @Mock
     private DataSnapshot patIdAppointmentSnapshot;
+    @Mock
+    private DataSnapshot chatTextSnapshot;
+    @Mock
+    private DataSnapshot chatTimeSnapshot;
 
     @Mock
     private DatabaseError patientError;
     @Mock
     private DatabaseError doctorError;
+    @Mock
+    private DatabaseError chatError;
 
     @Mock
     private DataSnapshot patient1Snapshot;
@@ -91,6 +97,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot doctorAvailabilitySnapshot;
     @Mock
     private DataSnapshot appointmentSnapshot;
+    @Mock
+    private DataSnapshot chatSnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -181,18 +189,23 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initPatientSnapshots() {
+        List<DataSnapshot> listPatient = new ArrayList<>();
+        listPatient.add(patient1Snapshot);
         when(patient1Snapshot.getValue(Patient.class)).thenReturn(defPatient1);
         when(patient1Snapshot.hasChild("patientid1")).thenReturn(true);
         when(patient1Snapshot.hasChild("doctorid1")).thenReturn(false);
+        when(patient1Snapshot.getChildren()).thenReturn(listPatient);
+        when(patient1Snapshot.getKey()).thenReturn("patientid1");
     }
 
     private void initDoctorSnapshots() {
-        List<DataSnapshot> listDoc = new ArrayList<>();
-        listDoc.add(doctor1Snapshot);
+        List<DataSnapshot> listDoctor = new ArrayList<>();
+        listDoctor.add(doctor1Snapshot);
         when(doctor1Snapshot.getValue(Doctor.class)).thenReturn(defDoctor1);
         when(doctor1Snapshot.hasChild("patientid1")).thenReturn(false);
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
-        when(doctor1Snapshot.getChildren()).thenReturn(listDoc);
+        when(doctor1Snapshot.getChildren()).thenReturn(listDoctor);
+        when(doctor1Snapshot.getKey()).thenReturn("doctorid1");
     }
 
     private void initDoctorAvailabilitySnapshots() {
@@ -260,6 +273,8 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initChatMock() {
+        List<DataSnapshot> listChat = new ArrayList<>();
+        listChat.add(chatSnapshot);
         when(mockDB.getReference("Chat")).thenReturn(chatRef);
         when(chatRef.child(any(String.class))).thenReturn(chatHistoriqueRef);
         when(chatHistoriqueRef.updateChildren(any(Map.class))).thenReturn(chatTask);
@@ -273,6 +288,27 @@ public final class FirebaseDatabaseCustomBackend {
                 return chatTask;
             }
         });
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(chatError);
+                } else {
+                    listener.onDataChange(chatSnapshot);
+                }
+                return listener;
+            }
+        }).when(chatRef).addValueEventListener(any(ValueEventListener.class));
+
+        when(chatSnapshot.getChildren()).thenReturn(listChat);
+        when(chatSnapshot.getKey()).thenReturn("doctorid1patientid1");
+        when(chatSnapshot.child("text")).thenReturn(chatTextSnapshot);
+        when(chatSnapshot.child("time")).thenReturn(chatTimeSnapshot);
+
+        when(chatTextSnapshot.getValue()).thenReturn("test message");
+        when(chatTimeSnapshot.getValue()).thenReturn("07.30");
     }
 
     private void initPatientInfoMock() {
