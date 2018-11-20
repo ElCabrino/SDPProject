@@ -264,23 +264,14 @@ public final class FirebaseDatabaseCustomBackend {
         List<DataSnapshot> listCond = new ArrayList<>();
         listCond.add(conditionSnapshot);
 
-        //when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
         when(conditionSnapshot.getChildren()).thenReturn(listCond);
-        //when(appointmentSnapshot.getKey()).thenReturn(appointmentKey);
         when(conditionSnapshot.child("Heart failure")).thenReturn(infoConditionSnapshot);
-        //when(conditionSnapshot.child("Diabetes")).thenReturn(infoConditionSnapshot);
-        //when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
-        //when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
-        //when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
-        //when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
         when(infoConditionSnapshot.getValue()).thenReturn("Heart failure");
-        //when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
-        //when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
-        //when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
-        //when(durationAppointmentSnapshot.getValue()).thenReturn("0");
+
     }
 
     private void initPatientInfoMock() {
+        //when(patient1DB.child("Condition")).thenReturn(patientConditionRef);
         when(patient1DB.child("Condition")).thenReturn(patientCategoryRef);
         when(patient1DB.child("Surgery")).thenReturn(patientCategoryRef);
         when(patient1DB.child("Allergy")).thenReturn(patientCategoryRef);

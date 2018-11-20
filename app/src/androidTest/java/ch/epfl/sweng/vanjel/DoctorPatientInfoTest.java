@@ -23,6 +23,7 @@ public class DoctorPatientInfoTest {
     public final IntentsTestRule<DoctorPatientInfo> ActivityRule =
             new IntentsTestRule<>(DoctorPatientInfo.class);
 
+    //TODO: mock tests once integrated with doctor appointments
     @Test
     public void searchTextViewsTest() throws Exception {
         onView(withId(R.id.doctorPtPriorConditionsInfo)).perform(scrollTo(),closeSoftKeyboard());

@@ -88,16 +88,7 @@ PatientInfoTest {
     private ArrayList<Drug> drugs;
     private ArrayList<String> expectedDrugs;
 
-    //@BeforeClass
-    /*public static void loginPatientInfoUser() throws InterruptedException {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            FirebaseAuth.getInstance().signInWithEmailAndPassword("infoPatient@test.ch", "123456");
-        }
-        // run tests on a specific user
-        FirebaseAuth.getInstance().signInWithEmailAndPassword("infoPatient@test.ch", "123456");
-
-        TimeUnit.SECONDS.sleep(10);*/
+    //TODO: retrieval tests and mocks
     @BeforeClass
     public static void beforeClass(){
         FirebaseAuthCustomBackend.setMockPatient(true);
