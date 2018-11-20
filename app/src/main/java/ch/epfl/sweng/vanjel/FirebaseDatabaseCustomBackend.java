@@ -198,6 +198,12 @@ public final class FirebaseDatabaseCustomBackend {
         when(patient1Snapshot.hasChild("doctorid1")).thenReturn(false);
         when(patient1Snapshot.getChildren()).thenReturn(listPatient);
         when(patient1Snapshot.getKey()).thenReturn("patientid1");
+
+        when(patient1Snapshot.getValue(String.class)).thenReturn("1");
+        when(patient1Snapshot.getValue(InfoString.class)).thenReturn(new InfoString("Cats"));
+        when(patient1Snapshot.getValue(Surgery.class)).thenReturn(new Surgery("THA", "2000"));
+        when(patient1Snapshot.getValue(Drug.class)).thenReturn(new Drug("Enalapril", "10mg", "1"));
+        when(patient1Snapshot.getValue(DrugReaction.class)).thenReturn(new DrugReaction("Carbamazepine", "TEN"));
     }
 
     private void initDoctorSnapshots() {
