@@ -53,15 +53,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if (viewType == VIEW_TYPE_MESSAGE_SENT) {
+        if (viewType == VIEW_TYPE_MESSAGE_SENT || viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_send_message, parent, false);
-            return new SentMessageHolder(view);
-        } else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
+            return new SentMessageHolder(view, true);
+        }/* else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_received_message, parent, false);
             return new ReceivedMessageHolder(view);
-        }
+        }*/
         return null;
     }
 
@@ -74,7 +74,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 ((SentMessageHolder) holder).bind(message);
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
-                ((ReceivedMessageHolder) holder).bind(message);
+                ((SentMessageHolder) holder).bind(message);
+//                ((ReceivedMessageHolder) holder).bind(message);
         }
     }
 
@@ -89,10 +90,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
          * Create ViewHolder
          * @param itemView the View
          */
-        SentMessageHolder(View itemView) {
+        SentMessageHolder(View itemView, boolean send) {
             super(itemView);
-            messageText = itemView.findViewById(R.id.sendMessage);
-            timeText = itemView.findViewById(R.id.sendDate);
+            if (send) {
+                messageText = itemView.findViewById(R.id.sendMessage);
+                timeText = itemView.findViewById(R.id.sendDate);
+            } else {
+                messageText = itemView.findViewById(R.id.receiveMessage);
+                timeText = itemView.findViewById(R.id.receivedDate);
+            }
         }
 
         /**
@@ -109,14 +115,14 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     /**
      * A ViewHolder for received messages
      */
-    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
+/*    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
         /**
          * Create ViewHolder
          * @param itemView the View
          */
-        ReceivedMessageHolder(View itemView) {
+/*        ReceivedMessageHolder(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.receiveMessage);
             timeText = itemView.findViewById(R.id.receivedDate);
@@ -126,9 +132,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
          * Populate the ViewHolder
          * @param message the Message to display
          */
-        void bind(Message message) {
+/*        void bind(Message message) {
             messageText.setText(message.getMessage());
             timeText.setText(message.getTime());
         }
-    }
+    }*/
 }
