@@ -12,15 +12,13 @@ public class ChatTest {
     private String lastMessage = "This is a message";
     private String contactName = "Jon Bob";
     private String contactUid = "e6dbajud8ebd98azdd8";
-    private int lastMessageLength = lastMessage.length();
 
     @Test
     public void getterTestConstructor1() {
-        Chat chat = new Chat(time,lastMessage,contactName,contactUid,lastMessageLength);
+        Chat chat = new Chat(time,lastMessage,contactName,contactUid);
         assertEquals(chat.getTime(),time);
         assertEquals(chat.getLastMessage(),lastMessage);
         assertEquals(chat.getContactName(),contactName);
         assertEquals(chat.getContactUid(),contactUid);
-        assertEquals(chat.getMessageLength(),lastMessageLength);
     }
 }

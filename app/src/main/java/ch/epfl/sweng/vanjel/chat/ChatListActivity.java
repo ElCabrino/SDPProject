@@ -71,7 +71,7 @@ public class ChatListActivity extends AppCompatActivity {
                         String contactName =  UidToName.get(contactUid);
                         String message = (String) snapshot.child("text").getValue();
                         String time = (String) snapshot.child("time").getValue();
-                        chats.add(new Chat(time,message,contactName,contactUid,message.length()));
+                        chats.add(new Chat(time,message,contactName,contactUid));
                     }
                 }
                 updateAdapter();
