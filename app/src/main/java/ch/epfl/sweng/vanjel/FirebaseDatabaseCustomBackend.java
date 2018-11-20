@@ -70,6 +70,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference appointmentReqRef;
     @Mock
     private DatabaseReference appointmentReqKeyRef;
+    @Mock
+    private DatabaseReference durationAppointmentRef;
 
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
@@ -110,6 +112,17 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> updateApt1Task;
     @Mock
     private Task<Void> appointmentRequestTask;
+    @Mock
+    private Task<Void> appointmentRequestTaskWithSuccess;
+    @Mock
+    private Task<Void> acceptChangeDuration;
+
+
+    @Mock
+    private OnFailureListener onFailureListener;
+    @Mock
+    private OnSuccessListener onSuccessListener;
+
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -210,7 +223,23 @@ public final class FirebaseDatabaseCustomBackend {
         when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
         when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
         when(durationAppointmentSnapshot.getValue()).thenReturn("0");
-    }
+
+        // mock for DoctorAppointmentList where he needs to accept or decline
+        when(requestsRef.child(appointmentKey)).thenReturn(appointmentReqRef);
+        when(appointmentReqRef.removeValue()).thenReturn(appointmentRequestTask);
+        when(appointmentRequestTask.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(appointmentRequestTaskWithSuccess);
+        when(appointmentRequestTaskWithSuccess.addOnFailureListener(any(OnFailureListener.class))).thenReturn(appointmentRequestTask);
+
+        when(appointmentReqRef.child("duration")).thenReturn(durationAppointmentRef);
+        when(durationAppointmentRef.setValue(any(String.class))).thenReturn(acceptChangeDuration);
+        when(acceptChangeDuration.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(acceptChangeDuration);
+        when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenReturn(acceptChangeDuration);
+
+
+//        FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+
+                                                                                                                                                            }
 
     //Initialize listener for event on 'Requests' child
     //makes the listener work on 'appointmentSnapshot'

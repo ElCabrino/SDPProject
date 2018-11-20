@@ -94,6 +94,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
             builder.setMessage("Choose the duration for the appointment");
             //set up the input field for duration
             final EditText durationInputView = new EditText(context);
+            durationInputView.setId(R.id.durationChosenByDoctor);
             durationInputView.setInputType(InputType.TYPE_CLASS_NUMBER);
             durationInputView.setGravity(Gravity.CENTER);
             builder.setView(durationInputView);
@@ -141,6 +142,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
     private void deleteRequestFirebase(int i){
         String appointmentID = appointmentsList.get(i).getAppointmentID();
         appointmentsList = new ArrayList<>(); //the list is refreshed in DoctorAppointmentList
+
         FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
