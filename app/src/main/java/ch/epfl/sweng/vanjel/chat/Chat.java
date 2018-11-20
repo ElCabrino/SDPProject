@@ -11,6 +11,7 @@ public class Chat {
     private String lastMessage;
     private String contactName;
     private String contactUid;
+    private int messageLength;
 
     /**
      *
@@ -19,11 +20,12 @@ public class Chat {
      * @param contactName a String that represent the contact Name
      * @param contactUid a String representing the contact UID
      */
-    public Chat(String time, String lastMessage, String contactName, String contactUid) {
+    public Chat(String time, String lastMessage, String contactName, String contactUid, int messageLength) {
         this.time = time ;
         this.lastMessage = lastMessage;
         this.contactName = contactName;
         this.contactUid = contactUid;
+        this.messageLength = messageLength;
     }
 
     /**
@@ -56,5 +58,13 @@ public class Chat {
      */
     public String getContactUid() {
         return new String(contactUid);
+    }
+
+    /**
+     *
+     * @return contact UID
+     */
+    public int getMessageLength() {
+        return messageLength;
     }
 }
