@@ -79,7 +79,7 @@ PatientInfoTest {
     private String drinking = "10";
     private String exercise = "0";
 
-
+  
     private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
     private ArrayList<InfoString> substances;
