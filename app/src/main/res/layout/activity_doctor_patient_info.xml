@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DoctorPatientInfo">
+
+    <ScrollView
+        android:id="@+id/doctorPatientInfoScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/doctorPtGeneralInfos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="100dp"
+                android:gravity="center"
+                android:text="@string/general_informations"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/doctorPtPriorConditionsInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Previous medical conditions"
+                android:textSize="20sp" />
+
+            <ch.epfl.sweng.vanjel.ExpandedListView
+                android:id="@+id/doctorPtPriorConditionsList"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+
+            <TextView
+                android:id="@+id/doctorPtSurgeryInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Previous surgeries"
+                android:textSize="20sp" />
+
+            <ch.epfl.sweng.vanjel.ExpandedListView
+                android:id="@+id/doctorPtSurgeryList"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+
+            <TextView
+                android:id="@+id/doctorPtAllergyInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Allergies"
+                android:textSize="20sp" />
+
+
+            <ch.epfl.sweng.vanjel.ExpandedListView
+                android:id="@+id/doctorPtAllergyList"
+                android:layout_width="352dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+
+            <TextView
+                android:id="@+id/doctorPtDrugReactionInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Previous drug reactions"
+                android:textSize="20sp" />
+
+            <ch.epfl.sweng.vanjel.ExpandedListView
+                android:id="@+id/doctorPtDrugReactionList"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+
+            <TextView
+                android:id="@+id/doctorPtDrugRegimenInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Current medications"
+                android:textSize="20sp" />
+
+            <ch.epfl.sweng.vanjel.ExpandedListView
+                android:id="@+id/doctorPtDrugRegimenList"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/doctorPtSmokingInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Cigarettes per day:"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/doctorPtSmokingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="4dp"
+                    android:ems="3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/doctorPtDrinkingInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Drinks per day:"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:id="@+id/doctorPtDrinkingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:textSize="16sp"
+                    android:ems="4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/doctorPtExerciseInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Hours of exercises per week:"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:id="@+id/doctorPtExerciseValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="4dp"
+                    android:ems="3" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/doctorPtSubstanceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Other substances"
+                android:textSize="20sp" />
+
+
+            <ch.epfl.sweng.vanjel.ExpandedListView
+                android:id="@+id/doctorPtSubstanceList"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

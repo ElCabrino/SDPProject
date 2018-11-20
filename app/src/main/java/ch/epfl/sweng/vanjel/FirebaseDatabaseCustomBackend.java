@@ -72,6 +72,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference appointmentReqKeyRef;
     @Mock
     private DatabaseReference durationAppointmentRef;
+    @Mock
+    private DatabaseReference patientConditionRef;
 
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
@@ -97,6 +99,10 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot dateAppointmentSnapshot;
     @Mock
     private DataSnapshot durationAppointmentSnapshot;
+    @Mock
+    private DataSnapshot conditionSnapshot;
+    @Mock
+    private DataSnapshot infoConditionSnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -164,6 +170,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
+        //initPatientConditionsSnapshots();
         //initProfileListener();
         return mockDB;
     }
@@ -293,7 +300,18 @@ public final class FirebaseDatabaseCustomBackend {
         }).when(updateSuccessAvailabilityTask).addOnFailureListener(any(OnFailureListener.class));
     }
 
+    private void initPatientConditionsSnapshots() {
+        List<DataSnapshot> listCond = new ArrayList<>();
+        listCond.add(conditionSnapshot);
+
+        when(conditionSnapshot.getChildren()).thenReturn(listCond);
+        when(conditionSnapshot.child("Heart failure")).thenReturn(infoConditionSnapshot);
+        when(infoConditionSnapshot.getValue()).thenReturn("Heart failure");
+
+    }
+
     private void initPatientInfoMock() {
+        //when(patient1DB.child("Condition")).thenReturn(patientConditionRef);
         when(patient1DB.child("Condition")).thenReturn(patientCategoryRef);
         when(patient1DB.child("Surgery")).thenReturn(patientCategoryRef);
         when(patient1DB.child("Allergy")).thenReturn(patientCategoryRef);
@@ -304,6 +322,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(patient1DB.child("Smoking")).thenReturn(patientCategoryRef);
         when(patient1DB.child("Drinking")).thenReturn(patientCategoryRef);
         when(patientCategoryRef.child(any(String.class))).thenReturn(patientSubCategoryRef);
+        //when(patientCategoryRef.getValue(any(GenericTypeIndicator.class)))).thenReturn(defDoctor1);
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
@@ -317,6 +336,16 @@ public final class FirebaseDatabaseCustomBackend {
                 return listener;
             }
         }).when(patientCategoryRef).addValueEventListener(any(ValueEventListener.class));
+
+        /*doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation){
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                listener.onDataChange(conditionSnapshot);
+                return listener;
+            }
+        }).when(patientConditionRef).addValueEventListener(any(ValueEventListener.class));*/
+
     }
 
     private void initProfileListener() {
