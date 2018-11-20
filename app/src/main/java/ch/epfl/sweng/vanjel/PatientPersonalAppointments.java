@@ -27,7 +27,6 @@ import java.util.List;
 
 public class PatientPersonalAppointments extends AppCompatActivity {
 
-    PatientInfoDatabaseService patientInfoDatabaseService;
     DatabaseReference dbAp;
     DatabaseReference dbDoc;
 
@@ -40,6 +39,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    //FirebaseAuth auth = FirebaseAuth.getInstance();
+    //FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
 
@@ -50,14 +51,15 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
         //id = FirebaseAuth.getInstance().getUid();
         //if (id == null) { id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";}
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this);
+        //uid = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";//auth.getCurrentUser().getUid();
+        //Log.e("UID", "UID IS : " + uid);
         uid = auth.getCurrentUser().getUid();
+        //Log.e("UID", "UID IS : " + uid);
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
         //dbAp = database.getReference("Requests");
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
-        populateDocMap();
 
     }
 
@@ -68,7 +70,10 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         //recover doctor names
         //populateDocMap();
         //System.out.println("BBBBB");
+        populateDocMap();
+
         Log.e("SIZE", Integer.toString(idToDoc.size()));
+        //while ((idToDoc.size()) == 0) {Log.e("SIZE", Integer.toString(idToDoc.size()));}
         //System.out.println(idToDoc.size());
         //while (idToDoc.size() == 0) {}
         /*for (String s : idToDoc.keySet()) {
@@ -86,8 +91,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                             if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
                                 String docId = idSnapshot.child("doctor").getValue(String.class);
                                 //System.out.println("AAAA " + docId);
-                                String doc = "Doc"; //idToDoc.get(docId).get(0);
-                                String loc = "Loc"; //idToDoc.get(docId).get(1);
+                                String doc = idToDoc.get(docId).get(0);
+                                String loc = idToDoc.get(docId).get(1);
                                 String date = idSnapshot.child("date").getValue(String.class);
                                 String time = idSnapshot.child("time").getValue(String.class);
                                 String duration = idSnapshot.child("duration").getValue(String.class);
@@ -216,8 +221,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                     list.add(name);
                     list.add(location);
                     idToDoc.put(docId,list);
-                    Log.e("POPULATE",idToDoc.get(docId).get(0));
-                    Log.e("SIZE AT END OF POPULATE", Integer.toString(idToDoc.size()));
+                    //Log.e("POPULATE",idToDoc.get(docId).get(0));
+                    //Log.e("SIZE AT END OF POPULATE", Integer.toString(idToDoc.size()));
 
                 }
             }
