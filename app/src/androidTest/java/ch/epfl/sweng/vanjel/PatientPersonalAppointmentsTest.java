@@ -8,7 +8,9 @@ import org.junit.Test;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class PatientPersonalAppointmentsTest {
 
@@ -20,7 +22,7 @@ public class PatientPersonalAppointmentsTest {
     //TODO: mock tests
     @Test
     public void searchTextViewsTest() throws Exception {
-        //onView(withId(R.id.titleAppointments)).perform(scrollTo(),closeSoftKeyboard());
+        onView(withId(R.id.titleAppointments)).check(matches(withText("Your next appointments")));
     }
 
 

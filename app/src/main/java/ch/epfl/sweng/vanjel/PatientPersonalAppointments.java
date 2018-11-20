@@ -34,15 +34,11 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     String uid;
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
-    // to optimize
+    // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    //FirebaseAuth auth = FirebaseAuth.getInstance();
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +77,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                             if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
                                 String docId = idSnapshot.child("doctor").getValue(String.class);
                                 //System.out.println("AAAA " + docId);
-                                String doc = idToDoc.get(docId).get(0);
-                                String loc = idToDoc.get(docId).get(1);
+                                String doc = "";
+                                String loc = "";
+                                if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                                    doc = idToDoc.get(docId).get(0);
+                                    loc = idToDoc.get(docId).get(1);
+                                }
                                 String date = idSnapshot.child("date").getValue(String.class);
                                 String time = idSnapshot.child("time").getValue(String.class);
                                 String duration = idSnapshot.child("duration").getValue(String.class);
@@ -196,11 +196,17 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    //Doctor doc = (Doctor) idSnapshot.getValue();
                     String name = idSnapshot.child("lastName").getValue(String.class);
                     String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
                             idSnapshot.child("street").getValue(String.class) + " " +
                             idSnapshot.child("city").getValue(String.class);
                     String docId = idSnapshot.getKey();
+                    /*String name = idSnapshot.child("lastName").getValue(String.class);
+                    String location = doc.getStreetNumber() + " " +
+                            doc.getStreet() + " " +
+                            doc.getCity();
+                    String docId = idSnapshot.getKey();*/
                     ArrayList<String> list = new ArrayList<>();
                     list.add(name);
                     list.add(location);
