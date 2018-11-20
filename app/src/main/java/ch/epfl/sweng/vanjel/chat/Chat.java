@@ -22,10 +22,10 @@ public class Chat {
      */
     public Chat(String time, String lastMessage, String contactName, String contactUid, int messageLength) {
         this.time = time ;
+        this.messageLength = messageLength;
         this.lastMessage = lastMessage;
         this.contactName = contactName;
         this.contactUid = contactUid;
-        this.messageLength = messageLength;
     }
 
     /**
