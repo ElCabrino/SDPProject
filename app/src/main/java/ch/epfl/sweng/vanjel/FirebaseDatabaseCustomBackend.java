@@ -69,6 +69,7 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private DatabaseReference patientConditionRef;
 
+
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
     @Mock

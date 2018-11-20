@@ -67,19 +67,9 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //recover doctor names
-        //populateDocMap();
-        //System.out.println("BBBBB");
         populateDocMap();
 
         Log.e("SIZE", Integer.toString(idToDoc.size()));
-        //while ((idToDoc.size()) == 0) {Log.e("SIZE", Integer.toString(idToDoc.size()));}
-        //System.out.println(idToDoc.size());
-        //while (idToDoc.size() == 0) {}
-        /*for (String s : idToDoc.keySet()) {
-            System.out.println(s);
-        }*/
-        //System.out.println(idToDoc.get("W7ReyyyOwAQKaganjsMQuHRb0Aj2"));
 
         dbAp.addValueEventListener(new ValueEventListener() {
             @TargetApi(Build.VERSION_CODES.N)
@@ -105,6 +95,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 apList.sort(new appointmentsComparator());
                 PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
                 listViewAp.setAdapter(adapter);
+                //TODO: click on appointment to get doctor info
                 /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -201,13 +192,9 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     private void populateDocMap() {
         //recover doctor names and locations
-        //System.out.println("CCCC");
         dbDoc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //idToDoc.clear();;
-                //System.out.println("DDDD");
-                //Log.e("wtf","BEFORE LOOP");
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
                     String name = idSnapshot.child("lastName").getValue(String.class);
                     String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
@@ -215,14 +202,9 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                             idSnapshot.child("city").getValue(String.class);
                     String docId = idSnapshot.getKey();
                     ArrayList<String> list = new ArrayList<>();
-                    //System.out.println("ID:" + docId);
-                    //System.out.println("NAME:" + name);
-                    //System.out.println("LOCATION:" + location);
                     list.add(name);
                     list.add(location);
                     idToDoc.put(docId,list);
-                    //Log.e("POPULATE",idToDoc.get(docId).get(0));
-                    //Log.e("SIZE AT END OF POPULATE", Integer.toString(idToDoc.size()));
 
                 }
             }

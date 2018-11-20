@@ -20,7 +20,7 @@ public class PatientPersonalAppointmentsTest {
     //TODO: mock tests
     @Test
     public void searchTextViewsTest() throws Exception {
-        onView(withId(R.id.ptPersonalAppointmentsListView)).perform(scrollTo(),closeSoftKeyboard());
+        //onView(withId(R.id.titleAppointments)).perform(scrollTo(),closeSoftKeyboard());
     }
 
 
