@@ -66,14 +66,6 @@ public class DoctorAppointmentsListTest {
 
     }
 
-    @Test
-    public void testAcceptCancelAppointment2() throws InterruptedException{
-        // click accept button but changes his mind and click cancel
-        onView(withId(R.id.acceptAppointmentButton)).perform(click());
-        TimeUnit.SECONDS.sleep(2);
-        onView(withContentDescription("cancel")).perform(click());
-
-    }
 
     @Test
     public void testDeclineAppointment(){
