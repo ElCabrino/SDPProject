@@ -94,6 +94,15 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot conditionSnapshot;
     @Mock
     private DataSnapshot infoConditionSnapshot;
+    @Mock
+    private DataSnapshot docLastNameSnapshot;
+    @Mock
+    private DataSnapshot docStreetNumberSnapshot;
+    @Mock
+    private DataSnapshot docStreetSnapshot;
+    @Mock
+    private DataSnapshot docCitySnapshot;
+
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -194,6 +203,15 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1Snapshot.hasChild("patientid1")).thenReturn(false);
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
         when(doctor1Snapshot.getChildren()).thenReturn(listDoc);
+        when(doctor1Snapshot.child("lastName")).thenReturn(docLastNameSnapshot);
+        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getLastName());
+        when(doctor1Snapshot.child("streetNumber")).thenReturn(docStreetNumberSnapshot);
+        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getStreetNumber());
+        when(doctor1Snapshot.child("street")).thenReturn(docStreetSnapshot);
+        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getStreet());
+        when(doctor1Snapshot.child("city")).thenReturn(docCitySnapshot);
+        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getCity());
+
     }
 
     private void initDoctorAvailabilitySnapshots() {
