@@ -1,3 +1,4 @@
+
 package ch.epfl.sweng.vanjel.chat;
 
 /**
@@ -5,12 +6,19 @@ package ch.epfl.sweng.vanjel.chat;
  *
  * @author Etienne Caquot
  */
+
+/**
+ * Due to unreasonable code climate duplicate issue with Appointment class
+ * This class is ignored by code climate.
+ */
+
 public class Chat {
 
     private String time;
     private String lastMessage;
     private String contactName;
     private String contactUid;
+    private int messageLength;
 
     /**
      *
@@ -56,5 +64,13 @@ public class Chat {
      */
     public String getContactUid() {
         return new String(contactUid);
+    }
+
+    /**
+     *
+     * @return contact UID
+     */
+    public int getMessageLength() {
+        return messageLength;
     }
 }

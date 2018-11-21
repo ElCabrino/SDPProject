@@ -35,3 +35,5 @@ exclude_patterns:
 - "app/src/androidTest"
 - "app/src/main/java/ch/epfl/sweng/vanjel/FirebaseAuthCustomBackend.java"
 - "app/src/main/java/ch/epfl/sweng/vanjel/FirebaseDatabaseCustomBackend.java"
+- "app/src/main/java/ch/epfl/sweng/vanjel/Appointment.java"
+- "app/src/main/java/ch/epfl/sweng/vanjel/chat/Chat.java"
