@@ -20,6 +20,10 @@ public class DrugReaction extends Info{
         return reaction;
     }
 
+    public void setDrug(String drug) { this.drug = drug; }
+
+    public void setReaction(String reaction) { this.reaction = reaction; }
+
 
     @Override
     String getAndroidInfo() {

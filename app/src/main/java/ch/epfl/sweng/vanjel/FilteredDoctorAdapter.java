@@ -37,11 +37,6 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     @Override
     public FilteredDoctorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new FilteredDoctorAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
-//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_doctor_cardview,
-//                viewGroup,false);
-//        ViewHolder holder = new ViewHolder(view);
-//
-//        return holder;
     }
 
     @Override
@@ -94,7 +89,6 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
             streetNumber = itemView.findViewById(R.id.streetNumber);
             city = itemView.findViewById(R.id.city);
             country = itemView.findViewById(R.id.country);
-
         }
     }
 }

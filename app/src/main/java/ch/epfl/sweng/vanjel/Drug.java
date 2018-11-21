@@ -1,7 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-import android.media.tv.TvView;
-
 public class Drug extends Info{
     private String drug;
     private String dosage;
@@ -26,6 +24,12 @@ public class Drug extends Info{
     public String getFrequency() {
         return frequency;
     }
+
+    public void setDrug(String drug) { this.drug = drug; }
+
+    public void setDosage(String dosage) { this.dosage = dosage; }
+
+    public void setFrequency(String frequency) { this.frequency = frequency; }
 
 
     @Override

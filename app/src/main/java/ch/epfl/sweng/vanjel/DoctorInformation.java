@@ -1,13 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,16 +14,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.List;
+
+import ch.epfl.sweng.vanjel.chat.ChatActivity;
 
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
@@ -35,10 +34,11 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private Doctor doctor;
     String doctorUID;
     // database
-    FirebaseDatabase database;
+    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     DatabaseReference ref;
 
     private Button takeAppointment;
+    private Button chat;
 
     // map
     private MapView mapView;
@@ -97,10 +97,10 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         // take appointment button
         takeAppointment = findViewById(R.id.buttonTakeAppointment);
         takeAppointment.setOnClickListener(this);
-        // database reference
-        database = FirebaseDatabase.getInstance();
         // map reference
         mapView = findViewById(R.id.mapViewDoctorInfo);
+        chat = findViewById(R.id.buttonChat);
+        chat.setOnClickListener(this);
 
     }
 
@@ -112,10 +112,17 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
             startActivity(intent);
         }
+        if(v.getId() == R.id.buttonChat){
+            Intent intent = new Intent(this, ChatActivity.class);
+
+            intent.putExtra("contactUID",doctorUID);
+            intent.putExtra("contactName",doctor.toString());
+
+            startActivity(intent);
+        }
     }
 
     private void getDocWithUID(String uid){
-
 
         ref = database.getReference().child("Doctor").child(uid);
 

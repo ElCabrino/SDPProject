@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/appointmentCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_weight="2"
+    android:orientation="vertical"
+    android:background="@drawable/background_item"
+    android:padding="8dp">
+
+
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="66dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/acceptAppointmentButton"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="accept" />
+
+        <Button
+            android:id="@+id/declineAppointmentButton"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:text="decline" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dayCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Day:"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dayTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lastName"
+            android:text="day"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="22sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="140dp"
+        android:layout_marginRight="140dp"
+        android:orientation="vertical">
+
+        <!-- adresse -->
+        <TextView
+            android:id="@+id/hourCardview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/streetNumber"
+            android:text="Hour:"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fromTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="from"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="22sp" />
+
+
+    </LinearLayout>
+</RelativeLayout>

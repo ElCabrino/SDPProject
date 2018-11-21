@@ -1,17 +1,16 @@
 package ch.epfl.sweng.vanjel;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Iterator;
-
 public class AppointmentNotificationBackgroundService extends Service {
 
     public static final String APPOINTMENT_SERVICE_INTENT = "ch.epfl.sweng.vanjel.appointmentService";
@@ -30,6 +27,9 @@ public class AppointmentNotificationBackgroundService extends Service {
     private Handler handler;
     private Runnable runnable;
     private Context context = this;
+
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -55,18 +55,35 @@ public class AppointmentNotificationBackgroundService extends Service {
     }
 
     private void createDatabaseAppointmentListener() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Requests");
+        DatabaseReference ref = database.getReference("Requests");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-
+                String doctor = dataSnapshot.child("doctor").getValue().toString();
+                Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
+                if (!notify) {
+                    String title = "New appointment";
+                    String text = "A patient took a new appointment!";
+                    changeStateAndNotify(dataSnapshot.getRef().child("doctorNotified"), doctor, title, text);
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                for (DataSnapshot dayRequest: dataSnapshot.getChildren()){
-                    String doctor = dayRequest.child("doctor").getValue().toString();
-                    notifyDoctor(doctor);
+
+                String patient = dataSnapshot.child("patient").getValue().toString();
+                String bool = dataSnapshot.child("userNotified").getValue().toString();
+                String durationString = dataSnapshot.child("duration").getValue().toString();
+
+                int duration = Integer.parseInt(durationString);
+                Boolean notify = Boolean.parseBoolean(bool);
+
+                Boolean isAppointmentNull = duration == 0;
+                
+                if(!notify && !isAppointmentNull){
+                    String title = "One of your appointment has been updated!";
+                    String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
+                    changeStateAndNotify(dataSnapshot.getRef().child("userNotified"), patient, title, text);
                 }
             }
 
@@ -96,22 +113,42 @@ public class AppointmentNotificationBackgroundService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
     }
+//
+//    private void notifyDoctor(String id) {
+//        if (auth.getCurrentUser().getUid().equals(id)){
+//            //create notification
+//            String title = "New appointment";
+//            String text = "A patient took a new appointment!";
+//            createNotification(title, text);
+//        }
+//    }
+//
+//    private void notifyPatient(String id) {
+//        if(auth.getCurrentUser().getUid().equals(id)){
+//            // create notification
+//            String title = "One of your appointment has been updated!";
+//            String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
+//            createNotification(title, text);
+//        }
+//    }
 
-    private void notifyDoctor(String id) {
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(id)){
-            //Toast.makeText(this, "INSIDE IFFFFF", Toast.LENGTH_LONG).show();
+    private void changeStateAndNotify(DatabaseReference stateToChange, String id, String title, String text){
+        stateToChange.setValue(true);
+        createNotification(id, title, text);
+    }
 
-            //create notification
+    private void createNotification(String id, String title, String text){
+        if(auth.getCurrentUser().getUid().equals(id)) {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("New appointment")
-                    .setContentText("A patient took a new appointment!")
+                    .setContentTitle(title)
+                    .setContentText(text)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setPriority(0x00000002);
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(0 , mBuilder.build());
+            notificationManager.notify(0, mBuilder.build());
         }
     }
 }
