@@ -6,12 +6,14 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -27,8 +29,9 @@ import static org.hamcrest.Matchers.not;
 public class ChatActivityTest {
 
     @BeforeClass
-    public static void runAsPatient() {
+    public static void runAsDoctor() {
         FirebaseAuthCustomBackend.setNullUser(false);
+        FirebaseAuthCustomBackend.setMockPatient(false);
     }
 
     @Rule
@@ -46,13 +49,15 @@ public class ChatActivityTest {
             };
 
 
+    @Ignore
     @Test
     public void sendMessageTest() throws Exception {
-        runAsPatient();
+        runAsDoctor();
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.messageToSend)).perform(typeText("test message"));
         onView(withId(R.id.sendMessageButton)).perform(click());
         onView(withText("Message successfully sent.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+        TimeUnit.SECONDS.sleep(2);
         onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
     }
 

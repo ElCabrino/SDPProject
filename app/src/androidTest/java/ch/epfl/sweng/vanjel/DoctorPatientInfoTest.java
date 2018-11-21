@@ -2,6 +2,8 @@ package ch.epfl.sweng.vanjel;
 
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -16,6 +18,11 @@ public class DoctorPatientInfoTest {
     public final IntentsTestRule<DoctorPatientInfo> ActivityRule =
             new IntentsTestRule<>(DoctorPatientInfo.class);
 
+    @BeforeClass
+    public static void setUp(){
+        FirebaseAuthCustomBackend.setMockPatient(true);
+        FirebaseAuthCustomBackend.setNullUser(false);
+    }
     //TODO: mock tests once integrated with doctor appointments
     @Test
     public void searchTextViewsTest() throws Exception {
