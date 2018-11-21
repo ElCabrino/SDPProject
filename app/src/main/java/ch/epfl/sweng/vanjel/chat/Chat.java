@@ -1,3 +1,4 @@
+
 package ch.epfl.sweng.vanjel.chat;
 
 /**
@@ -5,6 +6,12 @@ package ch.epfl.sweng.vanjel.chat;
  *
  * @author Etienne Caquot
  */
+
+/**
+ * Due to unreasonable code climate duplicate issue with Appointment class
+ * This class is ignored by code climate.
+ */
+
 public class Chat {
 
     private String time;
