@@ -14,6 +14,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import java.text.SimpleDateFormat;
@@ -80,6 +82,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                     }
 
                 }
+                Collections.sort(doctorAppointments, new appointmentComparator());
                 adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -112,5 +115,25 @@ public class DoctorComingAppointments extends AppCompatActivity {
             }
         }
 
+    }
+
+    private class appointmentComparator implements Comparator<Appointment> {
+
+        private SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
+
+
+        // compare depending date
+        @Override
+        public int compare(Appointment o1, Appointment o2) {
+            try {
+                Date o1Date = formatter.parse(o1.getDay());
+                Date o2Date = formatter.parse(o2.getDay());
+                return o1Date.compareTo(o2Date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            return -1;
+        }
     }
 }
