@@ -60,6 +60,9 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.appointmentsList = new ArrayList<>();
+                Log.d("TESTAPPT", dataSnapshot.toString());
+                //if (dataSnapshot.getChildrenCount() == 0) initAdapter();
                 for (DataSnapshot request : dataSnapshot.getChildren()) {
                     refreshAppointmentsList(request);
                 }
