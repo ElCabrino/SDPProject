@@ -30,7 +30,7 @@
             android:text="lastName"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/appointmentFirstName"
@@ -40,17 +40,17 @@
             android:textStyle="italic"
             android:textColor="@android:color/black"
             android:layout_marginLeft="10dp"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/appointmentBirthDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="birthday"
-            android:textStyle="normal"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:textSize="25sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/appointmentBirthDate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="birthday"-->
+            <!--android:textStyle="normal"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:textSize="20sp" />-->
 
     </LinearLayout>
     <LinearLayout
@@ -66,7 +66,7 @@
             android:text="Date"
             android:textStyle="normal"
             android:textColor="@android:color/black"
-            android:textSize="25sp"
+            android:textSize="15sp"
             />
 
         <TextView
@@ -77,7 +77,7 @@
             android:textStyle="normal"
             android:textColor="@android:color/black"
             android:layout_marginLeft="10dp"
-            android:textSize="25sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/appointmentDuration"
@@ -86,7 +86,7 @@
             android:text="Duration"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:layout_marginLeft="20dp"/>
 
     </LinearLayout>

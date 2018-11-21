@@ -29,7 +29,6 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
     Date currentDate;
     Context context;
     private HashMap<String, Patient> patientHashMap;
-    DatabaseReference ref = FirebaseDatabaseCustomBackend.getInstance().getReference("patient");
 
 
     public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
@@ -48,10 +47,11 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
 
     @Override
     public void onBindViewHolder(@NonNull DoctorComingAppointmentsAdapter.ViewHolder viewHolder, int i) {
-        Patient patient = patientHashMap.get(appointments.get(i).getPatientUid());
+        final String uid = appointments.get(i).getPatientUid();
+        Patient patient = patientHashMap.get(uid);
         viewHolder.lastName.setText(patient.getLastName());
         viewHolder.firstName.setText(patient.getFirstName());
-        viewHolder.birthday.setText(patient.getBirthday());
+//        viewHolder.birthday.setText(patient.getBirthday());
         viewHolder.time.setText(appointments.get(i).getHour());
         viewHolder.duration.setText(appointments.get(i).getDuration() + " min");
 
@@ -70,7 +70,20 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
             viewHolder.date.setText(appointments.get(i).getDay());
         }
 
+        // Button click listener to redirect to patient Information
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DoctorPatientInfo.class);
 
+                // we need to give the patient uid
+                String key = uid;
+                intent.putExtra("patientUID", key);
+                context.startActivity(intent);
+
+            }
+
+        });
     }
 
 
@@ -98,7 +111,7 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
             date = itemView.findViewById(R.id.appointmentDate);
             time = itemView.findViewById(R.id.appointmentTime);
             firstName = itemView.findViewById(R.id.appointmentFirstName);
-            birthday = itemView.findViewById(R.id.appointmentBirthDate);
+//            birthday = itemView.findViewById(R.id.appointmentBirthDate);
         }
     }
 }

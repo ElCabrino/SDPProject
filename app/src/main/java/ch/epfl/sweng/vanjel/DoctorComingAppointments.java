@@ -57,6 +57,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     // set cardview, database reference
     public void init(){
+        // TODO: remove the fixed uid to put the actual doctor's coming appointments
         uid = "W7ReyyyOwAQKaganjsMQuHRb0Aj2";
 //        uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
         ref = database.getReference().child("Requests");
