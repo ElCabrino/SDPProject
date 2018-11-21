@@ -43,7 +43,7 @@ public class ChatListActivity extends AppCompatActivity {
     private String userUid;
     private Map<String,String> UidToName;
 
-    private int getChats;
+    private int getChats; //flag to be sure we fetched Patients and Doctors
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class ChatListActivity extends AppCompatActivity {
     }
 
     /**
-     * get all chats that the used is involved in (his UID is in the chat UID) and put them in the ChatListAdapter
+     * Get all chats that the used is involved in (his UID is in the chat UID) and put them in the ChatListAdapter
      */
     private void getChats() {
         database.getReference("Chat").addValueEventListener(new ValueEventListener() {
@@ -85,7 +85,7 @@ public class ChatListActivity extends AppCompatActivity {
     }
 
     /**
-     * get all user of the application and put them in a map uid->names
+     * Get all user of the application and put them in a map uid->names
      */
     private void getAllUsers() {
         getChats = 0;
@@ -93,6 +93,11 @@ public class ChatListActivity extends AppCompatActivity {
         getClassUsers(Doctor.class, "Doctor");
     }
 
+    /**
+     * Used to get Users of subclass c (either Doctor or Patient in our case)
+     * @param c subclass of User
+     * @param type String to represent type of users
+     */
     private void getClassUsers(final Class<? extends User> c, String type) {
         database.getReference(type).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -104,6 +109,7 @@ public class ChatListActivity extends AppCompatActivity {
                 }
                 getChats++;
                 if(getChats > 0){
+                    // got all users and get chats
                     getChats();
                 }
             }
@@ -116,7 +122,7 @@ public class ChatListActivity extends AppCompatActivity {
     }
 
     /**
-     * update the adapter
+     * Update the adapter
      */
     private void updateAdapter(){
         chatListAdapter = new ChatListAdapter(this,chats);
