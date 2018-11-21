@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -86,11 +87,11 @@ public class ChatActivity extends AppCompatActivity {
      */
     public void sendMessage(View v){
         if (message.getText().length() != 0){
-            DateFormat dateFormat = new SimpleDateFormat("hh.mm");
+            DateFormat dateFormat = new SimpleDateFormat("h.mm");
             String dateString = dateFormat.format(new Date());
-            messageList.add(new Message(dateString,message.getText().toString(),senderUid));
-            messageAdapter = new MessageListAdapter(this, messageList, senderUid);
-            messageRecycler.setAdapter(messageAdapter);
+            //messageList.add(new Message(dateString,message.getText().toString(),senderUid));
+            //messageAdapter = new MessageListAdapter(this, messageList, senderUid);
+            //messageRecycler.setAdapter(messageAdapter);
             database.getReference("Chat").child(chatUid).updateChildren(createMessage(message.getText().toString(), dateString)).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -130,12 +131,10 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     if(snapshot.getKey().equals(chatUid)) {
-                        if(snapshot.child("receiver").getValue().equals(senderUid)){
-                            String sender = (String) snapshot.child("sender").getValue();
-                            String message = (String) snapshot.child("text").getValue();
-                            String time = (String) snapshot.child("time").getValue();
-                            messageList.add(new Message(time, message,sender));
-                        }
+                        String message = (String) snapshot.child("text").getValue();
+                        String time = (String) snapshot.child("time").getValue();
+                        String sender = (String) snapshot.child("sender").getValue();
+                        messageList.add(new Message(time, message,sender));
                     }
                 }
                 messageAdapter = new MessageListAdapter(context, messageList, senderUid);

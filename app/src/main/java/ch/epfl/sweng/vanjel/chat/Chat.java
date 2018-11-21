@@ -11,7 +11,6 @@ public class Chat {
     private String lastMessage;
     private String contactName;
     private String contactUid;
-    private int messageLength;
 
     /**
      *
@@ -57,13 +56,5 @@ public class Chat {
      */
     public String getContactUid() {
         return new String(contactUid);
-    }
-
-    /**
-     *
-     * @return contact UID
-     */
-    public int getMessageLength() {
-        return messageLength;
     }
 }

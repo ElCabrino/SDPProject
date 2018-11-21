@@ -2,6 +2,7 @@ package ch.epfl.sweng.vanjel.chat;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
+        Log.d("MessageListAdapter",message.getSenderUid());
+        Log.d("MessageListAdapter",mUserUid);
         if (message.getSenderUid().equals(mUserUid)) {
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -53,15 +56,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if (viewType == VIEW_TYPE_MESSAGE_SENT || viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
+        if (viewType == VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_send_message, parent, false);
-            return new SentMessageHolder(view, true);
-        }/* else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
+            return new MessageHolder(view, true);
+        } else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_received_message, parent, false);
-            return new ReceivedMessageHolder(view);
-        }*/
+            return new MessageHolder(view,false);
+        }
         return null;
     }
 
@@ -71,11 +74,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
-                ((SentMessageHolder) holder).bind(message);
+                ((MessageHolder) holder).bind(message);
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
-                ((SentMessageHolder) holder).bind(message);
-//                ((ReceivedMessageHolder) holder).bind(message);
+                ((MessageHolder) holder).bind(message);
         }
     }
 
@@ -83,14 +85,14 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     /**
      * A ViewHolder for sent messages
      */
-    private class SentMessageHolder extends RecyclerView.ViewHolder {
+    private class MessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
         /**
          * Create ViewHolder
          * @param itemView the View
          */
-        SentMessageHolder(View itemView, boolean send) {
+        MessageHolder(View itemView, boolean send) {
             super(itemView);
             if (send) {
                 messageText = itemView.findViewById(R.id.sendMessage);
@@ -110,31 +112,4 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             timeText.setText(message.getTime());
         }
     }
-
-
-    /**
-     * A ViewHolder for received messages
-     */
-/*    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
-        TextView messageText, timeText;
-
-        /**
-         * Create ViewHolder
-         * @param itemView the View
-         */
-/*        ReceivedMessageHolder(View itemView) {
-            super(itemView);
-            messageText = itemView.findViewById(R.id.receiveMessage);
-            timeText = itemView.findViewById(R.id.receivedDate);
-        }
-
-        /**
-         * Populate the ViewHolder
-         * @param message the Message to display
-         */
-/*        void bind(Message message) {
-            messageText.setText(message.getMessage());
-            timeText.setText(message.getTime());
-        }
-    }*/
 }
