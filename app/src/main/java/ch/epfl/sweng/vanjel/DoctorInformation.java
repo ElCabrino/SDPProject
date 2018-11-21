@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.List;
 
+import ch.epfl.sweng.vanjel.chat.ChatActivity;
+
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     TextView lastName, firstName, activity, street, streetNumber, city, country;
@@ -36,6 +38,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     DatabaseReference ref;
 
     private Button takeAppointment;
+    private Button chat;
 
     // map
     private MapView mapView;
@@ -96,6 +99,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         takeAppointment.setOnClickListener(this);
         // map reference
         mapView = findViewById(R.id.mapViewDoctorInfo);
+        chat = findViewById(R.id.buttonChat);
+        chat.setOnClickListener(this);
 
     }
 
@@ -107,10 +112,17 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
             startActivity(intent);
         }
+        if(v.getId() == R.id.buttonChat){
+            Intent intent = new Intent(this, ChatActivity.class);
+
+            intent.putExtra("contactUID",doctorUID);
+            intent.putExtra("contactName",doctor.toString());
+
+            startActivity(intent);
+        }
     }
 
     private void getDocWithUID(String uid){
-
 
         ref = database.getReference().child("Doctor").child(uid);
 

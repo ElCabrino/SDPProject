@@ -28,12 +28,13 @@
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
 
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+
         <activity android:name=".ChooseRegistration" />
         <activity android:name=".Registration" />
         <activity android:name=".DoctorCalendar" />
@@ -48,10 +49,12 @@
         <activity android:name=".DoctorInformation" />
         <activity android:name=".NearbyDoctor"></activity>
 
-        <service android:name=".AppointmentNotificationBackgroundService"></service>
+        <service android:name=".AppointmentNotificationBackgroundService" />
 
-        <activity android:name=".DoctorAppointmentsList">
-        </activity>
+        <activity android:name=".DoctorPatientInfo" />
+        <activity android:name=".DoctorAppointmentsList" />
+        <activity android:name=".chat.ChatActivity" />
+        <activity android:name=".chat.ChatListActivity"></activity>
     </application>
 
 </manifest>

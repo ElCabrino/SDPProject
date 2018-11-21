@@ -1,19 +1,33 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * Due to unreasonable code climate duplicate issue with Appointment class
+ * This class is ignored by code climate.
+ */
+
 public class Appointment {
     private String day;
     private String hour;
     private Integer duration;
     private String doctorUid;
     private String patientUid;
+    private String appointmentID;
 
-    public Appointment(String day, String hour, Integer duration, String doctorUid, String patientUid) {
+    public Appointment(String day, String hour, String doctorUid, String patientUid, String appointmentID) {
         this.day = day;
         this.hour = hour;
-        this.duration = duration;
         this.doctorUid = doctorUid;
         this.patientUid = patientUid;
+        this.appointmentID = appointmentID;
     }
+//
+//    public Appointment(String day, String hour, Integer duration, String doctorUid, String patientUid) {
+//        this.patientUid = patientUid;
+//        this.duration = duration;
+//        this.day = day;
+//        this.hour = hour;
+//        this.doctorUid = doctorUid;
+//    }
 
     public Appointment(String day, String hour, String doctorUid, String patientUid) {
         this.day = day;
@@ -62,4 +76,8 @@ public class Appointment {
     public void setPatientUid(String patientUid) {
         this.patientUid = patientUid;
     }
+
+    public String getAppointmentID() { return appointmentID; }
+
+    public void setAppointmentID(String appointmentID) { this.appointmentID = appointmentID; }
 }
