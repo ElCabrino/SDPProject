@@ -131,6 +131,8 @@ public class ChatActivity extends AppCompatActivity {
                         String message = (String) snapshot.child("text").getValue();
                         String time = (String) snapshot.child("time").getValue();
                         String sender = (String) snapshot.child("sender").getValue();
+                        Log.d("ChatActivity",sender);
+                        Log.d("ChatActivity",senderUid);
                         messageList.add(new Message(time, message, sender));
                         }
                     }
