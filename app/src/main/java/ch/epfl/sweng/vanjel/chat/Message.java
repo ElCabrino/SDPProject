@@ -1,7 +1,7 @@
 package ch.epfl.sweng.vanjel.chat;
 
 /**
- * Class that represents a Message
+ * Class that represents a Messag
  *
  * @author Etienne Caquot
  */

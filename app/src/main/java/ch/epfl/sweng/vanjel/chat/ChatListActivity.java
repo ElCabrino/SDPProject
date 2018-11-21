@@ -13,9 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import ch.epfl.sweng.vanjel.Doctor;
 import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
@@ -36,7 +35,7 @@ public class ChatListActivity extends AppCompatActivity {
     private RecyclerView chatList;
     private ChatListAdapter chatListAdapter;
 
-    private List<Chat> chats;
+    private Map<String,Chat> chats;
 
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -49,7 +48,7 @@ public class ChatListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
         userUid = auth.getCurrentUser().getUid();
-        chats = new ArrayList<>();
+        chats = new HashMap<>();
         UidToName = new HashMap<>();
         chatList = findViewById(R.id.chatList);
         getAllUsers();
@@ -67,12 +66,13 @@ public class ChatListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if(snapshot.getKey().contains(userUid)){
+                    String chatUid = snapshot.getKey();
+                    if(chatUid.contains(userUid)){
                         String contactUid = snapshot.getKey().replace(userUid,"");
                         String contactName =  UidToName.get(contactUid);
                         String message = (String) snapshot.child("text").getValue();
                         String time = (String) snapshot.child("time").getValue();
-                        chats.add(new Chat(time,message,contactName,contactUid));
+                        chats.put(chatUid, new Chat(time,message,contactName,contactUid));
                     }
                 }
                 updateAdapter();

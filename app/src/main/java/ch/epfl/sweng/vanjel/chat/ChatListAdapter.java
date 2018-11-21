@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
 
@@ -26,11 +28,12 @@ public class ChatListAdapter extends RecyclerView.Adapter {
     /**
      *
      * @param context the context of Adapter
-     * @param chatList the list of Chats the user participates in
+     * @param chatMap the list of Chats the user participates in
      */
-    public ChatListAdapter(Context context, List<Chat> chatList) {
+    public ChatListAdapter(Context context, Map<String,Chat> chatMap) {
         this.context = context;
-        this.chatList = chatList;
+        chatList = new ArrayList<>();
+        chatList.addAll(chatMap.values());
     }
 
     @NonNull
