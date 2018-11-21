@@ -6,6 +6,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class PatientCalendarTest {
 
     private String d = "Mon Oct 29 2018";
+
+    @BeforeClass
+    public static void beforeClass(){
+        FirebaseAuthCustomBackend.setMockPatient(true);
+        FirebaseAuthCustomBackend.setNullUser(false);
+    }
 
     @Rule
     public final IntentsTestRule<PatientCalendarActivity> ActivityRule =
