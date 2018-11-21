@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 /**
  * @author Aslam CADER
@@ -30,20 +31,26 @@ public class DoctorComingAppointments extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private String uid;
     private DatabaseReference ref;
+    private DatabaseReference patientRef;
 
     private RecyclerView recyclerView;
     private DoctorComingAppointmentsAdapter adapter;
 
     private ArrayList<Appointment> doctorAppointments;
+    private HashMap<String, Patient> patientHashMap;
 
     private Date currentDate;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+
+    Boolean appointmentsReady = false;
+    Boolean patientHashMapReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_coming_appointment);
         init();
+        patientListener();
         getAppointments();
 
     }
@@ -53,11 +60,13 @@ public class DoctorComingAppointments extends AppCompatActivity {
         uid = "W7ReyyyOwAQKaganjsMQuHRb0Aj2";
 //        uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
         ref = database.getReference().child("Requests");
+        patientRef = database.getReference().child("Patient");
         // adapter
         recyclerView = findViewById(R.id.doctorComingAppointmentCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         doctorAppointments = new ArrayList<>();
-        adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments);
+        patientHashMap = new HashMap<>();
+        adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         currentDate = new Date();
 
@@ -84,9 +93,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
                 }
                 Collections.sort(doctorAppointments, new appointmentComparator());
-                adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                appointmentsReady = true;
+                if(patientHashMapReady && appointmentsReady) notifyAdapter();
+
+
             }
 
             @Override
@@ -149,5 +159,33 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
             return -1;
         }
+    }
+
+    public void patientListener() {
+        patientRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Patient myPatient = dataSnapshot1.getValue(Patient.class);
+                    String key = dataSnapshot1.getKey();
+                    patientHashMap.put(key, myPatient);
+                }
+                patientHashMapReady = true;
+                if(patientHashMapReady && appointmentsReady) notifyAdapter();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    public void notifyAdapter() {
+        adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }

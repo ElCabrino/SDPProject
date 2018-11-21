@@ -4,10 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,10 +28,16 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
     private SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
     Date currentDate;
     Context context;
-    public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments){
+    private HashMap<String, Patient> patientHashMap;
+    DatabaseReference ref = FirebaseDatabaseCustomBackend.getInstance().getReference("patient");
+
+
+    public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
+
         this.context = context;
         this.appointments = givenAppointments;
         this.currentDate = new Date();
+        this.patientHashMap = patients;
     }
 
     @NonNull
@@ -36,7 +48,10 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
 
     @Override
     public void onBindViewHolder(@NonNull DoctorComingAppointmentsAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.lastName.setText(appointments.get(i).getPatientUid());
+        Patient patient = patientHashMap.get(appointments.get(i).getPatientUid());
+        viewHolder.lastName.setText(patient.getLastName());
+        viewHolder.firstName.setText(patient.getFirstName());
+        viewHolder.birthday.setText(patient.getBirthday());
         viewHolder.time.setText(appointments.get(i).getHour());
         viewHolder.duration.setText(appointments.get(i).getDuration() + " min");
 
@@ -67,12 +82,14 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
         else return false;
     }
 
+
+
     @Override
     public int getItemCount() { return appointments.size();  }
 
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
-        TextView lastName, date, time, duration;
+        TextView lastName, date, time, duration, firstName, birthday;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -80,6 +97,8 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
             lastName = itemView.findViewById(R.id.appointmentLastName);
             date = itemView.findViewById(R.id.appointmentDate);
             time = itemView.findViewById(R.id.appointmentTime);
+            firstName = itemView.findViewById(R.id.appointmentFirstName);
+            birthday = itemView.findViewById(R.id.appointmentBirthDate);
         }
     }
 }
