@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
+import android.util.Log;
 
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -29,29 +30,20 @@ import static org.hamcrest.Matchers.not;
 
 public class ChatActivityTest {
 
-    @BeforeClass
-    public static void runAsDoctor() {
-        FirebaseAuthCustomBackend.setNullUser(false);
-        FirebaseAuthCustomBackend.setMockPatient(false);
-    }
-
     @Rule
     public final ActivityTestRule<ChatActivity> mActivityRule =
-            new ActivityTestRule<ChatActivity>(ChatActivity.class) {
-                @Override
-                protected Intent getActivityIntent() {
-                    Context targetContext = InstrumentationRegistry.getInstrumentation()
-                            .getTargetContext();
-                    Intent result = new Intent(targetContext, ChatActivity.class);
-                    result.putExtra("contactUID", "patientid1");
-                    result.putExtra("contactName", "fn_dtest1");
-                    return result;
-                }
-            };
-
+            new ActivityTestRule<>(ChatActivity.class, true, false);
     @Test
     public void sendMessageTest() throws Exception {
-        runAsDoctor();
+        FirebaseAuthCustomBackend.setNullUser(false);
+        FirebaseAuthCustomBackend.setMockPatient(false);
+
+        Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Intent intent = new Intent(targetContext, ChatActivity.class);
+        intent.putExtra("contactUID", "patientid1");
+        intent.putExtra("contactName", "fn_ptest1");
+        mActivityRule.launchActivity(intent);
+
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.messageToSend)).perform(typeText("test message"));
         onView(withId(R.id.sendMessageButton)).perform(click());
@@ -59,4 +51,18 @@ public class ChatActivityTest {
         onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
     }
 
+   @Test
+    public void receiveMessageTest() throws Exception {
+       FirebaseAuthCustomBackend.setNullUser(false);
+       FirebaseAuthCustomBackend.setMockPatient(true);
+
+       Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+       Intent intent = new Intent(targetContext, ChatActivity.class);
+       intent.putExtra("contactUID", "doctorid1");
+       intent.putExtra("contactName", "fn_dtest1");
+       mActivityRule.launchActivity(intent);
+
+       TimeUnit.SECONDS.sleep(1);
+       onView(withId(R.id.receiveMessage)).check(matches(withText("test message")));
+    }
 }
