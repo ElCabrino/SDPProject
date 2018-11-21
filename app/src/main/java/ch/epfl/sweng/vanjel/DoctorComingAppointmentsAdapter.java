@@ -36,8 +36,9 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
 
     @Override
     public void onBindViewHolder(@NonNull DoctorComingAppointmentsAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.lastName.setText(appointments.get(i).getDuration().toString());
+        viewHolder.lastName.setText(appointments.get(i).getPatientUid());
         viewHolder.time.setText(appointments.get(i).getHour());
+        viewHolder.duration.setText(appointments.get(i).getDuration() + " min");
 
         // if today, "Today"
         Boolean isToday;
@@ -75,7 +76,7 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-
+            duration = itemView.findViewById(R.id.appointmentDuration);
             lastName = itemView.findViewById(R.id.appointmentLastName);
             date = itemView.findViewById(R.id.appointmentDate);
             time = itemView.findViewById(R.id.appointmentTime);
