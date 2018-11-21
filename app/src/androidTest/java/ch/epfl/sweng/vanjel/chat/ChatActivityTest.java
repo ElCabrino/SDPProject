@@ -43,14 +43,12 @@ public class ChatActivityTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, ChatActivity.class);
-                    result.putExtra("contactUID", "doctorid1");
+                    result.putExtra("contactUID", "patientid1");
                     result.putExtra("contactName", "fn_dtest1");
                     return result;
                 }
             };
 
-
-    @Ignore
     @Test
     public void sendMessageTest() throws Exception {
         runAsDoctor();
@@ -58,9 +56,7 @@ public class ChatActivityTest {
         onView(withId(R.id.messageToSend)).perform(typeText("test message"));
         onView(withId(R.id.sendMessageButton)).perform(click());
         onView(withText("Message successfully sent.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-        TimeUnit.SECONDS.sleep(2);
-        onView(withId(R.id.RecyclerViewChat)).check(matches(hasDescendant(withId(R.id.sentMessage))));
-        //onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
+        onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
     }
 
 }
