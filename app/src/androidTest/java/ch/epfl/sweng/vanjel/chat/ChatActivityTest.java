@@ -19,6 +19,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -53,7 +54,8 @@ public class ChatActivityTest {
         onView(withId(R.id.messageToSend)).perform(typeText("test message"));
         onView(withId(R.id.sendMessageButton)).perform(click());
         onView(withText("Message successfully sent.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-        onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
+        onView(withId(R.id.RecyclerViewChat)).check(matches(hasDescendant(withId(R.id.sentMessage))));
+        //onView(withId(R.id.sendMessage)).check(matches(withText("test message")));
     }
 
 }
