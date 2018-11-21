@@ -39,7 +39,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_doctor_coming_appointment);
+        setContentView(R.layout.activity_doctor_coming_appointment);
         init();
         getAppointments();
 
@@ -61,17 +61,26 @@ public class DoctorComingAppointments extends AppCompatActivity {
     }
 
     public void getAppointments(){
+//        Appointment appointment = new Appointment("oklm", "12:00", 50, "lol", "oklm");
+//        doctorAppointments.add(appointment);
+//        adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments);
+//        recyclerView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+
                     try {
                         addAppointment(dataSnapshot1);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+
                 }
+                adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments);
+                recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
 
@@ -84,7 +93,8 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     public void addAppointment(DataSnapshot request) throws ParseException {
         // check if appointment is in the past
-        if(request.child("doctor").getValue() == uid){
+
+        if(request.child("doctor").getValue().equals(uid)){
             String day, hour, patientUid, doctorUid, appointmentID;
             int duration = Integer.valueOf(request.child("duration").getValue().toString());
             appointmentID = request.getKey();
@@ -92,10 +102,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
             doctorUid = request.child("doctor").getValue().toString();
             hour = request.child("time").getValue().toString();
             patientUid = request.child("patient").getValue().toString();
-
-            int comparaison = currentDate.compareTo(dateFormat.parse(day));
+            currentDate = dateFormat.parse(dateFormat.format(currentDate));
+            int comparaison = dateFormat.parse(day).compareTo(currentDate);
             // 0 is today, -1 is before, 1 is after
-            if(comparaison != -1 && duration != 0){
+             if(comparaison != -1 && duration != 0){
                 Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
                 doctorAppointments.add(appointment);
             }

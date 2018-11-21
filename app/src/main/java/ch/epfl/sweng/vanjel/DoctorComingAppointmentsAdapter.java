@@ -17,20 +17,20 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
 
     ArrayList<Appointment> appointments;
     Context context;
-    public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> appointments){
+    public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments){
         this.context = context;
-        this.appointments = appointments;
+        this.appointments = givenAppointments;
     }
 
     @NonNull
     @Override
     public DoctorComingAppointmentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new DoctorComingAppointmentsAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_appointment_list, viewGroup, false));
+        return new DoctorComingAppointmentsAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_coming_appointment, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull DoctorComingAppointmentsAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.lastName.setText(appointments.get(i).getPatientUid());
+        viewHolder.lastName.setText(appointments.get(i).getDuration().toString());
         viewHolder.date.setText(appointments.get(i).getDay());
         viewHolder.time.setText(appointments.get(i).getHour());
     }
