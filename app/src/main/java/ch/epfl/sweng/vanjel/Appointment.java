@@ -1,5 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * Due to unreasonable code climate duplicate issue with Appointment class
+ * This class is ignored by code climate.
+ */
+
 public class Appointment {
     private String day;
     private String hour;

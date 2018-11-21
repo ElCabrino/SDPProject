@@ -37,12 +37,12 @@
         <activity android:name=".PatientAppointmentActivity" />
         <activity android:name=".DoctorInformation" />
 
+        <service android:name=".AppointmentNotificationBackgroundService" />
+
         <activity android:name=".DoctorPatientInfo" />
-
-        <service android:name=".AppointmentNotificationBackgroundService"></service>
-
-        <activity android:name=".DoctorAppointmentsList">
-        </activity>
+        <activity android:name=".DoctorAppointmentsList" />
+        <activity android:name=".chat.ChatActivity" />
+        <activity android:name=".chat.ChatListActivity"></activity>
     </application>
 
 </manifest>
