@@ -70,6 +70,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                doctorAppointments = new ArrayList<>(); // reset list
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
 
                     try {
