@@ -89,9 +89,6 @@ public class ChatActivity extends AppCompatActivity {
         if (message.getText().length() != 0){
             DateFormat dateFormat = new SimpleDateFormat("h.mm");
             String dateString = dateFormat.format(new Date());
-            //messageList.add(new Message(dateString,message.getText().toString(),senderUid));
-            //messageAdapter = new MessageListAdapter(this, messageList, senderUid);
-            //messageRecycler.setAdapter(messageAdapter);
             database.getReference("Chat").child(chatUid).updateChildren(createMessage(message.getText().toString(), dateString)).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -134,9 +131,9 @@ public class ChatActivity extends AppCompatActivity {
                         String message = (String) snapshot.child("text").getValue();
                         String time = (String) snapshot.child("time").getValue();
                         String sender = (String) snapshot.child("sender").getValue();
-                        messageList.add(new Message(time, message,sender));
+                        messageList.add(new Message(time, message, sender));
+                        }
                     }
-                }
                 messageAdapter = new MessageListAdapter(context, messageList, senderUid);
                 messageRecycler.setAdapter(messageAdapter);
             }
