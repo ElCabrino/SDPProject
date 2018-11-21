@@ -26,7 +26,7 @@ public class DoctorCalendarAdapter extends recyclerViewAdapter<DoctorCalendarAda
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_doctor_calendar,
                 parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, R.id.date, R.id.patient, R.id.delete);
         return holder;
     }
 
@@ -60,11 +60,11 @@ public class DoctorCalendarAdapter extends recyclerViewAdapter<DoctorCalendarAda
         TextView patient;
         Button delete;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, int id1, int id2, int id3) {
             super(itemView);
-            date = itemView.findViewById(R.id.date);
-            patient = itemView.findViewById(R.id.patient);
-            delete = itemView.findViewById(R.id.delete);
+            date = itemView.findViewById(id1);
+            patient = itemView.findViewById(id2);
+            delete = itemView.findViewById(id3);
         }
 
     }

@@ -18,7 +18,11 @@
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
 
         <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ChooseRegistration" />
@@ -33,21 +37,18 @@
         <activity android:name=".PatientAppointmentActivity" />
         <activity android:name=".DoctorInformation" />
 
-        <activity android:name=".DoctorPatientInfo" />
+        <service android:name=".AppointmentNotificationBackgroundService" />
 
-        <service android:name=".AppointmentNotificationBackgroundService"></service>
-
-        <activity android:name=".DoctorAppointmentsList">
-
-        </activity>
 
         <activity android:name=".DoctorComingAppointments">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity android:name=".DoctorPatientInfo" />
+        <activity android:name=".DoctorAppointmentsList" />
+        <activity android:name=".chat.ChatActivity" />
+        <activity android:name=".chat.ChatListActivity"></activity>
+
     </application>
 
 </manifest>
