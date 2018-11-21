@@ -42,6 +42,8 @@
         <service android:name=".AppointmentNotificationBackgroundService"></service>
 
         <activity android:name=".DoctorAppointmentsList">
+
+
         </activity>
     </application>
 

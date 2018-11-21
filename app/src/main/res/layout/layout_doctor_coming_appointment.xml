@@ -18,7 +18,7 @@
         android:layout_margin="5dp">
 
         <TextView
-            android:id="@+id/lastName"
+            android:id="@+id/appointmentLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="lastName"
@@ -28,7 +28,7 @@
 
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/appointmentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date"
@@ -38,7 +38,7 @@
             android:layout_marginLeft="20dp"/>
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/appointmentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
