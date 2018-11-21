@@ -41,7 +41,9 @@ public class ChatListActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     private String userUid;
-    private HashMap<String,String> UidToName;
+    private Map<String,String> UidToName;
+
+    private int getChats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +53,8 @@ public class ChatListActivity extends AppCompatActivity {
         chats = new HashMap<>();
         UidToName = new HashMap<>();
         chatList = findViewById(R.id.chatList);
-        getAllUsers();
-        getChats();
         chatList.setLayoutManager(new LinearLayoutManager(this));
-        chatListAdapter = new ChatListAdapter(this,chats);
-        chatList.setAdapter(chatListAdapter);
+        getAllUsers();
     }
 
     /**
@@ -89,6 +88,7 @@ public class ChatListActivity extends AppCompatActivity {
      * get all user of the application and put them in a map uid->names
      */
     private void getAllUsers() {
+        getChats = 0;
         getClassUsers(Patient.class, "Patient");
         getClassUsers(Doctor.class, "Doctor");
     }
@@ -101,6 +101,10 @@ public class ChatListActivity extends AppCompatActivity {
                     User user = snapshot.getValue(c);
                     c.cast(user);
                     UidToName.put(snapshot.getKey(),user.toString());
+                }
+                getChats++;
+                if(getChats > 0){
+                    getChats();
                 }
             }
 
