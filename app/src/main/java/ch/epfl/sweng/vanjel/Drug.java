@@ -25,6 +25,12 @@ public class Drug extends Info{
         return frequency;
     }
 
+    public void setDrug(String drug) { this.drug = drug; }
+
+    public void setDosage(String dosage) { this.dosage = dosage; }
+
+    public void setFrequency(String frequency) { this.frequency = frequency; }
+
 
     @Override
     String getAndroidInfo() {
