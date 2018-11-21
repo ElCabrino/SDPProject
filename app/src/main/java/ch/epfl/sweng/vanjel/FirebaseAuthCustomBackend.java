@@ -15,6 +15,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
+/**
+ * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
+ */
+
 public class FirebaseAuthCustomBackend {
 
     private static boolean mockPatient = true;
@@ -39,7 +43,7 @@ public class FirebaseAuthCustomBackend {
         mockPatient = b;
     }
 
-    static void setNullUser(boolean b) {
+    public static void setNullUser(boolean b) {
         nullUser = b;
     }
 

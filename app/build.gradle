@@ -21,6 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -69,6 +70,10 @@ dependencies {
 
 
     implementation "com.android.support:support-compat:28.0.0"
+
+    // multidex because too much methods for dex
+    // see: https://stackoverflow.com/questions/36785014/the-number-of-method-references-in-a-dex-file-cannot-exceed-64k-api-17
+    implementation 'com.android.support:multidex:1.0.0'
 
 }
 

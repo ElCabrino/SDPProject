@@ -1,5 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +25,10 @@ import java.util.Map;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
+
+/**
+ * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
+ */
 
 public final class FirebaseDatabaseCustomBackend {
 
@@ -65,9 +71,11 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private DatabaseReference requestsRef;
     @Mock
-    private DatabaseReference apt1Ref;
-    @Mock
     private DatabaseReference appointmentReqRef;
+    @Mock
+    private DatabaseReference chatRef;
+    @Mock
+    private DatabaseReference chatHistoriqueRef;
     @Mock
     private DatabaseReference appointmentReqKeyRef;
     @Mock
@@ -81,11 +89,21 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot timeDurationAppointmentSnapshot;
     @Mock
     private DataSnapshot patIdAppointmentSnapshot;
+    @Mock
+    private DataSnapshot chatTextSnapshot;
+    @Mock
+    private DataSnapshot chatTimeSnapshot;
+    @Mock
+    private DataSnapshot chatReceiverSnapshot;
+    @Mock
+    private DataSnapshot chatSenderSnapshot;
 
     @Mock
     private DatabaseError patientError;
     @Mock
     private DatabaseError doctorError;
+    @Mock
+    private DatabaseError chatError;
 
     @Mock
     private DataSnapshot patient1Snapshot;
@@ -95,6 +113,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot doctorAvailabilitySnapshot;
     @Mock
     private DataSnapshot appointmentSnapshot;
+    @Mock
+    private DataSnapshot chatSnapshot;
     @Mock
     private DataSnapshot dateAppointmentSnapshot;
     @Mock
@@ -113,22 +133,15 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private Task<Void> updateSuccessAvailabilityTask;
     @Mock
-    private Task<Void> setValueInfoPatientTask;
-    @Mock
     private Task<Void> updateApt1Task;
+    @Mock
+    private Task<Void> chatTask;
     @Mock
     private Task<Void> appointmentRequestTask;
     @Mock
     private Task<Void> appointmentRequestTaskWithSuccess;
     @Mock
     private Task<Void> acceptChangeDuration;
-
-
-    @Mock
-    private OnFailureListener onFailureListener;
-    @Mock
-    private OnSuccessListener onSuccessListener;
-
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -170,6 +183,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
+        initChatMock();
         //initPatientConditionsSnapshots();
         //initProfileListener();
         return mockDB;
@@ -196,18 +210,29 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initPatientSnapshots() {
+        List<DataSnapshot> listPatient = new ArrayList<>();
+        listPatient.add(patient1Snapshot);
         when(patient1Snapshot.getValue(Patient.class)).thenReturn(defPatient1);
         when(patient1Snapshot.hasChild("patientid1")).thenReturn(true);
         when(patient1Snapshot.hasChild("doctorid1")).thenReturn(false);
+        when(patient1Snapshot.getChildren()).thenReturn(listPatient);
+        when(patient1Snapshot.getKey()).thenReturn("patientid1");
+
+        when(patient1Snapshot.getValue(String.class)).thenReturn("1");
+        when(patient1Snapshot.getValue(InfoString.class)).thenReturn(new InfoString("Cats"));
+        when(patient1Snapshot.getValue(Surgery.class)).thenReturn(new Surgery("THA", "2000"));
+        when(patient1Snapshot.getValue(Drug.class)).thenReturn(new Drug("Enalapril", "10mg", "1"));
+        when(patient1Snapshot.getValue(DrugReaction.class)).thenReturn(new DrugReaction("Carbamazepine", "TEN"));
     }
 
     private void initDoctorSnapshots() {
-        List<DataSnapshot> listDoc = new ArrayList<>();
-        listDoc.add(doctor1Snapshot);
+        List<DataSnapshot> listDoctor = new ArrayList<>();
+        listDoctor.add(doctor1Snapshot);
         when(doctor1Snapshot.getValue(Doctor.class)).thenReturn(defDoctor1);
         when(doctor1Snapshot.hasChild("patientid1")).thenReturn(false);
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
-        when(doctor1Snapshot.getChildren()).thenReturn(listDoc);
+        when(doctor1Snapshot.getChildren()).thenReturn(listDoctor);
+        when(doctor1Snapshot.getKey()).thenReturn("doctorid1");
     }
 
     //mock for the method DoctorAppointmentList.getAppointmentValueListener()
@@ -278,7 +303,6 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(doctorAvailabilityRef.updateChildren(any(Map.class))).thenReturn(updateAvailabilityTask);
 
-
         //listener on success
         doAnswer(new Answer<OnSuccessListener>() {
 
@@ -298,6 +322,51 @@ public final class FirebaseDatabaseCustomBackend {
                 return null;
             }
         }).when(updateSuccessAvailabilityTask).addOnFailureListener(any(OnFailureListener.class));
+    }
+
+    private void initChatMock() {
+        List<DataSnapshot> listChat = new ArrayList<>();
+        listChat.add(chatSnapshot);
+        when(mockDB.getReference("Chat")).thenReturn(chatRef);
+        when(chatRef.child(any(String.class))).thenReturn(chatHistoriqueRef);
+        when(chatHistoriqueRef.updateChildren(any(Map.class))).thenReturn(chatTask);
+        when(chatTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return chatTask;
+            }
+        });
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    Log.d("TESTRUNNING", "test1");
+                    listener.onCancelled(chatError);
+                } else {
+                    Log.d("TESTRUNNING", "test2");
+                    listener.onDataChange(chatSnapshot);
+                }
+                return listener;
+            }
+        }).when(chatRef).addValueEventListener(any(ValueEventListener.class));
+
+        when(chatSnapshot.getChildren()).thenReturn(listChat);
+        when(chatSnapshot.getKey()).thenReturn("doctorid1patientid1");
+        when(chatSnapshot.child("text")).thenReturn(chatTextSnapshot);
+        when(chatSnapshot.child("time")).thenReturn(chatTimeSnapshot);
+        when(chatSnapshot.child("receiver")).thenReturn(chatReceiverSnapshot);
+        when(chatSnapshot.child("sender")).thenReturn(chatSenderSnapshot);
+
+        when(chatTextSnapshot.getValue()).thenReturn("test message");
+        when(chatTimeSnapshot.getValue()).thenReturn("07.30");
+        when(chatReceiverSnapshot.getValue()).thenReturn("patientid1");
+        when(chatSenderSnapshot.getValue()).thenReturn("doctorid1");
     }
 
     private void initPatientConditionsSnapshots() {
