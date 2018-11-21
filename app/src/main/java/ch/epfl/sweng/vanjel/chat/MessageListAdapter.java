@@ -44,8 +44,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
-        Log.d("MessageListAdapter",message.getSenderUid());
-        Log.d("MessageListAdapter",mUserUid);
         if (message.getSenderUid().equals(mUserUid)) {
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -83,7 +81,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
 
     /**
-     * A ViewHolder for sent messages
+     * A ViewHolder for messages
      */
     private class MessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
