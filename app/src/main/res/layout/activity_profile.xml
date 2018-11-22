@@ -6,15 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Profile">
 
-    <Button
-        android:id="@+id/requestsListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="73dp"
-        android:text="Requests"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -146,14 +138,41 @@
                 android:text="Save"
                 android:visibility="gone" />
 
-            <Button
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:contentDescription="profile edit button"
-                android:text="Edit" />
+                android:orientation="horizontal">
+
+
+
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="profile edit button"
+                    android:text="Edit" />
+
+                <Button
+                    android:id="@+id/buttonDoctorComingAppointments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="openChats"
+                    android:text="Next appointments" />
+
+                <Button
+                    android:id="@+id/requestsListButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Requests"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -194,13 +213,7 @@
                     android:text="Chats" />
 
             </LinearLayout>
-            <Button
-                android:id="@+id/buttonDoctorComingAppointments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="openChats"
-                android:text="Next appointments" />
+
 
         </LinearLayout>
     </ScrollView>
