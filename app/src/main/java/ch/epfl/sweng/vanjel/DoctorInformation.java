@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.util.List;
 
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
@@ -36,6 +38,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     // database
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     DatabaseReference ref;
+    //local database
+    LocalDatabaseService localDatabaseService;
 
     private Button takeAppointment;
     private Button chat;
@@ -69,6 +73,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         } else {
             // get Doctor
             getDocWithUID(doctorUID);
+            //init local database
+
 
         }
 
@@ -121,10 +127,12 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             if (!favoriteState){
                 favoriteState = true;
                 favorite.setBackgroundColor(0xDDDDBB33);
+                this.localDatabaseService.save();
             }
             else {
                 favorite.setBackgroundColor(0xFFD6D7D7);
                 favoriteState = false;
+                this.localDatabaseService.delete();
             }
         }
     }
@@ -137,6 +145,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 doctor = snapshot.getValue(Doctor.class);
+                initLocalDatabase(doctor);
                 setData();
                 isDatabaseReady = true;
                 putMarkerOnMap();
@@ -149,6 +158,10 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
 
 
+    }
+
+    private void initLocalDatabase(Doctor doc){
+        this.localDatabaseService = new LocalDatabaseService(this, doc, this.doctorUID);
     }
 
     private void setData(){
