@@ -45,7 +45,7 @@ public class DoctorPatientInfo extends AppCompatActivity {
 //        String UserID = "I3h9NVPXwmb0Ab2auVnaMSgjaLY2";
 
         //patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this);
+        patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
 
         getAllPatientInfoFields();
         

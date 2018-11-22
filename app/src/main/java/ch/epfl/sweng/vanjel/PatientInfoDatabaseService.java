@@ -29,19 +29,16 @@ class PatientInfoDatabaseService {
 
     //TEMPORARY ID
     /*TODO: put the user ID of the logged user*/
-    PatientInfoDatabaseService(AppCompatActivity activity) {
+    PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
-        String s = auth.getCurrentUser().getUid();
-        /*String s = patientID;
-        s = null;
-        if (s == null) {
-            s = auth.getCurrentUser().getUid();
-        }*/
+        //String s = auth.getCurrentUser().getUid();
+        String s = patientID;
         this.userDatabaseReference = database.getReference("Patient").child(s);
-
     }
 
-    //LISTENERS
+
+
+        //LISTENERS
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
         db.addValueEventListener(new ValueEventListener() {
