@@ -45,15 +45,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        //id = FirebaseAuth.getInstance().getUid();
-        //if (id == null) { id = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";}
-        //uid = "jEd45lJyOTQP2yeyB9OYxpbEEXa2";//auth.getCurrentUser().getUid();
-        //Log.e("UID", "UID IS : " + uid);
         uid = auth.getCurrentUser().getUid();
-        //Log.e("UID", "UID IS : " + uid);
+        // for testing
+        /*if (uid ==null) {
+            uid = "patientid1";
+        }*/
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
-        //dbAp = database.getReference("Requests");
 
         listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
 
@@ -65,7 +63,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
         populateDocMap();
 
-        Log.e("SIZE", Integer.toString(idToDoc.size()));
+        //Log.e("SIZE", Integer.toString(idToDoc.size()));
 
         dbAp.addValueEventListener(new ValueEventListener() {
             @TargetApi(Build.VERSION_CODES.N)
@@ -76,7 +74,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
                             if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
                                 String docId = idSnapshot.child("doctor").getValue(String.class);
-                                //System.out.println("AAAA " + docId);
                                 String doc = "";
                                 String loc = "";
                                 if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {

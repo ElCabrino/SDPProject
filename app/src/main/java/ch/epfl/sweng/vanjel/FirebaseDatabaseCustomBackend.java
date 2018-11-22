@@ -76,6 +76,16 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot timeDurationAppointmentSnapshot;
     @Mock
     private DataSnapshot patIdAppointmentSnapshot;
+    @Mock
+    private DataSnapshot patientIDSnapshot;
+    @Mock
+    private DataSnapshot doctorIDSnapshot;
+    @Mock
+    private DataSnapshot dateSnapshot;
+    @Mock
+    private DataSnapshot timeSnapshot;
+    @Mock
+    private DataSnapshot durationSnapshot;
 
     @Mock
     private DatabaseError patientError;
@@ -90,6 +100,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot doctorAvailabilitySnapshot;
     @Mock
     private DataSnapshot appointmentSnapshot;
+    @Mock
+    private DataSnapshot patientAppointmentSnapshot;
     @Mock
     private DataSnapshot conditionSnapshot;
     @Mock
@@ -158,6 +170,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
+        initPatientAppointmentsSnapshots();
         //initPatientConditionsSnapshots();
         //initProfileListener();
         return mockDB;
@@ -187,7 +200,9 @@ public final class FirebaseDatabaseCustomBackend {
         when(requestsRef.child("Thu Oct 25 2018/apt1")).thenReturn(apt1Ref);
         when(requestsRef.child("Fri Oct 26 2018/apt1")).thenReturn(apt1Ref);
         when(requestsRef.child("Sat Oct 27 2018/apt1")).thenReturn(apt1Ref);
+        when(requestsRef.child("Sat Oct 27 2018/apt1")).thenReturn(apt1Ref);
         when(apt1Ref.updateChildren(any(Map.class))).thenReturn(updateApt1Task);
+
     }
 
     private void initPatientSnapshots() {
@@ -211,6 +226,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getStreet());
         when(doctor1Snapshot.child("city")).thenReturn(docCitySnapshot);
         when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getCity());
+        when(doctor1Snapshot.getKey()).thenReturn(doctor1ID);
 
     }
 
@@ -226,6 +242,28 @@ public final class FirebaseDatabaseCustomBackend {
         when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
         when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
         when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
+    }
+
+    // test
+    private void initPatientAppointmentsSnapshots() {
+        List<DataSnapshot> listApp = new ArrayList<>();
+        listApp.add(patientAppointmentSnapshot);
+        when(patientAppointmentSnapshot.getChildren()).thenReturn(listApp);
+        //when(patientAppointmentSnapshot.getKey()).thenReturn(patient1ID);
+        //when(patientAppointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
+        //when(patientAppointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
+        when(patientAppointmentSnapshot.child("patient")).thenReturn(patientIDSnapshot);
+        when(patientIDSnapshot.getValue(String.class)).thenReturn(patient1ID);
+        when(patientAppointmentSnapshot.child("doctor")).thenReturn(doctorIDSnapshot);
+        when(doctorIDSnapshot.getValue(String.class)).thenReturn(doctor1ID);
+        //when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
+        //when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
+        when(patientAppointmentSnapshot.child("date")).thenReturn(dateSnapshot);
+        when(dateSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
+        when(patientAppointmentSnapshot.child("time")).thenReturn(timeSnapshot);
+        when(timeSnapshot.getValue(String.class)).thenReturn("10:00");
+        when(patientAppointmentSnapshot.child("duration")).thenReturn(durationSnapshot);
+        when(durationSnapshot.getValue(String.class)).thenReturn("10");
     }
 
     private void initAppointmentRequestsListMock() {
@@ -338,6 +376,21 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initDBListeners() {
+
+        // test
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(patientError);
+                } else {
+                    listener.onDataChange(patientAppointmentSnapshot);
+                }
+                return listener;
+            }
+        }).when(requestsRef).addValueEventListener(any(ValueEventListener.class));
+
         doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
