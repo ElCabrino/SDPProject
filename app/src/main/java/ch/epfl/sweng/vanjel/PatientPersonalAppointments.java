@@ -47,10 +47,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         setContentView(R.layout.activity_patient_personal_appointments);
 
         uid = auth.getCurrentUser().getUid();
-        // for testing
-        /*if (uid ==null) {
-            uid = "patientid1";
-        }*/
+
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
 
@@ -63,8 +60,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onStart();
 
         populateDocMap();
-
-        //Log.e("SIZE", Integer.toString(idToDoc.size()));
 
         dbAp.addValueEventListener(new ValueEventListener() {
             //@TargetApi(Build.VERSION_CODES.N)
@@ -195,17 +190,11 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                    //Doctor doc = (Doctor) idSnapshot.getValue();
                     String name = idSnapshot.child("lastName").getValue(String.class);
                     String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
                             idSnapshot.child("street").getValue(String.class) + " " +
                             idSnapshot.child("city").getValue(String.class);
                     String docId = idSnapshot.getKey();
-                    /*String name = idSnapshot.child("lastName").getValue(String.class);
-                    String location = doc.getStreetNumber() + " " +
-                            doc.getStreet() + " " +
-                            doc.getCity();
-                    String docId = idSnapshot.getKey();*/
                     ArrayList<String> list = new ArrayList<>();
                     list.add(name);
                     list.add(location);

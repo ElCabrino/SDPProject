@@ -254,16 +254,15 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
         when(doctor1Snapshot.getChildren()).thenReturn(listDoctor);
         when(doctor1Snapshot.child("lastName")).thenReturn(docLastNameSnapshot);
-        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getLastName());
+        when(docLastNameSnapshot.getValue(String.class)).thenReturn(defDoctor1.getLastName());
         when(doctor1Snapshot.child("streetNumber")).thenReturn(docStreetNumberSnapshot);
-        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getStreetNumber());
+        when(docStreetNumberSnapshot.getValue(String.class)).thenReturn(defDoctor1.getStreetNumber());
         when(doctor1Snapshot.child("street")).thenReturn(docStreetSnapshot);
-        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getStreet());
+        when(docStreetSnapshot.getValue(String.class)).thenReturn(defDoctor1.getStreet());
         when(doctor1Snapshot.child("city")).thenReturn(docCitySnapshot);
-        when(docLastNameSnapshot.getValue()).thenReturn(defPatient1.getCity());
+        when(docCitySnapshot.getValue(String.class)).thenReturn(defDoctor1.getCity());
         when(doctor1Snapshot.getKey()).thenReturn(doctor1ID);
         when(doctor1Snapshot.getChildren()).thenReturn(listDoctor);
-        when(doctor1Snapshot.getKey()).thenReturn("doctorid1");
     }
 
     //mock for the method DoctorAppointmentList.getAppointmentValueListener()
@@ -313,7 +312,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenReturn(acceptChangeDuration);
     }
 
-    
+
     //Initialize listener for event on 'Requests' child
     //makes the listener work on 'appointmentSnapshot'
     private void initAppointmentRequestsListMock() {
