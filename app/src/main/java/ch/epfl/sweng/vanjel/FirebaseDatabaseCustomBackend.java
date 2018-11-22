@@ -203,7 +203,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
-        initPatientAppointmentsSnapshots();
+        //initPatientAppointmentsSnapshots();
         initChatMock();
         //initPatientConditionsSnapshots();
         //initProfileListener();
@@ -280,11 +280,21 @@ public final class FirebaseDatabaseCustomBackend {
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
         when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
-        when(dateAppointmentSnapshot.getValue()).thenReturn("Monday");
-        when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
-        when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
-        when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
-        when(durationAppointmentSnapshot.getValue()).thenReturn("0");
+        when(dateAppointmentSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
+        when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
+        when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("10:00");
+        when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn(patient1ID);
+        when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("10");
+        /*when(patientAppointmentSnapshot.child("patient")).thenReturn(patientIDSnapshot);
+        when(patientIDSnapshot.getValue(String.class)).thenReturn(patient1ID);
+        when(patientAppointmentSnapshot.child("doctor")).thenReturn(doctorIDSnapshot);
+        when(doctorIDSnapshot.getValue(String.class)).thenReturn(doctor1ID);
+        when(patientAppointmentSnapshot.child("date")).thenReturn(dateSnapshot);
+        when(dateSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
+        when(patientAppointmentSnapshot.child("time")).thenReturn(timeSnapshot);
+        when(timeSnapshot.getValue(String.class)).thenReturn("10:00");
+        when(patientAppointmentSnapshot.child("duration")).thenReturn(durationSnapshot);
+        when(durationSnapshot.getValue(String.class)).thenReturn("10");*/
 
         // mock for DoctorAppointmentList where he needs to accept or decline
         when(requestsRef.child(appointmentKey)).thenReturn(appointmentReqRef);
@@ -299,10 +309,10 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     // test
-    private void initPatientAppointmentsSnapshots() {
-        List<DataSnapshot> listApp = new ArrayList<>();
-        listApp.add(patientAppointmentSnapshot);
-        when(patientAppointmentSnapshot.getChildren()).thenReturn(listApp);
+    /*private void initPatientAppointmentsSnapshots() {
+        //List<DataSnapshot> listApp = new ArrayList<>();
+        //listApp.add(patientAppointmentSnapshot);
+        //when(patientAppointmentSnapshot.getChildren()).thenReturn(listApp);
         //when(patientAppointmentSnapshot.getKey()).thenReturn(patient1ID);
         //when(patientAppointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
         //when(patientAppointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
@@ -318,7 +328,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(timeSnapshot.getValue(String.class)).thenReturn("10:00");
         when(patientAppointmentSnapshot.child("duration")).thenReturn(durationSnapshot);
         when(durationSnapshot.getValue(String.class)).thenReturn("10");
-    }
+    }*/
 
     //Initialize listener for event on 'Requests' child
     //makes the listener work on 'appointmentSnapshot'
@@ -475,7 +485,7 @@ public final class FirebaseDatabaseCustomBackend {
     private void initDBListeners() {
 
         // test
-        doAnswer(new Answer<ValueEventListener>() {
+        /*doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
@@ -486,7 +496,7 @@ public final class FirebaseDatabaseCustomBackend {
                 }
                 return listener;
             }
-        }).when(requestsRef).addValueEventListener(any(ValueEventListener.class));
+        }).when(requestsRef).addValueEventListener(any(ValueEventListener.class));*/
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
