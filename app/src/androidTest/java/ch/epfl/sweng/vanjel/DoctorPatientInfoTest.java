@@ -1,6 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -15,8 +19,17 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class DoctorPatientInfoTest {
 
     @Rule
-    public final IntentsTestRule<DoctorPatientInfo> ActivityRule =
-            new IntentsTestRule<>(DoctorPatientInfo.class);
+    public final ActivityTestRule<DoctorPatientInfo> ActivityRule =
+        new ActivityTestRule<DoctorPatientInfo>(DoctorPatientInfo.class) {
+            @Override
+            protected Intent getActivityIntent() {
+                Context targetContext = InstrumentationRegistry.getInstrumentation()
+                        .getTargetContext();
+                Intent result = new Intent(targetContext, DoctorPatientInfo.class);
+                result.putExtra("patientUID", "patientid1");
+           return result;
+            }
+        };
 
     @BeforeClass
     public static void setUp(){
