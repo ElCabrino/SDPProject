@@ -112,18 +112,21 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     }
 
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonTakeAppointment){
-            Intent intent = new Intent(this, PatientCalendarActivity.class);
+        int i = v.getId();
+        Intent intent;
+        switch (i) {
+        case R.id.buttonTakeAppointment:
+            intent = new Intent(this, PatientCalendarActivity.class);
             intent.putExtra("doctorUID", doctorUID);
             startActivity(intent);
-        }
-        if(v.getId() == R.id.buttonChat){
-            Intent intent = new Intent(this, ChatActivity.class);
+            break;
+        case R.id.buttonChat:
+            intent = new Intent(this, ChatActivity.class);
             intent.putExtra("contactUID",doctorUID);
             intent.putExtra("contactName",doctor.toString());
             startActivity(intent);
-        }
-        if(v.getId() == R.id.addToFavoriteButton){
+            break;
+        case R.id.addToFavoriteButton:
             if (!favoriteState){
                 favoriteState = true;
                 favorite.setBackgroundColor(0xDDDDBB33);
