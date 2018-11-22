@@ -125,6 +125,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.logoutButton:
                 logOut();
+                break;
             case R.id.patientInfoButton:
                 if (userType.equals("Patient")) {
                     intent = new Intent(this, PatientInfo.class);
