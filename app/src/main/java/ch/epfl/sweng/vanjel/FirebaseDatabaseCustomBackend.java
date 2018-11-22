@@ -284,7 +284,12 @@ public final class FirebaseDatabaseCustomBackend {
         when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
         when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("10:00");
         when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn(patient1ID);
-        when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("10");
+        //when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("10");
+        //when(dateAppointmentSnapshot.getValue(String.class)).thenReturn("Monday");
+        //when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn("doctorid1");
+        //when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("timApt");
+        //when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn("patApt");
+        when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("0");
         /*when(patientAppointmentSnapshot.child("patient")).thenReturn(patientIDSnapshot);
         when(patientIDSnapshot.getValue(String.class)).thenReturn(patient1ID);
         when(patientAppointmentSnapshot.child("doctor")).thenReturn(doctorIDSnapshot);
@@ -308,28 +313,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenReturn(acceptChangeDuration);
     }
 
-    // test
-    /*private void initPatientAppointmentsSnapshots() {
-        //List<DataSnapshot> listApp = new ArrayList<>();
-        //listApp.add(patientAppointmentSnapshot);
-        //when(patientAppointmentSnapshot.getChildren()).thenReturn(listApp);
-        //when(patientAppointmentSnapshot.getKey()).thenReturn(patient1ID);
-        //when(patientAppointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
-        //when(patientAppointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
-        when(patientAppointmentSnapshot.child("patient")).thenReturn(patientIDSnapshot);
-        when(patientIDSnapshot.getValue(String.class)).thenReturn(patient1ID);
-        when(patientAppointmentSnapshot.child("doctor")).thenReturn(doctorIDSnapshot);
-        when(doctorIDSnapshot.getValue(String.class)).thenReturn(doctor1ID);
-        //when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
-        //when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
-        when(patientAppointmentSnapshot.child("date")).thenReturn(dateSnapshot);
-        when(dateSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
-        when(patientAppointmentSnapshot.child("time")).thenReturn(timeSnapshot);
-        when(timeSnapshot.getValue(String.class)).thenReturn("10:00");
-        when(patientAppointmentSnapshot.child("duration")).thenReturn(durationSnapshot);
-        when(durationSnapshot.getValue(String.class)).thenReturn("10");
-    }*/
-
+    
     //Initialize listener for event on 'Requests' child
     //makes the listener work on 'appointmentSnapshot'
     private void initAppointmentRequestsListMock() {
