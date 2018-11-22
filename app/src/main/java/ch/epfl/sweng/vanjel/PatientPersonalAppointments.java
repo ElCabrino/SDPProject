@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +67,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         //Log.e("SIZE", Integer.toString(idToDoc.size()));
 
         dbAp.addValueEventListener(new ValueEventListener() {
-            @TargetApi(Build.VERSION_CODES.N)
+            //@TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
@@ -89,7 +90,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                             }
                 }
 
-                apList.sort(new appointmentsComparator());
+                Collections.sort(apList, new appointmentsComparator());
+                //apList.sort(new appointmentsComparator());
                 PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
                 listViewAp.setAdapter(adapter);
                 //TODO: click on appointment to get doctor info
