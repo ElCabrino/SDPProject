@@ -114,10 +114,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
             String day, hour, patientUid, doctorUid, appointmentID;
             int duration = Integer.valueOf(request.child("duration").getValue().toString());
             appointmentID = request.getKey();
-            day = request.child("date").getValue().toString();
-            doctorUid = request.child("doctor").getValue().toString();
-            hour = request.child("time").getValue().toString();
-            patientUid = request.child("patient").getValue().toString();
+            day = request.child("date").getValue(String.class);
+            doctorUid = request.child("doctor").getValue(String.class);
+            hour = request.child("time").getValue(String.class);
+            patientUid = request.child("patient").getValue(String.class);
             currentDate = dateFormat.parse(dateFormat.format(currentDate));
             int comparaison = dateFormat.parse(day).compareTo(currentDate);
             // 0 is today, -1 is before, 1 is after

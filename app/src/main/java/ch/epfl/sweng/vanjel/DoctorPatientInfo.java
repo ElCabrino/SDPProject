@@ -41,9 +41,10 @@ public class DoctorPatientInfo extends AppCompatActivity {
 
 //        TODO: add corect uid
 //        String UserID = FirebaseDatabaseCustomBackend.getInstance().getUid();
-        String UserID = bundle.getString("patientUID");
+        String patientID = bundle.getString("patientUID");
 //        String UserID = "I3h9NVPXwmb0Ab2auVnaMSgjaLY2";
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this);
+
+        patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
 
         getAllPatientInfoFields();
         
