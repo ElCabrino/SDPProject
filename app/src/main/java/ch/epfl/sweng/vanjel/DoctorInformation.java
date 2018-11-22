@@ -39,6 +39,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     private Button takeAppointment;
     private Button chat;
+    private Button favorite;
+    private Boolean favoriteState = false;
 
     // map
     private MapView mapView;
@@ -77,10 +79,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
-
-
-
-
     }
 
     private void init(){
@@ -99,26 +97,35 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         takeAppointment.setOnClickListener(this);
         // map reference
         mapView = findViewById(R.id.mapViewDoctorInfo);
+        //chat
         chat = findViewById(R.id.buttonChat);
         chat.setOnClickListener(this);
-
+        //favorite
+        favorite = findViewById(R.id.addToFavoriteButton);
+        favorite.setOnClickListener(this);
     }
 
     public void onClick(View v) {
         if(v.getId() == R.id.buttonTakeAppointment){
             Intent intent = new Intent(this, PatientCalendarActivity.class);
-
             intent.putExtra("doctorUID", doctorUID);
-
             startActivity(intent);
         }
         if(v.getId() == R.id.buttonChat){
             Intent intent = new Intent(this, ChatActivity.class);
-
             intent.putExtra("contactUID",doctorUID);
             intent.putExtra("contactName",doctor.toString());
-
             startActivity(intent);
+        }
+        if(v.getId() == R.id.addToFavoriteButton){
+            if (!favoriteState){
+                favoriteState = true;
+                favorite.setBackgroundColor(0xDDDDBB33);
+            }
+            else {
+                favorite.setBackgroundColor(0xFFD6D7D7);
+                favoriteState = false;
+            }
         }
     }
 
@@ -159,9 +166,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             LatLng doctorLocation = getLocationFromAddress(doctor);
 
             // if address does not exist, we zoom in Lausanne and don't put any marker
-            if (doctorLocation == null) {
-                doctorLocation = new LatLng(46.519962, 6.633597);
-            } else {
+            if (doctorLocation == null) doctorLocation = new LatLng(46.519962, 6.633597);
+            else {
                 // put the pin (marker)
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(doctorLocation);
