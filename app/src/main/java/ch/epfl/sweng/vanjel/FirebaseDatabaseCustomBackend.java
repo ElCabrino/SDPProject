@@ -83,12 +83,23 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private DatabaseReference patientConditionRef;
 
+
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
     @Mock
     private DataSnapshot timeDurationAppointmentSnapshot;
     @Mock
     private DataSnapshot patIdAppointmentSnapshot;
+    @Mock
+    private DataSnapshot patientIDSnapshot;
+    @Mock
+    private DataSnapshot doctorIDSnapshot;
+    @Mock
+    private DataSnapshot dateSnapshot;
+    @Mock
+    private DataSnapshot timeSnapshot;
+    @Mock
+    private DataSnapshot durationSnapshot;
     @Mock
     private DataSnapshot chatTextSnapshot;
     @Mock
@@ -112,6 +123,8 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private DataSnapshot appointmentSnapshot;
     @Mock
+    private DataSnapshot patientAppointmentSnapshot;
+    @Mock
     private DataSnapshot chatSnapshot;
     @Mock
     private DataSnapshot dateAppointmentSnapshot;
@@ -121,6 +134,15 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot conditionSnapshot;
     @Mock
     private DataSnapshot infoConditionSnapshot;
+    @Mock
+    private DataSnapshot docLastNameSnapshot;
+    @Mock
+    private DataSnapshot docStreetNumberSnapshot;
+    @Mock
+    private DataSnapshot docStreetSnapshot;
+    @Mock
+    private DataSnapshot docCitySnapshot;
+
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -181,6 +203,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
+        //initPatientAppointmentsSnapshots();
         initChatMock();
         //initPatientConditionsSnapshots();
         //initProfileListener();
@@ -230,14 +253,22 @@ public final class FirebaseDatabaseCustomBackend {
         when(doctor1Snapshot.hasChild("patientid1")).thenReturn(false);
         when(doctor1Snapshot.hasChild("doctorid1")).thenReturn(true);
         when(doctor1Snapshot.getChildren()).thenReturn(listDoctor);
-        when(doctor1Snapshot.getKey()).thenReturn("doctorid1");
+        when(doctor1Snapshot.child("lastName")).thenReturn(docLastNameSnapshot);
+        when(docLastNameSnapshot.getValue(String.class)).thenReturn(defDoctor1.getLastName());
+        when(doctor1Snapshot.child("streetNumber")).thenReturn(docStreetNumberSnapshot);
+        when(docStreetNumberSnapshot.getValue(String.class)).thenReturn(defDoctor1.getStreetNumber());
+        when(doctor1Snapshot.child("street")).thenReturn(docStreetSnapshot);
+        when(docStreetSnapshot.getValue(String.class)).thenReturn(defDoctor1.getStreet());
+        when(doctor1Snapshot.child("city")).thenReturn(docCitySnapshot);
+        when(docCitySnapshot.getValue(String.class)).thenReturn(defDoctor1.getCity());
+        when(doctor1Snapshot.getKey()).thenReturn(doctor1ID);
+        when(doctor1Snapshot.getChildren()).thenReturn(listDoctor);
     }
 
     //mock for the method DoctorAppointmentList.getAppointmentValueListener()
     private void initDoctorAvailabilitySnapshots() {
         List<DataSnapshot> listApp = new ArrayList<>();
         listApp.add(appointmentSnapshot);
-
 
 
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
@@ -248,11 +279,26 @@ public final class FirebaseDatabaseCustomBackend {
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
         when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
-        when(dateAppointmentSnapshot.getValue()).thenReturn("Monday");
-        when(docIdAppointmentSnapshot.getValue()).thenReturn("doctorid1");
-        when(timeDurationAppointmentSnapshot.getValue()).thenReturn("timApt");
-        when(patIdAppointmentSnapshot.getValue()).thenReturn("patApt");
-        when(durationAppointmentSnapshot.getValue()).thenReturn("0");
+        when(dateAppointmentSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
+        when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
+        when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("10:00");
+        when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn(patient1ID);
+        //when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("10");
+        //when(dateAppointmentSnapshot.getValue(String.class)).thenReturn("Monday");
+        //when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn("doctorid1");
+        //when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("timApt");
+        //when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn("patApt");
+        when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("0");
+        /*when(patientAppointmentSnapshot.child("patient")).thenReturn(patientIDSnapshot);
+        when(patientIDSnapshot.getValue(String.class)).thenReturn(patient1ID);
+        when(patientAppointmentSnapshot.child("doctor")).thenReturn(doctorIDSnapshot);
+        when(doctorIDSnapshot.getValue(String.class)).thenReturn(doctor1ID);
+        when(patientAppointmentSnapshot.child("date")).thenReturn(dateSnapshot);
+        when(dateSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
+        when(patientAppointmentSnapshot.child("time")).thenReturn(timeSnapshot);
+        when(timeSnapshot.getValue(String.class)).thenReturn("10:00");
+        when(patientAppointmentSnapshot.child("duration")).thenReturn(durationSnapshot);
+        when(durationSnapshot.getValue(String.class)).thenReturn("10");*/
 
         // mock for DoctorAppointmentList where he needs to accept or decline
         when(requestsRef.child(appointmentKey)).thenReturn(appointmentReqRef);
@@ -264,12 +310,8 @@ public final class FirebaseDatabaseCustomBackend {
         when(durationAppointmentRef.setValue(any(String.class))).thenReturn(acceptChangeDuration);
         when(acceptChangeDuration.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(acceptChangeDuration);
         when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenReturn(acceptChangeDuration);
+    }
 
-
-//        FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
-
-
-                                                                                                                                                            }
 
     //Initialize listener for event on 'Requests' child
     //makes the listener work on 'appointmentSnapshot'
@@ -424,6 +466,21 @@ public final class FirebaseDatabaseCustomBackend {
     }
 
     private void initDBListeners() {
+
+        // test
+        /*doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(patientError);
+                } else {
+                    listener.onDataChange(patientAppointmentSnapshot);
+                }
+                return listener;
+            }
+        }).when(requestsRef).addValueEventListener(any(ValueEventListener.class));*/
+
         doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {

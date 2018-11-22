@@ -49,6 +49,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
     Button searchButton;
+
+    Button appointmentsButton;
+
     Button setAvailabilityButton;
     Button requestsListButton;
 
@@ -75,6 +78,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
+        appointmentsButton.setOnClickListener(this);
+
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
 
@@ -91,7 +96,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     setTextFields(dataSnapshot, Doctor.class);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
@@ -149,6 +153,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.setAvailabilityButton:
                 intent = new Intent(this, DoctorAvailabilityActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.personalAppointmentsButton:
+                Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
+                startActivity(ap_intent);
+                break;
         }
     }
 
@@ -173,6 +182,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
+        this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
     }

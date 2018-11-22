@@ -77,11 +77,11 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     private void refreshAppointmentsList(DataSnapshot request) {
         String day, hour, patientUid, doctorUid, appointmentID, duration;
         appointmentID = request.getKey();
-        day = request.child("date").getValue().toString();
-        doctorUid = request.child("doctor").getValue().toString();
-        hour = request.child("time").getValue().toString();
-        patientUid = request.child("patient").getValue().toString();
-        duration = request.child("duration").getValue().toString();
+        day = request.child("date").getValue(String.class);
+        doctorUid = request.child("doctor").getValue(String.class);
+        hour = request.child("time").getValue(String.class);
+        patientUid = request.child("patient").getValue(String.class);
+        duration = request.child("duration").getValue(String.class);
         if ((this.uid.equals(doctorUid))&&(Integer.valueOf(duration) == 0)){ //refresh with new element
             Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
             adapter.appointmentsList.add(appointment);
