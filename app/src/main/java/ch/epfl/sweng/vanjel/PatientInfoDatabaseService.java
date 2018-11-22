@@ -29,10 +29,14 @@ class PatientInfoDatabaseService {
 
     //TEMPORARY ID
     /*TODO: put the user ID of the logged user*/
-    PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
+    PatientInfoDatabaseService(AppCompatActivity activity) {
         this.activity = activity;
-        //String s = auth.getCurrentUser().getUid();
-        String s = patientID;
+        String s = auth.getCurrentUser().getUid();
+        /*String s = patientID;
+        s = null;
+        if (s == null) {
+            s = auth.getCurrentUser().getUid();
+        }*/
         this.userDatabaseReference = database.getReference("Patient").child(s);
 
     }
