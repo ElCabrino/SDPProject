@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email;
@@ -269,5 +271,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
         return userValues;
+    }
+    
+    public void openChats(View v) {
+        Intent intent = new Intent(this, ChatListActivity.class);
+        startActivity(intent);
     }
 }

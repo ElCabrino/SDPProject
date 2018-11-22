@@ -3,16 +3,16 @@ package ch.epfl.sweng.vanjel;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -22,16 +22,12 @@ import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.action.ViewActions.swipeDown;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class
 PatientInfoTest {
 
@@ -77,7 +73,7 @@ PatientInfoTest {
     private String drinking = "10";
     private String exercise = "0";
 
-
+  
     private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
     private ArrayList<InfoString> substances;
@@ -175,7 +171,7 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverCondition() throws InterruptedException {
-        onView(withId(R.id.buttonAllergy)).perform(scrollTo());
+        onView(withId(R.id.buttonPriorConditions)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for (InfoString condition : conditions) {
             onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());
@@ -204,7 +200,6 @@ PatientInfoTest {
         for ( int i = 0; i < allergies.size(); i++ ) {
             onView(allOf(withId(R.id.textViewAllergies), withText(allergies.get(i).getInfo())))
                     .check(matches(isDisplayed()));
-
         }*/
 
     }
@@ -224,7 +219,6 @@ PatientInfoTest {
         for ( int i = 0; i < substances.size(); i++ ) {
             onView(allOf(withId(R.id.textViewSubstances), withText(substances.get(i).getInfo())))
                     .check(matches(isDisplayed()));
-
         }*/
 
     }
@@ -245,7 +239,6 @@ PatientInfoTest {
         for ( int i = 0; i < expectedSurgeries.size(); i++ ) {
             onView(allOf(withId(R.id.textViewSurgeries), withText(expectedSurgeries.get(i))))
                     .check(matches(isDisplayed()));
-
         }*/
 
     }
@@ -267,7 +260,6 @@ PatientInfoTest {
         for ( int i = 0; i < expectedDrugReactions.size(); i++ ) {
             onView(allOf(withId(R.id.textViewDrugReactions), withText(expectedDrugReactions.get(i))))
                     .check(matches(isDisplayed()));
-
         }*/
 
     }
@@ -289,7 +281,6 @@ PatientInfoTest {
         for ( int i = 0; i < expectedDrugs.size(); i++ ) {
             onView(allOf(withId(R.id.textViewDrugs), withText(expectedDrugs.get(i))))
                     .check(matches(isDisplayed()));
-
         }*/
 
     }
