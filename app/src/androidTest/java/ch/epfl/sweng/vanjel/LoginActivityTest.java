@@ -1,6 +1,8 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -31,10 +33,16 @@ public class LoginActivityTest {
     private String email = "test@test.ch";
     private String password = "123456";
 
+    @Rule
+    public final ActivityTestRule<LoginActivity> ActivityRule =
+            new ActivityTestRule<>(LoginActivity.class);
 
     @Before
     public void init() {
         FirebaseAuthCustomBackend.setNullUser(true);
+        ActivityRule.finishActivity();
+        Intent i = new Intent();
+        ActivityRule.launchActivity(i);
     }
 
     @After
@@ -42,9 +50,6 @@ public class LoginActivityTest {
         FirebaseAuthCustomBackend.setNullUser(false);
     }
 
-    @Rule
-    public final IntentsTestRule<LoginActivity> ActivityRule =
-            new IntentsTestRule<>(LoginActivity.class);
 
     @Test
     public void testOpenChooseRegistration() {
