@@ -73,9 +73,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         } else {
             // get Doctor
             getDocWithUID(doctorUID);
-            //init local database
-
-
         }
 
         Bundle mapViewBundle = null;
@@ -149,6 +146,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             public void onDataChange(DataSnapshot snapshot) {
                 doctor = snapshot.getValue(Doctor.class);
                 initLocalDatabase(doctor);
+                findIfAlreadyFavoriteButtonState();
                 setData();
                 isDatabaseReady = true;
                 putMarkerOnMap();
@@ -165,6 +163,13 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     private void initLocalDatabase(Doctor doc){
         this.localDatabaseService = new LocalDatabaseService(this, doc, this.doctorUID);
+    }
+
+    private void findIfAlreadyFavoriteButtonState(){
+        if (localDatabaseService.getWithKey(this.doctorUID).size() != 0){
+            favoriteState = true;
+            favorite.setBackgroundColor(0xDDDDBB33);
+        }
     }
 
     private void setData(){

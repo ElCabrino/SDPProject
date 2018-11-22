@@ -3,6 +3,8 @@ package ch.epfl.sweng.vanjel.favorite;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import java.util.List;
+
 import ch.epfl.sweng.vanjel.Doctor;
 
 public final class LocalDatabaseService {
@@ -24,4 +26,6 @@ public final class LocalDatabaseService {
     public void delete(){
         db.doctorFavoriteDao().delete(this.doctorFavorite);
     }
+
+    public List<DoctorFavorite> getWithKey(String id){ return db.doctorFavoriteDao().getWithKey(id);}
 }

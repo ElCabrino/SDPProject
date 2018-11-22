@@ -13,6 +13,9 @@ public interface DoctorFavoriteDao {
     @Query("SELECT * FROM doctorfavorite")
     List<DoctorFavorite> getAll();
 
+    @Query("SELECT * FROM doctorfavorite WHERE doctorID = :id")
+    List<DoctorFavorite> getWithKey(String id);
+
     @Insert
     void insertAll(DoctorFavorite... doctorFavorite);
 
