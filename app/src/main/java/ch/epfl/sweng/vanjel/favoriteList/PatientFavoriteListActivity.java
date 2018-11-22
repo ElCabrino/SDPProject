@@ -19,9 +19,10 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_list);
-        fetchDataLocalDatabase();
+        initAdapter();
         this.localDatabase = Room.databaseBuilder(this,
                 LocalDatabase.class, "local-database").allowMainThreadQueries().build();
+        fetchDataLocalDatabase();
     }
 
     private void initAdapter() {

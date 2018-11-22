@@ -43,6 +43,7 @@
         <activity android:name=".DoctorAppointmentsList" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".chat.ChatListActivity"></activity>
+        <activity android:name=".favoriteList.PatientFavoriteListActivity"></activity>
     </application>
 
 </manifest>
