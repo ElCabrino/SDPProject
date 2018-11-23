@@ -34,10 +34,11 @@ class PatientInfoDatabaseService {
         //String s = auth.getCurrentUser().getUid();
         String s = patientID;
         this.userDatabaseReference = database.getReference("Patient").child(s);
-
     }
 
-    //LISTENERS
+
+
+        //LISTENERS
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
         db.addValueEventListener(new ValueEventListener() {

@@ -49,9 +49,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
     Button searchButton;
+
+
     Button setAvailabilityButton;
     Button requestsListButton;
-    Button buttonDoctorComingAppointments;
+    Button buttonNextAppointments;
 
     String userType;
 
@@ -76,9 +78,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
+
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
-        buttonDoctorComingAppointments.setOnClickListener(this);
+        buttonNextAppointments.setOnClickListener(this);
 
         isPatientUser();
     }
@@ -93,7 +96,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     setTextFields(dataSnapshot, Doctor.class);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
@@ -146,9 +148,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 intent = new Intent(this, DoctorAvailabilityActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.buttonDoctorComingAppointments:
-                intent = new Intent(this, DoctorComingAppointments.class);
-                startActivity(intent);
+
+            case R.id.buttonNextAppointments:
+                if (userType.equals("Patient")) {
+                    Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
+                    startActivity(ap_intent);
+                } else {
+                    intent = new Intent(this, DoctorComingAppointments.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -183,9 +191,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
+        this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
-        this.buttonDoctorComingAppointments = findViewById(R.id.buttonDoctorComingAppointments);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.

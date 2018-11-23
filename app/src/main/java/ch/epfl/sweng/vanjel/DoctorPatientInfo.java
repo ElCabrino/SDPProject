@@ -44,6 +44,7 @@ public class DoctorPatientInfo extends AppCompatActivity {
         String patientID = bundle.getString("patientUID");
 //        String UserID = "I3h9NVPXwmb0Ab2auVnaMSgjaLY2";
 
+        //patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
         patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
 
         getAllPatientInfoFields();
