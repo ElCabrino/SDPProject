@@ -163,8 +163,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     public void patientInfo() {
         if (userType.equals("Patient")) {
-            Intent intent = new Intent(this, PatientInfo.class);
-            startActivity(intent);
+            startActivity(new Intent(this, PatientInfo.class));
         } else {
             Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
         }
@@ -172,8 +171,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     private void logOut(){
         auth.signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
