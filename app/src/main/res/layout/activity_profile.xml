@@ -155,12 +155,12 @@
                     android:text="Edit" />
 
                 <Button
-                    android:id="@+id/buttonDoctorComingAppointments"
+                    android:id="@+id/buttonNextAppointments"
+                    android:contentDescription="personal appointments button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="openChats"
-                    android:text="Next appointments" />
+                    android:text="Your appointments"
+                    android:layout_weight="1"/>
 
                 <Button
                     android:id="@+id/requestsListButton"
@@ -213,14 +213,7 @@
                     android:text="Chats" />
 
             </LinearLayout>
-            <Button
 
-                android:id="@+id/buttonNextAppointments"
-                android:contentDescription="personal appointments button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your appointments"
-                android:layout_weight="1"/>
 
         </LinearLayout>
     </ScrollView>

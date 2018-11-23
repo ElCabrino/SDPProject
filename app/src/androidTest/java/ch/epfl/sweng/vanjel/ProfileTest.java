@@ -14,6 +14,8 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -26,6 +28,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNot.not;
 
@@ -205,6 +208,47 @@ public class ProfileTest {
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText(d_expectedCity)));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(d_expectedCountry)));
     }
+
+    @Test
+    public void nextAppointmentsAsPatient() throws Exception {
+        runAsPatient();
+        Intents.init();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
+        intended(hasComponent(PatientPersonalAppointments.class.getName()));
+        Intents.release();
+    }
+
+    @Test
+    public void nextAppointmentsAsDoctor() throws Exception {
+        runAsDoctor();
+        Intents.init();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
+        intended(hasComponent(DoctorComingAppointments.class.getName()));
+        Intents.release();
+    }
+
+    @Test
+    public void requestsList() throws Exception {
+        runAsDoctor();
+        Intents.init();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.requestsListButton)).perform(scrollTo(), click());
+        intended(hasComponent(DoctorAppointmentsList.class.getName()));
+        Intents.release();
+    }
+
+    @Test
+    public void chatAccess() throws Exception {
+        runAsPatient();
+        Intents.init();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.chatList)).perform(scrollTo(), click());
+        intended(hasComponent(ChatListActivity.class.getName()));
+        Intents.release();
+    }
+
 
     // Set mock Firebase to connect as a Doctor
     private void runAsDoctor() {
