@@ -118,9 +118,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
         Intent intent;
-        switch (i) {
+        switch (v.getId()) {
             case R.id.requestsListButton:
                 intent = new Intent(this ,DoctorAppointmentsList.class);
                 startActivity(intent);
@@ -129,12 +128,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 logOut();
                 break;
             case R.id.patientInfoButton:
-                if (userType.equals("Patient")) {
-                    intent = new Intent(this, PatientInfo.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-                }
+                patientInfo();
                 break;
             case R.id.editButton:
                 setEditText(true, View.GONE, View.VISIBLE);
@@ -156,6 +150,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 intent = new Intent(this, DoctorComingAppointments.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    public void patientInfo() {
+        if (userType.equals("Patient")) {
+            Intent intent = new Intent(this, PatientInfo.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
         }
     }
 
