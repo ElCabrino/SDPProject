@@ -245,7 +245,7 @@ public class ProfileTest {
         runAsPatient();
         Intents.init();
         TimeUnit.SECONDS.sleep(3);
-        onView(withId(R.id.chatList)).perform(scrollTo(), click());
+        onView(withId(R.id.chats)).perform(scrollTo(), click());
         intended(hasComponent(ChatListActivity.class.getName()));
         Intents.release();
     }
