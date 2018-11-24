@@ -4,15 +4,9 @@ package ch.epfl.sweng.vanjel;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,7 +156,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
     private void modifyDurationFirebase(int i, String duration) {
         String appointmentID = appointmentsList.get(i).getAppointmentID();
         appointmentsList = new ArrayList<>();
-        database.getInstance().getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
+        database.getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(context, "A notification has been sent to the patient", Toast.LENGTH_SHORT).show();

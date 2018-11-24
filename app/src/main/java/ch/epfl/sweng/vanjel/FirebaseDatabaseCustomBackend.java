@@ -112,6 +112,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseError doctorError;
     @Mock
     private DatabaseError chatError;
+    @Mock
+    private DatabaseError appointmentError;
 
     @Mock
     private DataSnapshot patient1Snapshot;
@@ -326,8 +328,26 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(appointmentReqRef.child("duration")).thenReturn(durationAppointmentRef);
         when(durationAppointmentRef.setValue(any(String.class))).thenReturn(acceptChangeDuration);
-        when(acceptChangeDuration.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(acceptChangeDuration);
-        when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenReturn(acceptChangeDuration);
+        when(acceptChangeDuration.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return acceptChangeDuration;
+            }
+        });
+        when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
+                if (shouldFail) {
+                    listener.onFailure(null);
+                }
+                return acceptChangeDuration;
+            }
+        });
     }
 
 
@@ -338,7 +358,11 @@ public final class FirebaseDatabaseCustomBackend {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation){
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                listener.onDataChange(appointmentSnapshot);
+                if (isCancelled) {
+                    listener.onCancelled(appointmentError);
+                } else {
+                    listener.onDataChange(appointmentSnapshot);
+                }
                 return listener;
             }
         }).when(requestsRef).addValueEventListener(any(ValueEventListener.class));
