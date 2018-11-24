@@ -1,7 +1,5 @@
 package ch.epfl.sweng.vanjel;
 
-import android.util.Log;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -380,16 +378,24 @@ public final class FirebaseDatabaseCustomBackend {
                 return chatTask;
             }
         });
+        when(chatTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
+                                                                                         @Override
+                                                                                         public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                                                                                             OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
+                                                                                             if (shouldFail) {
+                                                                                                 listener.onFailure(null);
+                                                                                             }
+                                                                                             return chatTask;
+                                                                                         }
+                                                                                     });
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
-                    Log.d("TESTRUNNING", "test1");
                     listener.onCancelled(chatError);
                 } else {
-                    Log.d("TESTRUNNING", "test2");
                     listener.onDataChange(chatSnapshot);
                 }
                 return listener;
