@@ -45,6 +45,7 @@ public final class FirebaseDatabaseCustomBackend {
     private final static String appointmentKey = "aptKey";
 
     private static boolean isCancelled = false;
+    private static boolean isCancelledSecond = false;
     private static boolean shouldFail = false;
 
     @Mock
@@ -165,6 +166,10 @@ public final class FirebaseDatabaseCustomBackend {
 
     public static void setIsCancelled(boolean b) {
         isCancelled = b;
+    }
+
+    public static void setIsCancelledSecond(boolean b) {
+        isCancelledSecond = b;
     }
 
     public static void setShouldFail(boolean b) {
@@ -379,21 +384,21 @@ public final class FirebaseDatabaseCustomBackend {
             }
         });
         when(chatTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
-                                                                                         @Override
-                                                                                         public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
-                                                                                             OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
-                                                                                             if (shouldFail) {
-                                                                                                 listener.onFailure(null);
-                                                                                             }
-                                                                                             return chatTask;
-                                                                                         }
-                                                                                     });
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
+                if (shouldFail) {
+                    listener.onFailure(null);
+                    }
+                    return chatTask;
+                }
+        });
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                if (isCancelled) {
+                if (isCancelledSecond) {
                     listener.onCancelled(chatError);
                 } else {
                     listener.onDataChange(chatSnapshot);
