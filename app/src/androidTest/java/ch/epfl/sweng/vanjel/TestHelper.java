@@ -17,6 +17,7 @@ public class TestHelper {
     }
 
     public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, Map<String, String> extras) {
+        rule.finishActivity();
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
@@ -32,6 +33,7 @@ public class TestHelper {
     }
 
     public static void setupNoExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond) {
+        rule.finishActivity();
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);

@@ -206,10 +206,7 @@ public final class FirebaseDatabaseCustomBackend {
         initDoctorAvailabilityValidate();
         initPatientInfoMock();
         initAppointmentRequestsListMock();
-        //initPatientAppointmentsSnapshots();
         initChatMock();
-        //initPatientConditionsSnapshots();
-        //initProfileListener();
         return mockDB;
     }
 
@@ -306,8 +303,26 @@ public final class FirebaseDatabaseCustomBackend {
         // mock for DoctorAppointmentList where he needs to accept or decline
         when(requestsRef.child(appointmentKey)).thenReturn(appointmentReqRef);
         when(appointmentReqRef.removeValue()).thenReturn(appointmentRequestTask);
-        when(appointmentRequestTask.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(appointmentRequestTaskWithSuccess);
-        when(appointmentRequestTaskWithSuccess.addOnFailureListener(any(OnFailureListener.class))).thenReturn(appointmentRequestTask);
+        when(appointmentRequestTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return appointmentRequestTask;
+            }
+        });
+        when(appointmentRequestTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
+                if (shouldFail) {
+                    listener.onFailure(null);
+                }
+                return appointmentRequestTask;
+            }
+        });
 
         when(appointmentReqRef.child("duration")).thenReturn(durationAppointmentRef);
         when(durationAppointmentRef.setValue(any(String.class))).thenReturn(acceptChangeDuration);

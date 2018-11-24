@@ -1,10 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
-import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,14 +13,15 @@ import java.util.concurrent.TimeUnit;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.*;
+import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
+import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
+import static org.hamcrest.Matchers.not;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -31,25 +31,10 @@ public class DoctorAppointmentsListTest {
     public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
             new IntentsTestRule<>(DoctorAppointmentsList.class);
 
-    @Before
-    public void init() throws InterruptedException{
-        ActivityRule.finishActivity();
-        FirebaseAuthCustomBackend.setNullUser(false);
-        FirebaseAuthCustomBackend.setMockPatient(false);
-        ActivityRule.launchActivity(new Intent());
-        TimeUnit.SECONDS.sleep(2);
-    }
-
-
-
     @Test
-    public void testDisplayPage() throws InterruptedException{
-        TimeUnit.SECONDS.sleep(2);
-    }
-
-    @Test
-    public void testAcceptAppointment(){
-//        TimeUnit.SECONDS.sleep(10);
+    public void acceptAppointmentTest() throws Exception {
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
         // id taken in stacktrace
         onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
@@ -58,6 +43,8 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void testAcceptCancelAppointment() throws InterruptedException{
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        TimeUnit.SECONDS.sleep(1);
         // click accept button but changes his mind and click cancel
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
         TimeUnit.SECONDS.sleep(2);
@@ -66,10 +53,25 @@ public class DoctorAppointmentsListTest {
 
     }
 
+    @Test
+    public void testDeclineAppointment() throws Exception {
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        TimeUnit.SECONDS.sleep(1);
+        onView(withId(R.id.declineAppointmentButton)).perform(click());
+        onView(withText("Appointment declined")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+    }
 
     @Test
-    public void testDeclineAppointment(){
+    public void testDeclineAppointmentFailed() throws Exception {
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false);
+        TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.declineAppointmentButton)).perform(click());
+        onView(withText("An error occurred when declining the appointment")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+    }
+
+    @AfterClass
+    public static void restore() {
+        restoreMockFlags();
     }
 
 }

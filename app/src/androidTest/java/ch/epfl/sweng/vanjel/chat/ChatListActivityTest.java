@@ -1,6 +1,5 @@
 package ch.epfl.sweng.vanjel.chat;
 
-import android.content.Intent;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 
@@ -10,7 +9,6 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
