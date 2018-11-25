@@ -219,16 +219,16 @@ public class ProfileTest {
         Intents.release();
     }
 
-//    @Test
-//    public void nextAppointmentsAsDoctor() throws Exception {
-//        runAsDoctor();
-//        Intents.init();
-//        TimeUnit.SECONDS.sleep(3);
-//        onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
-//        intended(hasComponent(DoctorComingAppointments.class.getName()));
-//        Intents.release();
-//
-//    }
+    @Test
+    public void nextAppointmentsAsDoctor() throws Exception {
+        runAsDoctor();
+        Intents.init();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
+        intended(hasComponent(DoctorComingAppointments.class.getName()));
+        Intents.release();
+
+    }
 
     @Test
     public void requestsList() throws Exception {

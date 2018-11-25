@@ -58,10 +58,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
     // set cardview, database reference
     public void init(){
         // TODO: remove the fixed uid to put the actual doctor's coming appointments
-        uid = "W7ReyyyOwAQKaganjsMQuHRb0Aj2";
-//        uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        ref = database.getReference().child("Requests");
-        patientRef = database.getReference().child("Patient");
+//        uid = "W7ReyyyOwAQKaganjsMQuHRb0Aj2";
+        uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        ref = database.getReference("Requests");
+        patientRef = database.getReference("Patient");
         // adapter
         recyclerView = findViewById(R.id.doctorComingAppointmentCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -110,9 +110,9 @@ public class DoctorComingAppointments extends AppCompatActivity {
     public void addAppointment(DataSnapshot request) throws ParseException {
         // check if appointment is in the past
 
-        if(request.child("doctor").getValue().equals(uid)){
+        if(request.child("doctor").getValue(String.class).equals(uid)){
             String day, hour, patientUid, doctorUid, appointmentID;
-            int duration = Integer.valueOf(request.child("duration").getValue().toString());
+            int duration = Integer.valueOf(request.child("duration").getValue(String.class));
             appointmentID = request.getKey();
             day = request.child("date").getValue(String.class);
             doctorUid = request.child("doctor").getValue(String.class);
