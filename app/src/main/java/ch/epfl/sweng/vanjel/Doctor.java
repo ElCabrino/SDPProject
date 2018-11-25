@@ -1,5 +1,11 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Context;
+import android.location.Location;
+import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
+
 public class Doctor extends User {
 
     DoctorActivity activity;
@@ -9,6 +15,7 @@ public class Doctor extends User {
         this.activity = activity;
     }
 
+    Doctor() {}
 
     public String getActivity(){
         return activity.name();
@@ -18,6 +25,12 @@ public class Doctor extends User {
         this.activity = activity;
     }
 
-    Doctor() {}
-
+    public double getDistance(LatLng userLocation, Context context) {
+        Log.d("DOC","-- CREATE DISTANCE ONE BY ONE");
+        float[] results = new float[1];
+        LatLng doctorLocation = this.getLocationFromAddress(context);
+//      if(doctorLocation.equals(null)) return null;
+        Location.distanceBetween(userLocation.latitude, userLocation.longitude, doctorLocation.latitude, doctorLocation.longitude, results);
+        return results[0];
+    }
 }

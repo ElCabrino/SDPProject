@@ -3,6 +3,7 @@
     package="ch.epfl.sweng.vanjel">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -28,11 +29,13 @@
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
 
         <activity android:name=".LoginActivity">
+
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
         </activity>
 
         <activity android:name=".ChooseRegistration" />
@@ -48,6 +51,11 @@
         <activity android:name=".PatientAppointmentActivity" />
         <activity android:name=".DoctorInformation" />
         <activity android:name=".NearbyDoctor"></activity>
+
+
+        <activity android:name=".ListNearbyDoctors">
+
+        </activity>
 
         <service android:name=".AppointmentNotificationBackgroundService" />
 
