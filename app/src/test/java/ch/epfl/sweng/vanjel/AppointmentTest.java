@@ -66,6 +66,19 @@ public class AppointmentTest {
         assertEquals("aptID2", a.getAppointmentID());
     }
 
+    @Test
+    public void getterTestConstructor4() {
+        Appointment a = new Appointment(day, hour, duration, doctorUid, patientUid);
+        assertEquals(day, a.getDay());
+        assertEquals(hour, a.getHour());
+        assertEquals(doctorUid, a.getDoctorUid());
+        assertEquals(patientUid, a.getPatientUid());
+        assertEquals(duration, a.getDuration());
+        assertEquals(appointmentID, a.getAppointmentID());
+        a.setAppointmentID("aptID2");
+        assertEquals("aptID2", a.getAppointmentID());
+    }
+
 
 
 
