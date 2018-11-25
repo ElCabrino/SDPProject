@@ -79,7 +79,6 @@ public class DoctorAppointmentsListTest {
         // id taken in stacktrace
         onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
         onView(withId(16908313)).check(matches(withText("Confirm"))).perform(click());
-        TimeUnit.SECONDS.sleep(1);
         onView(withText("A notification has been sent to the patient")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
@@ -93,7 +92,6 @@ public class DoctorAppointmentsListTest {
         // id taken in stacktrace
         onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
         onView(withId(16908313)).check(matches(withText("Confirm"))).perform(click());
-        TimeUnit.SECONDS.sleep(1);
         onView(withText("An error occurred when notifying the patient")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
