@@ -49,7 +49,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
     Button searchButton;
+
     Button nearbyDoctorButton;
+    Button appointmentsButton;
     Button setAvailabilityButton;
     Button requestsListButton;
 
@@ -78,6 +80,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
         nearbyDoctorButton.setOnClickListener(this);
+        appointmentsButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
 
@@ -91,7 +94,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
                 } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
@@ -148,7 +150,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.nearbyDoctorButton:
                 startActivity(new Intent(this, NearbyDoctor.class));
-
+                intent = new Intent(this, DoctorAvailabilityActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.personalAppointmentsButton:
+                Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
+                startActivity(ap_intent);
+                break;
         }
     }
 
@@ -175,6 +183,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
         this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
+        this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
     }
