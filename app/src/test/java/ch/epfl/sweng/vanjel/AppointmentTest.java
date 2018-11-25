@@ -74,9 +74,6 @@ public class AppointmentTest {
         assertEquals(doctorUid, a.getDoctorUid());
         assertEquals(patientUid, a.getPatientUid());
         assertEquals(duration, a.getDuration());
-        assertEquals(appointmentID, a.getAppointmentID());
-        a.setAppointmentID("aptID2");
-        assertEquals("aptID2", a.getAppointmentID());
     }
 
 
