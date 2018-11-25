@@ -60,15 +60,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         // we see if we have the doctor details, otherwise we quit
         doctorUID = bundle.getString("doctorUID");
 
-        if(doctorUID == null){
-            Toast.makeText(DoctorInformation.this, "No doctor content to display", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        } else {
-            // get Doctor
-            getDocWithUID(doctorUID);
-
-        }
+        // get Doctor
+        getDocWithUID(doctorUID);
 
         Bundle mapViewBundle = null;
         if(savedInstanceState != null){
@@ -77,10 +70,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
-
-
-
-
     }
 
     private void init(){
@@ -101,7 +90,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         mapView = findViewById(R.id.mapViewDoctorInfo);
         chat = findViewById(R.id.buttonChat);
         chat.setOnClickListener(this);
-
     }
 
     public void onClick(View v) {
@@ -136,12 +124,9 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(DoctorInformation.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DoctorInformation.this, R.string.database_error, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     private void setData(){

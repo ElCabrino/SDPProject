@@ -26,7 +26,7 @@ public class ChatListActivityTest {
 
     @Rule
     public final ActivityTestRule<ChatListActivity> mActivityRule =
-            new ActivityTestRule<>(ChatListActivity.class);
+            new ActivityTestRule<>(ChatListActivity.class, true, false);
 
     @Test
     public void displayChatListTest() throws Exception {

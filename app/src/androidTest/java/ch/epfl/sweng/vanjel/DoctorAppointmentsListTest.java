@@ -30,7 +30,7 @@ public class DoctorAppointmentsListTest {
 
     @Rule
     public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
-            new IntentsTestRule<>(DoctorAppointmentsList.class);
+            new IntentsTestRule<>(DoctorAppointmentsList.class, true, false);
 
     @Test
     public void acceptAppointmentTest() throws Exception {
@@ -88,7 +88,7 @@ public class DoctorAppointmentsListTest {
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
         // Avoid Toast overlap
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         // id taken in stacktrace
         onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
         onView(withId(16908313)).check(matches(withText("Confirm"))).perform(click());

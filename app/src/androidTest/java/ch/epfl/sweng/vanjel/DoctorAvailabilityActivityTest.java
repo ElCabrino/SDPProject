@@ -2,6 +2,7 @@ package ch.epfl.sweng.vanjel;
 
 import android.support.test.rule.ActivityTestRule;
 
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -16,6 +17,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 import static org.hamcrest.Matchers.not;
 
@@ -54,7 +56,7 @@ public class DoctorAvailabilityActivityTest {
 
     @Rule
     public ActivityTestRule<DoctorAvailabilityActivity> mActivityRule =
-            new ActivityTestRule<>(DoctorAvailabilityActivity.class);
+            new ActivityTestRule<>(DoctorAvailabilityActivity.class, true, false);
 
     @Test
     public void checkOldAvailabilityTest() throws Exception {
@@ -114,5 +116,10 @@ public class DoctorAvailabilityActivityTest {
         for (int i: toCheck) {
             onView(withId(TimeAvailability.times[i])).perform(scrollTo(), click());
         }
+    }
+
+    @AfterClass
+    public static void restore() {
+        restoreMockFlags();
     }
 }
