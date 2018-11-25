@@ -175,13 +175,13 @@ public class ProfileTest {
         Intents.release();
     }
 
-//    @Test
-//    public void patientInfoButtonAsDoctorTest() throws Exception {
-//        runAsDoctor();
-//        TimeUnit.SECONDS.sleep(3);
-//        onView(withContentDescription("patient info button")).perform(click());
-//        onView(withText("You must be a patient to access this feature")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-//    }
+    @Test
+    public void patientInfoButtonAsDoctorTest() throws Exception {
+        runAsDoctor();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withContentDescription("patient info button")).perform(click());
+        onView(withText("You must be a patient to access this feature")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+    }
 
     @Test
     public void setAvailabilityButton() throws Exception {
