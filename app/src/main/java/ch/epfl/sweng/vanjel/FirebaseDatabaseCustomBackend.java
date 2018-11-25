@@ -274,6 +274,7 @@ public final class FirebaseDatabaseCustomBackend {
 
 
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
+        when(doctorAvailabilitySnapshot.getValue()).thenReturn(av);
         when(appointmentSnapshot.getChildren()).thenReturn(listApp);
         when(appointmentSnapshot.getKey()).thenReturn(appointmentKey);
         when(appointmentSnapshot.child("date")).thenReturn(dateAppointmentSnapshot);
@@ -385,25 +386,27 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(doctorAvailabilityRef.updateChildren(any(Map.class))).thenReturn(updateAvailabilityTask);
 
-        //listener on success
-        doAnswer(new Answer<OnSuccessListener>() {
-
+        when(updateAvailabilityTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public OnSuccessListener answer(InvocationOnMock invocation) throws Throwable {
-                return null;
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return updateSuccessAvailabilityTask;
             }
-        }).when(updateAvailabilityTask).addOnSuccessListener(any(OnSuccessListener.class));
+        });
 
-        when(updateAvailabilityTask.addOnSuccessListener(any(OnSuccessListener.class))).thenReturn(updateSuccessAvailabilityTask);
-
-        //listener on failure
-        doAnswer(new Answer<OnFailureListener>() {
-
+        when(updateSuccessAvailabilityTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public OnFailureListener answer(InvocationOnMock invocation) throws Throwable {
-                return null;
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
+                if (shouldFail) {
+                    listener.onFailure(null);
+                }
+                return updateSuccessAvailabilityTask;
             }
-        }).when(updateSuccessAvailabilityTask).addOnFailureListener(any(OnFailureListener.class));
+        });
     }
 
     private void initChatMock() {
