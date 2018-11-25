@@ -49,8 +49,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
     Button searchButton;
+    Button nearbyDoctorButton;
     Button setAvailabilityButton;
     Button requestsListButton;
+
 
     String userType;
 
@@ -75,6 +77,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
+        nearbyDoctorButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
 
@@ -85,11 +88,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (type.compareTo("Patient") == 0) {
-                    setTextFields(dataSnapshot, Patient.class);
-                } else if (type.compareTo("Doctor") == 0) {
-                    setTextFields(dataSnapshot, Doctor.class);
-                }
+                if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
+                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
             }
 
             @Override
@@ -130,9 +130,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 if (userType.equals("Patient")) {
                     intent = new Intent(this, PatientInfo.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-                }
+                } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
                 break;
             case R.id.editButton:
                 setEditText(true, View.GONE, View.VISIBLE);
@@ -143,16 +141,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                intent = new Intent(this, SearchDoctor.class);
-                startActivity(intent);
+                startActivity(new Intent(this, SearchDoctor.class));
                 break;
             case R.id.setAvailabilityButton:
-                intent = new Intent(this, DoctorAvailabilityActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
+                break;
+            case R.id.nearbyDoctorButton:
+                startActivity(new Intent(this, NearbyDoctor.class));
+
         }
     }
 
     private void logOut(){
+
         auth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -173,6 +174,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
+        this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
     }
@@ -262,9 +264,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("country", this.newCountry);
         return userValues;
     }
-    
+
     public void openChats(View v) {
         Intent intent = new Intent(this, ChatListActivity.class);
         startActivity(intent);
     }
+
 }

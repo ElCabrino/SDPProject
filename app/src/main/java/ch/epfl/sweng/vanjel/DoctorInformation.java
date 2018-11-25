@@ -235,9 +235,11 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         gmap = googleMap;
         gmap.setMinZoomPreference(15);
 
+
         isMapReady = true;
         putMarkerOnMap();
 
     }
+
 }
 
