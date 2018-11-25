@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.content.Intent;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -53,9 +54,11 @@ public class LoginActivityTest {
 
     @Test
     public void testOpenChooseRegistration() {
+        Intents.init();
         helper.signOutIfPossible();
         onView(withId(R.id.registrationLogin)).perform(click());
         intended(hasComponent(ChooseRegistration.class.getName()));
+        Intents.release();
     }
 
     @Test
