@@ -144,13 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/personalAppointmentsButton"
-                    android:contentDescription="personal appointments button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your appointments"
-                    android:layout_weight="1"/>
+
 
 
                 <Button
@@ -169,15 +163,7 @@
                   android:contentDescription="Nearby Doctors"
                   android:text="Nearby Doctors" />
 
-                <Button
-                    android:id="@+id/requestsListButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:text="Requests"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+
 
             </LinearLayout>
 
@@ -242,6 +228,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/personalAppointmentsButton"
+                android:contentDescription="personal appointments button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your appointments"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
