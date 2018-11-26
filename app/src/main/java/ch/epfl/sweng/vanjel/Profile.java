@@ -234,6 +234,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
