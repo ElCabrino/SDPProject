@@ -1,21 +1,11 @@
 package ch.epfl.sweng.vanjel;
 
 
-import android.content.Intent;
-import android.provider.ContactsContract;
-import android.renderscript.Sampler;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,8 +51,6 @@ public class DoctorAppointmentsList extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.appointmentsList = new ArrayList<>();
-                Log.d("TESTAPPT", dataSnapshot.toString());
-                //if (dataSnapshot.getChildrenCount() == 0) initAdapter();
                 for (DataSnapshot request : dataSnapshot.getChildren()) {
                     refreshAppointmentsList(request);
                 }
@@ -70,6 +58,7 @@ public class DoctorAppointmentsList extends AppCompatActivity{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         };
     }

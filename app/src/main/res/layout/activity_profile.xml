@@ -7,7 +7,6 @@
     tools:context=".Profile">
 
 
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
@@ -160,14 +159,7 @@
                     android:contentDescription="profile edit button"
                     android:text="Edit" />
 
-                <Button
-                    android:id="@+id/requestsListButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Requests"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+
 
 
             </LinearLayout>
@@ -211,6 +203,25 @@
                     android:text="Chats" />
 
             </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/requestsListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="73dp"
+                android:text="Requests"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
 
 
         </LinearLayout>
