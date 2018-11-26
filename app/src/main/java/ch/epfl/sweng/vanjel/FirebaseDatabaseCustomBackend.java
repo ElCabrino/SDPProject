@@ -241,6 +241,8 @@ public final class FirebaseDatabaseCustomBackend {
         when(patient1Snapshot.getChildren()).thenReturn(listPatient);
         when(patient1Snapshot.getKey()).thenReturn("patientid1");
 
+        when(patient1Snapshot.exists()).thenReturn(true);
+
         when(patient1Snapshot.getValue(String.class)).thenReturn("1");
         when(patient1Snapshot.getValue(InfoString.class)).thenReturn(new InfoString("Cats"));
         when(patient1Snapshot.getValue(Surgery.class)).thenReturn(new Surgery("THA", "2000"));
@@ -286,22 +288,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
         when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("10:00");
         when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn(patient1ID);
-        //when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("10");
-        //when(dateAppointmentSnapshot.getValue(String.class)).thenReturn("Monday");
-        //when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn("doctorid1");
-        //when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("timApt");
-        //when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn("patApt");
         when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("0");
-        /*when(patientAppointmentSnapshot.child("patient")).thenReturn(patientIDSnapshot);
-        when(patientIDSnapshot.getValue(String.class)).thenReturn(patient1ID);
-        when(patientAppointmentSnapshot.child("doctor")).thenReturn(doctorIDSnapshot);
-        when(doctorIDSnapshot.getValue(String.class)).thenReturn(doctor1ID);
-        when(patientAppointmentSnapshot.child("date")).thenReturn(dateSnapshot);
-        when(dateSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
-        when(patientAppointmentSnapshot.child("time")).thenReturn(timeSnapshot);
-        when(timeSnapshot.getValue(String.class)).thenReturn("10:00");
-        when(patientAppointmentSnapshot.child("duration")).thenReturn(durationSnapshot);
-        when(durationSnapshot.getValue(String.class)).thenReturn("10");*/
 
         // mock for DoctorAppointmentList where he needs to accept or decline
         when(requestsRef.child(appointmentKey)).thenReturn(appointmentReqRef);
