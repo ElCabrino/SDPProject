@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Profile">
 
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
@@ -136,14 +137,32 @@
                 android:text="Save"
                 android:visibility="gone" />
 
-            <Button
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:contentDescription="profile edit button"
-                android:text="Edit" />
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/personalAppointmentsButton"
+                    android:contentDescription="personal appointments button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your appointments"
+                    android:layout_weight="1"/>
+
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="profile edit button"
+                    android:text="Edit" />
+
+
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,17 +204,12 @@
 
             </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/personalAppointmentsButton"
-                android:contentDescription="personal appointments button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your appointments"
-                android:layout_weight="1"/>
+
             <Button
                 android:id="@+id/requestsListButton"
                 android:layout_width="wrap_content"
@@ -208,6 +222,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>
