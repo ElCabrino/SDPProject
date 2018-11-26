@@ -13,12 +13,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.vanjel.TestHelper.setupWithExtras;
 
 /**
  * @author Aslam CADER
@@ -30,34 +33,18 @@ public class FilteredDoctorsTest {
 
     @Rule
     public final ActivityTestRule<FilteredDoctors> mActivityRule =
-            new ActivityTestRule<FilteredDoctors>(FilteredDoctors.class) {
-        @Override
-        protected Intent getActivityIntent() {
-            Context targetContext = InstrumentationRegistry.getInstrumentation()
-                    .getTargetContext();
-            Intent result = new Intent(targetContext, FilteredDoctors.class);
-            result.putExtra("lastName", "ln_dtest1");
-            result.putExtra("firstName", "fn_dtest1");
-            result.putExtra("specialisation", "Dentist");
-            result.putExtra("city", "city_dtest1");
-            return result;
-        }
-    };
-
-    @Before
-    public void initIntents() {
-        Intents.init();
-    }
-
-    @After
-    public void releaseIntents() {
-        Intents.release();
-    }
+            new ActivityTestRule<>(FilteredDoctors.class, true, false);
 
     // check that we are in the correct activity
     @Test
     public void testInterface() throws Exception {
-        TimeUnit.SECONDS.sleep(5);
+        Map<String, String> extras = new HashMap<>();
+        extras.put("lastName", "ln_dtest1");
+        extras.put("firstName", "fn_dtest1");
+        extras.put("specialisation", "Dentist");
+        extras.put("city", "city_dtest1");
+        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, extras);
+        TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.firstName)).check(matches(withText("fn_dtest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_dtest1")));
         onView(withId(R.id.activity)).check(matches(withText("Dentist")));
