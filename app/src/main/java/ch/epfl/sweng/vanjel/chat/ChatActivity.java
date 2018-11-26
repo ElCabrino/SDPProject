@@ -33,7 +33,7 @@ import ch.epfl.sweng.vanjel.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 /**
- * Class used to display the list of all chats a user participates
+ * Class used to display the list_icon of all chats a user participates
  *
  * @author Etienne CAQUOT
  */

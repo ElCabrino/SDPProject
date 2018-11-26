@@ -7,11 +7,71 @@
     android:layout_height="match_parent"
     tools:context=".NearbyDoctor">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapViewNearbyDoctor"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/NearbyTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/listButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_default_small"
+                android:clickable="true"
+                android:drawableLeft="@drawable/list_icon"
+                android:gravity="center"
+                android:text="  List"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mapButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_default_small"
+                android:clickable="true"
+                android:drawableLeft="@drawable/map_icon"
+                android:gravity="center"
+                android:text=" Map"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapViewNearbyDoctor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listNearbyDoctors"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/permission_denied_view"

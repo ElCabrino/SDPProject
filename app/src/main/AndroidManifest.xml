@@ -53,10 +53,6 @@
         <activity android:name=".NearbyDoctor"></activity>
 
 
-        <activity android:name=".ListNearbyDoctors">
-
-        </activity>
-
         <service android:name=".AppointmentNotificationBackgroundService" />
 
         <activity android:name=".DoctorPatientInfo" />

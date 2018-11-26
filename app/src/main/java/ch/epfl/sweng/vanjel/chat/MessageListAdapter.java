@@ -28,7 +28,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     /**
      * Constructor of MessageListAdapter
      * @param context the context of Adapter
-     * @param messageList the list of all message to put in the adapter
+     * @param messageList the list_icon of all message to put in the adapter
      */
     public MessageListAdapter(Context context, List<Message> messageList, String userUid) {
         mContext = context;

@@ -12,8 +12,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Handles interaction with activity_nearby_doctor
@@ -40,9 +50,9 @@ import java.util.ArrayList;
  * @author Etienne Caquot
  * @author Aslam Cader
  */
-public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback {
+public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-    private static final String TAG = NearbyDoctor.class.getSimpleName();
+    private static final String TAG = "NearbyDoctor";
 
     private static final int REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION = 0x01;
 
@@ -50,8 +60,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     private View permissionDeniedView;
     private TextView permissionDeniedRationaleView;
-
-    private boolean isPermissionAlreadyDenied;
+    private TextView mapButton;
+    private TextView listButton;
+    private LinearLayout NearbyDoctorTop;
 
     //to get user Location
     private FusedLocationProviderClient mFusedLocationClient;
@@ -66,16 +77,22 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     // this will contain the doctors
     ArrayList<Doctor> doctors = new ArrayList<>();
 
+    private HashMap<String, Doctor> doctorHashMap = new HashMap<>();
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+
+    private Boolean mapPressed = true;
+    private Boolean listPressed = false;
+
+    private LatLng userLocation;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_doctor);
-
-        this.permissionDeniedView = findViewById(R.id.permission_denied_view);
-        this.permissionDeniedRationaleView = findViewById(R.id.permission_denied_rationale);
-
         init();
-
         // map bundle
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -84,48 +101,169 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+    }
 
+    /**
+     * Initialize the necessary libraries and references
+     */
+    private void init() {
+        //permission view
+        permissionDeniedView = findViewById(R.id.permission_denied_view);
+        permissionDeniedRationaleView = findViewById(R.id.permission_denied_rationale);
+        //recycler for list
+        recyclerView = findViewById(R.id.listNearbyDoctors);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // map reference
+        mapView = findViewById(R.id.mapViewNearbyDoctor);
+        // database reference
+        database = FirebaseDatabase.getInstance();
+        // user position
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //layout
+        mapButton = findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(this);
+        listButton = findViewById(R.id.listButton);
+        listButton.setOnClickListener(this);
+        NearbyDoctorTop = findViewById(R.id.NearbyTopBar);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //get permissions
-        findViewById(R.id.FrameLayout).post(new Runnable() {
-            public void run() {
-                int permissionStatus = ContextCompat.checkSelfPermission(NearbyDoctor.this, Manifest.permission.ACCESS_FINE_LOCATION);
-                if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-                    checkLocation();
-                } else if (!isPermissionAlreadyDenied) {
-                    ActivityCompat.requestPermissions(NearbyDoctor.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
-                }
-            }
-        });
         mapView.onResume();
+        getUserLocation();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.getUiSettings().setZoomControlsEnabled(true);
-        // for each doctor, we put a pin
-        for (Doctor doctor : doctors) {
-            LatLng doctorLocation = doctor.getLocationFromAddress(this);
-            // if doctor address is incorrect we do not put his marker
-            if (doctorLocation == null) {
-                Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
-            } else {
-                // put the pin (marker)
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.title("Dr. " + doctor.getLastName() + " " + doctor.getFirstName());
-                markerOptions.position(doctorLocation);
-                gmap.addMarker(markerOptions);
-            }
+        getUserLocation();
+    }
+
+    /**
+     * Method to get user location, store it in userLocation if not null and then call method to fetch Doctors
+     */
+    private void getUserLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+        } else {
+            NearbyDoctorTop.setVisibility(View.VISIBLE);
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        userLocation = new LatLng(location.getLatitude(),location.getLongitude());
+                        initMap(location);
+                    } else {
+                        Toast.makeText(NearbyDoctor.this, "Cannot find your Location " +
+                                "please open Google Maps until your Location is find and come back", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
+    }
 
-        checkLocation();
+    /**
+     * Initialize the Google Maps map components that require user Location
+     * @param location
+     */
+    private void initMap(Location location){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
+        }
+        mapView.setVisibility(View.VISIBLE);
+        LatLng userPosition = new LatLng(location.getLatitude(),location.getLongitude());
+        gmap.setMyLocationEnabled(true);
+        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userPosition, 18);
+        gmap.animateCamera(yourLocation);
+        gmap.getUiSettings().setMyLocationButtonEnabled(true);
+        getDoctors();
+    }
 
+    /**
+     * Method to fetch all doctors from firebase and add them to doctorHasMap and then call sort method them by distance.
+     */
+    private void getDoctors() {
+        database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotChild : dataSnapshot.getChildren()) {
+                    Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
+                    String key = dataSnapshotChild.getKey();
+                    doctorHashMap.put(key, myDoctor);
+                    doctors.add(myDoctor);
+                    LatLng doctorLocation = myDoctor.getLocationFromAddress(NearbyDoctor.this);
+                    // if doctor address is incorrect we do not put his marker
+                    if (doctorLocation == null) {
+                        Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // put the pin (marker)
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.title("Dr. " + myDoctor.getLastName() + " " + myDoctor.getFirstName());
+                        markerOptions.position(doctorLocation);
+                        gmap.addMarker(markerOptions);
+                    }
+                }
+                orderDoctors(doctorHashMap,userLocation);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    /**
+     * This method orders the HashMap with Doctors and their ids according to distance to user and then finalize the activity's screen.
+     * @param doctorhashMap
+     * @param userLocation
+     */
+    private void orderDoctors(HashMap<String, Doctor> doctorhashMap, LatLng userLocation) {
+        HashMap<String,Double> distanceHashMap = createDistanceHashMap(doctorhashMap,userLocation);
+        LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>(); //use LinkedHashMap to keep order
+        for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
+            doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
+        }
+        adapter = new ListNearbyDoctorsAdapter(NearbyDoctor.this, doctorHashMapSorted,userLocation);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * This method creates a HashMap with key : id of doctors and values : distance to doctor for user.
+     * @param doctorhashMap
+     * @param userLocation
+     * @return
+     */
+    private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorhashMap, LatLng userLocation){
+        HashMap<String,Double> distanceHashMap = new HashMap<>();
+        for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
+            Double doctorDistance = entry.getValue().getDistance(userLocation,this);
+            distanceHashMap.put(entry.getKey(),doctorDistance);
+        }
+        return distanceHashMap;
+    }
+
+    /**
+     * This method sorts a HashMap on its values
+     * @param hm HashMap
+     * @return LinkedHashMap sorted hm
+     */
+    private LinkedHashMap<String,Double> sortHashMapOnValues(HashMap<String,Double> hm) {
+        List<Map.Entry<String,Double>> list = new LinkedList<>(hm.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
+            public int compare(Map.Entry<String, Double> o1,Map.Entry<String, Double> o2) {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+        LinkedHashMap<String,Double> sorted = new LinkedHashMap<>();
+        for (Map.Entry<String, Double> entry : list) {
+            sorted.put(entry.getKey(), entry.getValue());
+        }
+        return sorted;
     }
 
     @Override
@@ -134,7 +272,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         Boolean result = grantResults.length > 0;
         if(request && result){
             permissionsMessage(grantResults[0]);
-
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -148,16 +285,15 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void permissionsMessage(int grantResult){
         switch (grantResult){
             case PackageManager.PERMISSION_GRANTED:
-                checkLocation();
+
+                getUserLocation();
                 break;
             default:
-                isPermissionAlreadyDenied = true;
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                     permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_short);
                 } else {
                     permissionDeniedRationaleView.setText(R.string.permission_denied_rationale_long);
                 }
-
                 permissionDeniedView.setVisibility(View.VISIBLE);
                 break;
         }
@@ -167,7 +303,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Method called when the user click on the Grant Permission button. Either Asks for Location
      * permission or go to settings if user wants to grant permission but alredy checked "Don't Ask Again"
-      * @param view
+     * @param view
      */
     public void onGrantPermission(View view) {
         permissionDeniedView.setVisibility(View.INVISIBLE);
@@ -190,72 +326,20 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(settingsIntent);
     }
 
-    /**
-     * Get the user Location and initialize the Google Maps if there is a non-null location
-     */
-    private void checkLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
-        }else {
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    // Got last known location. In some rare situations this can be null.
-                    if (location != null) {
-                        initMap(location);
-                    } else {
-                        Location defaultLocation = new Location(LocationManager.GPS_PROVIDER);
-                        defaultLocation.setLatitude(46.519962);
-                        defaultLocation.setLongitude(6.633597);
-                        initMap(defaultLocation);
-                        Toast.makeText(NearbyDoctor.this, "Cannot find your Location, default Location: Lausanne", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }
-    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.mapButton:
+                mapView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.listButton:
+                mapView.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
 
-    /**
-     * Initialize the Google Maps map components that require user Location
-     * @param location
-     */
-    private void initMap(Location location){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
         }
-        mapView.setVisibility(View.VISIBLE);
-        LatLng userPosition = new LatLng(location.getLatitude(),location.getLongitude());
-        gmap.setMyLocationEnabled(true);
-        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userPosition, 18);
-        gmap.animateCamera(yourLocation);
-        gmap.getUiSettings().setMyLocationButtonEnabled(true);
-    }
-
-    /**
-     * Initialize the necessary libraries and references
-     */
-    private void init() {
-        // map reference
-        mapView = findViewById(R.id.mapViewNearbyDoctor);
-        // database reference
-        database = FirebaseDatabase.getInstance();
-        // get all doctors: Will get all doctors in database and put them in doctors ArrayList
-        database.getReference().child("Doctor").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    // retrieve doctor & add it to the array
-                    doctors.add(dataSnapshot1.getValue(Doctor.class));
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(NearbyDoctor.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // user position
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 }
