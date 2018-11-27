@@ -21,7 +21,7 @@ public class TreatedPatients extends AppCompatActivity {
 
     private String docUID;
     private RecyclerView recyclerView;
-    private HashMap<String, Patient> treatedPatients;
+    private ArrayList<Patient> treatedPatients;
     private List<String> treatedPatientsUID;
     private TreatedPatientsAdapter adapter;
 
@@ -37,7 +37,7 @@ public class TreatedPatients extends AppCompatActivity {
     }
 
     private void setupValues() {
-        treatedPatients = new HashMap<>();
+        treatedPatients = new ArrayList<>();
         treatedPatientsUID = new ArrayList<>();
         docUID = auth.getCurrentUser().getUid();
         recyclerView = findViewById(R.id.treatedPatientsView);
@@ -69,7 +69,7 @@ public class TreatedPatients extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
                         if (treatedPatientsUID.contains(dataSnapshot1.getKey())) {
-                            treatedPatients.put(dataSnapshot1.getKey(), dataSnapshot1.getValue(Patient.class));
+                            treatedPatients.add(dataSnapshot1.getValue(Patient.class));
                         }
                     }
                     adapter = new TreatedPatientsAdapter(TreatedPatients.this, treatedPatients);

@@ -10,23 +10,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TreatedPatientsAdapter extends recyclerViewAdapter<TreatedPatientsAdapter.ViewHolder>  {
 
     ArrayList<Patient> treatedPatients;
-    HashMap<String, Patient> patientsHashMap;
     Context context;
 
-    public TreatedPatientsAdapter(Context context, HashMap<String, Patient> data){
-
-        this.patientsHashMap = data;
+    public TreatedPatientsAdapter(Context context, ArrayList<Patient> data){
         this.context = context;
-
-        treatedPatients = new ArrayList<>();
-
-        for(Patient patient: patientsHashMap.values())
-            treatedPatients.add(patient);
+        this.treatedPatients = data;
     }
 
     @NonNull
