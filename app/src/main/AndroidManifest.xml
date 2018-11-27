@@ -18,35 +18,32 @@
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
 
         <activity android:name=".LoginActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity android:name=".ChooseRegistration" />
         <activity android:name=".Registration" />
         <activity android:name=".DoctorCalendar" />
-        <activity android:name=".Profile" >
-        </activity>
+        <activity android:name=".Profile"></activity>
         <activity android:name=".PatientInfo" />
         <activity android:name=".FilteredDoctors" />
         <activity android:name=".DoctorAvailabilityActivity" />
-        <activity android:name=".PatientPersonalAppointments">
-
-        </activity>
-        <activity android:name=".SearchDoctor"/>
-        <activity android:name=".PatientCalendarActivity"></activity>
-        <activity android:name=".PatientAppointmentActivity"></activity>
-        <activity android:name=".DoctorInformation"></activity>
+        <activity android:name=".PatientPersonalAppointments"></activity>
+        <activity android:name=".SearchDoctor" />
+        <activity android:name=".PatientCalendarActivity" />
+        <activity android:name=".PatientAppointmentActivity" />
+        <activity android:name=".DoctorInformation" />
 
         <service android:name=".AppointmentNotificationBackgroundService" />
 
         <activity android:name=".DoctorPatientInfo" />
         <activity android:name=".DoctorAppointmentsList" />
         <activity android:name=".chat.ChatActivity" />
-        <activity android:name=".chat.ChatListActivity"></activity>
+        <activity android:name=".chat.ChatListActivity" />
+        <activity android:name=".TreatedPatients" />
     </application>
 
 </manifest>

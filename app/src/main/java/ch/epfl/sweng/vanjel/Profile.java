@@ -49,6 +49,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button editButton;
     Button saveButton;
     Button searchButton;
+    Button treatedPatientsButton;
 
     Button appointmentsButton;
 
@@ -72,6 +73,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
+        treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
 
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
@@ -82,6 +84,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
+
+        treatedPatientsButton.setOnClickListener(this);
 
         isPatientUser();
     }
@@ -157,6 +161,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.personalAppointmentsButton:
                 Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
                 startActivity(ap_intent);
+                break;
+            case R.id.treatedPatientsButton:
+                intent = new Intent(this, TreatedPatients.class);
+                startActivity(intent);
                 break;
         }
     }
