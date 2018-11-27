@@ -12,6 +12,8 @@ import java.util.List;
 
 public class DoctorPatientInfo extends AppCompatActivity {
 
+    private Bundle bundle;
+
     PatientInfoDatabaseService patientInfoDatabaseService;
 
     ListView listViewConditions;
@@ -35,10 +37,15 @@ public class DoctorPatientInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_patient_info);
+        bundle = getIntent().getExtras();
 
-        //TODO: add corect uid
-        String UserID = FirebaseAuth.getInstance().getUid();
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this);
+//        TODO: add corect uid
+//        String UserID = FirebaseDatabaseCustomBackend.getInstance().getUid();
+        String patientID = bundle.getString("patientUID");
+//        String UserID = "I3h9NVPXwmb0Ab2auVnaMSgjaLY2";
+
+        //patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
+        patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
 
         getAllPatientInfoFields();
         
