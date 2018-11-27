@@ -27,35 +27,14 @@ import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-    TextView email;
-    TextView lastName;
-    TextView firstName;
-    TextView birthday;
-    TextView gender;
-    TextView street;
-    TextView streetNumber;
-    TextView city;
-    TextView country;
+    TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
 
-    Button patientInfoButton;
-    Button logoutButton;
+    Button patientInfoButton, logoutButton;
 
-    String newLastName;
-    String newFirstName;
-    String newStreet;
-    String newStreetNumber;
-    String newCity;
-    String newCountry;
+    String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton;
-    Button saveButton;
-    Button searchButton;
-
-    Button appointmentsButton;
-
-    Button setAvailabilityButton;
-    Button requestsListButton;
-    Button favoriteListButton;
+    Button editButton, saveButton, searchButton;
+    Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
 
     String userType;
 
@@ -124,19 +103,16 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        Intent intent;
         switch (i) {
             case R.id.requestsListButton:
-                intent = new Intent(this ,DoctorAppointmentsList.class);
-                startActivity(intent);
+                startActivity(new Intent(this ,DoctorAppointmentsList.class));
                 break;
             case R.id.logoutButton:
                 logOut();
                 break;
             case R.id.patientInfoButton:
                 if (userType.equals("Patient")) {
-                    intent = new Intent(this, PatientInfo.class);
-                    startActivity(intent);
+                    startActivity(new Intent(this, PatientInfo.class));
                 } else {
                     Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
                 }
@@ -150,20 +126,16 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                intent = new Intent(this, SearchDoctor.class);
-                startActivity(intent);
+                startActivity(new Intent(this, SearchDoctor.class));
                 break;
             case R.id.setAvailabilityButton:
-                intent = new Intent(this, DoctorAvailabilityActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
             case R.id.personalAppointmentsButton:
-                Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
-                startActivity(ap_intent);
+                startActivity(new Intent(this, PatientPersonalAppointments.class));
                 break;
             case R.id.favoriteListButton:
-                intent = new Intent(this, PatientFavoriteListActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, PatientFavoriteListActivity.class));
         }
     }
 
