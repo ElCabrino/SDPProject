@@ -33,7 +33,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
     Button editButton, saveButton, searchButton, nearbyDoctorButton;
-    Button setAvailabilityButton, requestsListButton, appointmentsButton;
+    Button setAvailabilityButton, requestsListButton, appointmentsButton, favoriteListButton;
 
 
     String userType;
