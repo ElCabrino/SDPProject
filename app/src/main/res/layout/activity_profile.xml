@@ -161,16 +161,6 @@
                   android:contentDescription="Nearby Doctors"
                   android:text="Nearby Doctors" />
 
-                <Button
-
-                    android:id="@+id/buttonNextAppointments"
-                    android:contentDescription="personal appointments button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your appointments"
-                    android:layout_weight="1"/>
-
-
 
             </LinearLayout>
 
