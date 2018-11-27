@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author Aslam CADER
+ * @reviewer
+ */
 public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorComingAppointmentsAdapter.ViewHolder> {
 
     ArrayList<Appointment> appointments;
@@ -37,6 +40,7 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
         this.appointments = givenAppointments;
         this.currentDate = new Date();
         this.patientHashMap = patients;
+
     }
 
     @NonNull
@@ -51,11 +55,10 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
         Patient patient = patientHashMap.get(uid);
         viewHolder.lastName.setText(patient.getLastName());
         viewHolder.firstName.setText(patient.getFirstName());
-//        viewHolder.birthday.setText(patient.getBirthday());
         viewHolder.time.setText(appointments.get(i).getHour());
         viewHolder.duration.setText(appointments.get(i).getDuration() + " min");
 
-        // if today, "Today"
+        // if today, we want to display "Today"
         Boolean isToday;
         try {
             isToday = isAppointmentToday(appointments.get(i));
@@ -96,7 +99,6 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
     }
 
 
-
     @Override
     public int getItemCount() { return appointments.size();  }
 
@@ -111,7 +113,6 @@ public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorC
             date = itemView.findViewById(R.id.appointmentDate);
             time = itemView.findViewById(R.id.appointmentTime);
             firstName = itemView.findViewById(R.id.appointmentFirstName);
-//            birthday = itemView.findViewById(R.id.appointmentBirthDate);
         }
     }
 }

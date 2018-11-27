@@ -2,7 +2,10 @@ package ch.epfl.sweng.vanjel;
 
 import java.util.ArrayList;
 
-
+/**
+ * @author Luca JOSS
+ * @reviewer Etienne CAQUOT
+ */
 public class TimeAvailability {
 
     private static final String TAG = "TimeAvailability";

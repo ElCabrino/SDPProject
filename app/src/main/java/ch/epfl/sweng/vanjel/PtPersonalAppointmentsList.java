@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * @author Nicolas BRANDT
+ * @reviewer
+ */
 public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
 
     private Activity context;

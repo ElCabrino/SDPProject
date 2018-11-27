@@ -1,5 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Luca JOSS
+ */
 public enum Gender {
     /**
      * Gender of the person

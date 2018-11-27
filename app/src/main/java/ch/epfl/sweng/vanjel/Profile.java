@@ -25,6 +25,10 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
+/**
+ * @author Luca JOSS
+ * @reviewer Vincent CABRINI
+ */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
@@ -129,11 +133,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.buttonNextAppointments:
                 if (userType.equals("Patient")) {
-                    Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
-                    startActivity(ap_intent);
+                    startActivity(new Intent(this, PatientPersonalAppointments.class));
                 } else {
-                    intent = new Intent(this, DoctorComingAppointments.class);
-                    startActivity(intent);
+                    startActivity(new Intent(this, DoctorComingAppointments.class));
                 }
                 break;
             case R.id.favoriteListButton:
@@ -262,7 +264,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
     
     public void openChats(View v) {
-        Intent intent = new Intent(this, ChatListActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, ChatListActivity.class));
     }
 }

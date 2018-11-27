@@ -24,40 +24,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * @author Vincent CABRINI
+ * @reviewer Aslam CADER
+ */
 public class Registration extends AppCompatActivity {
 
     private FirebaseAuth mAuth = FirebaseAuthCustomBackend.getInstance();
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     // attribute that will contain pointer
-    private EditText mailReg;
-    private EditText passwordReg;
-    private EditText confirmPasswordReg;
-    private EditText firstNameReg;
-    private EditText lastNameReg;
-    private EditText birthdayReg;
-    private EditText streetReg;
-    private EditText numberReg;
-    private EditText cityReg;
-    private EditText countryReg;
-    private Spinner genderReg;
-    private Spinner activityReg;
+    private EditText mailReg, passwordReg, confirmPasswordReg, firstNameReg, lastNameReg, birthdayReg, streetReg, numberReg, cityReg, countryReg;
+    private Spinner genderReg, activityReg;
     private Button buttonReg;
 
     // strings corresponding to the field
-    private String email;
-    private String password;
-    private String confirmedPassword;
-    private String firstName;
-    private String lastName;
-    private String birthday;
-    private String street;
-    private String streetNumber;
-    private String city;
-    private String country;
-    private String gender;
-    private String activity;
+    private String email, password, confirmedPassword, firstName, lastName, birthday, street, streetNumber, city, country, gender, activity;
+
 
     private DatePickerDialog.OnDateSetListener mDateListener;
 
@@ -69,9 +52,7 @@ public class Registration extends AppCompatActivity {
 
         Bundle bundle= getIntent().getExtras();
 
-
         if (bundle!= null) {// to avoid the NullPointerException
-
             DoctorReg = getIntent().getExtras().getBoolean("DoctorReg");
         }
 

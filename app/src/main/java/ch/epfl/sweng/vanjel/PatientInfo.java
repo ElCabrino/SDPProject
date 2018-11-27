@@ -12,46 +12,24 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Vincent CABRINI
+ * @reviewer Nicolas BRANDT
+ */
 public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
 
     PatientInfoDatabaseService patientInfoDatabaseService;
 
     Button saveButton;
 
-    EditText priorConditionsReg;
-    EditText surgeriesReg;
-    EditText surgeriesYearReg;
-    EditText allergyReg;
-    EditText drugReactionDrugReg;
-    EditText drugReactionReactionReg;
-    EditText drugRegimenDrugReg;
-    EditText drugRegimenDosageReg;
-    EditText drugRegimenTimesReg;
-    EditText substancesReg;
-    EditText smokingReg;
-    EditText drinkingReg;
-    EditText exerciseReg;
+    EditText priorConditionsReg, surgeriesReg, surgeriesYearReg, allergyReg, drugReactionDrugReg, drugReactionReactionReg, drugRegimenDrugReg;
+    EditText drugRegimenDosageReg, drugRegimenTimesReg, substancesReg, smokingReg, drinkingReg, exerciseReg;
 
-    Button buttonConditions;
-    Button buttonSurgeries;
-    Button buttonAllergies;
-    Button buttonDrugReactions;
-    Button buttonDrug;
-    Button buttonSubstance;
-    Button buttonSmoking;
-    Button buttonDrinking;
-    Button buttonExercise;
+    Button buttonConditions, buttonSurgeries, buttonAllergies, buttonDrugReactions, buttonDrug, buttonSubstance, buttonSmoking;
+    Button buttonDrinking, buttonExercise;
 
-    ListView listViewConditions;
-    ListView listViewSurgeries;
-    ListView listViewAllergies;
-    ListView listViewDrugReactions;
-    ListView listViewDrugs;
-    ListView listViewSubstances;
-    TextView textViewSmoking;
-    TextView textViewDrinking;
-    TextView textViewExercise;
+    ListView listViewConditions, listViewSurgeries, listViewAllergies, listViewDrugReactions, listViewDrugs, listViewSubstances;
+    TextView textViewSmoking, textViewDrinking, textViewExercise;
 
     List<InfoString> conditionList;
     List<Surgery> surgeryList;
@@ -188,7 +166,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.buttonSubstance:
                 patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new InfoString(substancesReg.getText().toString().trim()));
-                    break;
+                break;
             case R.id.buttonSmoking:
                 patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");
                 break;

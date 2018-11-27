@@ -10,13 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
-
+/**
+ * @author Vincent CABRINI
+ * @reviewer Nicolas BRANDT
+ */
 public class InfoList<Info> extends ArrayAdapter<Info> {
 
     private Activity context;
     private List<Info> infoList;
-    private int idLayout;
-    private int idTextView;
+    private int idLayout, idTextView;
     private ch.epfl.sweng.vanjel.Info info;
 
     public InfoList(Activity context, List<Info> infoList, int idLayout, int idTextView) {
@@ -49,9 +51,6 @@ public class InfoList<Info> extends ArrayAdapter<Info> {
         else {
             textView.setText(info.getAndroidInfo());
         }
-
-        //textView.setText(info.getAndroidInfo());
-
 
         return listViewItem;
 

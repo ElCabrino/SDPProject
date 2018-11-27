@@ -28,6 +28,10 @@ import static org.mockito.Mockito.when;
  * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
  */
 
+/**
+ * @author Luca JOSS
+ * @reviewer Vincent CABRINI
+ */
 public final class FirebaseDatabaseCustomBackend {
 
     private final static String patient1ID = "patientid1";

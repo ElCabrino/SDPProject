@@ -21,7 +21,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
+/**
+ * @author Vincent CABRINI
+ * @reviewer Aslam CADER
+ */
 public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppointmentListAdapter.ViewHolder> {
 
     Context context;

@@ -22,7 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @author Luca JOSS
+ * @reviewer
+ */
 public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     private static final String TAG = "DoctorAvailability";
