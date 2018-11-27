@@ -79,7 +79,7 @@ public class ChatListActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
@@ -116,7 +116,7 @@ public class ChatListActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
