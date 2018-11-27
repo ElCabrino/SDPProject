@@ -1,6 +1,10 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
 import org.junit.Rule;
@@ -20,13 +24,23 @@ import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 public class DoctorPatientInfoTest {
 
     @Rule
-    public final IntentsTestRule<DoctorPatientInfo> ActivityRule =
-            new IntentsTestRule<>(DoctorPatientInfo.class, true, false);
+    public final ActivityTestRule<DoctorPatientInfo> ActivityRule =
+            new ActivityTestRule<DoctorPatientInfo>(DoctorPatientInfo.class) {
+                @Override
+                protected Intent getActivityIntent() {
+                    Context targetContext = InstrumentationRegistry.getInstrumentation()
+                            .getTargetContext();
+                    Intent result = new Intent(targetContext, DoctorPatientInfo.class);
+                    result.putExtra("patientUID", "patientid1");
+                    return result;
+                }
+            };
+
 
     //TODO: mock tests once integrated with doctor appointments
     @Test
     public void searchTextViewsTest() throws Exception {
-        setupNoExtras(DoctorPatientInfo.class, ActivityRule, false, true, false, false, false);
+//        setupNoExtras(DoctorPatientInfo.class, ActivityRule, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.textViewConditions)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("Cats")));
         onView(withId(R.id.textViewSurgeries)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("THA in 2000")));
