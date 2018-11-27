@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,8 +63,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         appointmentsButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
+        favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
-
         isPatientUser();
     }
 
@@ -133,6 +134,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     startActivity(new Intent(this, DoctorComingAppointments.class));
                 }
                 break;
+            case R.id.favoriteListButton:
+                startActivity(new Intent(this, PatientFavoriteListActivity.class));
         }
     }
 
@@ -170,6 +173,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
+        this.favoriteListButton = findViewById(R.id.favoriteListButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.

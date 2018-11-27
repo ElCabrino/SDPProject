@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.util.List;
 
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
@@ -36,9 +38,13 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     // database
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     DatabaseReference ref;
+    //local database
+    LocalDatabaseService localDatabaseService;
 
     private Button takeAppointment;
     private Button chat;
+    private Button favorite;
+    private Boolean favoriteState = false;
 
     // map
     private MapView mapView;
@@ -60,8 +66,11 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         // we see if we have the doctor details, otherwise we quit
         doctorUID = bundle.getString("doctorUID");
 
-        // get Doctor
-        getDocWithUID(doctorUID);
+        if(doctorUID == null){
+            Toast.makeText(DoctorInformation.this, "No doctor content to display", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        } else { getDocWithUID(doctorUID); }
 
         Bundle mapViewBundle = null;
         if(savedInstanceState != null){
@@ -88,25 +97,40 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         takeAppointment.setOnClickListener(this);
         // map reference
         mapView = findViewById(R.id.mapViewDoctorInfo);
+        //chat
         chat = findViewById(R.id.buttonChat);
         chat.setOnClickListener(this);
+        //favorite
+        favorite = findViewById(R.id.addToFavoriteButton);
+        favorite.setOnClickListener(this);
     }
 
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonTakeAppointment){
-            Intent intent = new Intent(this, PatientCalendarActivity.class);
-
+        int i = v.getId();
+        Intent intent;
+        switch (i) {
+        case R.id.buttonTakeAppointment:
+            intent = new Intent(this, PatientCalendarActivity.class);
             intent.putExtra("doctorUID", doctorUID);
-
             startActivity(intent);
-        }
-        if(v.getId() == R.id.buttonChat){
-            Intent intent = new Intent(this, ChatActivity.class);
-
+            break;
+        case R.id.buttonChat:
+            intent = new Intent(this, ChatActivity.class);
             intent.putExtra("contactUID",doctorUID);
             intent.putExtra("contactName",doctor.toString());
-
             startActivity(intent);
+            break;
+        case R.id.addToFavoriteButton:
+            if (!favoriteState){
+                favoriteState = true;
+                favorite.setBackgroundColor(0xDDDDBB33);
+                this.localDatabaseService.save(this.doctor, this.doctorUID);
+            }
+            else {
+                favorite.setBackgroundColor(0xFFD6D7D7);
+                favoriteState = false;
+                this.localDatabaseService.delete(this.doctor, this.doctorUID);
+            }
         }
     }
 
@@ -118,6 +142,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 doctor = snapshot.getValue(Doctor.class);
+                initLocalDatabase(doctor);
+                findIfAlreadyFavoriteButtonState();
                 setData();
                 isDatabaseReady = true;
                 putMarkerOnMap();
@@ -127,6 +153,17 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
                 Toast.makeText(DoctorInformation.this, R.string.database_error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void initLocalDatabase(Doctor doc){
+        this.localDatabaseService = new LocalDatabaseService(this);
+    }
+
+    private void findIfAlreadyFavoriteButtonState(){
+        if (localDatabaseService.getWithKey(this.doctorUID).size() != 0){
+            favoriteState = true;
+            favorite.setBackgroundColor(0xDDDDBB33);
+        }
     }
 
     private void setData(){
@@ -144,9 +181,8 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             LatLng doctorLocation = doctor.getLocationFromAddress(this);
 
             // if address does not exist, we zoom in Lausanne and don't put any marker
-            if (doctorLocation == null) {
-                doctorLocation = new LatLng(46.519962, 6.633597);
-            } else {
+            if (doctorLocation == null) doctorLocation = new LatLng(46.519962, 6.633597);
+            else {
                 // put the pin (marker)
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(doctorLocation);
