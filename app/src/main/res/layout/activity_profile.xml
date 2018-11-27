@@ -145,8 +145,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
-
                 <Button
                     android:id="@+id/editButton"
                     android:layout_width="wrap_content"
@@ -162,6 +160,15 @@
                   android:layout_weight="1"
                   android:contentDescription="Nearby Doctors"
                   android:text="Nearby Doctors" />
+
+                <Button
+
+                    android:id="@+id/buttonNextAppointments"
+                    android:contentDescription="personal appointments button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your appointments"
+                    android:layout_weight="1"/>
 
 
 
@@ -236,6 +243,15 @@
                 android:layout_height="wrap_content"
                 android:text="Your appointments"
                 android:layout_weight="1"/>
+          <Button
+                android:id="@+id/patientInfoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="patient info button"
+                android:text="Patient Info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
         </LinearLayout>
 
@@ -243,14 +259,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/patientInfoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="patient info button"
-        android:text="Patient Info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+
 
 </android.support.constraint.ConstraintLayout>
