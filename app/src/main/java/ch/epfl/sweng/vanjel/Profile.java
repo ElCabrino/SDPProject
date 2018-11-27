@@ -33,7 +33,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton, saveButton, searchButton;
+    Button editButton, saveButton, searchButton, buttonNextAppointments;
     Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
 
 
@@ -126,9 +126,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
-                break;
-            case R.id.personalAppointmentsButton:
-                startActivity(new Intent(this, PatientPersonalAppointments.class));
                 break;
             case R.id.buttonNextAppointments:
                 if (userType.equals("Patient")) {
