@@ -29,7 +29,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
     /**
      *
      * @param context the context of Adapter
-     * @param chatMap the list_icon of Chats the user participates in
+     * @param chatMap the list of Chats the user participates in
      */
     public ChatListAdapter(Context context, Map<String,Chat> chatMap) {
         this.context = context;

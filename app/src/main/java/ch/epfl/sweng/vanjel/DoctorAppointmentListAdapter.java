@@ -142,7 +142,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
 
     private void deleteRequestFirebase(int i){
         String appointmentID = appointmentsList.get(i).getAppointmentID();
-        appointmentsList = new ArrayList<>(); //the list_icon is refreshed in DoctorAppointmentList
+        appointmentsList = new ArrayList<>(); //the list is refreshed in DoctorAppointmentList
 
         FirebaseDatabaseCustomBackend.getInstance().getReference("Requests").child(appointmentID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
