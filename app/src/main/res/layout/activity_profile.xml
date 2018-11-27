@@ -142,13 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/personalAppointmentsButton"
-                    android:contentDescription="personal appointments button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your appointments"
-                    android:layout_weight="1"/>
+                
 
 
                 <Button
@@ -166,6 +160,14 @@
                     android:text="favorites"
                     app:layout_constraintBaseline_toBaselineOf="@+id/requestsListButton"
                     app:layout_constraintEnd_toStartOf="@+id/requestsListButton" />
+                <Button
+                    android:id="@+id/buttonNextAppointments"
+                    android:contentDescription="personal appointments button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your appointments"
+                    android:layout_weight="1"/>
+
 
 
             </LinearLayout>
@@ -227,20 +229,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <Button
+                android:id="@+id/patientInfoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="patient info button"
+                android:text="Patient Info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+
         </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/patientInfoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="patient info button"
-        android:text="Patient Info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+
 
 </android.support.constraint.ConstraintLayout>

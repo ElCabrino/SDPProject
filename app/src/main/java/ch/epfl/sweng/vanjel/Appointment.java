@@ -20,14 +20,14 @@ public class Appointment {
         this.patientUid = patientUid;
         this.appointmentID = appointmentID;
     }
-//
-//    public Appointment(String day, String hour, Integer duration, String doctorUid, String patientUid) {
-//        this.patientUid = patientUid;
-//        this.duration = duration;
-//        this.day = day;
-//        this.hour = hour;
-//        this.doctorUid = doctorUid;
-//    }
+
+    public Appointment(String day, String hour, Integer duration, String doctorUid, String patientUid) {
+        this.patientUid = patientUid;
+        this.duration = duration;
+        this.day = day;
+        this.hour = hour;
+        this.doctorUid = doctorUid;
+    }
 
     public Appointment(String day, String hour, String doctorUid, String patientUid) {
         this.day = day;

@@ -6,7 +6,7 @@ Welcome to the repository of the group VANJEL. In here you will find the code fo
 
 ## Coachs/Supervisors
 
-* **Charles Parzy Turlat**   [_cparzy_](https://github.com/cparzy)
+* **Charles PARZY TURLAT**   [_cparzy_](https://github.com/cparzy)
 * **Théo NIKLES** [_Theyiot_](https://github.com/Theyiot)
 
 
