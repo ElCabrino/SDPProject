@@ -8,6 +8,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,7 +65,7 @@ public class DoctorInformationTest {
         onView(withId(R.id.addToFavoriteButton)).perform(click());
         withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
         //reset state
-        onView(withId(R.id.addToFavoriteButton)).perform(click());
+        wipeLocalData();
     }
 
     @Test
@@ -82,11 +83,18 @@ public class DoctorInformationTest {
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(i);
         withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
+        //reset state
+        wipeLocalData();
     }
 
     @After
     public void end(){
         Intents.release();
+    }
+
+    public void wipeLocalData(){
+        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
+        l.nuke();
     }
 
 }

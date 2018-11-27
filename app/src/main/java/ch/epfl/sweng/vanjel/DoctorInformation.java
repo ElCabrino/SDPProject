@@ -127,12 +127,12 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             if (!favoriteState){
                 favoriteState = true;
                 favorite.setBackgroundColor(0xDDDDBB33);
-                this.localDatabaseService.save();
+                this.localDatabaseService.save(this.doctor, this.doctorUID);
             }
             else {
                 favorite.setBackgroundColor(0xFFD6D7D7);
                 favoriteState = false;
-                this.localDatabaseService.delete();
+                this.localDatabaseService.delete(this.doctor, this.doctorUID);
             }
         }
     }
@@ -162,7 +162,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     }
 
     private void initLocalDatabase(Doctor doc){
-        this.localDatabaseService = new LocalDatabaseService(this, doc, this.doctorUID);
+        this.localDatabaseService = new LocalDatabaseService(this);
     }
 
     private void findIfAlreadyFavoriteButtonState(){

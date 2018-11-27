@@ -16,6 +16,9 @@ public interface DoctorFavoriteDao {
     @Query("SELECT * FROM doctorfavorite WHERE doctorID = :id")
     List<DoctorFavorite> getWithKey(String id);
 
+    @Query("DELETE FROM doctorfavorite")
+    void nukeTable();
+
     @Insert
     void insertAll(DoctorFavorite... doctorFavorite);
 

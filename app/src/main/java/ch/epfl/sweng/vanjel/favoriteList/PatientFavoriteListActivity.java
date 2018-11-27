@@ -33,4 +33,8 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
     private void fetchDataLocalDatabase() {
         adapter.favoriteDoctorList = localDatabase.doctorFavoriteDao().getAll();
     }
+
+    public int getAdapterCount(){
+        return adapter.getItemCount();
+    }
 }
