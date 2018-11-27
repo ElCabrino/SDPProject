@@ -77,7 +77,7 @@ public class ProfileTest {
     }
 
     @Test
-    public void testEditText() throws Exception {
+    public void EditTextTest() throws Exception {
         runAsPatient();
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(3);

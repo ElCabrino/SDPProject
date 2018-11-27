@@ -70,10 +70,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             Toast.makeText(DoctorInformation.this, "No doctor content to display", Toast.LENGTH_SHORT).show();
             finish();
             return;
-        } else {
-            // get Doctor
-            getDocWithUID(doctorUID);
-        }
+        } else { getDocWithUID(doctorUID); }
 
         Bundle mapViewBundle = null;
         if(savedInstanceState != null){
@@ -153,12 +150,9 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(DoctorInformation.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DoctorInformation.this, R.string.database_error, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     private void initLocalDatabase(Doctor doc){
