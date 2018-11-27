@@ -15,10 +15,13 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.ViewMatchers.hasBackground;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
@@ -54,6 +57,31 @@ public class DoctorInformationTest {
         onView(withId(R.id.buttonTakeAppointment)).perform(click());
         TimeUnit.SECONDS.sleep(5); // wait to change page
         intended(hasComponent(PatientCalendarActivity.class.getName()));
+    }
+
+    @Test
+    public void simpleClickFavoriteButton() {
+        onView(withId(R.id.addToFavoriteButton)).perform(click());
+        withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
+        //reset state
+        onView(withId(R.id.addToFavoriteButton)).perform(click());
+    }
+
+    @Test
+    public void doubleClickFavoriteButton() {
+        onView(withId(R.id.addToFavoriteButton)).perform(click());
+        withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
+        onView(withId(R.id.addToFavoriteButton)).perform(click());
+        withId(R.id.addToFavoriteButton).matches(hasBackground(0xFFD6D7D7));
+    }
+
+    @Test
+    public void alreadyInFavorite() {
+        onView(withId(R.id.addToFavoriteButton)).perform(click());
+        Intent i = mActivityRule.getActivity().getIntent();
+        mActivityRule.finishActivity();
+        mActivityRule.launchActivity(i);
+        withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
     }
 
     @After
