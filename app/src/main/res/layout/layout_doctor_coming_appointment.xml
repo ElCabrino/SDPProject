@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/doctorComingAppointmentCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_weight="2"
+    android:orientation="vertical"
+    android:background="@drawable/background_item"
+    android:padding="8dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:id="@+id/appointmentLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lastName"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/appointmentFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="firstName"
+            android:textStyle="italic"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/appointmentBirthDate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="birthday"-->
+            <!--android:textStyle="normal"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:textSize="20sp" />-->
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/appointmentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/appointmentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/appointmentDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="20dp"/>
+
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+</RelativeLayout>

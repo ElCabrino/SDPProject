@@ -8,11 +8,15 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Matchers;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
+
+import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -26,6 +30,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNot.not;
 
@@ -59,6 +64,16 @@ public class ProfileTest {
     @Rule
     public ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class);
+
+    @BeforeClass
+    public static void setUp() {
+        Intents.init();
+    }
+
+    @AfterClass
+    public static void restoreIntents() {
+        Intents.release();
+    }
 
     @Test
     public void displayPatientProfileTest() throws Exception {
@@ -155,39 +170,33 @@ public class ProfileTest {
     @Test
     public void searchDoctorButtonTest() throws Exception {
         runAsPatient();
-        Intents.init();
         TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("profile search button")).perform(scrollTo(), click());
         intended(hasComponent(SearchDoctor.class.getName()));
-        Intents.release();
     }
 
     @Test
     public void patientInfoButtonAsPatientTest() throws Exception {
         runAsPatient();
-        Intents.init();
         TimeUnit.SECONDS.sleep(3);
-        onView(withContentDescription("patient info button")).perform(click());
+        onView(withId(R.id.patientInfoButton)).perform(scrollTo(), click());
         intended(hasComponent(PatientInfo.class.getName()));
-        Intents.release();
     }
 
     @Test
     public void patientInfoButtonAsDoctorTest() throws Exception {
         runAsDoctor();
         TimeUnit.SECONDS.sleep(3);
-        onView(withContentDescription("patient info button")).perform(click());
+        onView(withId(R.id.patientInfoButton)).perform(scrollTo(), click());
         onView(withText("You must be a patient to access this feature")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
     @Test
     public void setAvailabilityButton() throws Exception {
         runAsDoctor();
-        Intents.init();
         TimeUnit.SECONDS.sleep(3);
         onView(withContentDescription("set availability button")).perform(scrollTo(), click());
         intended(hasComponent(DoctorAvailabilityActivity.class.getName()));
-        Intents.release();
     }
 
     @Test
@@ -205,6 +214,46 @@ public class ProfileTest {
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText(d_expectedCity)));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText(d_expectedCountry)));
     }
+
+    @Test
+    public void nextAppointmentsAsPatient() throws Exception {
+        runAsPatient();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
+        intended(hasComponent(PatientPersonalAppointments.class.getName()));
+    }
+
+    @Test
+    public void nextAppointmentsAsDoctor() throws Exception {
+        runAsDoctor();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
+        intended(hasComponent(DoctorComingAppointments.class.getName()));
+
+    }
+
+    @Test
+    public void requestsList() throws Exception {
+        runAsDoctor();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.requestsListButton)).perform(scrollTo(), click());
+        intended(hasComponent(DoctorAppointmentsList.class.getName()));
+    }
+
+    @Test
+    public void chatAccess() throws Exception {
+        runAsPatient();
+        TimeUnit.SECONDS.sleep(3);
+        onView(withId(R.id.chats)).perform(scrollTo(), click());
+        intended(hasComponent(ChatListActivity.class.getName()));
+    }
+
+
+
+
+
+
+
 
     // Set mock Firebase to connect as a Doctor
     private void runAsDoctor() {
