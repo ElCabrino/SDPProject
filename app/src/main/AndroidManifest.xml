@@ -39,6 +39,11 @@
 
         <service android:name=".AppointmentNotificationBackgroundService" />
 
+
+        <activity android:name=".DoctorComingAppointments">
+
+        </activity>
+
         <activity android:name=".DoctorPatientInfo" />
         <activity android:name=".DoctorAppointmentsList" />
         <activity android:name=".chat.ChatActivity" />

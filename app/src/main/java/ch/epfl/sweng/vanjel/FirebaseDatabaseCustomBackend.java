@@ -79,6 +79,10 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference durationAppointmentRef;
     @Mock
     private DatabaseReference treatedPatientsRef;
+    @Mock
+    private DatabaseReference patientConditionRef;
+    @Mock
+    private DatabaseReference patientRefRequest;
 
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
@@ -515,6 +519,19 @@ public final class FirebaseDatabaseCustomBackend {
                     listener.onCancelled(patientError);
                 } else {
                     listener.onDataChange(patient1Snapshot);
+                }
+                return listener;
+            }
+        }).when(patientRef).addValueEventListener(any(ValueEventListener.class));
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelled) {
+                    listener.onCancelled(patientError);
+                } else {
+                    listener.onDataChange(appointmentSnapshot);
                 }
                 return listener;
             }

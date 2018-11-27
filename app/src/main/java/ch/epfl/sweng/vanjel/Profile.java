@@ -51,10 +51,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button searchButton;
     Button treatedPatientsButton;
 
-    Button appointmentsButton;
 
     Button setAvailabilityButton;
     Button requestsListButton;
+    Button buttonNextAppointments;
 
     String userType;
 
@@ -80,10 +80,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
-        appointmentsButton.setOnClickListener(this);
 
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
+        buttonNextAppointments.setOnClickListener(this);
 
         treatedPatientsButton.setOnClickListener(this);
 
@@ -124,8 +124,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        switch (i) {
+
+        switch (v.getId()) {
             case R.id.requestsListButton:
                 startActivity(new Intent(this ,DoctorAppointmentsList.class));
                 break;
@@ -133,11 +133,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 logOut();
                 break;
             case R.id.patientInfoButton:
-                if (userType.equals("Patient")) {
-                    startActivity(new Intent(this, PatientInfo.class));
-                } else {
-                    Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-                }
+                patientInfo();
                 break;
             case R.id.editButton:
                 setEditText(true, View.GONE, View.VISIBLE);
@@ -153,19 +149,30 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
-            case R.id.personalAppointmentsButton:
-                startActivity(new Intent(this, PatientPersonalAppointments.class));
-                break;
             case R.id.treatedPatientsButton:
                 startActivity(new Intent(this, TreatedPatients.class));
                 break;
+            case R.id.buttonNextAppointments:
+                if (userType.equals("Patient")) {
+                    startActivity(new Intent(this, PatientPersonalAppointments.class));
+                } else {
+                    startActivity(new Intent(this, DoctorComingAppointments.class));
+                }
+                break;
+        }
+    }
+
+    public void patientInfo() {
+        if (userType.equals("Patient")) {
+            startActivity(new Intent(this, PatientInfo.class));
+        } else {
+            Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
         }
     }
 
     private void logOut(){
         auth.signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
@@ -183,7 +190,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
-        this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
+        this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
     }
