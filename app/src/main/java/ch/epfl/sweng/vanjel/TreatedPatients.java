@@ -49,7 +49,6 @@ public class TreatedPatients extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
-                    Log.d("TESTRUNNING", dataSnapshot1.toString());
                     if (dataSnapshot1.getKey() != null) {
                         treatedPatientsUID.add(dataSnapshot1.getKey());
                     }
