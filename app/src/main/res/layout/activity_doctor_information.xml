@@ -13,29 +13,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/topDocInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/lastName"
-                android:contentDescription="doctor information last name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:contentDescription="doctor information last name"
+                android:paddingRight="20dp"
+                android:text="LastName"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
-                android:text="LastName"
-                android:paddingRight="20dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/firstName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal"
+                android:layout_height="33dp"
+                android:text="FirstName"
                 android:textSize="23sp"
-                android:text="FirstName"/>
+                android:textStyle="normal" />
+
+            <Button
+                android:id="@+id/addToFavoriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="favorite" />
 
         </LinearLayout>
 

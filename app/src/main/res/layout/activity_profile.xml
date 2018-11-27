@@ -154,14 +154,19 @@
                     android:text="Edit" />
 
                 <Button
-
+                    android:id="@+id/favoriteListButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="favorites"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/requestsListButton"
+                    app:layout_constraintEnd_toStartOf="@+id/requestsListButton" />
+                <Button
                     android:id="@+id/buttonNextAppointments"
                     android:contentDescription="personal appointments button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Your appointments"
                     android:layout_weight="1"/>
-
 
 
 

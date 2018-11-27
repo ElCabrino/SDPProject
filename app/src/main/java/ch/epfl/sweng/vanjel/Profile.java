@@ -23,37 +23,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-    TextView email;
-    TextView lastName;
-    TextView firstName;
-    TextView birthday;
-    TextView gender;
-    TextView street;
-    TextView streetNumber;
-    TextView city;
-    TextView country;
+    TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
 
-    Button patientInfoButton;
-    Button logoutButton;
+    Button patientInfoButton, logoutButton;
 
-    String newLastName;
-    String newFirstName;
-    String newStreet;
-    String newStreetNumber;
-    String newCity;
-    String newCountry;
+    String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton;
-    Button saveButton;
-    Button searchButton;
+    Button editButton, saveButton, searchButton, buttonNextAppointments;
+    Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
 
-
-    Button setAvailabilityButton;
-    Button requestsListButton;
-    Button buttonNextAppointments;
 
     String userType;
 
@@ -81,8 +63,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
+        favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
-
         isPatientUser();
     }
 
@@ -123,8 +105,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         Intent intent;
         switch (v.getId()) {
             case R.id.requestsListButton:
-                intent = new Intent(this ,DoctorAppointmentsList.class);
-                startActivity(intent);
+                startActivity(new Intent(this ,DoctorAppointmentsList.class));
                 break;
             case R.id.logoutButton:
                 logOut();
@@ -141,14 +122,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                intent = new Intent(this, SearchDoctor.class);
-                startActivity(intent);
+                startActivity(new Intent(this, SearchDoctor.class));
                 break;
             case R.id.setAvailabilityButton:
-                intent = new Intent(this, DoctorAvailabilityActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
-
             case R.id.buttonNextAppointments:
                 if (userType.equals("Patient")) {
                     Intent ap_intent = new Intent(this, PatientPersonalAppointments.class);
@@ -158,6 +136,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     startActivity(intent);
                 }
                 break;
+            case R.id.favoriteListButton:
+                startActivity(new Intent(this, PatientFavoriteListActivity.class));
         }
     }
 
@@ -192,6 +172,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
+        this.favoriteListButton = findViewById(R.id.favoriteListButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
