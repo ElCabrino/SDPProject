@@ -531,19 +531,6 @@ public final class FirebaseDatabaseCustomBackend {
                 if (isCancelled) {
                     listener.onCancelled(patientError);
                 } else {
-                    listener.onDataChange(appointmentSnapshot);
-                }
-                return listener;
-            }
-        }).when(patientRef).addValueEventListener(any(ValueEventListener.class));
-
-        doAnswer(new Answer<ValueEventListener>() {
-            @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
-                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                if (isCancelled) {
-                    listener.onCancelled(patientError);
-                } else {
                     listener.onDataChange(patient1Snapshot);
                 }
                 return listener;
