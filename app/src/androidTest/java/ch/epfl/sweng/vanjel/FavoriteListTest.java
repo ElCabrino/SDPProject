@@ -34,30 +34,30 @@ public class FavoriteListTest {
 
     @Test
     public void oneElementTest(){
-/*        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
+        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         l.nuke();
         l.save(defDoctor1, doctor1ID);
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(new Intent());
         assertEquals(1, mActivityRule.getActivity().getAdapterCount());
-        l.nuke();*/
+        l.nuke();
     }
 
     @Test
     public void twoElementTest(){
-/*        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
+        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         l.nuke();
         l.save(defDoctor1, doctor1ID);
         l.save(defDoctor2, doctor2ID);
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(new Intent());
         assertEquals(2, mActivityRule.getActivity().getAdapterCount());
-        l.nuke();*/
+        l.nuke();
     }
 
     @Test
     public void twoElementAndDeleteOne(){
-/*        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
+        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         l.nuke();
         l.save(defDoctor1, doctor1ID);
         l.save(defDoctor2, doctor2ID);
@@ -67,6 +67,6 @@ public class FavoriteListTest {
         l.delete(defDoctor2, doctor2ID);
         mActivityRule.finishActivity();
         mActivityRule.launchActivity(new Intent());
-        assertEquals(1, mActivityRule.getActivity().getAdapterCount());*/
+        assertEquals(1, mActivityRule.getActivity().getAdapterCount());
     }
 }
