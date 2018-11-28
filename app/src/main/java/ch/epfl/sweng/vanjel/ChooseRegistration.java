@@ -6,10 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * @author Etienne CAQUOT
+ * @reviewer
+ */
 public class ChooseRegistration extends AppCompatActivity implements View.OnClickListener {
 
-    private Button buttonPatient;
-    private Button buttonDoctor;
+    private Button buttonPatient, buttonDoctor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

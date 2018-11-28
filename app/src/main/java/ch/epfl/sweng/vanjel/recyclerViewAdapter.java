@@ -3,7 +3,10 @@ package ch.epfl.sweng.vanjel;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-
+/**
+ * @author Aslam CADER
+ * @reviewer
+ */
 public abstract class recyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     @NonNull

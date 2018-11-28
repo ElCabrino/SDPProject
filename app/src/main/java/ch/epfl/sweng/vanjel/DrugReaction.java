@@ -1,8 +1,12 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * @author Nicolas BRANDT
+ * @reviewer
+ */
 public class DrugReaction extends Info{
-    String drug;
-    String reaction;
+
+    String drug, reaction;
 
     DrugReaction() {}
 
@@ -10,7 +14,6 @@ public class DrugReaction extends Info{
         this.drug = drug;
         this.reaction = reaction;
     }
-
 
     public String getDrug() {
         return drug;

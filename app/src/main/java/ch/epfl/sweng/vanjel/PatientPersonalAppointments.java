@@ -25,11 +25,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * @author Nicolas BRANDT
+ * @reviewer
+ */
 public class PatientPersonalAppointments extends AppCompatActivity {
 
-    DatabaseReference dbAp;
-    DatabaseReference dbDoc;
+    DatabaseReference dbAp, dbDoc;
 
     ListView listViewAp;
     String uid;
@@ -51,7 +53,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
 
-        listViewAp = (ListView) findViewById(R.id.ptPersonalAppointmentsListView);
+        listViewAp = findViewById(R.id.ptPersonalAppointmentsListView);
 
     }
 

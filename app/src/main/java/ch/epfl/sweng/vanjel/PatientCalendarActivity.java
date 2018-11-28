@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.CalendarView;
 
 import java.util.Calendar;
-
+/**
+ * @author Vincent CABRINI
+ * @reviewer
+ */
 public class PatientCalendarActivity extends AppCompatActivity implements View.OnClickListener{
 
     String doctorUID;

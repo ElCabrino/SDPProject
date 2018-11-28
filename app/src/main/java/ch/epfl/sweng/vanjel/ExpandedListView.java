@@ -5,7 +5,10 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
-
+/**
+ * @author Etienne CAQUOT
+ * @reviewer Nicolas BRANDT
+ */
 public class ExpandedListView extends ListView {
 
     private android.view.ViewGroup.LayoutParams params;
@@ -14,6 +17,7 @@ public class ExpandedListView extends ListView {
     public ExpandedListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (getChildAt(0) != null) {
@@ -26,6 +30,7 @@ public class ExpandedListView extends ListView {
         }
         super.onDraw(canvas);
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
         if(ev.getAction()== MotionEvent.ACTION_MOVE)
