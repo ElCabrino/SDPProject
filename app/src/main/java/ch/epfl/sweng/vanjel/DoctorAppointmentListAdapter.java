@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
@@ -29,6 +37,9 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
 
     Context context;
     ArrayList<Appointment> appointmentsList;
+
+    private List<String> treatedPatientsMap;
+
 
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
@@ -158,6 +169,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
 
     private void modifyDurationFirebase(int i, String duration) {
         String appointmentID = appointmentsList.get(i).getAppointmentID();
+        storeTreatedPatientFirebase(appointmentsList.get(i).getDoctorUid(), appointmentsList.get(i).getPatientUid(), appointmentsList.get(i).getDay());
         appointmentsList = new ArrayList<>();
         database.getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -168,6 +180,28 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(context, "An error occurred when notifying the patient", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void storeTreatedPatientFirebase(final String doctorUID, final String patientUID, final String date) {
+        database.getReference("Doctor").child(doctorUID).child("TreatedPatients").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                treatedPatientsMap = new ArrayList<>();
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
+                    treatedPatientsMap.add(dataSnapshot1.getValue(String.class));
+                }
+                if (treatedPatientsMap == null || !(treatedPatientsMap.contains(patientUID))) {
+                    Map<String, Object> newPatient = new HashMap<>();
+                    newPatient.put(patientUID, date);
+                    database.getReference("Doctor").child(doctorUID).child("TreatedPatients").updateChildren(newPatient);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }

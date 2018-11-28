@@ -37,9 +37,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton, saveButton, searchButton, buttonNextAppointments;
+    Button editButton, saveButton, searchButton, buttonNextAppointments,  treatedPatientsButton;
     Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
-
 
     String userType;
 
@@ -58,6 +57,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
+        treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
 
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
@@ -69,6 +69,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
+        treatedPatientsButton.setOnClickListener(this);
         isPatientUser();
     }
 
@@ -106,7 +107,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+
         switch (v.getId()) {
             case R.id.requestsListButton:
                 startActivity(new Intent(this ,DoctorAppointmentsList.class));
@@ -130,6 +131,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
+                break;
+            case R.id.treatedPatientsButton:
+                startActivity(new Intent(this, TreatedPatients.class));
                 break;
             case R.id.buttonNextAppointments:
                 if (userType.equals("Patient")) {
@@ -224,6 +228,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
