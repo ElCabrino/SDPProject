@@ -6,6 +6,10 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer
+ */
 public class Doctor extends User {
 
     DoctorActivity activity;

@@ -23,6 +23,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Luca JOSS
+ */
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)

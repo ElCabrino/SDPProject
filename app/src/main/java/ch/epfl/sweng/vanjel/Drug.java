@@ -1,9 +1,12 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * @author Nicolas BRANDT
+ * @reviewer
+ */
 public class Drug extends Info{
-    private String drug;
-    private String dosage;
-    private String frequency;
+
+    private String drug, dosage, frequency;
 
     public Drug() {}
 
@@ -31,9 +34,9 @@ public class Drug extends Info{
 
     public void setFrequency(String frequency) { this.frequency = frequency; }
 
-
     @Override
     String getAndroidInfo() {
         return getDrug();
     }
+
 }

@@ -30,8 +30,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private String uid;
-    private DatabaseReference ref;
-    private DatabaseReference patientRef;
+    private DatabaseReference ref, patientRef;
 
     private RecyclerView recyclerView;
     private DoctorComingAppointmentsAdapter adapter;
@@ -57,8 +56,6 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     // set cardview, database reference
     public void init(){
-        // TODO: remove the fixed uid to put the actual doctor's coming appointments
-//        uid = "W7ReyyyOwAQKaganjsMQuHRb0Aj2";
         uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
         ref = database.getReference("Requests");
         patientRef = database.getReference("Patient");
@@ -74,6 +71,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
     }
 
     public void getAppointments(){
+        // for debbuging:
 //        Appointment appointment = new Appointment("oklm", "12:00", 50, "lol", "oklm");
 //        doctorAppointments.add(appointment);
 //        adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments);
@@ -113,7 +111,6 @@ public class DoctorComingAppointments extends AppCompatActivity {
         if(request.child("doctor").getValue(String.class).equals(uid)){
             String day, hour, patientUid, doctorUid, appointmentID;
             int duration = Integer.valueOf(request.child("duration").getValue(String.class));
-            appointmentID = request.getKey();
             day = request.child("date").getValue(String.class);
             doctorUid = request.child("doctor").getValue(String.class);
             hour = request.child("time").getValue(String.class);

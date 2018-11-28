@@ -25,6 +25,10 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
+/**
+ * @author Luca JOSS
+ * @reviewer Vincent CABRINI
+ */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
@@ -32,9 +36,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button patientInfoButton, logoutButton, buttonNextAppointments;
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton, saveButton, searchButton, nearbyDoctorButton;
-    Button setAvailabilityButton, requestsListButton, appointmentsButton, favoriteListButton;
 
+    Button editButton, saveButton, searchButton, buttonNextAppointments,  treatedPatientsButton;
+    Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton, nearbyDoctorButton;
 
     String userType;
 
@@ -53,6 +57,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
+        treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
 
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
@@ -65,6 +70,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
+        treatedPatientsButton.setOnClickListener(this);
         isPatientUser();
     }
 
@@ -127,6 +133,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 startActivity(new Intent(this, NearbyDoctor.class));
             case R.id.personalAppointmentsButton:
                 startActivity(new Intent(this, PatientPersonalAppointments.class));
+            case R.id.treatedPatientsButton:
+                startActivity(new Intent(this, TreatedPatients.class));
+                break;
             case R.id.buttonNextAppointments:
                 if (userType.equals("Patient")) {
                     startActivity(new Intent(this, PatientPersonalAppointments.class));
@@ -223,6 +232,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
@@ -263,8 +273,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void openChats(View v) {
-        Intent intent = new Intent(this, ChatListActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, ChatListActivity.class));
     }
 
 }

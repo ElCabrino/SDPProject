@@ -6,20 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+/**
+ * @author Luca JOSS
+ * @reviewer Aslam CADER
+ */
 public class SearchDoctor extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText firstName;
-    private EditText lastName;
-    private EditText specialisation;
-    private EditText city;
+    private EditText firstName, lastName, specialisation, city;
 
     private Button searchButton;
 
-    private String nameString;
-    private String lastNameString;
-    private String specialisationString;
-    private String cityString;
+    private String nameString, lastNameString, specialisationString, cityString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

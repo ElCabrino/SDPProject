@@ -1,5 +1,8 @@
 package ch.epfl.sweng.vanjel;
-
+/**
+ * @author Nicolas BRANDT
+ * @reviewer Vincent CABRINI
+ */
 public class Surgery extends Info{
     String type;
     String year;

@@ -5,6 +5,10 @@ package ch.epfl.sweng.vanjel;
  * This class is ignored by code climate.
  */
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer
+ */
 public class Appointment {
     private String day;
     private String hour;

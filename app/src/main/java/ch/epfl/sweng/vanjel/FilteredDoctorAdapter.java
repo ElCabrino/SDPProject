@@ -12,7 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author Aslam CADER
+ * @reviewer
+ */
 public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
     ArrayList<Doctor> doctors;
@@ -27,7 +30,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
         doctors = new ArrayList<>();
 
-//         loop for to take doctorHashmap to doctor
+        // loop for to take doctorHashmap to doctor
         for(Doctor doc: doctorHashMap.values())
             doctors.add(doc);
 

@@ -28,7 +28,10 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
-
+/**
+ * @author Aslam CADER
+ * @reviewer Vincent CABRINI
+ */
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     TextView lastName, firstName, activity, street, streetNumber, city, country;
@@ -41,9 +44,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     //local database
     LocalDatabaseService localDatabaseService;
 
-    private Button takeAppointment;
-    private Button chat;
-    private Button favorite;
+    private Button takeAppointment, chat, favorite;
     private Boolean favoriteState = false;
 
     // map
