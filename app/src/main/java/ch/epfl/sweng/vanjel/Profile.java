@@ -119,8 +119,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(true, View.GONE, View.VISIBLE);
                 break;
             case R.id.saveButton:
-                getStringFromFields();
-                saveNewValues();
+                getStringFromFields(); saveNewValues();
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
@@ -137,14 +136,18 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 startActivity(new Intent(this, TreatedPatients.class));
                 break;
             case R.id.buttonNextAppointments:
-                if (userType.equals("Patient")) {
-                    startActivity(new Intent(this, PatientPersonalAppointments.class));
-                } else {
-                    startActivity(new Intent(this, DoctorComingAppointments.class));
-                }
+                nextAppointments();
                 break;
             case R.id.favoriteListButton:
                 startActivity(new Intent(this, PatientFavoriteListActivity.class));
+        }
+    }
+
+    public void nextAppointments(){
+        if (userType.equals("Patient")) {
+            startActivity(new Intent(this, PatientPersonalAppointments.class));
+        } else {
+            startActivity(new Intent(this, DoctorComingAppointments.class));
         }
     }
 
@@ -157,7 +160,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
-
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();

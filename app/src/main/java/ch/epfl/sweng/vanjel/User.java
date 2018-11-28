@@ -108,26 +108,6 @@ public abstract class User {
         this.gender = gender;
     }
 
-
-    User(String email, String firstName, String lastName, String birthday, String street,
-         String streetNumber, String city, String country, Gender gender) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.street = street;
-        this.streetNumber = streetNumber;
-        this.city = city;
-        this.country = country;
-        this.gender = gender;
-    }
-
-    User() {}
-
-    private String email, firstName, lastName, birthday, street, streetNumber, city, country;
-
-    private Gender gender;
-
     public LatLng getLocationFromAddress(Context context){
 
         //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
