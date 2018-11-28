@@ -18,11 +18,7 @@
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
 
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ChooseRegistration" />
         <activity android:name=".Registration" />
@@ -50,6 +46,13 @@
         <activity android:name=".chat.ChatListActivity" />
         <activity android:name=".TreatedPatients" />
         <activity android:name=".favoriteList.PatientFavoriteListActivity" />
+        <activity android:name=".forwardRequest.ForwardRequest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
