@@ -232,6 +232,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private void setUserAs(String type, int v1, int v2) {
         userType = type;
         searchButton.setVisibility(v1);
+        treatedPatientsButton.setVisibility(v2);
         setAvailabilityButton.setVisibility(v2);
         String s = auth.getCurrentUser().getUid();
         database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
