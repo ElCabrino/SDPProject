@@ -30,8 +30,6 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
     public ForwardRequestAdapter(Context context, ArrayList<Forward> forward){
         this.context = context;
         this.forward = forward;
-        Log.d("OKLM2727", forward.toString());
-        forward.add(new Forward("patient1", "myDocqqq1", "myDocqqq2"));
     }
 
 

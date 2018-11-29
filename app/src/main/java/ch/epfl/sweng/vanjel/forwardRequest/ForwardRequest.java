@@ -37,6 +37,8 @@ public class ForwardRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forwaded_requests);
         init();
+
+        // TODO: Remove these mocks
         forward.add(new Forward("patient1", "myDoc1", "myDoc2"));
         forward.add(new Forward("patfffient1", "myDoffc1", "myDofffc2"));
 
