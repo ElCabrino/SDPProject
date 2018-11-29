@@ -6,6 +6,7 @@
     android:id="@+id/forwardCardView"
     android:layout_margin="5dp"
     android:orientation="vertical"
+    android:background="@drawable/background_item"
     android:padding="8dp">
 
     <!-- Full cardview -->
@@ -60,8 +61,8 @@
             android:layout_gravity="right">
 
             <Button
-                android:id="@+id/takeAppointmentForwadedDoctor"
-                android:text="Take Appointment"
+                android:id="@+id/seeForwadedDoctor"
+                android:text="See Doctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

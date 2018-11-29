@@ -55,13 +55,13 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
         TextView doctor1, doctor2;
-       // Button takeAppointment, delete;
+       // Button doctorDetails, delete;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             doctor1 = itemView.findViewById(R.id.firstDoctorRequested);
             doctor2 = itemView.findViewById(R.id.secondDoctorAdviced);
-           // takeAppointment = itemView.findViewById(R.id.takeAppointmentForwadedDoctor);
+           // doctorDetails = itemView.findViewById(R.id.seeForwadedDoctor);
            // delete = itemView.findViewById(R.id.deleteForwardRequest);
         }
     }
