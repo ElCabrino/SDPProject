@@ -37,4 +37,3 @@ exclude_patterns:
 - "app/src/main/java/ch/epfl/sweng/vanjel/FirebaseDatabaseCustomBackend.java"
 - "app/src/main/java/ch/epfl/sweng/vanjel/Appointment.java"
 - "app/src/main/java/ch/epfl/sweng/vanjel/chat/Chat.java"
-- "app/src/main/java/ch/epfl/sweng/vanjel/favorite/DoctorFavoriteDao_Impl.java"
