@@ -10,7 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+/**
+ * Etienne?? Nicolas??
+ * @author
+ * @reviewer
+ */
 public class DoctorCalendarAdapter extends recyclerViewAdapter<DoctorCalendarAdapter.ViewHolder> {
 
     private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();

@@ -1,5 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Aslam CADER
+ */
 public class InfoString extends Info{
 
     String info;

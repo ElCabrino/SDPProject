@@ -17,6 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Nicolas BRANDT
+ */
 class PatientInfoDatabaseService {
 
 

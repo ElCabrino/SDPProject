@@ -25,6 +25,10 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
+/**
+ * @author Luca JOSS
+ * @reviewer Vincent CABRINI
+ */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
@@ -266,7 +270,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
     
     public void openChats(View v) {
-        Intent intent = new Intent(this, ChatListActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, ChatListActivity.class));
     }
 }

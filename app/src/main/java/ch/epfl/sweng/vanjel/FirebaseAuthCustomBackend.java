@@ -19,6 +19,10 @@ import static org.mockito.Mockito.when;
  * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
  */
 
+/**
+ * @author Luca JOSS
+ * @reviewer Vincent CABRINI
+ */
 public class FirebaseAuthCustomBackend {
 
     private static boolean mockPatient = true;

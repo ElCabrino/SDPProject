@@ -9,7 +9,10 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
+/**
+ * @author Etienne CAQUOT
+ * @reviewer Nicolas BRANDT
+ */
 public class DoctorCalendar extends AppCompatActivity {
 
     private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
