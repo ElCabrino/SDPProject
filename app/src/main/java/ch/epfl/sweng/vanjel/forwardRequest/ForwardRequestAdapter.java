@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel.forwardRequest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ch.epfl.sweng.vanjel.DoctorComingAppointmentsAdapter;
+import ch.epfl.sweng.vanjel.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.recyclerViewAdapter;
 
@@ -43,9 +45,21 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.doctor1.setText(forward.get(i).getDoctor1());
-        viewHolder.doctor2.setText(forward.get(i).getDoctor2());
+        //viewHolder.doctor2.setText(forward.get(i).getDoctor2());
+        viewHolder.doctor2.setText("Doctor2");
+
+        final String doctorUID = forward.get(i).getDoctor2();
 
         // TODO: button onClick listener
+
+        viewHolder.doctorDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DoctorInformation.class);
+                intent.putExtra("doctorUID", doctorUID);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -55,14 +69,14 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
         TextView doctor1, doctor2;
-       // Button doctorDetails, delete;
+        Button doctorDetails, delete;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             doctor1 = itemView.findViewById(R.id.firstDoctorRequested);
             doctor2 = itemView.findViewById(R.id.secondDoctorAdviced);
-           // doctorDetails = itemView.findViewById(R.id.seeForwadedDoctor);
-           // delete = itemView.findViewById(R.id.deleteForwardRequest);
+            doctorDetails = itemView.findViewById(R.id.seeForwadedDoctor);
+            delete = itemView.findViewById(R.id.deleteForwardRequest);
         }
     }
 
