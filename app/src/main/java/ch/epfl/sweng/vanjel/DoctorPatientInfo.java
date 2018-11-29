@@ -10,21 +10,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Nicolas BRANDT
+ * @reviewer Aslam CADER
+ */
 public class DoctorPatientInfo extends AppCompatActivity {
 
     private Bundle bundle;
 
     PatientInfoDatabaseService patientInfoDatabaseService;
 
-    ListView listViewConditions;
-    ListView listViewSurgeries;
-    ListView listViewAllergies;
-    ListView listViewDrugReactions;
-    ListView listViewDrugs;
-    ListView listViewSubstances;
-    TextView textViewSmoking;
-    TextView textViewDrinking;
-    TextView textViewExercise;
+    ListView listViewConditions, listViewSurgeries, listViewAllergies, listViewDrugReactions, listViewDrugs, listViewSubstances;
+
+    TextView textViewSmoking, textViewDrinking, textViewExercise;
 
     List<InfoString> conditionList = new ArrayList<>();
     List<Surgery> surgeryList = new ArrayList<>();
@@ -39,12 +37,8 @@ public class DoctorPatientInfo extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_patient_info);
         bundle = getIntent().getExtras();
 
-//        TODO: add corect uid
-//        String UserID = FirebaseDatabaseCustomBackend.getInstance().getUid();
         String patientID = bundle.getString("patientUID");
-//        String UserID = "I3h9NVPXwmb0Ab2auVnaMSgjaLY2";
 
-        //patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
         patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
 
         getAllPatientInfoFields();

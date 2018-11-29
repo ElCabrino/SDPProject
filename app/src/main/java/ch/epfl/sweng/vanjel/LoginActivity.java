@@ -16,22 +16,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Aslam CADER
+ */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText emailField;
-    private EditText passwordField;
-
-    private AppointmentNotificationBackgroundService appointmentBackgroundService;
+    private EditText emailField, passwordField;
 
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private FirebaseAuth auth;
+    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
 
         //Views
         emailField = findViewById(R.id.mailLogin);
@@ -42,15 +41,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.registrationLogin).setOnClickListener(this);
     }
 
-    private void startAppointmentService(){
-        Intent serviceIntent = new Intent(this, AppointmentNotificationBackgroundService.class);
-        startService(serviceIntent);
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        auth = FirebaseAuthCustomBackend.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser a = auth.getCurrentUser();
         if(a != null){
@@ -60,12 +54,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI() {
         // user is logged, open his profile page
-        Intent intent = new Intent(LoginActivity.this,Profile.class);
-        startActivity(intent);
+        startActivity(new Intent(LoginActivity.this,Profile.class));
 
-
-        startAppointmentService();
-
+        // start Appointment service
+        startService(new Intent(this, AppointmentNotificationBackgroundService.class));
     }
 
     @Override
@@ -76,8 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             login(emailField.getText().toString(), passwordField.getText().toString());
         } else if (i == R.id.registrationLogin){
             // user presses registration button
-            Intent intent = new Intent(LoginActivity.this,ChooseRegistration.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginActivity.this,ChooseRegistration.class));
         }
     }
 

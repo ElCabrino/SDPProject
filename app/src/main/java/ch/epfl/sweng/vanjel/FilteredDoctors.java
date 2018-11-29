@@ -22,7 +22,13 @@ import java.util.Map;
  * @author Aslam CADER
  * @reviewer
  */
+
 public class FilteredDoctors extends AppCompatActivity {
+
+    /**
+     * This activity uses the values given in the bundle to retrieve and display the doctors
+     * that correspond to the filters
+     */
 
     private static final String TAG = "OKLM2727";
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -35,10 +41,7 @@ public class FilteredDoctors extends AppCompatActivity {
     private Bundle bundle;
 
     // user choices
-    private String lastName;
-    private String firstName;
-    private String specialisation;
-    private String city;
+    private String lastName, firstName, specialisation, city;
 
     private HashMap<String, Doctor> doctorHashMap;
 

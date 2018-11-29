@@ -20,6 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Aslam CADER
+ */
 public class AppointmentNotificationBackgroundService extends Service {
 
     public static final String APPOINTMENT_SERVICE_INTENT = "ch.epfl.sweng.vanjel.appointmentService";
@@ -40,8 +44,6 @@ public class AppointmentNotificationBackgroundService extends Service {
     public void onCreate() {
 
         createNotificationChannel();
-
-        //FirebaseDatabase.getInstance().getReference("TEST").setValue(100000);
 
         Toast.makeText(this, "Service started", Toast.LENGTH_LONG).show();
         createDatabaseAppointmentListener();

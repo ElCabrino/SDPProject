@@ -1,5 +1,9 @@
 package ch.epfl.sweng.vanjel;
-
+/**
+ * Nicolas?? Etienne??
+ * @author
+ * @reviewer
+ */
 public class DoctorCalendarItem {
 
     private String date;

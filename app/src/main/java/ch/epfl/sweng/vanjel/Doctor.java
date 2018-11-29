@@ -1,5 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer
+ */
 public class Doctor extends User {
 
     DoctorActivity activity;

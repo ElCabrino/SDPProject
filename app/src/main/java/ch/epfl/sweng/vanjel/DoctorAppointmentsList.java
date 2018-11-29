@@ -14,13 +14,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Aslam CADER
+ */
 public class DoctorAppointmentsList extends AppCompatActivity{
 
     private DoctorAppointmentListAdapter adapter;
     private RecyclerView recyclerView;
     private DatabaseReference dbReferenceAppointments;
     private String uid;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

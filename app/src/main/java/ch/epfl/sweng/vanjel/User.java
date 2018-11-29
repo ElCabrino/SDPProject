@@ -1,6 +1,30 @@
 package ch.epfl.sweng.vanjel;
 
+/**
+ * @author Vincent CABRINI
+ * @reviewer Luca JOSS
+ */
 public abstract class User {
+
+    private String email, firstName, lastName, birthday, street, streetNumber, city, country;
+
+    private Gender gender;
+
+    User(String email, String firstName, String lastName, String birthday, String street,
+         String streetNumber, String city, String country, Gender gender) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.country = country;
+        this.gender = gender;
+    }
+
+    User() {}
+
     public String getEmail() {
         return email;
     }
@@ -72,25 +96,6 @@ public abstract class User {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
-    User(String email, String firstName, String lastName, String birthday, String street,
-         String streetNumber, String city, String country, Gender gender) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.street = street;
-        this.streetNumber = streetNumber;
-        this.city = city;
-        this.country = country;
-        this.gender = gender;
-    }
-
-    User() {}
-
-    private String email, firstName, lastName, birthday, street, streetNumber, city, country;
-
-    private Gender gender;
 
     @Override
     public String toString() {
