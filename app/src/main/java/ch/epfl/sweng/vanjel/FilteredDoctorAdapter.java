@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,17 +23,22 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     HashMap<String, Doctor> doctorHashMap;
     Context context;
 
+    Boolean isForward;
 
-    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data){
+
+    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward){
 
         this.doctorHashMap = data;
         this.context = context;
+        this.isForward = isForward;
 
         doctors = new ArrayList<>();
 
         // loop for to take doctorHashmap to doctor
         for(Doctor doc: doctorHashMap.values())
             doctors.add(doc);
+
+
     }
 
     @NonNull
@@ -71,6 +77,8 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
                 context.startActivity(intent);
             }
         });
+
+        // TODO: add onclickListener for forward to this doctor
     }
 
     @Override
@@ -82,6 +90,10 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
         TextView firstName, lastName, activity, street, streetNumber, city, country;
 
+        Button forwardButton;
+
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -92,6 +104,9 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
             streetNumber = itemView.findViewById(R.id.streetNumber);
             city = itemView.findViewById(R.id.city);
             country = itemView.findViewById(R.id.country);
+            forwardButton = itemView.findViewById(R.id.forwardButtonInFilteredDoctors);
+
+            if(!isForward) forwardButton.setVisibility(View.INVISIBLE);
         }
     }
 }

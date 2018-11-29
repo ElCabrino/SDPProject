@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
 
         final String doctorUID = forward.get(i).getDoctor2();
 
-        // TODO: button onClick listener
+
 
         viewHolder.doctorDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,15 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
                 Intent intent = new Intent(v.getContext(), DoctorInformation.class);
                 intent.putExtra("doctorUID", doctorUID);
                 v.getContext().startActivity(intent);
+            }
+        });
+
+
+        // TODO: button delete listener
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Delete function is not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
 

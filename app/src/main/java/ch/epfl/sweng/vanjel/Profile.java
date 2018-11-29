@@ -127,7 +127,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                startActivity(new Intent(this, SearchDoctor.class));
+                goSearch();
                 break;
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
@@ -145,6 +145,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.favoriteListButton:
                 startActivity(new Intent(this, PatientFavoriteListActivity.class));
         }
+    }
+
+    public void goSearch(){
+        Intent intent = new Intent(this, SearchDoctor.class);
+        intent.putExtra("isForward", false);
+        startActivity(intent);
     }
 
     public void patientInfo() {

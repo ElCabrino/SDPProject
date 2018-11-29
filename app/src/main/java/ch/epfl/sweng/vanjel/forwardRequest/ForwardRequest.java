@@ -38,7 +38,7 @@ public class ForwardRequest extends AppCompatActivity {
         setContentView(R.layout.activity_forwaded_requests);
         init();
 
-        // TODO: Remove these mockss
+        // TODO: Remove these mocks and put db listener instead
         forward.add(new Forward("patient1", "myDoc1", "W7ReyyyOwAQKaganjsMQuHRb0Aj2"));
         forward.add(new Forward("patfffient1", "myDoffc1", "W7ReyyyOwAQKaganjsMQuHRb0Aj2"));
 

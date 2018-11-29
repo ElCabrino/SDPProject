@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,11 @@ public class FilteredDoctors extends AppCompatActivity {
     // user choices
     private String lastName, firstName, specialisation, city;
 
+    // if it's a forward request
+    private Boolean isForward;
+    private String doctor1Forward, patientForward;
+
+
     private HashMap<String, Doctor> doctorHashMap;
 
     @Override
@@ -61,9 +68,14 @@ public class FilteredDoctors extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         doctors = new ArrayList<>();
         doctorHashMap = new HashMap<>();
-        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
-        recyclerView.setAdapter(adapter);
         bundle = getIntent().getExtras();
+        isForward = bundle.getBoolean("isForward");
+        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward);
+        recyclerView.setAdapter(adapter);
+        doctor1Forward = bundle.getString("doctor1Forward");
+        patientForward = bundle.getString("patientForward");
+
+
     }
 
     public void getUserFilters(){
@@ -126,7 +138,7 @@ public class FilteredDoctors extends AppCompatActivity {
                     doctors.add(myDoctor);
                 }
                 select(); // remove unwanted doctors
-                adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap);
+                adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
