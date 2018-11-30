@@ -1,9 +1,20 @@
 package ch.epfl.sweng.vanjel;
 
+
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.List;
+
 /**
  * @author Vincent CABRINI
  * @reviewer Luca JOSS
  */
+
 public abstract class User {
 
     private String email, firstName, lastName, birthday, street, streetNumber, city, country;
@@ -95,6 +106,37 @@ public abstract class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public LatLng getLocationFromAddress(Context context){
+
+        //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";
+        String strAddress = this.getStreet() + " " + this.getStreetNumber() + ", " + this.getCity() + ", " + this.getCountry();
+
+        Geocoder coder = new Geocoder(context);
+
+        List<Address> address;
+        // default value Lausanne, just for the compilation: the real default value is in onMapReady()
+//        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
+        LatLng locationForMap = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress,5);
+            if (address.isEmpty()){
+                return null;
+            }
+            Address location=address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            locationForMap = new LatLng(location.getLatitude(), location.getLongitude());
+
+            return locationForMap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return locationForMap;
     }
 
     @Override

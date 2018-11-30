@@ -33,12 +33,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
 
-    Button patientInfoButton, logoutButton;
-
+    Button patientInfoButton, logoutButton, buttonNextAppointments;
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton, saveButton, searchButton, buttonNextAppointments,  treatedPatientsButton;
-    Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
+
+    Button editButton, saveButton, searchButton,  treatedPatientsButton;
+    Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton, nearbyDoctorButton;
 
     String userType;
 
@@ -64,7 +64,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
-
+        nearbyDoctorButton.setOnClickListener(this);
+        appointmentsButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
@@ -77,11 +78,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (type.compareTo("Patient") == 0) {
-                    setTextFields(dataSnapshot, Patient.class);
-                } else if (type.compareTo("Doctor") == 0) {
-                    setTextFields(dataSnapshot, Doctor.class);
-                }
+                if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
+                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -107,7 +105,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.requestsListButton:
                 startActivity(new Intent(this ,DoctorAppointmentsList.class));
@@ -122,8 +119,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(true, View.GONE, View.VISIBLE);
                 break;
             case R.id.saveButton:
-                getStringFromFields();
-                saveNewValues();
+                getStringFromFields(); saveNewValues();
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
@@ -132,18 +128,26 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
+            case R.id.nearbyDoctorButton:
+                startActivity(new Intent(this, NearbyDoctor.class));
+            case R.id.personalAppointmentsButton:
+                startActivity(new Intent(this, PatientPersonalAppointments.class));
             case R.id.treatedPatientsButton:
                 startActivity(new Intent(this, TreatedPatients.class));
                 break;
             case R.id.buttonNextAppointments:
-                if (userType.equals("Patient")) {
-                    startActivity(new Intent(this, PatientPersonalAppointments.class));
-                } else {
-                    startActivity(new Intent(this, DoctorComingAppointments.class));
-                }
+                nextAppointments();
                 break;
             case R.id.favoriteListButton:
                 startActivity(new Intent(this, PatientFavoriteListActivity.class));
+        }
+    }
+
+    public void nextAppointments(){
+        if (userType.equals("Patient")) {
+            startActivity(new Intent(this, PatientPersonalAppointments.class));
+        } else {
+            startActivity(new Intent(this, DoctorComingAppointments.class));
         }
     }
 
@@ -175,6 +179,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.saveButton = findViewById(R.id.saveButton);
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
+        this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
+        this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
         this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
@@ -267,8 +273,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("country", this.newCountry);
         return userValues;
     }
-    
+
     public void openChats(View v) {
         startActivity(new Intent(this, ChatListActivity.class));
     }
+
 }

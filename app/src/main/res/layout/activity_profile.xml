@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Profile">
 
-
     <ScrollView
+
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,8 +143,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                
 
+                <Button
+                    android:id="@+id/patientInfoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="patient info button"
+                    android:text="Patient Info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+
+                <Button
+                    android:id="@+id/nearbyDoctorButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="Nearby Doctors"
+                    android:text="Nearby Doctors" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/editButton"
@@ -153,24 +180,20 @@
                     android:contentDescription="profile edit button"
                     android:text="Edit" />
 
-                <Button
-                    android:id="@+id/favoriteListButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="favorites"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/requestsListButton"
-                    app:layout_constraintEnd_toStartOf="@+id/requestsListButton" />
+
+
+
                 <Button
                     android:id="@+id/buttonNextAppointments"
                     android:contentDescription="personal appointments button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your appointments"
+                    android:text="Dr next Appointment"
                     android:layout_weight="1"/>
 
 
-
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -186,12 +209,22 @@
                     android:text="Logout" />
 
                 <Button
+                    android:id="@+id/favoriteListButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="favorites"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/requestsListButton"
+                    app:layout_constraintEnd_toStartOf="@+id/requestsListButton" />
+
+                <Button
                     android:id="@+id/searchDoctorButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_weight="1"
                     android:contentDescription="profile search button"
                     android:text="Search" />
+
 
                 <Button
                     android:id="@+id/setAvailabilityButton"
@@ -201,6 +234,7 @@
                     android:contentDescription="set availability button"
                     android:text="Set Availability"
                     android:visibility="gone" />
+
 
                 <Button
                     android:id="@+id/chats"
@@ -213,44 +247,46 @@
             </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/requestsListButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="73dp"
-                android:text="Requests"
-                android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/treatedPatientsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="73dp"
-                android:text="Treated Patients"
-                android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                <Button
+                    android:id="@+id/requestsListButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="73dp"
+                    android:text="Requests"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/patientInfoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="patient info button"
-                android:text="Patient Info"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+                <Button
+                    android:id="@+id/personalAppointmentsButton"
+                    android:contentDescription="personal appointments button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your appointments"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/treatedPatientsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="73dp"
+                    android:text="Treated Patients"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
 
 
         </LinearLayout>
