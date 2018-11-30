@@ -39,8 +39,8 @@ public class ForwardRequest extends AppCompatActivity {
         init();
 
         // TODO: Remove these mocks and put db listener instead
-        forward.add(new Forward("patient1", "myDoc1", "W7ReyyyOwAQKaganjsMQuHRb0Aj2"));
-        forward.add(new Forward("patfffient1", "myDoffc1", "W7ReyyyOwAQKaganjsMQuHRb0Aj2"));
+        forward.add(new Forward("patient1", "myDoc1UID", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "John Smith", "Peter Capaldi"));
+        forward.add(new Forward("patfffient1", "myDoffc1UID", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "Matt Smith", "Clara Oswald"));
 
         notifyAdapter();
     }
