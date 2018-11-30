@@ -1,17 +1,23 @@
 package ch.epfl.sweng.vanjel.forwardRequest;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ch.epfl.sweng.vanjel.Doctor;
 import ch.epfl.sweng.vanjel.DoctorComingAppointments;
 import ch.epfl.sweng.vanjel.DoctorComingAppointmentsAdapter;
+import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
@@ -22,8 +28,8 @@ import ch.epfl.sweng.vanjel.R;
 public class ForwardRequest extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private String uid;
-    private DatabaseReference ref, patientRef;
+    private String currentUserUID;
+    private DatabaseReference ref;
 
     private RecyclerView recyclerView;
     private ForwardRequestAdapter adapter;
@@ -38,9 +44,9 @@ public class ForwardRequest extends AppCompatActivity {
         setContentView(R.layout.activity_forwaded_requests);
         init();
 
-        // TODO: Remove these mocks and put db listener instead
-        forward.add(new Forward("patient1", "VkRC41z4S4U57QQwmcLnyLuEYCv2", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "John Smith", "Peter Capaldi"));
-        forward.add(new Forward("patfffient1", "VkRC41z4S4U57QQwmcLnyLuEYCv2", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "Matt Smith", "Clara Oswald"));
+        // For debugging
+        // forward.add(new Forward("patient1", "VkRC41z4S4U57QQwmcLnyLuEYCv2", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "John Smith", "Peter Capaldi"));
+        // forward.add(new Forward("patfffient1", "VkRC41z4S4U57QQwmcLnyLuEYCv2", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "Matt Smith", "Clara Oswald"));
 
         notifyAdapter();
     }
@@ -49,6 +55,30 @@ public class ForwardRequest extends AppCompatActivity {
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         forward = new ArrayList<>();
+        ref = database.getReference().child("Forwards");
+        currentUserUID = FirebaseAuthCustomBackend.getInstance().getUid();
+        getMyForwards();
+    }
+
+    public void getMyForwards(){
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                forward = new ArrayList<>(); // in case the the forward is updated, we need to remove ther old stuff
+                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Forward dbForward = dataSnapshot1.getValue(Forward.class);
+                    if(dbForward.getPatient().equals(currentUserUID))
+                        forward.add(dbForward);
+                }
+                notifyAdapter();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 

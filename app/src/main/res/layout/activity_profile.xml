@@ -241,6 +241,16 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
+                android:id="@+id/forwardButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Forwards"
+                android:text="Forwards"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+
+            <Button
                 android:id="@+id/patientInfoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
