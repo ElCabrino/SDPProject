@@ -77,26 +77,17 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         final int id = i;
 
         // we need to give the uid of the doctor the user want to see
-         String key = "";
-        for(Map.Entry entry: doctorHashMap.entrySet()){
-            if(doctors.get(id).equals(entry.getValue())){
-                key = (String) entry.getKey();
-                break; //breaking because its one to one map
-            }
-        }
-        final String finalKey = key;
+        final String finalKey = getDoctorUIDWithKey(id);
 
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DoctorInformation.class);
-                intent.putExtra("doctorUID", finalKey);
+                Intent intent = new Intent(context, DoctorInformation.class).putExtra("doctorUID", finalKey);
                 context.startActivity(intent);
             }
         });
-
-        // TODO: add onclickListener for forward to this doctor
+        
         // patientUID, doctor1name, doctor2String, doctor2UID (redirection needed)
         viewHolder.forwardButton.setOnClickListener(new View.OnClickListener() {
 
@@ -124,6 +115,17 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         });
     }
 
+    private String getDoctorUIDWithKey(int id){
+        String key = "";
+        for(Map.Entry entry: doctorHashMap.entrySet()){
+            if(doctors.get(id).equals(entry.getValue())){
+                key = (String) entry.getKey();
+                break; //breaking because its one to one map
+            }
+        }
+
+        return key;
+    }
 
     @Override
     public int getItemCount() {
