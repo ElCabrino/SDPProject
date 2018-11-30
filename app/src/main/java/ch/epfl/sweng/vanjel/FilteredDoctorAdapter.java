@@ -9,6 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,14 +30,18 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     HashMap<String, Doctor> doctorHashMap;
     Context context;
 
+    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+
     Boolean isForward;
+    HashMap<String, Object> isForwardDetails;
 
 
-    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward){
+    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails){
 
         this.doctorHashMap = data;
         this.context = context;
         this.isForward = isForward;
+        this.isForwardDetails = isForwardDetails;
 
         doctors = new ArrayList<>();
 
@@ -48,7 +59,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
@@ -79,6 +90,28 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         });
 
         // TODO: add onclickListener for forward to this doctor
+        // patientUID, doctor1name, doctor2String, doctor2UID (redirection needed)
+        viewHolder.forwardButton.setOnClickListener(new View.OnClickListener() {
+            DatabaseReference ref = database.getReference("Forwards");
+            @Override
+            public void onClick(View v) {
+                isForwardDetails.put("doctor2name", doctors.get(id).getLastName());
+                DatabaseReference r1 = ref.push();
+                Task r2 = r1.updateChildren(isForwardDetails);
+                r2.addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
+                        // TODO: delete request??
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override

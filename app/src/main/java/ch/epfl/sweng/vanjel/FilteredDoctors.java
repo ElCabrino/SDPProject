@@ -48,6 +48,7 @@ public class FilteredDoctors extends AppCompatActivity {
     // if it's a forward request
     private Boolean isForward;
     private String doctor1Forward, patientForward;
+    private HashMap<String, Object> isForwardDetails;
 
 
     private HashMap<String, Doctor> doctorHashMap;
@@ -70,10 +71,14 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = new HashMap<>();
         bundle = getIntent().getExtras();
         isForward = bundle.getBoolean("isForward");
-        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward);
-        recyclerView.setAdapter(adapter);
+        isForwardDetails = new HashMap<>();
         doctor1Forward = bundle.getString("doctor1Forward");
         patientForward = bundle.getString("patientForward");
+        isForwardDetails.put("patient", patientForward);
+        isForwardDetails.put("doctor1UID", doctor1Forward);
+        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails);
+        recyclerView.setAdapter(adapter);
+
 
 
     }
@@ -138,7 +143,7 @@ public class FilteredDoctors extends AppCompatActivity {
                     doctors.add(myDoctor);
                 }
                 select(); // remove unwanted doctors
-                adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward);
+                adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
