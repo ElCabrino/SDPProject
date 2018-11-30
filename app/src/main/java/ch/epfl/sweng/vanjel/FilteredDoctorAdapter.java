@@ -31,19 +31,24 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
     Context context;
 
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    DatabaseReference ref;
 
     Boolean isForward;
     HashMap<String, Object> isForwardDetails;
+    private HashMap<String, Doctor> allDoctors;
 
 
-    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails){
+    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
 
         this.doctorHashMap = data;
         this.context = context;
         this.isForward = isForward;
         this.isForwardDetails = isForwardDetails;
+        this.allDoctors = allDoctors;
 
         doctors = new ArrayList<>();
+
+        ref = database.getReference("Forwards");
 
         // loop for to take doctorHashmap to doctor
         for(Doctor doc: doctorHashMap.values())
@@ -86,8 +91,6 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DoctorInformation.class);
-
-
                 intent.putExtra("doctorUID", finalKey);
                 context.startActivity(intent);
             }
@@ -96,11 +99,13 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         // TODO: add onclickListener for forward to this doctor
         // patientUID, doctor1name, doctor2String, doctor2UID (redirection needed)
         viewHolder.forwardButton.setOnClickListener(new View.OnClickListener() {
-            DatabaseReference ref = database.getReference("Forwards");
+
             @Override
             public void onClick(View v) {
-                isForwardDetails.put("doctor2name", doctors.get(id).getLastName());
+                isForwardDetails.put("doctor2name", doctors.get(id).getFullName());
                 isForwardDetails.put("doctor2UID", finalKey);
+                String doctor1UID = (String) isForwardDetails.get("doctor1UID");
+                isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).getFullName());
                 DatabaseReference r1 = ref.push();
                 Task r2 = r1.updateChildren(isForwardDetails);
                 r2.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -118,6 +123,7 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

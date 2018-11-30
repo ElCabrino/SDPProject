@@ -97,6 +97,10 @@ public abstract class User {
         this.gender = gender;
     }
 
+    public String getFullName(){
+        return "Dr. " + this.firstName + " " + this.lastName;
+    }
+
     @Override
     public String toString() {
         return getFirstName() + " " + getLastName();
