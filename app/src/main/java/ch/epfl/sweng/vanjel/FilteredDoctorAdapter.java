@@ -102,10 +102,10 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
 
             @Override
             public void onClick(View v) {
-                isForwardDetails.put("doctor2name", doctors.get(id).getFullName());
+                isForwardDetails.put("doctor2name", doctors.get(id).toString());
                 isForwardDetails.put("doctor2UID", finalKey);
                 String doctor1UID = (String) isForwardDetails.get("doctor1UID");
-                isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).getFullName());
+                isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).toString());
                 DatabaseReference r1 = ref.push();
                 Task r2 = r1.updateChildren(isForwardDetails);
                 r2.addOnSuccessListener(new OnSuccessListener<Void>() {
