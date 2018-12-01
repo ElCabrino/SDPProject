@@ -194,6 +194,33 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/requestsListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Requests"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/forwardButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Forwards"
+                android:text="Forwards"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+
+        </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -253,17 +280,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/requestsListButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="73dp"
-                    android:text="Requests"
-                    android:layout_weight="1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <Button
                     android:id="@+id/personalAppointmentsButton"
                     android:contentDescription="personal appointments button"
                     android:layout_width="wrap_content"
@@ -274,7 +290,6 @@
                     android:id="@+id/treatedPatientsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="73dp"
                     android:text="Treated Patients"
                     android:layout_weight="1"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -287,25 +302,6 @@
 
 
 
-            <Button
-                android:id="@+id/forwardButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Forwards"
-                android:text="Forwards"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
-
-            <Button
-                android:id="@+id/patientInfoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="patient info button"
-                android:text="Patient Info"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
 
 

@@ -37,7 +37,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button patientInfoButton, logoutButton, buttonNextAppointments;
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton, saveButton, searchButton, buttonNextAppointments,  treatedPatientsButton;
+    Button editButton, saveButton, searchButton,  treatedPatientsButton;
     Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
     Button forwardButton, nearbyDoctorButton;
 
@@ -150,10 +150,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public void goSearch(){
+    public void goSearch() {
         Intent intent = new Intent(this, SearchDoctor.class);
         intent.putExtra("isForward", false);
         startActivity(intent);
+    }
 
     public void nextAppointments(){
         if (userType.equals("Patient")) {
