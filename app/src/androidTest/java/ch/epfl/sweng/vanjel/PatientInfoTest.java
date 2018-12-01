@@ -209,9 +209,11 @@ PatientInfoTest {
     public void testAddAndRecoverSubstance() throws InterruptedException {
         onView(withId(R.id.buttonSubstance)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
+
         for (InfoString substance : substances) {
             onView(withId(R.id.ptSubstanceReg)).perform(setTextInTextView(substance.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonSubstance)).perform(click());
+
         }
 
         /*onView(withId(R.id.buttonGenInfoPtReg)).perform(scrollTo());

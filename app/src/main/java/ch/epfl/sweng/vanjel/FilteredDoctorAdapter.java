@@ -54,7 +54,6 @@ public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAda
         for(Doctor doc: doctorHashMap.values())
             doctors.add(doc);
 
-
     }
 
     @NonNull
