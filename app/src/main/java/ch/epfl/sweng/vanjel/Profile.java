@@ -126,7 +126,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                goSearch();
+                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward", false));
                 break;
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
@@ -150,27 +150,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public void goSearch() {
-        Intent intent = new Intent(this, SearchDoctor.class);
-        intent.putExtra("isForward", false);
-        startActivity(intent);
-    }
 
     public void nextAppointments(){
-        if (userType.equals("Patient")) {
-            startActivity(new Intent(this, PatientPersonalAppointments.class));
-        } else {
-            startActivity(new Intent(this, DoctorComingAppointments.class));
-        }
-
+        if (userType.equals("Patient")) { startActivity(new Intent(this, PatientPersonalAppointments.class));
+        } else { startActivity(new Intent(this, DoctorComingAppointments.class)); }
     }
 
     public void patientInfo() {
-        if (userType.equals("Patient")) {
-            startActivity(new Intent(this, PatientInfo.class));
-        } else {
-            Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-        }
+        if (userType.equals("Patient")) { startActivity(new Intent(this, PatientInfo.class));
+        } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
     }
 
     private void logOut(){
