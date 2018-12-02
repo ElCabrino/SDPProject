@@ -81,7 +81,7 @@ public class ProfileTest {
 
     @Test
     public void displayPatientProfileTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(p_expectedLastname)));
@@ -97,7 +97,7 @@ public class ProfileTest {
 
     @Test
     public void EditTextTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         String newLastName = "JossEdit";
@@ -128,7 +128,7 @@ public class ProfileTest {
 
     @Test
     public void editButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
@@ -149,7 +149,7 @@ public class ProfileTest {
 
     @Test
     public void saveButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
@@ -174,7 +174,7 @@ public class ProfileTest {
 
     @Test
     public void searchDoctorButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile search button")).perform(scrollTo(), click());
         intended(hasComponent(SearchDoctor.class.getName()));
@@ -182,7 +182,7 @@ public class ProfileTest {
 
     @Test
     public void patientInfoButtonAsPatientTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.patientInfoButton)).perform(scrollTo(), click());
         intended(hasComponent(PatientInfo.class.getName()));
@@ -190,7 +190,7 @@ public class ProfileTest {
 
     @Test
     public void patientInfoButtonAsDoctorTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(3);
         onView(withId(R.id.patientInfoButton)).perform(scrollTo(), click());
         onView(withText("You must be a patient to access this feature")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
@@ -198,7 +198,7 @@ public class ProfileTest {
 
     @Test
     public void setAvailabilityButton() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("set availability button")).perform(scrollTo(), click());
         intended(hasComponent(DoctorAvailabilityActivity.class.getName()));
@@ -206,7 +206,7 @@ public class ProfileTest {
 
     @Test
     public void nearbyDoctorButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.nearbyDoctorButton)).perform(scrollTo(), click());
         intended(hasComponent(NearbyDoctor.class.getName()));
@@ -214,7 +214,7 @@ public class ProfileTest {
 
     @Test
     public void treatedPatientsButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.treatedPatientsButton)).perform(scrollTo(), click());
         intended(hasComponent(TreatedPatients.class.getName()));
@@ -222,7 +222,7 @@ public class ProfileTest {
 
     @Test
     public void favoriteListButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.favoriteListButton)).perform(scrollTo(), click());
         intended(hasComponent(PatientFavoriteListActivity.class.getName()));
@@ -230,7 +230,7 @@ public class ProfileTest {
 
     @Test
     public void displayDoctorProfileTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false, false);
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText(d_expectedLastname)));
@@ -246,7 +246,7 @@ public class ProfileTest {
 
     @Test
     public void nextAppointmentsAsPatientTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
         intended(hasComponent(PatientPersonalAppointments.class.getName()));
@@ -254,7 +254,7 @@ public class ProfileTest {
 
     @Test
     public void nextAppointmentsAsDoctorTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.buttonNextAppointments)).perform(scrollTo(), click());
         intended(hasComponent(DoctorComingAppointments.class.getName()));
@@ -263,7 +263,7 @@ public class ProfileTest {
 
     @Test
     public void requestsListTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.requestsListButton)).perform(scrollTo(), click());
         intended(hasComponent(DoctorAppointmentsList.class.getName()));
@@ -271,7 +271,7 @@ public class ProfileTest {
 
     @Test
     public void chatAccessTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.chats)).perform(scrollTo(), click());
         intended(hasComponent(ChatListActivity.class.getName()));
@@ -279,7 +279,7 @@ public class ProfileTest {
 
     @Test
     public void isPatientUserCancelledTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, true);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, true, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText("")));
         onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText("")));
@@ -294,7 +294,7 @@ public class ProfileTest {
 
     @Test
     public void createValueEventListenerCancelled() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, true, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, true, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).perform(ViewActions.scrollTo()).check(matches(withText("")));
         onView(withContentDescription("profile name")).perform(ViewActions.scrollTo()).check(matches(withText("")));
@@ -309,7 +309,7 @@ public class ProfileTest {
 
     @Test
     public void saveNewValuesFailureTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, true, false, false);
+        setupNoExtras(Profile.class, mActivityRule, false, true, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile edit button")).perform(ViewActions.scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);

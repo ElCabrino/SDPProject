@@ -48,9 +48,25 @@ public final class FirebaseDatabaseCustomBackend {
 
     private final static String appointmentKey = "aptKey";
 
+    private final String ap1DateString = "Tue Jan 16 2018";
+    private final String ap2DateString = "Tue Feb 06 2018";
+    private final String ap3DateString = "Tue Mar 06 2018";
+    private final String ap4DateString = "Tue Apr 03 2018";
+    private final String ap5DateString = "Tue May 15 2018";
+    private final String ap6DateString = "Tue Jun 12 2018";
+    private final String ap7DateString = "Tue Jul 10 2018";
+    private final String ap8DateString = "Tue Aug 14 2018";
+    private final String ap9DateString = "Tue Sep 11 2018";
+    private final String ap10DateString = "Tue Oct 16 2018";
+    private final String ap11DateString = "Tue Nov 20 2018";
+    private final String ap12DateString = "Tue Dev 18 2018";
+    private final String apTimeString = "10:00";
+
     private static boolean isCancelled = false;
     private static boolean isCancelledSecond = false;
+    private static boolean isCancelledThird = false;
     private static boolean shouldFail = false;
+    private static int dateFlag = 1;
 
     @Mock
     private FirebaseDatabase mockDB;
@@ -167,8 +183,20 @@ public final class FirebaseDatabaseCustomBackend {
         isCancelledSecond = b;
     }
 
+    public static void setIsCancelledThird(boolean b) {
+        isCancelledThird = b;
+    }
+
     public static void setShouldFail(boolean b) {
         shouldFail = b;
+    }
+
+    public static void setDateFlag(int i) {
+        if (i > 0 && i < 13) {
+            dateFlag = i;
+        } else {
+            dateFlag = 1;
+        }
     }
 
     private static boolean isTestRunning() {
@@ -298,9 +326,9 @@ public final class FirebaseDatabaseCustomBackend {
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
         when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
-        when(dateAppointmentSnapshot.getValue(String.class)).thenReturn("Tue Nov 20 2018");
+        when(dateAppointmentSnapshot.getValue(String.class)).thenReturn(getDateFromFlag());
         when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
-        when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn("10:00");
+        when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn(apTimeString);
         when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn(patient1ID);
         when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("0");
 
@@ -352,6 +380,48 @@ public final class FirebaseDatabaseCustomBackend {
         });
     }
 
+    private String getDateFromFlag() {
+        String res = "";
+        switch(dateFlag) {
+            case 1:
+                res = ap1DateString;
+                break;
+            case 2:
+                res = ap2DateString;
+                break;
+            case 3:
+                res = ap3DateString;
+                break;
+            case 4:
+                res = ap4DateString;
+                break;
+            case 5:
+                res = ap5DateString;
+                break;
+            case 6:
+                res = ap6DateString;
+                break;
+            case 7:
+                res = ap7DateString;
+                break;
+            case 8:
+                res = ap8DateString;
+                break;
+            case 9:
+                res = ap9DateString;
+                break;
+            case 10:
+                res = ap10DateString;
+                break;
+            case 11:
+                res = ap11DateString;
+                break;
+            case 12:
+                res = ap12DateString;
+                break;
+        }
+        return res;
+    }
 
     //Initialize listener for event on 'Requests' child
     //makes the listener work on 'appointmentSnapshot'
@@ -360,7 +430,7 @@ public final class FirebaseDatabaseCustomBackend {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation){
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                if (isCancelled) {
+                if (isCancelledThird) {
                     listener.onCancelled(appointmentError);
                 } else {
                     listener.onDataChange(appointmentSnapshot);

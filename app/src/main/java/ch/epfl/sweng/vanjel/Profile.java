@@ -65,7 +65,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
         nearbyDoctorButton.setOnClickListener(this);
-        appointmentsButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
