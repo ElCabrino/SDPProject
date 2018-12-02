@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel.chat;
 
 import android.support.test.espresso.intent.Intents;
+import android.support.test.internal.runner.TestRequestBuilder;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -44,7 +45,7 @@ public class ChatListActivityTest {
 
     @Test
     public void getClassUsersCancelled() throws Exception {
-        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, true, false);
+        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, false, true);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.contactName)).check(doesNotExist());
         onView(withId(R.id.time)).check(doesNotExist());
@@ -53,7 +54,7 @@ public class ChatListActivityTest {
 
     @Test
     public void getChatsCancelled() throws Exception {
-        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, false, true);
+        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, true, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.contactName)).check(doesNotExist());
         onView(withId(R.id.time)).check(doesNotExist());

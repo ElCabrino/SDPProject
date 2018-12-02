@@ -441,7 +441,7 @@ public final class FirebaseDatabaseCustomBackend {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                if (isCancelledSecond) {
+                if (isCancelled) {
                     listener.onCancelled(chatError);
                 } else {
                     listener.onDataChange(chatSnapshot);
@@ -505,7 +505,7 @@ public final class FirebaseDatabaseCustomBackend {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                if (isCancelled) {
+                if (isCancelledSecond) {
                     listener.onCancelled(patientError);
                 } else {
                     listener.onDataChange(patient1Snapshot);
@@ -545,7 +545,7 @@ public final class FirebaseDatabaseCustomBackend {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
-                if (isCancelled) {
+                if (isCancelledSecond) {
                     listener.onCancelled(doctorError);
                 } else {
                     listener.onDataChange(doctor1Snapshot);

@@ -79,7 +79,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
-                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
+//                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
+                } else { setTextFields(dataSnapshot, Doctor.class); }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -130,8 +131,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.nearbyDoctorButton:
                 startActivity(new Intent(this, NearbyDoctor.class));
-            case R.id.personalAppointmentsButton:
-                startActivity(new Intent(this, PatientPersonalAppointments.class));
+                break;
             case R.id.treatedPatientsButton:
                 startActivity(new Intent(this, TreatedPatients.class));
                 break;
