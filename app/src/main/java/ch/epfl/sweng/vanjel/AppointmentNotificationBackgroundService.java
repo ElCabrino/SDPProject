@@ -135,15 +135,8 @@ public class AppointmentNotificationBackgroundService extends Service {
 //        }
 //    }
 
-    private PendingIntent setupDoctorActivity() {
-        Intent resIntent = new Intent(this, DoctorAppointmentsList.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntentWithParentStack(resIntent);
-        return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
-    private PendingIntent setupPatientActivity() {
-        Intent resIntent = new Intent(this, PatientPersonalAppointments.class);
+    private PendingIntent setupActivityToRun(Class<?> c) {
+        Intent resIntent = new Intent(this, c);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntentWithParentStack(resIntent);
         return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -157,9 +150,9 @@ public class AppointmentNotificationBackgroundService extends Service {
     private void createNotification(String id, String title, String text, boolean isPatient){
         PendingIntent pIntent;
         if (isPatient) {
-            pIntent = setupPatientActivity();
+            pIntent = setupActivityToRun(PatientPersonalAppointments.class);
         } else {
-            pIntent = setupDoctorActivity();
+            pIntent = setupActivityToRun(DoctorAppointmentsList.class);
         }
         if(auth.getCurrentUser().getUid().equals(id)) {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
