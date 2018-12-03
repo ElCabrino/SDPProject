@@ -13,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ch.epfl.sweng.vanjel.Doctor;
 import ch.epfl.sweng.vanjel.DoctorComingAppointments;
@@ -34,7 +36,7 @@ public class ForwardRequest extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ForwardRequestAdapter adapter;
 
-    ArrayList<Forward> forward;
+    Map<String,Forward> forward;
 
 
 
@@ -54,7 +56,7 @@ public class ForwardRequest extends AppCompatActivity {
     public void init(){
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        forward = new ArrayList<>();
+        forward = new HashMap<>();
         ref = database.getReference().child("Forwards");
         currentUserUID = FirebaseAuthCustomBackend.getInstance().getUid();
         getMyForwards();
@@ -64,11 +66,11 @@ public class ForwardRequest extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                forward = new ArrayList<>(); // in case the the forward is updated, we need to remove ther old stuff
+                forward = new HashMap<>(); // in case the the forward is updated, we need to remove ther old stuff
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     Forward dbForward = dataSnapshot1.getValue(Forward.class);
                     if(dbForward.getPatient().equals(currentUserUID))
-                        forward.add(dbForward);
+                        forward.put(dataSnapshot1.getKey(),dbForward);
                 }
                 notifyAdapter();
             }

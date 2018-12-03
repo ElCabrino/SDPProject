@@ -12,7 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import ch.epfl.sweng.vanjel.DoctorComingAppointmentsAdapter;
 import ch.epfl.sweng.vanjel.DoctorInformation;
@@ -25,14 +33,15 @@ import ch.epfl.sweng.vanjel.recyclerViewAdapter;
  */
 public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAdapter.ViewHolder> {
 
-
-    ArrayList<Forward> forward;
-
+    Map<String,Forward> forwardsMap;
+    List<Forward> forwardsList;
     Context context;
 
-    public ForwardRequestAdapter(Context context, ArrayList<Forward> forward){
+    public ForwardRequestAdapter(Context context, Map<String,Forward> forward){
         this.context = context;
-        this.forward = forward;
+        this.forwardsMap = forward;
+        this.forwardsList = new ArrayList<>();
+        forwardsList.addAll(forward.values());
     }
 
 
@@ -45,14 +54,11 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        viewHolder.doctor1.setText(forward.get(i).getDoctor1name());
+        viewHolder.doctor1.setText(forwardsList.get(i).getDoctor1name());
         //viewHolder.doctor2.setText(forward.get(i).getDoctor2());
-        viewHolder.doctor2.setText(forward.get(i).getDoctor2name());
+        viewHolder.doctor2.setText(forwardsList.get(i).getDoctor2name());
 
-        final String doctorUID = forward.get(i).getDoctor2UID();
-
-
-
+        final String doctorUID = forwardsList.get(i).getDoctor2UID();
 
         viewHolder.doctorDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,19 +69,24 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
             }
         });
 
-
-        // TODO: button delete listener
+        final int pos = i;
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Delete function is not implemented yet", Toast.LENGTH_SHORT).show();
+                Log.d("Forward", "Clicked");
+                String uid = forwardToUid(forwardsList.get(pos));
+                Log.d("Forward", uid);
+                if(uid != null) {
+                    FirebaseDatabase.getInstance().getReference("Forwards").child(uid).removeValue();
+                }else {
+                    Toast.makeText(context,"Couldn't delete requests",Toast.LENGTH_SHORT);
+                }
             }
         });
-
     }
 
     @Override
-    public int getItemCount() { return forward.size();  }
+    public int getItemCount() { return forwardsList.size();  }
 
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
@@ -89,6 +100,17 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
             doctorDetails = itemView.findViewById(R.id.seeForwadedDoctor);
             delete = itemView.findViewById(R.id.deleteForwardRequest);
         }
+    }
+
+    private String forwardToUid(Forward f){
+        for (Map.Entry<String, Forward> entry : forwardsMap.entrySet()) {
+            Log.d("Forward",entry.toString());
+            if (f.equals(entry.getValue())) {
+                Log.d("Forward",entry.getKey());
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
 }

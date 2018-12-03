@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
  * Test class for Forward class
  *
  * @author Aslam CADER
+ * @author Etienne CAQUOT
  * @reviewer
  *
  */
@@ -51,5 +52,23 @@ public class ForwardTest {
         assertEquals("Unexpected doctor1name in entity", doctor1name, forward.getDoctor1name());
         assertEquals("Unexpected doctor2name in entity", doctor2name, forward.getDoctor2name());
 
+    }
+
+    @Test
+    public void testNotEqualsForNull(){
+        Forward forward = new Forward(patient, doctor1UID, doctor2UID, doctor1name, doctor2name);
+        assertFalse(forward.equals(null));
+    }
+
+    @Test
+    public void testEqualsWorkForSameForward(){
+        Forward forward = new Forward(patient, doctor1UID, doctor2UID, doctor1name, doctor2name);
+        assertTrue(forward.equals(new Forward(patient,doctor1UID,doctor2UID,doctor1name,doctor2name)));
+    }
+
+    @Test
+    public void testNotEqualsForDifferentForward(){
+        Forward forward = new Forward(patient, doctor1UID, doctor2UID, doctor1name, doctor2name);
+        assertFalse(forward.equals(new Forward(patient,doctor1UID,"not same uid",doctor1name,doctor2name)));
     }
 }

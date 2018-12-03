@@ -62,4 +62,15 @@ public class Forward {
         return "[" + patient + ", " + doctor1UID + ", " + doctor2UID + ", " + doctor1name + ", " + doctor2name + "]";
     }
 
+    public boolean equals(Forward f) {
+        if (f == null) {
+            return false;
+        }
+        else if (f.getDoctor1UID().equals(doctor1UID) && f.getDoctor2UID().equals(doctor2UID) && f.getPatient().equals(patient)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
