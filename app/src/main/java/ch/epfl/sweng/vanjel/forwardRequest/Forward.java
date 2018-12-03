@@ -63,14 +63,9 @@ public class Forward {
     }
 
     public boolean equals(Forward f) {
-        if (f == null) {
+        if (f == null || !f.getDoctor1UID().equals(doctor1UID) || !f.getDoctor2UID().equals(doctor2UID) || !f.getPatient().equals(patient)) {
             return false;
         }
-        else if (f.getDoctor1UID().equals(doctor1UID) && f.getDoctor2UID().equals(doctor2UID) && f.getPatient().equals(patient)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return true;
     }
 }
