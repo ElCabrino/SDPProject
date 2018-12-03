@@ -20,7 +20,7 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_list);
         //set up adapter
-        recyclerView = findViewById(R.id.favoriteCardView);
+        recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PatientFavoriteListAdapter(this);
         recyclerView.setAdapter(adapter);
