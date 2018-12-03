@@ -18,6 +18,16 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        refreshView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshView();
+    }
+
+    public void refreshView(){
         setContentView(R.layout.activity_favorite_list);
         //set up adapter
         recyclerView = findViewById(R.id.doctorCardView);
