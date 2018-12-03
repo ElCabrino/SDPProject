@@ -25,6 +25,7 @@ import ch.epfl.sweng.vanjel.R;
 
 /**
  * @author Aslam CADER
+ * @author Etienne CAQUOT
  * @reviewer
  */
 public class ForwardRequest extends AppCompatActivity {

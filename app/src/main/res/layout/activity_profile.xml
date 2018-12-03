@@ -160,6 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:contentDescription="Nearby Doctors"
+                    android:onClick="openNearbyDoctor"
                     android:text="Nearby Doctors" />
 
 

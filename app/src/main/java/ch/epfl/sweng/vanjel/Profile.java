@@ -66,7 +66,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
-        nearbyDoctorButton.setOnClickListener(this);
         appointmentsButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
@@ -131,10 +130,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
-            case R.id.nearbyDoctorButton:
-                startActivity(new Intent(this, NearbyDoctor.class));
             case R.id.personalAppointmentsButton:
                 startActivity(new Intent(this, PatientPersonalAppointments.class));
+                break;
             case R.id.treatedPatientsButton:
                 startActivity(new Intent(this, TreatedPatients.class));
                 break;
@@ -284,5 +282,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void openChats(View v) {
         startActivity(new Intent(this, ChatListActivity.class));
     }
+
+    public void openNearbyDoctor(View v) { startActivity(new Intent(this, NearbyDoctor.class));}
 
 }

@@ -1,5 +1,12 @@
 package ch.epfl.sweng.vanjel.forwardRequest;
 
+/**
+ * @author Aslam CADER
+ * @author Etienne CAQUOT
+ * @reviewer
+ *
+ * A class to represent a forwarded appointment
+ */
 public class Forward {
 
     // The doctor1 send the patient to the doctor2

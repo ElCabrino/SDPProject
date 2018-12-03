@@ -29,6 +29,7 @@ import ch.epfl.sweng.vanjel.recyclerViewAdapter;
 
 /**
  * @author Aslam CADER
+ * @author Etienne CAQUOT
  * @reviewer
  */
 public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAdapter.ViewHolder> {
