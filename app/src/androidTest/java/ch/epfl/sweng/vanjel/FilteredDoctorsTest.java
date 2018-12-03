@@ -43,7 +43,7 @@ public class FilteredDoctorsTest {
         extras.put("firstName", "fn_dtest1");
         extras.put("specialisation", "Dentist");
         extras.put("city", "city_dtest1");
-        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, extras);
+        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, false, extras);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.firstName)).check(matches(withText("fn_dtest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_dtest1")));
