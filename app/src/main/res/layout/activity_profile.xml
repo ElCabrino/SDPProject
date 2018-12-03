@@ -160,7 +160,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:contentDescription="Nearby Doctors"
-                    android:onClick="openNearbyDoctor"
                     android:text="Nearby Doctors" />
             </LinearLayout>
 
@@ -185,33 +184,6 @@
                     android:text="Dr next Appointment"
                     android:layout_weight="1"/>
             </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/requestsListButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Requests"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/forwardButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Forwards"
-                android:text="Forwards"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/scrollView2" />
-
-        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -271,17 +243,21 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/personalAppointmentsButton"
-                    android:contentDescription="personal appointments button"
+                    android:id="@+id/requestsListButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your appointments"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="73dp"
+                    android:text="Requests"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
                     android:id="@+id/treatedPatientsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="73dp"
                     android:text="Treated Patients"
                     android:layout_weight="1"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -290,7 +266,6 @@
 
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 

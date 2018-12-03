@@ -25,7 +25,6 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
-import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
 /**
  * @author Luca JOSS
@@ -38,10 +37,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     Button patientInfoButton, logoutButton, buttonNextAppointments;
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-    Button editButton, saveButton, searchButton,  treatedPatientsButton;
-    Button setAvailabilityButton, requestsListButton, favoriteListButton, appointmentsButton;
-    Button forwardButton, nearbyDoctorButton;
 
+    Button editButton, saveButton, searchButton,  treatedPatientsButton;
+    Button setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton;
 
     String userType;
 
@@ -67,14 +65,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         saveButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
-        appointmentsButton.setOnClickListener(this);
         nearbyDoctorButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
         treatedPatientsButton.setOnClickListener(this);
-        forwardButton.setOnClickListener(this);
         isPatientUser();
     }
 
@@ -112,41 +108,55 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.requestsListButton:
-                startActivity(new Intent(this ,DoctorAppointmentsList.class)); break;
+                startActivity(new Intent(this ,DoctorAppointmentsList.class));
+                break;
             case R.id.logoutButton:
-                logOut(); break;
+                logOut();
+                break;
             case R.id.patientInfoButton:
-                patientInfo(); break;
+                patientInfo();
+                break;
             case R.id.editButton:
-                setEditText(true, View.GONE, View.VISIBLE); break;
+                setEditText(true, View.GONE, View.VISIBLE);
+                break;
             case R.id.saveButton:
                 getStringFromFields(); saveNewValues();
-                setEditText(false, View.VISIBLE, View.GONE); break;
+                setEditText(false, View.VISIBLE, View.GONE);
+                break;
             case R.id.searchDoctorButton:
-                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward", false)); break;
+                startActivity(new Intent(this, SearchDoctor.class));
+                break;
             case R.id.setAvailabilityButton:
-                startActivity(new Intent(this, DoctorAvailabilityActivity.class)); break;
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
+                break;
             case R.id.nearbyDoctorButton:
-                startActivity(new Intent(this, NearbyDoctor.class)); break;
+                startActivity(new Intent(this, NearbyDoctor.class));
+                break;
             case R.id.treatedPatientsButton:
-                startActivity(new Intent(this, TreatedPatients.class)); break;
+                startActivity(new Intent(this, TreatedPatients.class));
+                break;
             case R.id.buttonNextAppointments:
-                nextAppointments(); break;
+                nextAppointments();
+                break;
             case R.id.favoriteListButton:
-                startActivity(new Intent(this, PatientFavoriteListActivity.class)); break;
-            case R.id.forwardButton:
-                startActivity(new Intent(this, ForwardRequest.class));
+                startActivity(new Intent(this, PatientFavoriteListActivity.class));
         }
     }
 
     public void nextAppointments(){
-        if (userType.equals("Patient")) { startActivity(new Intent(this, PatientPersonalAppointments.class));
-        } else { startActivity(new Intent(this, DoctorComingAppointments.class)); }
+        if (userType.equals("Patient")) {
+            startActivity(new Intent(this, PatientPersonalAppointments.class));
+        } else {
+            startActivity(new Intent(this, DoctorComingAppointments.class));
+        }
     }
 
     public void patientInfo() {
-        if (userType.equals("Patient")) { startActivity(new Intent(this, PatientInfo.class));
-        } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
+        if (userType.equals("Patient")) {
+            startActivity(new Intent(this, PatientInfo.class));
+        } else {
+            Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void logOut(){
@@ -176,7 +186,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
         this.favoriteListButton = findViewById(R.id.favoriteListButton);
-        this.forwardButton  = findViewById(R.id.forwardButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -232,13 +241,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setUserAs(String type, int v1, int v2) {
-        // v1 displays for the patient, v2 for the doctor
         userType = type;
         searchButton.setVisibility(v1);
-        forwardButton.setVisibility(v1);
         setAvailabilityButton.setVisibility(v2);
-        treatedPatientsButton.setVisibility(v2);
-        requestsListButton.setVisibility(v2);
         String s = auth.getCurrentUser().getUid();
         database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
     }
@@ -273,7 +278,5 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void openChats(View v) {
         startActivity(new Intent(this, ChatListActivity.class));
     }
-
-    public void openNearbyDoctor(View v) { startActivity(new Intent(this, NearbyDoctor.class));}
 
 }
