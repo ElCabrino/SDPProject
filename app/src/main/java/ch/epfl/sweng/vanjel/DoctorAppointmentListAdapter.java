@@ -98,6 +98,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
             declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);
             forwardRequestButton = itemView.findViewById(R.id.forwardAppointmentButton);
             appointmentListIndex = i;
+            int id = i;
 
         }
 

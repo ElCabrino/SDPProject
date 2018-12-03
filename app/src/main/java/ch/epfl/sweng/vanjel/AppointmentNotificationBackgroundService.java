@@ -3,6 +3,7 @@ package ch.epfl.sweng.vanjel;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
+import android.support.v4.app.TaskStackBuilder;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +67,7 @@ public class AppointmentNotificationBackgroundService extends Service {
                 if (!notify) {
                     String title = "New appointment";
                     String text = "A patient took a new appointment!";
-                    changeStateAndNotify(dataSnapshot.getRef().child("doctorNotified"), doctor, title, text);
+                    changeStateAndNotify(dataSnapshot.getRef().child("doctorNotified"), doctor, title, text, false);
                 }
             }
 
@@ -85,7 +86,7 @@ public class AppointmentNotificationBackgroundService extends Service {
                 if(!notify && !isAppointmentNull){
                     String title = "One of your appointment has been updated!";
                     String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
-                    changeStateAndNotify(dataSnapshot.getRef().child("userNotified"), patient, title, text);
+                    changeStateAndNotify(dataSnapshot.getRef().child("userNotified"), patient, title, text, true);
                 }
             }
 
@@ -134,19 +135,33 @@ public class AppointmentNotificationBackgroundService extends Service {
 //        }
 //    }
 
-    private void changeStateAndNotify(DatabaseReference stateToChange, String id, String title, String text){
-        stateToChange.setValue(true);
-        createNotification(id, title, text);
+    private PendingIntent setupActivityToRun(Class<?> c) {
+        Intent resIntent = new Intent(this, c);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(resIntent);
+        return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    private void createNotification(String id, String title, String text){
+    private void changeStateAndNotify(DatabaseReference stateToChange, String id, String title, String text, boolean isPatient){
+        stateToChange.setValue(true);
+        createNotification(id, title, text, isPatient);
+    }
+
+    private void createNotification(String id, String title, String text, boolean isPatient){
+        PendingIntent pIntent;
+        if (isPatient) {
+            pIntent = setupActivityToRun(PatientPersonalAppointments.class);
+        } else {
+            pIntent = setupActivityToRun(DoctorAppointmentsList.class);
+        }
         if(auth.getCurrentUser().getUid().equals(id)) {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(title)
                     .setContentText(text)
                     .setDefaults(Notification.DEFAULT_ALL)
-                    .setPriority(0x00000002);
+                    .setPriority(0x00000002)
+                    .setContentIntent(pIntent);
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

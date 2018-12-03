@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
@@ -67,6 +68,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
         appointmentsButton.setOnClickListener(this);
+        nearbyDoctorButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
@@ -81,7 +83,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
-                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
+//                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
+                } else { setTextFields(dataSnapshot, Doctor.class); }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -109,39 +112,28 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.requestsListButton:
-                startActivity(new Intent(this ,DoctorAppointmentsList.class));
-                break;
+                startActivity(new Intent(this ,DoctorAppointmentsList.class)); break;
             case R.id.logoutButton:
-                logOut();
-                break;
+                logOut(); break;
             case R.id.patientInfoButton:
-                patientInfo();
-                break;
+                patientInfo(); break;
             case R.id.editButton:
-                setEditText(true, View.GONE, View.VISIBLE);
-                break;
+                setEditText(true, View.GONE, View.VISIBLE); break;
             case R.id.saveButton:
                 getStringFromFields(); saveNewValues();
-                setEditText(false, View.VISIBLE, View.GONE);
-                break;
+                setEditText(false, View.VISIBLE, View.GONE); break;
             case R.id.searchDoctorButton:
-                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward", false));
-                break;
+                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward", false)); break;
             case R.id.setAvailabilityButton:
-                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
-                break;
-            case R.id.personalAppointmentsButton:
-                startActivity(new Intent(this, PatientPersonalAppointments.class));
-                break;
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class)); break;
+            case R.id.nearbyDoctorButton:
+                startActivity(new Intent(this, NearbyDoctor.class)); break;
             case R.id.treatedPatientsButton:
-                startActivity(new Intent(this, TreatedPatients.class));
-                break;
+                startActivity(new Intent(this, TreatedPatients.class)); break;
             case R.id.buttonNextAppointments:
-                nextAppointments();
-                break;
+                nextAppointments(); break;
             case R.id.favoriteListButton:
-                startActivity(new Intent(this, PatientFavoriteListActivity.class));
-                break;
+                startActivity(new Intent(this, PatientFavoriteListActivity.class)); break;
             case R.id.forwardButton:
                 startActivity(new Intent(this, ForwardRequest.class));
         }
@@ -158,6 +150,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
+        LocalDatabaseService l = new LocalDatabaseService(this);
+        l.nuke();
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
@@ -178,7 +172,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
         this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
-        this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
         this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
