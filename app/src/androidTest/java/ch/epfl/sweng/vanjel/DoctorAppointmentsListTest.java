@@ -34,7 +34,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void acceptAppointmentTest() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
         // id taken in stacktrace
@@ -44,7 +44,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void acceptCancelAppointmentTest() throws InterruptedException{
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         // click accept button but changes his mind and click cancel
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
@@ -55,7 +55,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void declineAppointmentTest() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.declineAppointmentButton)).perform(click());
         onView(withText("Appointment declined")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
@@ -63,7 +63,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void declineAppointmentFailedTest() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.declineAppointmentButton)).perform(click());
         onView(withText("An error occurred when declining the appointment")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
@@ -71,7 +71,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void modifyDurationTest() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
         // Avoid Toast overlap
@@ -84,7 +84,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void modifyDurationFailedTest() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).perform(click());
         // Avoid Toast overlap
@@ -97,7 +97,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void getAppointmentsCancelled() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, true, false);
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, true);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).check(doesNotExist());
     }
