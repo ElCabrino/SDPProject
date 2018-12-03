@@ -9,11 +9,12 @@ import android.support.test.runner.AndroidJUnit4;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
@@ -36,6 +37,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
+import static ch.epfl.sweng.vanjel.TestHelper.setupWithExtras;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 
@@ -176,7 +178,12 @@ public class ProfileTest {
 
     @Test
     public void searchDoctorButtonTest() throws Exception {
-        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
+        Map<String, String> extras = new HashMap<>();
+        extras.put("doctor1Forward", "fn_dtest1");
+        extras.put("patientForward","fn_ptest1");
+        Map<String, Boolean> extrasBoolean = new HashMap<>();
+        extrasBoolean.put("isForward",false);
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, extras, extrasBoolean);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile search button")).perform(scrollTo(), click());
         intended(hasComponent(SearchDoctor.class.getName()));
@@ -293,7 +300,7 @@ public class ProfileTest {
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText("")));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText("")));
     }
-  
+
     @Test
     public void logOutTest() throws Exception {
         setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);

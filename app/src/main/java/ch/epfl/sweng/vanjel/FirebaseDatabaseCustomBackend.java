@@ -183,7 +183,7 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private Task<Void> acceptChangeDuration;
     @Mock
-    private Task<Void> deleteForwardTask;
+    private Task<Void> forwardDeleteTask;
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -552,7 +552,17 @@ public final class FirebaseDatabaseCustomBackend {
         when(DBRef.child("Forwards")).thenReturn(forwardRef);
 
         when(forwardRef.child(any(String.class))).thenReturn(forwardDataRef);
-        when(forwardDataRef.removeValue()).thenReturn(deleteForwardTask);
+        when(forwardDataRef.removeValue()).thenReturn(forwardDeleteTask);
+        when(forwardDeleteTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
+            @Override
+            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+                OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
+                if (!shouldFail) {
+                    listener.onSuccess(null);
+                }
+                return forwardDeleteTask;
+            }
+        });
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override

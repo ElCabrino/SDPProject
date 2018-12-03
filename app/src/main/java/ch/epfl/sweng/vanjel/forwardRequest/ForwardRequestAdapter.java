@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -75,11 +76,12 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
             @Override
             public void onClick(View v) {
                 String uid = forwardToUid(forwardsList.get(pos));
-                if(uid != null) {
-                    FirebaseDatabase.getInstance().getReference("Forwards").child(uid).removeValue();
-                }else {
-                    Toast.makeText(context,"Couldn't delete requests",Toast.LENGTH_SHORT);
-                }
+                FirebaseDatabase.getInstance().getReference("Forwards").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "Deleted forwarded doctor", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
