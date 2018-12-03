@@ -250,11 +250,11 @@ public class ProfileTest {
         intended(hasComponent(ChatListActivity.class.getName()));
     }
 
-    //@Test
+    @Test
     public void logOutTest() throws Exception {
         runAsPatient();
         TimeUnit.SECONDS.sleep(2);
-        onView(withId(R.id.logoutButton)).perform(click());
+        onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
         //verifiy if local favorite are erased
         LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         assertEquals(0, l.getAll().size());
