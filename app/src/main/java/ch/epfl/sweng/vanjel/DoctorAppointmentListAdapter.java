@@ -4,6 +4,7 @@ package ch.epfl.sweng.vanjel;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -71,6 +72,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
         viewHolder.fromHourTextView.setText(hour);
         viewHolder.acceptRequestButton.setOnClickListener(viewHolder);
         viewHolder.declineRequestButton.setOnClickListener(viewHolder);
+        viewHolder.forwardRequestButton.setOnClickListener(viewHolder);
 
     }
 
@@ -82,7 +84,7 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView dayCardView, dayTextView, hourCardView, fromHourTextView;
-        Button acceptRequestButton, declineRequestButton;
+        Button acceptRequestButton, declineRequestButton, forwardRequestButton;
         int appointmentListIndex; //number of the cardview, index in appointmentList
 
         public ViewHolder(@NonNull View itemView, int i) {
@@ -94,7 +96,9 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
             fromHourTextView = itemView.findViewById(R.id.fromTextView);
             acceptRequestButton = itemView.findViewById(R.id.acceptAppointmentButton);
             declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);
+            forwardRequestButton = itemView.findViewById(R.id.forwardAppointmentButton);
             appointmentListIndex = i;
+            int id = i;
 
         }
 
@@ -135,6 +139,14 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
             deleteRequestFirebase(appointmentListIndex);
         }
 
+        void forwardRequest() {
+            Intent intent = new Intent(context, SearchDoctor.class);
+            intent.putExtra("isForward", true);
+            intent.putExtra("doctor1Forward", appointmentsList.get(appointmentListIndex).getDoctorUid());
+            intent.putExtra("patientForward", appointmentsList.get(appointmentListIndex).getPatientUid());
+            context.startActivity(intent);
+        }
+
         @Override
         public void onClick(View v) {
             int i = v.getId();
@@ -144,6 +156,9 @@ public class DoctorAppointmentListAdapter extends recyclerViewAdapter<DoctorAppo
                     break;
                 case R.id.declineAppointmentButton:
                     declineRequest();
+                    break;
+                case R.id.forwardAppointmentButton:
+                    forwardRequest();
                     break;
 
             }

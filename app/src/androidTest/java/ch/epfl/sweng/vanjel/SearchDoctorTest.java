@@ -1,15 +1,22 @@
 package ch.epfl.sweng.vanjel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -20,6 +27,7 @@ import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.vanjel.TestHelper.setupWithExtras;
 
 @RunWith(AndroidJUnit4.class)
 public class SearchDoctorTest {
@@ -31,7 +39,15 @@ public class SearchDoctorTest {
 
     @Rule
     public final ActivityTestRule<SearchDoctor> ActivityRule =
-            new ActivityTestRule<>(SearchDoctor.class);
+            new ActivityTestRule<SearchDoctor>(SearchDoctor.class) {
+                @Override
+                protected Intent getActivityIntent() {
+                    Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+                    Intent result = new Intent(targetContext, SearchDoctor.class);
+                    result.putExtra("isForward", false);
+                    return result;
+                }
+            };
 
     @Before
     public void initIntents() {

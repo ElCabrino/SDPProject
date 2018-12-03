@@ -18,7 +18,7 @@ public class TestHelper {
         FirebaseAuthCustomBackend.setMockPatient(true);
     }
 
-    public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird, Map<String, String> extras) {
+    public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird, Map<String, String> extras ,Map<String,Boolean> extrasBoolean) {
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
@@ -29,6 +29,9 @@ public class TestHelper {
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent intent = new Intent(targetContext, c);
         for (String key : extras.keySet()) {
+            intent.putExtra(key, extras.get(key));
+        }
+        for (String key : extrasBoolean.keySet()) {
             intent.putExtra(key, extras.get(key));
         }
         rule.launchActivity(intent);
