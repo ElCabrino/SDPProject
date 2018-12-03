@@ -130,6 +130,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
                 break;
+<<<<<<< HEAD
+=======
+            case R.id.nearbyDoctorButton:
+                startActivity(new Intent(this, NearbyDoctor.class));
+                break;
+>>>>>>> 5d408d3fc21a265e8bda527e5f1c7471ba23efac
             case R.id.personalAppointmentsButton:
                 startActivity(new Intent(this, PatientPersonalAppointments.class));
                 break;
