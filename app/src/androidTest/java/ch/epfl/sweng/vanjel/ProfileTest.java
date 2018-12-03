@@ -250,7 +250,7 @@ public class ProfileTest {
         intended(hasComponent(ChatListActivity.class.getName()));
     }
 
-    @Test
+    //@Test
     public void logOutTest() throws Exception {
         runAsPatient();
         TimeUnit.SECONDS.sleep(2);
