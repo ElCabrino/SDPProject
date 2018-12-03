@@ -1,29 +1,22 @@
 package ch.epfl.sweng.vanjel;
 
-import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class PatientPersonalAppointmentsTest {
 
@@ -42,7 +35,6 @@ public class PatientPersonalAppointmentsTest {
     private final String apTimeString = "10:00";
     private final String docNameString = "ln_dtest1";
     private final String docAddressString = "11 street_dtest1 city_dtest1";
-
 
     @Rule
     public final IntentsTestRule<PatientPersonalAppointments> ActivityRule =

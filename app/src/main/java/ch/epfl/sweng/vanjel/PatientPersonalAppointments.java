@@ -31,7 +31,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
-    private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
+    private static HashMap<String,ArrayList<String>> idToDoc;
 
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -39,6 +39,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        idToDoc = new HashMap<>();
         setContentView(R.layout.activity_patient_personal_appointments);
 
         uid = auth.getCurrentUser().getUid();
