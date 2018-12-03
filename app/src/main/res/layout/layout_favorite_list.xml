@@ -12,7 +12,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="387dp"
+        android:layout_height="76dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/firstNameDoctorFavorite"
@@ -23,7 +28,7 @@
         <TextView
             android:id="@+id/lastNameDoctorFavorite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="99dp"
             android:layout_weight="1"
             android:text="TextView" />
     </LinearLayout>

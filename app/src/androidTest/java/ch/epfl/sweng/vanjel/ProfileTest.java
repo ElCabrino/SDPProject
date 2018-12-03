@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -36,6 +37,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
 
 /**
  author: Luca JOSS
@@ -290,6 +292,16 @@ public class ProfileTest {
         onView(withContentDescription("profile street number")).perform(ViewActions.scrollTo()).check(matches(withText("")));
         onView(withContentDescription("profile city")).perform(ViewActions.scrollTo()).check(matches(withText("")));
         onView(withContentDescription("profile country")).perform(ViewActions.scrollTo()).check(matches(withText("")));
+    }
+  
+    @Test
+    public void logOutTest() throws Exception {
+        runAsPatient();
+        TimeUnit.SECONDS.sleep(2);
+        onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
+        //verifiy if local favorite are erased
+        LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
+        assertEquals(0, l.getAll().size());
     }
 
     @Test
