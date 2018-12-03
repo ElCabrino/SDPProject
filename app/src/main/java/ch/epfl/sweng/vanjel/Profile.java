@@ -112,42 +112,30 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.requestsListButton:
-                startActivity(new Intent(this ,DoctorAppointmentsList.class));
-                break;
+                startActivity(new Intent(this ,DoctorAppointmentsList.class)); break;
             case R.id.logoutButton:
-                logOut();
-                break;
+                logOut(); break;
             case R.id.patientInfoButton:
-                patientInfo();
-                break;
+                patientInfo(); break;
             case R.id.editButton:
-                setEditText(true, View.GONE, View.VISIBLE);
-                break;
+                setEditText(true, View.GONE, View.VISIBLE); break;
             case R.id.saveButton:
                 getStringFromFields(); saveNewValues();
-                setEditText(false, View.VISIBLE, View.GONE);
-                break;
+                setEditText(false, View.VISIBLE, View.GONE); break;
             case R.id.searchDoctorButton:
-                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward", false));
-                break;
+                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward", false)); break;
             case R.id.setAvailabilityButton:
-                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
-                break;
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class)); break;
             case R.id.personalAppointmentsButton:
-                startActivity(new Intent(this, PatientPersonalAppointments.class));
-                break;
+                startActivity(new Intent(this, PatientPersonalAppointments.class)); break;
             case R.id.nearbyDoctorButton:
-                startActivity(new Intent(this, NearbyDoctor.class));
-                break;
+                startActivity(new Intent(this, NearbyDoctor.class)); break;
             case R.id.treatedPatientsButton:
-                startActivity(new Intent(this, TreatedPatients.class));
-                break;
+                startActivity(new Intent(this, TreatedPatients.class)); break;
             case R.id.buttonNextAppointments:
-                nextAppointments();
-                break;
+                nextAppointments(); break;
             case R.id.favoriteListButton:
-                startActivity(new Intent(this, PatientFavoriteListActivity.class));
-                break;
+                startActivity(new Intent(this, PatientFavoriteListActivity.class)); break;
             case R.id.forwardButton:
                 startActivity(new Intent(this, ForwardRequest.class));
         }
