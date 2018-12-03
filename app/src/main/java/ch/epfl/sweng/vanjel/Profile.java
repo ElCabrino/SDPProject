@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 
 /**
@@ -160,6 +161,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
+        LocalDatabaseService l = new LocalDatabaseService(this);
+        l.nuke();
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
