@@ -147,8 +147,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-
-
     public void nextAppointments(){
         if (userType.equals("Patient")) { startActivity(new Intent(this, PatientPersonalAppointments.class));
         } else { startActivity(new Intent(this, DoctorComingAppointments.class)); }

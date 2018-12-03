@@ -74,9 +74,7 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Forward", "Clicked");
                 String uid = forwardToUid(forwardsList.get(pos));
-                Log.d("Forward", uid);
                 if(uid != null) {
                     FirebaseDatabase.getInstance().getReference("Forwards").child(uid).removeValue();
                 }else {
@@ -105,9 +103,7 @@ public class ForwardRequestAdapter extends recyclerViewAdapter<ForwardRequestAda
 
     private String forwardToUid(Forward f){
         for (Map.Entry<String, Forward> entry : forwardsMap.entrySet()) {
-            Log.d("Forward",entry.toString());
             if (f.equals(entry.getValue())) {
-                Log.d("Forward",entry.getKey());
                 return entry.getKey();
             }
         }

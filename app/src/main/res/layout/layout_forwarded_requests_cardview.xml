@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/forwardCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/forwardCardView"
     android:layout_margin="5dp"
-    android:orientation="vertical"
     android:background="@drawable/background_item"
+    android:orientation="vertical"
     android:padding="8dp">
 
     <!-- Full cardview -->
@@ -25,26 +24,26 @@
 
             <TextView
                 android:id="@+id/firstDoctorRequested"
-                android:text="Doctor 1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Doctor 1"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:text="@string/adviced_you_to_visit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/adviced_you_to_visit"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="20sp"
                 android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/secondDoctorAdviced"
-                android:text="Doctor 2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Doctor 2"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -57,20 +56,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/seeForwadedDoctor"
-                android:text="See Doctor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="See Doctor" />
 
             <Button
                 android:id="@+id/deleteForwardRequest"
-                android:text="Delete"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Delete" />
 
 
         </LinearLayout>

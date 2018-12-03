@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.forwardRequest.Forward;
+import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequestAdapter;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
@@ -87,6 +90,10 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseReference patientConditionRef;
     @Mock
     private DatabaseReference patientRefRequest;
+    @Mock
+    private DatabaseReference forwardRef;
+    @Mock
+    private DatabaseReference forwardDataRef;
 
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
@@ -109,6 +116,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DatabaseError chatError;
     @Mock
     private DatabaseError appointmentError;
+    @Mock
+    private DatabaseError forwardError;
 
     @Mock
     private DataSnapshot patient1Snapshot;
@@ -138,7 +147,8 @@ public final class FirebaseDatabaseCustomBackend {
     private DataSnapshot docCitySnapshot;
     @Mock
     private DataSnapshot treatedPatientsDatasnapshot;
-
+    @Mock
+    private DataSnapshot forwardSnapshot;
 
     @Mock
     private Task<Void> updatePatientTask;
@@ -156,6 +166,8 @@ public final class FirebaseDatabaseCustomBackend {
     private Task<Void> appointmentRequestTask;
     @Mock
     private Task<Void> acceptChangeDuration;
+    @Mock
+    private Task<Void> deleteForwardTask;
 
     private FirebaseDatabaseCustomBackend() {}
 
@@ -202,6 +214,7 @@ public final class FirebaseDatabaseCustomBackend {
         initPatientInfoMock();
         initAppointmentRequestsListMock();
         initChatMock();
+        initForwardMock();
         initTreatedPatientsMock();
         return mockDB;
     }
@@ -459,6 +472,34 @@ public final class FirebaseDatabaseCustomBackend {
         when(chatTextSnapshot.getValue()).thenReturn("test message");
         when(chatTimeSnapshot.getValue()).thenReturn("07.30");
         when(chatSenderSnapshot.getValue()).thenReturn("doctorid1");
+    }
+
+    private void initForwardMock() {
+        List<DataSnapshot> listForward = new ArrayList<>();
+        listForward.add(forwardSnapshot);
+
+        when(mockDB.getReference("Forwards")).thenReturn(forwardRef);
+        when(DBRef.child("Forwards")).thenReturn(forwardRef);
+
+        when(forwardRef.child(any(String.class))).thenReturn(forwardDataRef);
+        when(forwardDataRef.removeValue()).thenReturn(deleteForwardTask);
+
+        doAnswer(new Answer<ValueEventListener>() {
+            @Override
+            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
+                if (isCancelledSecond) {
+                    listener.onCancelled(forwardError);
+                } else {
+                    listener.onDataChange(forwardSnapshot);
+                }
+                return listener;
+            }
+        }).when(forwardRef).addValueEventListener(any(ValueEventListener.class));
+
+        when(forwardSnapshot.getChildren()).thenReturn(listForward);
+        when(forwardSnapshot.getValue(Forward.class)).thenReturn(new Forward(patient1ID, doctor1ID, doctor1ID, defDoctor1.toString(), defDoctor1.toString()));
+        when(forwardSnapshot.getKey()).thenReturn("forwardUID");
     }
 
     private void initPatientConditionsSnapshots() {
