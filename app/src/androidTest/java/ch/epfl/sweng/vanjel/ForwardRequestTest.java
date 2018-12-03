@@ -29,7 +29,7 @@ public class ForwardRequestTest {
             new ActivityTestRule<>(ForwardRequest.class,true,false);
     @Test
     public void TestForwardedIsDisplayed() throws Exception {
-        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false, false);
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.forwardCardView)).check(matches(hasChildCount(1)));
@@ -39,7 +39,7 @@ public class ForwardRequestTest {
     @Test
     public void clickOnSeeDoctor() throws Exception {
         Intents.init();
-        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false,false);
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.seeForwadedDoctor)).perform(click());
@@ -49,7 +49,7 @@ public class ForwardRequestTest {
     @Ignore
     @Test
     public void clickOnDelete() throws Exception {
-        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false);
+        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false,false);
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.deleteForwardRequest)).perform(click());
