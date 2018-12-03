@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
@@ -67,6 +68,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         searchButton.setOnClickListener(this);
         patientInfoButton.setOnClickListener(this);
         appointmentsButton.setOnClickListener(this);
+        nearbyDoctorButton.setOnClickListener(this);
         setAvailabilityButton.setOnClickListener(this);
         requestsListButton.setOnClickListener(this);
         favoriteListButton.setOnClickListener(this);
@@ -81,7 +83,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
-                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
+//                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
+                } else { setTextFields(dataSnapshot, Doctor.class); }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -133,6 +136,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             case R.id.personalAppointmentsButton:
                 startActivity(new Intent(this, PatientPersonalAppointments.class));
                 break;
+            case R.id.nearbyDoctorButton:
+                startActivity(new Intent(this, NearbyDoctor.class));
+                break;
             case R.id.treatedPatientsButton:
                 startActivity(new Intent(this, TreatedPatients.class));
                 break;
@@ -160,6 +166,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
+        LocalDatabaseService l = new LocalDatabaseService(this);
+        l.nuke();
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
@@ -180,7 +188,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.logoutButton = findViewById(R.id.logoutButton);
         this.searchButton = findViewById(R.id.searchDoctorButton);
         this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
-        this.appointmentsButton = findViewById(R.id.personalAppointmentsButton);
         this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);

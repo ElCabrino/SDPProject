@@ -162,11 +162,7 @@
                     android:contentDescription="Nearby Doctors"
                     android:onClick="openNearbyDoctor"
                     android:text="Nearby Doctors" />
-
-
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -181,9 +177,6 @@
                     android:contentDescription="profile edit button"
                     android:text="Edit" />
 
-
-
-
                 <Button
                     android:id="@+id/buttonNextAppointments"
                     android:contentDescription="personal appointments button"
@@ -191,8 +184,6 @@
                     android:layout_height="wrap_content"
                     android:text="Dr next Appointment"
                     android:layout_weight="1"/>
-
-
             </LinearLayout>
 
         <LinearLayout
@@ -221,7 +212,6 @@
                 app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
         </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -287,6 +277,7 @@
                     android:layout_height="wrap_content"
                     android:text="Your appointments"
                     android:layout_weight="1"/>
+
                 <Button
                     android:id="@+id/treatedPatientsButton"
                     android:layout_width="wrap_content"
@@ -299,13 +290,6 @@
 
 
             </LinearLayout>
-
-
-
-
-
-
-
 
         </LinearLayout>
     </ScrollView>

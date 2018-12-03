@@ -12,17 +12,19 @@ public class TestHelper {
     public static void restoreMockFlags() {
         FirebaseDatabaseCustomBackend.setShouldFail(false);
         FirebaseDatabaseCustomBackend.setIsCancelled(false);
+        FirebaseDatabaseCustomBackend.setIsCancelledSecond(false);
+        FirebaseDatabaseCustomBackend.setIsCancelledThird(false);
         FirebaseAuthCustomBackend.setNullUser(false);
         FirebaseAuthCustomBackend.setMockPatient(true);
     }
 
-    public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, Map<String, String> extras) {
-//        rule.finishActivity();
+    public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird, Map<String, String> extras) {
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
         FirebaseDatabaseCustomBackend.setIsCancelled(isCancelled);
         FirebaseDatabaseCustomBackend.setIsCancelledSecond(isCancelledSecond);
+        FirebaseDatabaseCustomBackend.setIsCancelledThird(isCancelledThird);
 
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent intent = new Intent(targetContext, c);
@@ -32,13 +34,13 @@ public class TestHelper {
         rule.launchActivity(intent);
     }
 
-    public static void setupNoExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond) {
-//        rule.finishActivity();
+    public static void setupNoExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird) {
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
         FirebaseDatabaseCustomBackend.setIsCancelled(isCancelled);
         FirebaseDatabaseCustomBackend.setIsCancelledSecond(isCancelledSecond);
+        FirebaseDatabaseCustomBackend.setIsCancelledThird(isCancelledThird);
 
         Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Intent intent = new Intent(targetContext, c);
