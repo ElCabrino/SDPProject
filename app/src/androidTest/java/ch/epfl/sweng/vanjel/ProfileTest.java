@@ -296,8 +296,8 @@ public class ProfileTest {
   
     @Test
     public void logOutTest() throws Exception {
-        runAsPatient();
-        TimeUnit.SECONDS.sleep(2);
+        setupNoExtras(Profile.class, mActivityRule, false, true, false, false, false, false);
+        TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
         //verifiy if local favorite are erased
         LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
