@@ -29,7 +29,7 @@ public final class LocalDatabaseService {
         db.doctorFavoriteDao().delete(doctorToDoctorFavorite(doctor, doctorUid));
     }
 
-    public List<DoctorFavorite> getAll() {
+    public List<DoctorFavorite> getAll(){
         return db.doctorFavoriteDao().getAll();
     }
 
