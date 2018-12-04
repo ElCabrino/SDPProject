@@ -29,7 +29,15 @@ public final class LocalDatabaseService {
         db.doctorFavoriteDao().delete(doctorToDoctorFavorite(doctor, doctorUid));
     }
 
-    public void nuke() { db.doctorFavoriteDao().nukeTable();}
+    public List<DoctorFavorite> getAll() {
+        return db.doctorFavoriteDao().getAll();
+    }
 
-    public List<DoctorFavorite> getWithKey(String id){ return db.doctorFavoriteDao().getWithKey(id);}
+    public void nuke() {
+        db.doctorFavoriteDao().nukeTable();
+    }
+
+    public List<DoctorFavorite> getWithKey(String id){
+        return db.doctorFavoriteDao().getWithKey(id);
+    }
 }
