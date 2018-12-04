@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 /**
  * @author Luca JOSS
  * @reviewer Aslam CADER
@@ -16,13 +18,21 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
 
     private Button searchButton;
 
+    // Strings that are put in the bundle
     private String nameString, lastNameString, specialisationString, cityString;
+
+    // Strings that are getted in the bundle
+    private String doctor1Forward, patientForward;
+    private Boolean isForward;
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_doctor);
         getAllFields();
+        getBundle();
         getAllButtons();
         searchButton.setOnClickListener(this);
     }
@@ -38,10 +48,21 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
             b.putString("firstName",nameString);
             b.putString("specialisation",specialisationString);
             b.putString("city",cityString);
+            b.putString("doctor1Forward", doctor1Forward);
+            b.putString("patientForward", patientForward);
+            intent.putExtra("isForward", isForward);
             intent.putExtras(b);
             startActivity(intent);
             finish();
         }
+    }
+
+    private void getBundle(){
+        bundle = getIntent().getExtras();
+        isForward = bundle.getBoolean("isForward");
+        doctor1Forward = bundle.getString("doctor1Forward");
+        patientForward = bundle.getString("patientForward");
+
     }
 
 

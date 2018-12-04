@@ -1,16 +1,9 @@
 package ch.epfl.sweng.vanjel;
 
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +31,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
-    private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
+    private static HashMap<String,ArrayList<String>> idToDoc;
 
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -46,6 +39,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        idToDoc = new HashMap<>();
         setContentView(R.layout.activity_patient_personal_appointments);
 
         uid = auth.getCurrentUser().getUid();
@@ -103,7 +97,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
 
@@ -201,17 +195,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                     list.add(name);
                     list.add(location);
                     idToDoc.put(docId,list);
-
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
     }
-
-
-
-
 }

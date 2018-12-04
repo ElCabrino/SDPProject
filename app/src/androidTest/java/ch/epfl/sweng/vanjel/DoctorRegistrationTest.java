@@ -30,7 +30,7 @@ public class DoctorRegistrationTest {
 
     @Test
     public void testForm() throws Exception {
-        setupNoExtras(Registration.class, mActivityRule, false, false, false, false, false);
+        setupNoExtras(Registration.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         // Check if register without anything affect
         onView(withId(R.id.buttonReg)).perform(scrollTo(), click());

@@ -62,6 +62,9 @@
         <activity android:name=".chat.ChatListActivity" />
         <activity android:name=".TreatedPatients" />
         <activity android:name=".favoriteList.PatientFavoriteListActivity" />
+        <activity android:name=".forwardRequest.ForwardRequest">
+
+        </activity>
     </application>
 
 </manifest>

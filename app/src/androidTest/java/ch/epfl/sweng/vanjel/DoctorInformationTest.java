@@ -123,7 +123,7 @@ public class DoctorInformationTest {
         Map<String, String> extras = new HashMap<>();
         extras.put("doctorUID", "doctorid1");
         TimeUnit.SECONDS.sleep(3);
-        setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, true, false, extras);
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, true, false, false, extras, new HashMap<String, Boolean>());
         onView(withText(R.string.database_error)).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 

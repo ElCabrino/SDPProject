@@ -35,7 +35,7 @@ public class ChatActivityTest {
         Map<String, String> extras = new HashMap<>();
         extras.put("contactUID", "patientid1");
         extras.put("contactName", "fn_ptest1");
-        setupWithExtras(ChatActivity.class, mActivityRule, false, false, false, false, false,  extras);
+        setupWithExtras(ChatActivity.class, mActivityRule, false, false, false, false, false, false, extras, new HashMap<String, Boolean>());
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.messageToSend)).perform(typeText("test message"));
@@ -49,7 +49,7 @@ public class ChatActivityTest {
         Map<String, String> extras = new HashMap<>();
         extras.put("contactUID", "patientid1");
         extras.put("contactName", "fn_ptest1");
-        setupWithExtras(ChatActivity.class, mActivityRule, false, false, false, false, false,  extras);
+        setupWithExtras(ChatActivity.class, mActivityRule, false, false, false, false, false, false, extras, new HashMap<String, Boolean>());
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.messageToSend)).perform(typeText(""));
@@ -62,7 +62,7 @@ public class ChatActivityTest {
        Map<String, String> extras = new HashMap<>();
        extras.put("contactUID", "doctorid1");
        extras.put("contactName", "fn_dtest1");
-       setupWithExtras(ChatActivity.class, mActivityRule, false, true, false, false, false,  extras);
+       setupWithExtras(ChatActivity.class, mActivityRule, false, true, false, false, false, false, extras, new HashMap<String, Boolean>());
 
        TimeUnit.SECONDS.sleep(1);
        onView(withId(R.id.receiveMessage)).check(matches(withText("test message")));
@@ -73,7 +73,7 @@ public class ChatActivityTest {
         Map<String, String> extras = new HashMap<>();
         extras.put("contactUID", "patientid1");
         extras.put("contactName", "fn_ptest1");
-        setupWithExtras(ChatActivity.class, mActivityRule, false, false, true, false, false,  extras);
+        setupWithExtras(ChatActivity.class, mActivityRule, false, false, true, false, false, false, extras,new HashMap<String, Boolean>());
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.messageToSend)).perform(typeText("test message"));
@@ -86,7 +86,7 @@ public class ChatActivityTest {
         Map<String, String> extras = new HashMap<>();
         extras.put("contactUID", "patientid1");
         extras.put("contactName", "fn_ptest1");
-        setupWithExtras(ChatActivity.class, mActivityRule, false, false, false, false, true, extras);
+        setupWithExtras(ChatActivity.class, mActivityRule, false, false, false, false, true, false, extras,new HashMap<String, Boolean>());
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.receiveMessage)).check(doesNotExist());
