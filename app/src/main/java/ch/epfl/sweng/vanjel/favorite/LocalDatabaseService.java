@@ -21,8 +21,6 @@ public final class LocalDatabaseService {
                 doctor.getStreet(), doctor.getStreetNumber(), doctor.getCity(), doctor.getCountry(), doctor.getActivity());
     }
 
-    public List<DoctorFavorite> getAll() { return db.doctorFavoriteDao().getAll();}
-
     public void save(Doctor doctor, String doctorUid){
         db.doctorFavoriteDao().insertAll(doctorToDoctorFavorite(doctor, doctorUid));
     }
