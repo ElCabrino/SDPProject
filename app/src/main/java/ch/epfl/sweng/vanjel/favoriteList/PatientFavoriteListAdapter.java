@@ -31,7 +31,7 @@ public class PatientFavoriteListAdapter extends recyclerViewAdapter<PatientFavor
     @NonNull
     @Override
     public PatientFavoriteListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new PatientFavoriteListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false), i);
+        return new PatientFavoriteListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_favorite_list, viewGroup, false), i);
     }
 
     @Override
