@@ -25,6 +25,7 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
+import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
 /**
  * @author Luca JOSS
@@ -40,6 +41,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     Button editButton, saveButton, searchButton,  treatedPatientsButton;
     Button setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton;
+    Button forwardButton;
 
     String userType;
 
@@ -71,6 +73,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
         treatedPatientsButton.setOnClickListener(this);
+        forwardButton.setOnClickListener(this);
         isPatientUser();
     }
 
@@ -141,6 +144,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.favoriteListButton:
                 startActivity(new Intent(this, PatientFavoriteListActivity.class));
+                break;
+            case R.id.forwardButton:
+                startActivity(new Intent(this, ForwardRequest.class));
         }
     }
 
@@ -187,6 +193,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
         this.favoriteListButton = findViewById(R.id.favoriteListButton);
+        this.forwardButton = findViewById(R.id.forwardButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -242,9 +249,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setUserAs(String type, int v1, int v2) {
+        // v1 --> patient, v2 --> doctor
         userType = type;
         searchButton.setVisibility(v1);
         setAvailabilityButton.setVisibility(v2);
+        forwardButton.setVisibility(v1);
         String s = auth.getCurrentUser().getUid();
         database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
     }
