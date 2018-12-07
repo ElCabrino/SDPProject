@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText emailField, passwordField;
+    private ProgressBar progressBarLogin;
+    private Button buttonLogin;
 
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -37,8 +41,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordField = findViewById(R.id.passwordLogin);
 
         //Button listener
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
+        buttonLogin = findViewById(R.id.buttonLogin);
+        buttonLogin.setOnClickListener(this);
         findViewById(R.id.registrationLogin).setOnClickListener(this);
+
+        progressBarLogin = findViewById(R.id.progressBarLogin);
     }
 
 
@@ -77,6 +84,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        progressBarLogin.setVisibility(View.VISIBLE);
+        buttonLogin.setVisibility(View.INVISIBLE);
+
 
         // [START sign_in_with_email]
         Task<AuthResult> t = auth.signInWithEmailAndPassword(email, password);
@@ -91,7 +101,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
+                            progressBarLogin.setVisibility(View.INVISIBLE);
+                            buttonLogin.setVisibility(View.VISIBLE);
                         }
 
                         // [START_EXCLUDE]
