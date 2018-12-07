@@ -108,6 +108,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, R.string.login_failed_error, Toast.LENGTH_SHORT).show();
+                            progressBarLogin.setVisibility(View.INVISIBLE);
+                            buttonLogin.setVisibility(View.VISIBLE);
                         }
                         // [END_EXCLUDE]
                     }
