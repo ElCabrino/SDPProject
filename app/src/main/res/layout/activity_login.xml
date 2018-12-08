@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
+                android:contentDescription="login button"
                 android:padding="12dp"
                 android:text="Login"
                 android:visibility="visible" />

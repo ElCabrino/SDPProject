@@ -19,6 +19,8 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.ViewMatchers.hasContentDescription;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
@@ -72,7 +74,7 @@ public class LoginActivityTest {
 
         FirebaseAuthCustomBackend.setNullUser(false);
 
-        onView(withId(R.id.buttonLogin)).perform(click());
+        onView(withContentDescription("login button")).perform(click());
     }
 
     @Test
