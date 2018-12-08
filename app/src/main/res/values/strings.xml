@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VANJEL</string>
+    <string name="app_name">vanjel</string>
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>
