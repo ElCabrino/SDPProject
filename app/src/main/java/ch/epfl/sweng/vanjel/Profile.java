@@ -1,13 +1,12 @@
 package ch.epfl.sweng.vanjel;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,31 +14,24 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.chat.ChatListActivity;
-import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
-import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
-
 /**
  * @author Luca JOSS
  * @reviewer Vincent CABRINI
+ * @reviewer Etienne CAQUOT
  */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-    TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
+    EditText email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
 
-    Button patientInfoButton, logoutButton, buttonNextAppointments;
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
 
-
-    Button editButton, saveButton, searchButton,  treatedPatientsButton;
-    Button setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton;
+    Button editButton, saveButton;
 
     String userType;
 
@@ -49,38 +41,27 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+        userType = getIntent().getStringExtra("userType");
         loadContent();
+        setUserAs(userType);
     }
 
-    private void loadContent() {
-        setContentView(R.layout.activity_profile);
-        getAllTextView();
-
-        patientInfoButton = findViewById(R.id.patientInfoButton);
-        logoutButton = findViewById(R.id.logoutButton);
-        treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
-
-        logoutButton.setOnClickListener(this);
-        editButton.setOnClickListener(this);
-        saveButton.setOnClickListener(this);
-        searchButton.setOnClickListener(this);
-        patientInfoButton.setOnClickListener(this);
-        nearbyDoctorButton.setOnClickListener(this);
-        setAvailabilityButton.setOnClickListener(this);
-        requestsListButton.setOnClickListener(this);
-        favoriteListButton.setOnClickListener(this);
-        buttonNextAppointments.setOnClickListener(this);
-        treatedPatientsButton.setOnClickListener(this);
-        isPatientUser();
+    private void setUserAs(String type) {
+        userType = type;
+        String userUid = auth.getCurrentUser().getUid();
+        database.getReference(type).child(userUid).addValueEventListener(createValueEventListener(type));
     }
 
     private ValueEventListener createValueEventListener(final String type) {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
-//                } else if (type.compareTo("Doctor") == 0) { setTextFields(dataSnapshot, Doctor.class); }
-                } else { setTextFields(dataSnapshot, Doctor.class); }
+                if (type.compareTo("Patient") == 0) {
+                    setTextFields(dataSnapshot, Patient.class);
+                } else {
+                    setTextFields(dataSnapshot, Doctor.class);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -104,68 +85,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         country.setText(user.getCountry());
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.requestsListButton:
-                startActivity(new Intent(this ,DoctorAppointmentsList.class));
-                break;
-            case R.id.logoutButton:
-                logOut();
-                break;
-            case R.id.patientInfoButton:
-                patientInfo();
-                break;
-            case R.id.editButton:
-                setEditText(true, View.GONE, View.VISIBLE);
-                break;
-            case R.id.saveButton:
-                getStringFromFields(); saveNewValues();
-                setEditText(false, View.VISIBLE, View.GONE);
-                break;
-            case R.id.searchDoctorButton:
-                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward",false)
-                        .putExtra("doctor1Forward","").putExtra("patientForward",""));
-                break;
-            case R.id.setAvailabilityButton:
-                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
-                break;
-            case R.id.nearbyDoctorButton:
-                startActivity(new Intent(this, NearbyDoctor.class));
-                break;
-            case R.id.treatedPatientsButton:
-                startActivity(new Intent(this, TreatedPatients.class));
-                break;
-            case R.id.buttonNextAppointments:
-                nextAppointments();
-                break;
-            case R.id.favoriteListButton:
-                startActivity(new Intent(this, PatientFavoriteListActivity.class));
-        }
-    }
-
-    public void nextAppointments(){
-        if (userType.equals("Patient")) {
-            startActivity(new Intent(this, PatientPersonalAppointments.class));
-        } else {
-            startActivity(new Intent(this, DoctorComingAppointments.class));
-        }
-    }
-
-    public void patientInfo() {
-        if (userType.equals("Patient")) {
-            startActivity(new Intent(this, PatientInfo.class));
-        } else {
-            Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void logOut(){
-        LocalDatabaseService l = new LocalDatabaseService(this);
-        l.nuke();
-        auth.signOut();
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
+    private void loadContent() {
+        getAllTextView();
+        editButton.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
     }
 
     private void getAllTextView() {
@@ -180,13 +103,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.country = findViewById(R.id.countryProfile);
         this.editButton = findViewById(R.id.editButton);
         this.saveButton = findViewById(R.id.saveButton);
-        this.logoutButton = findViewById(R.id.logoutButton);
-        this.searchButton = findViewById(R.id.searchDoctorButton);
-        this.nearbyDoctorButton = findViewById(R.id.nearbyDoctorButton);
-        this.buttonNextAppointments = findViewById(R.id.buttonNextAppointments);
-        this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
-        this.requestsListButton = findViewById(R.id.requestsListButton);
-        this.favoriteListButton = findViewById(R.id.favoriteListButton);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.editButton:
+                setEditText(true, View.GONE, View.VISIBLE);
+                break;
+            case R.id.saveButton:
+                getStringFromFields(); saveNewValues();
+                setEditText(false, View.VISIBLE, View.GONE);
+                break;
+        }
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -221,34 +150,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.newCountry = this.country.getText().toString().trim();
     }
 
-    void isPatientUser() {
-        DatabaseReference patientRef;
-        patientRef = database.getReference("Patient");
-        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
-                    setUserAs("Patient", View.VISIBLE, View.GONE);
-                } else {
-                    setUserAs("Doctor", View.GONE, View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
-        });
-    }
-
-    private void setUserAs(String type, int v1, int v2) {
-        userType = type;
-        searchButton.setVisibility(v1);
-        setAvailabilityButton.setVisibility(v2);
-        String s = auth.getCurrentUser().getUid();
-        database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
-    }
-
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
@@ -274,10 +175,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userValues.put("city", this.newCity);
         userValues.put("country", this.newCountry);
         return userValues;
-    }
-
-    public void openChats(View v) {
-        startActivity(new Intent(this, ChatListActivity.class));
     }
 
 }

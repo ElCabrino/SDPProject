@@ -21,7 +21,7 @@ class LoginHelper {
 
     void signOutIfPossible() {
         try {
-            onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
+            onView(withId(R.id.logoutMainMenu)).perform(scrollTo(), click());
         } catch (NoMatchingViewException e) {
             //
         }

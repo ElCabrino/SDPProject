@@ -3,11 +3,11 @@
     package="ch.epfl.sweng.vanjel">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -19,7 +19,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -29,21 +28,21 @@
             android:value="AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU" />
 
         <activity android:name=".LoginActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ChooseRegistration" />
         <activity android:name=".Registration" />
         <activity android:name=".DoctorCalendar" />
-        <activity android:name=".Profile"></activity>
+        <activity android:name=".Profile" />
         <activity android:name=".PatientInfo" />
         <activity android:name=".FilteredDoctors" />
         <activity android:name=".DoctorAvailabilityActivity" />
-        <activity android:name=".NearbyDoctor"></activity>
-        <activity android:name=".PatientPersonalAppointments"></activity>
+        <activity android:name=".NearbyDoctor" />
+        <activity android:name=".PatientPersonalAppointments" />
         <activity android:name=".SearchDoctor" />
         <activity android:name=".PatientCalendarActivity" />
         <activity android:name=".PatientAppointmentActivity" />
@@ -51,20 +50,15 @@
 
         <service android:name=".AppointmentNotificationBackgroundService" />
 
-
-        <activity android:name=".DoctorComingAppointments">
-
-        </activity>
-
+        <activity android:name=".DoctorComingAppointments"></activity>
         <activity android:name=".DoctorPatientInfo" />
         <activity android:name=".DoctorAppointmentsList" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".chat.ChatListActivity" />
         <activity android:name=".TreatedPatients" />
         <activity android:name=".favoriteList.PatientFavoriteListActivity" />
-        <activity android:name=".forwardRequest.ForwardRequest">
-
-        </activity>
+        <activity android:name=".forwardRequest.ForwardRequest"></activity>
+        <activity android:name=".MainMenu"></activity>
     </application>
 
 </manifest>

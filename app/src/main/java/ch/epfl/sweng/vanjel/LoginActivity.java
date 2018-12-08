@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI() {
         // user is logged, open his profile page
-        startActivity(new Intent(LoginActivity.this,Profile.class));
+        startActivity(new Intent(LoginActivity.this,MainMenu.class));
 
         // start Appointment service
         startService(new Intent(this, AppointmentNotificationBackgroundService.class));
