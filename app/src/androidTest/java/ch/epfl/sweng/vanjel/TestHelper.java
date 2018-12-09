@@ -40,6 +40,7 @@ public class TestHelper {
     public static void setupNoExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird) {
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
+        FirebaseAuthCustomBackend.setShouldFail(shouldFail);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
         FirebaseDatabaseCustomBackend.setIsCancelled(isCancelled);
         FirebaseDatabaseCustomBackend.setIsCancelledSecond(isCancelledSecond);
