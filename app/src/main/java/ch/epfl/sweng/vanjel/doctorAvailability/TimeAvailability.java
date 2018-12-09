@@ -18,7 +18,7 @@ public class TimeAvailability {
     public static int FRIDAY = 88;
     public static int SATURDAY = 110;
 
-    static int[] times = {
+    public static int[] times = {
 
     R.id.monday8,
     R.id.monday8_3,

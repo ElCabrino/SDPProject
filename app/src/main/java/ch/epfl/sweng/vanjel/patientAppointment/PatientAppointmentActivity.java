@@ -35,6 +35,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public
     Toast mToast;
 
     //Appointment with the doctor of this ID
