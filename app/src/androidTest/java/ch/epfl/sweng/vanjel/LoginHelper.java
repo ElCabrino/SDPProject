@@ -15,16 +15,15 @@ class LoginHelper {
     }
 
     void enterPassword(String password){
-
         onView(withId(R.id.passwordLogin)).perform(replaceText(password));
     }
 
-    void signOutIfPossible() {
+    /*void signOutIfPossible() {
         try {
             onView(withId(R.id.logoutMainMenu)).perform(scrollTo(), click());
         } catch (NoMatchingViewException e) {
             //
         }
 
-    }
+    }*/
 }

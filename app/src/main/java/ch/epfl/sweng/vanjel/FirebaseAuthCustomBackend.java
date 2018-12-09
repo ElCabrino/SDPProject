@@ -28,6 +28,7 @@ public class FirebaseAuthCustomBackend {
     private static boolean mockPatient = true;
     private static boolean nullUser = false;
 
+
     @Mock
     private FirebaseAuth mockAuth;
 

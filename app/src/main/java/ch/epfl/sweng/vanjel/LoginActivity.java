@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onStart() {
+
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser a = auth.getCurrentUser();
@@ -83,17 +85,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validateForm()) {
             return;
         }
-
         progressBarLogin.setVisibility(View.VISIBLE);
         buttonLogin.setVisibility(View.INVISIBLE);
 
 
         // [START sign_in_with_email]
         Task<AuthResult> t = auth.signInWithEmailAndPassword(email, password);
+        Log.d("Login","TaskCreated");
         t.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        Log.d("Login","onComplete");
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             updateUI();
