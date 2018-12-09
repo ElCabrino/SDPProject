@@ -5,7 +5,7 @@ import android.content.Context;
 
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.Doctor;
+import ch.epfl.sweng.vanjel.model.Doctor;
 
 public final class LocalDatabaseService {
 

@@ -2,6 +2,11 @@ package ch.epfl.sweng.vanjel;
 
 import org.junit.Test;
 
+import ch.epfl.sweng.vanjel.model.Doctor;
+import ch.epfl.sweng.vanjel.model.DoctorActivity;
+import ch.epfl.sweng.vanjel.model.Gender;
+import ch.epfl.sweng.vanjel.model.Patient;
+
 import static org.junit.Assert.assertEquals;
 
 /**

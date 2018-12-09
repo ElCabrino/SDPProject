@@ -1,12 +1,11 @@
 package ch.epfl.sweng.vanjel;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.junit.Test;
-import org.mockito.Mock;
-
 import java.util.HashMap;
+
+import ch.epfl.sweng.vanjel.model.Doctor;
+import ch.epfl.sweng.vanjel.model.DoctorActivity;
+import ch.epfl.sweng.vanjel.model.Gender;
+import ch.epfl.sweng.vanjel.searchDoctor.FilteredDoctorAdapter;
 
 import static org.junit.Assert.assertEquals;
 

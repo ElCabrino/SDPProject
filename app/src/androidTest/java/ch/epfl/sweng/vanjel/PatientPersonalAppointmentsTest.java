@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.patientAppointment.PatientPersonalAppointments;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;

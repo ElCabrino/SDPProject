@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;

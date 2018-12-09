@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
+import ch.epfl.sweng.vanjel.doctorAvailability.TimeAvailability;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;

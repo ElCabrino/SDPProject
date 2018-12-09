@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PatientInfo">
+    tools:context=".patientInfo.PatientInfo">
 
     <ScrollView
         android:id="@+id/patientInfoScrollView"
@@ -67,7 +67,7 @@
 
             </LinearLayout>
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/ptPriorConditionsList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
 
             </LinearLayout>
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/ptSurgeryList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
             </LinearLayout>
 
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/ptAllergyList"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
 
             </LinearLayout>
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/ptDrugReactionList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
             </LinearLayout>
 
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/ptDrugRegimenList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -407,7 +407,7 @@
             </LinearLayout>
 
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/ptSubstanceList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"

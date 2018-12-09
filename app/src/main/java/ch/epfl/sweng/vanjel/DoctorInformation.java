@@ -1,8 +1,6 @@
 package ch.epfl.sweng.vanjel;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,12 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
-import java.util.List;
-
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
-import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
+import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.model.Doctor;
+import ch.epfl.sweng.vanjel.patientAppointment.PatientCalendarActivity;
+
 /**
  * @author Aslam CADER
  * @reviewer Vincent CABRINI

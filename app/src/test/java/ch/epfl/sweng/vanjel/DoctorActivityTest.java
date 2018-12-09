@@ -2,6 +2,8 @@ package ch.epfl.sweng.vanjel;
 
 import org.junit.Test;
 
+import ch.epfl.sweng.vanjel.model.DoctorActivity;
+
 import static org.junit.Assert.assertEquals;
 
 public class DoctorActivityTest {
