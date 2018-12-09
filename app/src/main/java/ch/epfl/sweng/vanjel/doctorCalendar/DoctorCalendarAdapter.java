@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.doctorInformation.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.recyclerViewAdapter;
 
 /**
  * Etienne?? Nicolas??

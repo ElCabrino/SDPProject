@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.doctorInformation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;

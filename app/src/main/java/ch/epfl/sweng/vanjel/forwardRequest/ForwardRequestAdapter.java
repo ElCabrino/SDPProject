@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.DoctorInformation;
+import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.doctorInformation.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.recyclerViewAdapter;
 
 /**
  * @author Aslam CADER

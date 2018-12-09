@@ -18,7 +18,7 @@ import java.util.HashMap;
 import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 import ch.epfl.sweng.vanjel.model.Patient;
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.doctorInformation.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.recyclerViewAdapter;
 
 /**
  * @author Aslam CADER

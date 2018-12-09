@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
 import static android.support.test.espresso.Espresso.onView;
