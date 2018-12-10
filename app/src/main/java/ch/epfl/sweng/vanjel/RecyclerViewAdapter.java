@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent Cabrini
  */
-public abstract class recyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
+public abstract class RecyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     @NonNull
     @Override

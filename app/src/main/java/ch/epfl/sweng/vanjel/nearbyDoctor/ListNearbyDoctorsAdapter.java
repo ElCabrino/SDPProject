@@ -18,9 +18,9 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.model.Doctor;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
-public class ListNearbyDoctorsAdapter extends recyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
+public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
 
     ArrayList<Doctor> doctors;
     HashMap<String, Doctor> doctorHashMap;

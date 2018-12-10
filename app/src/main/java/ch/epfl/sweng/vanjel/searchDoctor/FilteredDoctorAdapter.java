@@ -25,13 +25,13 @@ import ch.epfl.sweng.vanjel.model.Doctor;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
-import ch.epfl.sweng.vanjel.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 /**
  * @author Aslam CADER
  * @reviewer
  */
-public class FilteredDoctorAdapter extends recyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
+public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
     ArrayList<Doctor> doctors;
     HashMap<String, Doctor> doctorHashMap;

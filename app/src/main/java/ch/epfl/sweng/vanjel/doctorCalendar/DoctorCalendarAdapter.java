@@ -12,14 +12,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 /**
  * Etienne?? Nicolas??
  * @author
  * @reviewer
  */
-public class DoctorCalendarAdapter extends recyclerViewAdapter<DoctorCalendarAdapter.ViewHolder> {
+public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAdapter.ViewHolder> {
 
     private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
     private Context mContext;

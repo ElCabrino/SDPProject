@@ -18,13 +18,13 @@ import java.util.HashMap;
 import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 import ch.epfl.sweng.vanjel.model.Patient;
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 /**
  * @author Aslam CADER
  * @reviewer
  */
-public class DoctorComingAppointmentsAdapter extends recyclerViewAdapter<DoctorComingAppointmentsAdapter.ViewHolder> {
+public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorComingAppointmentsAdapter.ViewHolder> {
 
     ArrayList<Appointment> appointments;
     private SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
