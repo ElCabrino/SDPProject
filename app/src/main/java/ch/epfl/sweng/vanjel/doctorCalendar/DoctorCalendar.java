@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.model.Gender;
-import ch.epfl.sweng.vanjel.model.Patient;
+import ch.epfl.sweng.vanjel.models.Gender;
+import ch.epfl.sweng.vanjel.models.Patient;
 
 /**
  * @author Etienne CAQUOT

@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.model.Doctor;
-import ch.epfl.sweng.vanjel.model.DoctorActivity;
-import ch.epfl.sweng.vanjel.model.Gender;
-import ch.epfl.sweng.vanjel.model.Patient;
+import ch.epfl.sweng.vanjel.models.Doctor;
+import ch.epfl.sweng.vanjel.models.DoctorActivity;
+import ch.epfl.sweng.vanjel.models.Gender;
+import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.forwardRequest.Forward;
 import ch.epfl.sweng.vanjel.patientInfo.Drug;
 import ch.epfl.sweng.vanjel.patientInfo.DrugReaction;

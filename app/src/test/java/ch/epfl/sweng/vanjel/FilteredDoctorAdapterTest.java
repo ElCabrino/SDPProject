@@ -2,9 +2,9 @@ package ch.epfl.sweng.vanjel;
 
 import java.util.HashMap;
 
-import ch.epfl.sweng.vanjel.model.Doctor;
-import ch.epfl.sweng.vanjel.model.DoctorActivity;
-import ch.epfl.sweng.vanjel.model.Gender;
+import ch.epfl.sweng.vanjel.models.Doctor;
+import ch.epfl.sweng.vanjel.models.DoctorActivity;
+import ch.epfl.sweng.vanjel.models.Gender;
 import ch.epfl.sweng.vanjel.searchDoctor.FilteredDoctorAdapter;
 
 import static org.junit.Assert.assertEquals;

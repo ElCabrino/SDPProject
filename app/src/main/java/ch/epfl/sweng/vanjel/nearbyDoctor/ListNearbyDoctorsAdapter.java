@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.model.Doctor;
+import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;

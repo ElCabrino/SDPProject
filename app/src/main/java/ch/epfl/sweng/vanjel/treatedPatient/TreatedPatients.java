@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.model.Patient;
+import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;

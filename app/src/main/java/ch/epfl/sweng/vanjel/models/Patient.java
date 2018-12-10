@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.model;
+package ch.epfl.sweng.vanjel.models;
 
 /**
  * @author Vincent CABRINI

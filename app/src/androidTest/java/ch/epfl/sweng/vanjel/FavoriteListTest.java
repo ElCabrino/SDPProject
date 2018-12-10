@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
-import ch.epfl.sweng.vanjel.model.Doctor;
-import ch.epfl.sweng.vanjel.model.DoctorActivity;
-import ch.epfl.sweng.vanjel.model.Gender;
+import ch.epfl.sweng.vanjel.models.Doctor;
+import ch.epfl.sweng.vanjel.models.DoctorActivity;
+import ch.epfl.sweng.vanjel.models.Gender;
 
 import static org.junit.Assert.assertEquals;
 

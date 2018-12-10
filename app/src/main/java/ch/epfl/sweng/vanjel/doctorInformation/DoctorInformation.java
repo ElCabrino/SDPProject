@@ -24,7 +24,7 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
-import ch.epfl.sweng.vanjel.model.Doctor;
+import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientCalendarActivity;
 
 /**

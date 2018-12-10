@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel.doctorCalendar;
 
-import ch.epfl.sweng.vanjel.model.Patient;
+import ch.epfl.sweng.vanjel.models.Patient;
 
 /**
  * Nicolas?? Etienne??
