@@ -32,7 +32,7 @@ public class Surgery extends Info{
     }
 
     @Override
-    String getAndroidInfo() {
+    public String getAndroidInfo() {
         return getType();
     }
 }

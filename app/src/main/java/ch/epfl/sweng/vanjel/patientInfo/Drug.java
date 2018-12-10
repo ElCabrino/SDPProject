@@ -35,7 +35,7 @@ public class Drug extends Info{
     public void setFrequency(String frequency) { this.frequency = frequency; }
 
     @Override
-    String getAndroidInfo() {
+    public String getAndroidInfo() {
         return getDrug();
     }
 
