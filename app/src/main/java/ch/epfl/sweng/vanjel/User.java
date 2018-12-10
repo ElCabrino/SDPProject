@@ -136,7 +136,7 @@ public abstract class User {
             e.printStackTrace();
         }
 
-        return locationForMap;
+        return null;
     }
 
     @Override
