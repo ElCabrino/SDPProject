@@ -20,7 +20,7 @@ public class InfoString extends Info{
 
     public void setInfo(String info) { this.info = info; }
 
-    String getAndroidInfo(){
+    public String getAndroidInfo(){
         return getInfo();
     }
 }

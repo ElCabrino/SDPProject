@@ -10,5 +10,5 @@ public class Patient extends User {
         super(email, firstName, lastName, birthday, street, streetNumber, city, country, gender);
     }
 
-    Patient() {}
+    public Patient() {}
 }

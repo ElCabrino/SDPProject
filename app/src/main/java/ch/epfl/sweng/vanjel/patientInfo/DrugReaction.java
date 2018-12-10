@@ -8,7 +8,7 @@ public class DrugReaction extends Info{
 
     String drug, reaction;
 
-    DrugReaction() {}
+    public DrugReaction() {}
 
     public DrugReaction(String drug, String reaction) {
         this.drug = drug;
@@ -29,7 +29,7 @@ public class DrugReaction extends Info{
 
 
     @Override
-    String getAndroidInfo() {
+    public String getAndroidInfo() {
         return getReaction();
     }
 }

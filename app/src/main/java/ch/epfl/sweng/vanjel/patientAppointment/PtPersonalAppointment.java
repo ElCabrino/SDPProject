@@ -9,7 +9,7 @@ public class PtPersonalAppointment {
     // 0 = appointment confirmed, 1 = pending
     Boolean pendingStatus;
 
-    PtPersonalAppointment() {}
+    public PtPersonalAppointment() {}
 
     public PtPersonalAppointment(String doctor, String location, String date, String time, String duration,Boolean pendingStatus) {
         this.doctor = doctor;
