@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import ch.epfl.sweng.vanjel.R;
 
 /**
- * @author Luca JOSS
- * @reviewer Etienne CAQUOT
+ * @author Luca Joss
+ * @reviewer Etienne Caquot
  */
 public class TimeAvailability {
 
-    private static final String TAG = "TimeAvailability";
     public static int MONDAY = 0;
     public static int TUESDAY = 22;
     public static int WEDNESDAY = 44;
