@@ -2,6 +2,7 @@ package ch.epfl.sweng.vanjel.doctorInformation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -43,7 +44,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     //local database
     LocalDatabaseService localDatabaseService;
 
-    private Button takeAppointment, chat, favorite;
+    private Button favorite;
     private Boolean favoriteState = false;
 
     // map
@@ -93,12 +94,12 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         city = findViewById(R.id.city);
         country = findViewById(R.id.country);
         // take appointment button
-        takeAppointment = findViewById(R.id.buttonTakeAppointment);
+        Button takeAppointment = findViewById(R.id.buttonTakeAppointment);
         takeAppointment.setOnClickListener(this);
         // map reference
         mapView = findViewById(R.id.mapViewDoctorInfo);
         //chat
-        chat = findViewById(R.id.buttonChat);
+        Button chat = findViewById(R.id.buttonChat);
         chat.setOnClickListener(this);
         //favorite
         favorite = findViewById(R.id.addToFavoriteButton);
@@ -140,22 +141,22 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 doctor = snapshot.getValue(Doctor.class);
-                initLocalDatabase(doctor);
+                initLocalDatabase();
                 findIfAlreadyFavoriteButtonState();
                 setData();
                 isDatabaseReady = true;
                 putMarkerOnMap();
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(DoctorInformation.this, R.string.database_error, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void initLocalDatabase(Doctor doc){
+    private void initLocalDatabase(){
         this.localDatabaseService = new LocalDatabaseService(this);
     }
 
