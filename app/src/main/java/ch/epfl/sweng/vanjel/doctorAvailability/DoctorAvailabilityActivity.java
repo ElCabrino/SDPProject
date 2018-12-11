@@ -194,8 +194,10 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 @SuppressWarnings("unchecked") //TODO pas sur si on peut faire mieux
                 Map<String, Object> tm = (Map<String, Object>) dataSnapshot.getValue();
+
                 if (tm != null) {
-                    setOldSlots(TimeAvailability.getAvailability(dayindex, FirebaseHelper.dataSnapshotChildToString(dataSnapshot, "availability")), dayindex);
+                    Object value = tm.get("availability");
+                    if (value != null) setOldSlots(TimeAvailability.getAvailability(dayindex, value.toString()), dayindex);
                 } else {
                     Log.d("ERROR", "tm is null");
                 }
