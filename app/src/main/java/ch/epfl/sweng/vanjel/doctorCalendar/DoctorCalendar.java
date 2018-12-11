@@ -23,14 +23,13 @@ public class DoctorCalendar extends AppCompatActivity {
     private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
     private RecyclerView recyclerView;
     private DoctorCalendarAdapter adapter;
-    private Button add;
     Calendar cal = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_calendar);
-        add = findViewById(R.id.add);
+        Button add = findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +58,7 @@ public class DoctorCalendar extends AppCompatActivity {
 
     private void initRecyclerView() {
         recyclerView = findViewById(R.id.calender_recyclerView);
-        adapter = new DoctorCalendarAdapter(mData, this);
+        adapter = new DoctorCalendarAdapter(mData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

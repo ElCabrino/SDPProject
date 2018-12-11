@@ -4,8 +4,8 @@ import ch.epfl.sweng.vanjel.models.Patient;
 
 /**
  * Nicolas?? Etienne??
- * @author
- * @reviewer
+ * @author ??
+ * @reviewer Vincent Cabrini
  */
 public class DoctorCalendarItem {
 
