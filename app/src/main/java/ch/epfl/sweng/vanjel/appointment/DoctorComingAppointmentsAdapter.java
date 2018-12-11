@@ -26,14 +26,14 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorComingAppointmentsAdapter.ViewHolder> {
 
-    ArrayList<Appointment> appointments;
+    private ArrayList<Appointment> appointments;
     private SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
-    Date currentDate;
-    Context context;
+    private Date currentDate;
+    private Context context;
     private HashMap<String, Patient> patientHashMap;
 
 
-    public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
+    DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
 
         this.context = context;
         this.appointments = givenAppointments;
@@ -52,11 +52,13 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
     public void onBindViewHolder(@NonNull DoctorComingAppointmentsAdapter.ViewHolder viewHolder, int i) {
         final String uid = appointments.get(i).getPatientUid();
         Patient patient = patientHashMap.get(uid);
-        viewHolder.lastName.setText(patient.getLastName());
-        viewHolder.firstName.setText(patient.getFirstName());
+        if (patient != null) {
+            viewHolder.lastName.setText(patient.getLastName());
+            viewHolder.firstName.setText(patient.getFirstName());
+        }
         viewHolder.time.setText(appointments.get(i).getHour());
-        viewHolder.duration.setText(appointments.get(i).getDuration() + " min");
-
+        String duration = appointments.get(i).getDuration().toString();
+        viewHolder.duration.setText(duration.concat("min"));
         // if today, we want to display "Today"
         Boolean isToday;
         try {
@@ -67,7 +69,8 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
         }
 
         if(isToday){
-            viewHolder.date.setText("Today");
+            String today = "Today";
+            viewHolder.date.setText(today);
         } else {
             viewHolder.date.setText(appointments.get(i).getDay());
         }
@@ -79,8 +82,7 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
                 Intent intent = new Intent(context, DoctorPatientInfo.class);
 
                 // we need to give the patient uid
-                String key = uid;
-                intent.putExtra("patientUID", key);
+                intent.putExtra("patientUID", uid);
                 context.startActivity(intent);
 
             }
@@ -89,12 +91,11 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
     }
 
 
-    public boolean isAppointmentToday(Appointment appointment) throws ParseException {
+    private boolean isAppointmentToday(Appointment appointment) throws ParseException {
         currentDate = formatter.parse(formatter.format(currentDate));
         int comparator = formatter.parse(appointment.getDay()).compareTo(currentDate);
 
-        if(comparator == 0) return true;
-        else return false;
+        return comparator == 0;
     }
 
 
@@ -103,7 +104,7 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
 
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
-        TextView lastName, date, time, duration, firstName, birthday;
+        TextView lastName, date, time, duration, firstName;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);

@@ -27,6 +27,8 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
+import static ch.epfl.sweng.vanjel.firebase.FirebaseHelper.dataSnapshotChildToString;
+
 /**
  * @author Aslam CADER
  * @reviewer
@@ -61,7 +63,9 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     // set cardview, database reference
     public void init(){
-        uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        if (FirebaseAuthCustomBackend.getInstance().getCurrentUser()!= null) {
+            uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        } //TODO null user exception
         ref = database.getReference("Requests");
         patientRef = database.getReference("Patient");
         // adapter
@@ -98,7 +102,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                 }
                 Collections.sort(doctorAppointments, new appointmentComparator());
                 appointmentsReady = true;
-                if(patientHashMapReady && appointmentsReady) notifyAdapter();
+                if(patientHashMapReady) notifyAdapter();
 
 
             }
@@ -113,17 +117,17 @@ public class DoctorComingAppointments extends AppCompatActivity {
     public void addAppointment(DataSnapshot request) throws ParseException {
         // check if appointment is in the past
 
-        if(request.child("doctor").getValue(String.class).equals(uid)){
-            String day, hour, patientUid, doctorUid, appointmentID;
-            int duration = Integer.valueOf(request.child("duration").getValue(String.class));
+        if(uid.equals(request.child("doctor").getValue(String.class))){
+            String day, hour, patientUid, doctorUid;
+            int duration = Integer.valueOf(dataSnapshotChildToString(request, "duration"));
             day = request.child("date").getValue(String.class);
             doctorUid = request.child("doctor").getValue(String.class);
             hour = request.child("time").getValue(String.class);
             patientUid = request.child("patient").getValue(String.class);
             currentDate = dateFormat.parse(dateFormat.format(currentDate));
-            int comparaison = dateFormat.parse(day).compareTo(currentDate);
+            int comparison = dateFormat.parse(day).compareTo(currentDate);
             // 0 is today, -1 is before, 1 is after
-             if(comparaison != -1 && duration != 0){
+             if ((comparison > -1) && (duration != 0)){
                 Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
                 doctorAppointments.add(appointment);
             }
@@ -174,7 +178,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                     patientHashMap.put(key, myPatient);
                 }
                 patientHashMapReady = true;
-                if(patientHashMapReady && appointmentsReady) notifyAdapter();
+                if(appointmentsReady) notifyAdapter();
 
             }
 

@@ -41,22 +41,22 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppointmentListAdapter.ViewHolder> {
 
-    Context context;
+    private Context context;
     ArrayList<Appointment> appointmentsList;
 
     private List<String> treatedPatientsMap;
 
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
-    public DoctorAppointmentListAdapter(Context context){
+    DoctorAppointmentListAdapter(Context context){
         this.context = context;
 
         this.appointmentsList = new ArrayList<>();
 
     }
 
-    public DoctorAppointmentListAdapter(Context context, ArrayList<Appointment> appointments){
+    DoctorAppointmentListAdapter(Context context, ArrayList<Appointment> appointments){
         this.context = context;
 
         this.appointmentsList = appointments;
@@ -103,7 +103,6 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
             declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);
             forwardRequestButton = itemView.findViewById(R.id.forwardAppointmentButton);
             appointmentListIndex = i;
-            int id = i;
 
         }
 
