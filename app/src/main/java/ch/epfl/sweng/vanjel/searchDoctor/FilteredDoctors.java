@@ -157,6 +157,7 @@ public class FilteredDoctors extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(FilteredDoctors.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 }

@@ -40,6 +40,7 @@ import ch.epfl.sweng.vanjel.nearbyDoctor.NearbyDoctor;
 import ch.epfl.sweng.vanjel.patientInfo.PatientInfo;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
+import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
 /**
  * @author Luca JOSS
@@ -51,7 +52,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry, userType;
 
-    Button editButton, saveButton, searchButton,  treatedPatientsButton, setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton, patientInfoButton, logoutButton, buttonNextAppointments;
+    Button editButton, saveButton, searchButton,  treatedPatientsButton, setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton, patientInfoButton, logoutButton, buttonNextAppointments, forwardButton;
+
 
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -81,6 +83,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         favoriteListButton.setOnClickListener(this);
         buttonNextAppointments.setOnClickListener(this);
         treatedPatientsButton.setOnClickListener(this);
+        forwardButton.setOnClickListener(this);
         isPatientUser();
     }
 
@@ -118,38 +121,31 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.requestsListButton:
-                startActivity(new Intent(this ,DoctorAppointmentsList.class));
-                break;
+                startActivity(new Intent(this ,DoctorAppointmentsList.class)); break;
             case R.id.logoutButton:
-                logOut();
-                break;
+                logOut(); break;
             case R.id.patientInfoButton:
-                patientInfo();
-                break;
+                patientInfo(); break;
             case R.id.editButton:
-                setEditText(true, View.GONE, View.VISIBLE);
-                break;
+                setEditText(true, View.GONE, View.VISIBLE); break;
             case R.id.saveButton:
                 getStringFromFields(); saveNewValues();
-                setEditText(false, View.VISIBLE, View.GONE);
-                break;
+                setEditText(false, View.VISIBLE, View.GONE); break;
             case R.id.searchDoctorButton:
                 startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward",false).putExtra("doctor1Forward","").putExtra("patientForward",""));
                 break;
             case R.id.setAvailabilityButton:
-                startActivity(new Intent(this, DoctorAvailabilityActivity.class));
-                break;
+                startActivity(new Intent(this, DoctorAvailabilityActivity.class)); break;
             case R.id.nearbyDoctorButton:
-                startActivity(new Intent(this, NearbyDoctor.class));
-                break;
+                startActivity(new Intent(this, NearbyDoctor.class)); break;
             case R.id.treatedPatientsButton:
-                startActivity(new Intent(this, TreatedPatients.class));
-                break;
+                startActivity(new Intent(this, TreatedPatients.class)); break;
             case R.id.buttonNextAppointments:
-                nextAppointments();
-                break;
+                nextAppointments(); break;
             case R.id.favoriteListButton:
-                startActivity(new Intent(this, PatientFavoriteListActivity.class));
+                startActivity(new Intent(this, PatientFavoriteListActivity.class)); break;
+            case R.id.forwardButton:
+                startActivity(new Intent(this, ForwardRequest.class));
         }
     }
 
@@ -195,6 +191,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.setAvailabilityButton = findViewById(R.id.setAvailabilityButton);
         this.requestsListButton = findViewById(R.id.requestsListButton);
         this.favoriteListButton = findViewById(R.id.favoriteListButton);
+        this.forwardButton = findViewById(R.id.forwardButton);
     }
 
     // Enables editing of some fields and replaces Edit button with Save.
@@ -247,9 +244,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setUserAs(String type, int v1, int v2) {
+        // v1 --> patient, v2 --> doctor
         userType = type;
         searchButton.setVisibility(v1);
         setAvailabilityButton.setVisibility(v2);
+        database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
+        forwardButton.setVisibility(v1);
         database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
     }
 
