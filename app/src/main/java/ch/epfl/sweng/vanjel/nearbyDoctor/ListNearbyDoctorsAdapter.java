@@ -22,13 +22,13 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
 
-    ArrayList<Doctor> doctors;
-    HashMap<String, Doctor> doctorHashMap;
-    Context context;
+    private ArrayList<Doctor> doctors;
+    private HashMap<String, Doctor> doctorHashMap;
+    private Context context;
     private LatLng userLocation;
 
 
-    public ListNearbyDoctorsAdapter(Context context, HashMap<String, Doctor> data, LatLng userLocation) {
+    ListNearbyDoctorsAdapter(Context context, HashMap<String, Doctor> data, LatLng userLocation) {
 
         this.doctorHashMap = data;
         this.context = context;
@@ -37,8 +37,7 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
         doctors = new ArrayList<>();
 
 //         loop for to take doctorHashmap to doctor
-        for (Doctor doc : doctorHashMap.values())
-            doctors.add(doc);
+        doctors.addAll(doctorHashMap.values());
 
 
     }

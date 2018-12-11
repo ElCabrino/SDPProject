@@ -88,7 +88,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private ValueEventListener createValueEventListener(final String type) {
-        ValueEventListener listener = new ValueEventListener() {
+        return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (type.compareTo("Patient") == 0) { setTextFields(dataSnapshot, Patient.class);
@@ -100,9 +100,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         };
-        return listener;
     }
 
+    @SuppressWarnings("ConstantConditions") //TODO if empty constructor is deleted this would be not needed
     private void setTextFields(DataSnapshot dataSnapshot, Class<? extends User> c) {
         User user = dataSnapshot.getValue(c);
         c.cast(user);
@@ -231,10 +231,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
-                    setUserAs("Patient", View.VISIBLE, View.GONE);
-                } else {
-                    setUserAs("Doctor", View.GONE, View.VISIBLE);
+                if ((auth.getCurrentUser() != null) && (dataSnapshot.hasChild(auth.getCurrentUser().getUid()))) {
+                    setUserAs("Patient", View.VISIBLE, View.GONE, auth.getCurrentUser().getUid());
+                } else if ((auth.getCurrentUser() != null) && !(dataSnapshot.hasChild(auth.getCurrentUser().getUid()))){
+                    setUserAs("Doctor", View.GONE, View.VISIBLE, auth.getCurrentUser().getUid());
                 }
             }
 
@@ -243,30 +243,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
-    private void setUserAs(String type, int v1, int v2) {
+    private void setUserAs(String type, int v1, int v2, String uid) {
         // v1 --> patient, v2 --> doctor
         userType = type;
         searchButton.setVisibility(v1);
         setAvailabilityButton.setVisibility(v2);
-        database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
+        database.getReference(type).child(uid).addValueEventListener(createValueEventListener(type));
         forwardButton.setVisibility(v1);
-        database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
+        database.getReference(type).child(uid).addValueEventListener(createValueEventListener(type));
     }
 
     // Updates user with values in the fields.
     void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
-        database.getReference(userType).child(auth.getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (auth.getCurrentUser() != null) {
+            database.getReference(userType).child(auth.getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(Profile.this, "User successfully updated.", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private Map<String, Object> storeUpdatedValues() {

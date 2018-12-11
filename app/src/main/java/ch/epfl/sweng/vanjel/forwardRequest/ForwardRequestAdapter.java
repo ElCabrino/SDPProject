@@ -29,11 +29,11 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAdapter.ViewHolder> {
 
-    Map<String,Forward> forwardsMap;
-    List<Forward> forwardsList;
-    Context context;
+    private Map<String,Forward> forwardsMap;
+    private List<Forward> forwardsList;
+    private Context context;
 
-    public ForwardRequestAdapter(Context context, Map<String,Forward> forward){
+    ForwardRequestAdapter(Context context, Map<String, Forward> forward){
         this.context = context;
         this.forwardsMap = forward;
         this.forwardsList = new ArrayList<>();
@@ -97,13 +97,13 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
         }
     }
 
-    private String forwardToUid(Forward f){
+    private String forwardToUid(Forward f) throws RuntimeException{
         for (Map.Entry<String, Forward> entry : forwardsMap.entrySet()) {
             if (f.equals(entry.getValue())) {
                 return entry.getKey();
             }
         }
-        return null;
+        throw new RuntimeException("Missing element when forwarding");
     }
 
 }

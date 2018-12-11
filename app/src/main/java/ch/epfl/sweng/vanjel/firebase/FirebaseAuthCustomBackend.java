@@ -15,7 +15,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
-/**
+/*
  * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
  */
 
@@ -34,10 +34,6 @@ public class FirebaseAuthCustomBackend {
     @Mock
     private static FirebaseUser mockUser;
 
-    @Mock
-    private Task<AuthResult> mockRegistrationTask;
-    @Mock
-    private Task<AuthResult> mockCompleteTask;
     @Mock
     private Task<AuthResult> mockLoginTask;
     @Mock

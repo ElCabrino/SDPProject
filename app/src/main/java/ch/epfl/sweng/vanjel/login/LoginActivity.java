@@ -14,12 +14,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import ch.epfl.sweng.vanjel.appointment.AppointmentNotificationBackgroundService;
 import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
-import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.mainMenu.Profile;
 import ch.epfl.sweng.vanjel.R;
 
@@ -31,7 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText emailField, passwordField;
 
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override

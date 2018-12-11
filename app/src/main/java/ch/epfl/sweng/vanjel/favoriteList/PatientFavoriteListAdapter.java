@@ -22,7 +22,7 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
     private Context context;
     List<DoctorFavorite> favoriteDoctorList;
 
-    public PatientFavoriteListAdapter(Context context){
+    PatientFavoriteListAdapter(Context context){
         this.context = context;
         this.favoriteDoctorList = new ArrayList<>();
     }

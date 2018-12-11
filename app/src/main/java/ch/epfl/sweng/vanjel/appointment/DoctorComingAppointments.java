@@ -22,6 +22,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+import ch.epfl.sweng.vanjel.firebase.FirebaseHelper;
 import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
@@ -119,7 +120,8 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
         if(uid.equals(request.child("doctor").getValue(String.class))){
             String day, hour, patientUid, doctorUid;
-            int duration = Integer.valueOf(dataSnapshotChildToString(request, "duration"));
+            int duration = Integer.valueOf(request.child("duration").getValue(String.class));
+            //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
             day = request.child("date").getValue(String.class);
             doctorUid = request.child("doctor").getValue(String.class);
             hour = request.child("time").getValue(String.class);
