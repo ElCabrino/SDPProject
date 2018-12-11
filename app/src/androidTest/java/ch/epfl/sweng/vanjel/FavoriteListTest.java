@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
+import ch.epfl.sweng.vanjel.models.Doctor;
+import ch.epfl.sweng.vanjel.models.DoctorActivity;
+import ch.epfl.sweng.vanjel.models.Gender;
 
 import static org.junit.Assert.assertEquals;
 

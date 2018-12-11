@@ -17,6 +17,14 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.patientInfo.Drug;
+import ch.epfl.sweng.vanjel.patientInfo.DrugReaction;
+import ch.epfl.sweng.vanjel.patientInfo.Info;
+import ch.epfl.sweng.vanjel.patientInfo.InfoString;
+import ch.epfl.sweng.vanjel.patientInfo.PatientInfo;
+import ch.epfl.sweng.vanjel.patientInfo.Surgery;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;

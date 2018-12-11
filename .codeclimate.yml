@@ -33,7 +33,7 @@ checks:
 exclude_patterns:
 - "app/src/test"
 - "app/src/androidTest"
-- "app/src/main/java/ch/epfl/sweng/vanjel/FirebaseAuthCustomBackend.java"
-- "app/src/main/java/ch/epfl/sweng/vanjel/FirebaseDatabaseCustomBackend.java"
-- "app/src/main/java/ch/epfl/sweng/vanjel/Appointment.java"
+- "app/src/main/java/ch/epfl/sweng/vanjel/firebase/FirebaseAuthCustomBackend.java"
+- "app/src/main/java/ch/epfl/sweng/vanjel/firebase/FirebaseDatabaseCustomBackend.java"
+- "app/src/main/java/ch/epfl/sweng/vanjel//appointment/Appointment.java"
 - "app/src/main/java/ch/epfl/sweng/vanjel/chat/Chat.java"

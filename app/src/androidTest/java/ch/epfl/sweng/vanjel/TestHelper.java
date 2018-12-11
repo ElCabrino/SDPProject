@@ -7,6 +7,9 @@ import android.support.test.rule.ActivityTestRule;
 
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+
 public class TestHelper {
 
     public static void restoreMockFlags() {

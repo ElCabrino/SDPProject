@@ -10,19 +10,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ch.epfl.sweng.vanjel.login.LoginActivity;
+import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
+import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
-import static org.hamcrest.Matchers.not;
 
 /**
 

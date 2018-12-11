@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DoctorPatientInfo">
+    tools:context=".patientInfo.DoctorPatientInfo">
 
     <ScrollView
         android:id="@+id/doctorPatientInfoScrollView"
@@ -45,7 +45,7 @@
                 android:text="Previous medical conditions"
                 android:textSize="20sp" />
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtPriorConditionsList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:text="Previous surgeries"
                 android:textSize="20sp" />
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtSurgeryList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:textSize="20sp" />
 
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtAllergyList"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:text="Previous drug reactions"
                 android:textSize="20sp" />
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtDrugReactionList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                 android:text="Current medications"
                 android:textSize="20sp" />
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtDrugRegimenList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                 android:textSize="20sp" />
 
 
-            <ch.epfl.sweng.vanjel.ExpandedListView
+            <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtSubstanceList"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
