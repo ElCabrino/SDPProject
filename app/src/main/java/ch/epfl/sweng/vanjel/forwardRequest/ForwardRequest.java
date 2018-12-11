@@ -13,15 +13,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.Doctor;
-import ch.epfl.sweng.vanjel.DoctorComingAppointments;
-import ch.epfl.sweng.vanjel.DoctorComingAppointmentsAdapter;
-import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
-import ch.epfl.sweng.vanjel.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 /**

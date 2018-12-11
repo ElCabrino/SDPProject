@@ -11,6 +11,9 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.appointment.DoctorAppointmentsList;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+
 @RunWith(AndroidJUnit4.class)
 public class RequestAppointmentListTest {
 

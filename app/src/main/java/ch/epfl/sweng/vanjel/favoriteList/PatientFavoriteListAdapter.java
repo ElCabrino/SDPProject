@@ -11,14 +11,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import ch.epfl.sweng.vanjel.DoctorInformation;
+import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.favorite.DoctorFavorite;
-import ch.epfl.sweng.vanjel.recyclerViewAdapter;
+import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
-public class PatientFavoriteListAdapter extends recyclerViewAdapter<PatientFavoriteListAdapter.ViewHolder> {
+public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavoriteListAdapter.ViewHolder> {
 
     private Context context;
     List<DoctorFavorite> favoriteDoctorList;

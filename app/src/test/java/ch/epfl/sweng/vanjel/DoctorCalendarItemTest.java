@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import java.util.Calendar;
 
+import ch.epfl.sweng.vanjel.doctorCalendar.DoctorCalendarItem;
+import ch.epfl.sweng.vanjel.models.Gender;
+import ch.epfl.sweng.vanjel.models.Patient;
+
 import static org.junit.Assert.assertEquals;
 
 public class DoctorCalendarItemTest {

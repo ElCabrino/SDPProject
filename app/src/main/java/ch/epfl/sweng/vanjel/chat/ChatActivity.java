@@ -28,8 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.FirebaseAuthCustomBackend;
-import ch.epfl.sweng.vanjel.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 /**

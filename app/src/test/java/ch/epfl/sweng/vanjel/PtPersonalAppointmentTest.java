@@ -2,6 +2,8 @@ package ch.epfl.sweng.vanjel;
 
 import org.junit.Test;
 
+import ch.epfl.sweng.vanjel.patientAppointment.PtPersonalAppointment;
+
 import static org.junit.Assert.*;
 
 public class PtPersonalAppointmentTest {
