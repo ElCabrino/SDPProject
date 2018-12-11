@@ -49,14 +49,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
 
-    Button patientInfoButton, logoutButton, buttonNextAppointments;
-    String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
+    String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry, userType;
 
-
-    Button editButton, saveButton, searchButton,  treatedPatientsButton;
-    Button setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton;
-
-    String userType;
+    Button editButton, saveButton, searchButton,  treatedPatientsButton, setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton, patientInfoButton, logoutButton, buttonNextAppointments;
 
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -139,8 +134,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 setEditText(false, View.VISIBLE, View.GONE);
                 break;
             case R.id.searchDoctorButton:
-                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward",false)
-                        .putExtra("doctor1Forward","").putExtra("patientForward",""));
+                startActivity(new Intent(this, SearchDoctor.class).putExtra("isForward",false).putExtra("doctor1Forward","").putExtra("patientForward",""));
                 break;
             case R.id.setAvailabilityButton:
                 startActivity(new Intent(this, DoctorAvailabilityActivity.class));
@@ -176,8 +170,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logOut(){
-        LocalDatabaseService l = new LocalDatabaseService(this);
-        l.nuke();
+        new LocalDatabaseService(this).nuke();
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
@@ -237,8 +230,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     void isPatientUser() {
-        DatabaseReference patientRef;
-        patientRef = database.getReference("Patient");
+        DatabaseReference patientRef = database.getReference("Patient");
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -250,9 +242,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { Log.d("ERROR", "The read failed: "+databaseError.getCode()); }
         });
     }
 
@@ -260,8 +250,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         userType = type;
         searchButton.setVisibility(v1);
         setAvailabilityButton.setVisibility(v2);
-        String s = auth.getCurrentUser().getUid();
-        database.getReference(type).child(s).addValueEventListener(createValueEventListener(type));
+        database.getReference(type).child(auth.getCurrentUser().getUid()).addValueEventListener(createValueEventListener(type));
     }
 
     // Updates user with values in the fields.
