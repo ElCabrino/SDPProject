@@ -1,17 +1,16 @@
 
 package ch.epfl.sweng.vanjel.chat;
 
-/**
- * Class that represents a Chat
- *
- * @author Etienne Caquot
- */
-
-/**
+/*
  * Due to unreasonable code climate duplicate issue with Appointment class
  * This class is ignored by code climate.
  */
 
+/**
+ * Class that represents a Chat
+ * @author Etienne Caquot
+ * @reviewer Luca Joss
+ */
 public class Chat {
 
     private String time;
@@ -38,7 +37,7 @@ public class Chat {
      * @return time of last message
      */
     public String getTime() {
-        return new String(time);
+        return time;
     }
 
     /**
@@ -46,7 +45,7 @@ public class Chat {
      * @return last message
      */
     public String getLastMessage() {
-        return new String(lastMessage);
+        return lastMessage;
     }
 
     /**
@@ -54,7 +53,7 @@ public class Chat {
      * @return contact Name
      */
     public String getContactName() {
-        return new String(contactName);
+        return contactName;
     }
 
     /**
@@ -62,6 +61,6 @@ public class Chat {
      * @return contact UID
      */
     public String getContactUid() {
-        return new String(contactUid);
+        return contactUid;
     }
 }

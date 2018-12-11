@@ -7,7 +7,7 @@ package ch.epfl.sweng.vanjel.appointment;
 
 /**
  * @author Vincent CABRINI
- * @reviewer
+ * @reviewer Luca Joss
  */
 public class Appointment {
     private String day;

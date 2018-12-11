@@ -4,6 +4,7 @@ package ch.epfl.sweng.vanjel.chat;
  * Class that represents a Messag
  *
  * @author Etienne Caquot
+ * @reviewer Vincent Cabrini
  */
 public class Message {
 
@@ -28,7 +29,7 @@ public class Message {
      * @return time of message
      */
     public String getTime() {
-        return new String(time);
+        return time;
     }
 
     /**
@@ -36,7 +37,7 @@ public class Message {
      * @return message text
      */
     public String getMessage() {
-        return new String(message);
+        return message;
     }
 
     /**
@@ -44,6 +45,6 @@ public class Message {
      * @return senderUid
      */
     public String getSenderUid() {
-        return new String(senderUid);
+        return senderUid;
     }
 }
