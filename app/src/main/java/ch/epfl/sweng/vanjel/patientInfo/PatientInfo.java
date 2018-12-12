@@ -147,18 +147,67 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
 
-        //TODO: finish update list
+        //TODO: finish update list; refactor
         listViewConditions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 InfoString cond = conditionList.get(i);
-                showUpdateDialog(cond);
+                showUpdateDialog(cond, "Condition",true);
                 return false;
             }
         });
 
+
+        listViewSurgeries.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Surgery chir = surgeryList.get(i);
+                showUpdateDialog(new InfoString(chir.getType()), "Surgery",false);
+                return false;
+            }
+        });
+
+        listViewAllergies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InfoString allergy = allergyList.get(i);
+                showUpdateDialog(allergy, "Allergy",true);
+                return false;
+            }
+        });
+
+
+        listViewDrugReactions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DrugReaction dr = drugReactionList.get(i);
+                showUpdateDialog(new InfoString(dr.getDrug()), "DrugReaction",false);
+                return false;
+            }
+        });
+
+        listViewDrugs.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Drug drug = drugList.get(i);
+                showUpdateDialog(new InfoString(drug.getDrug()), "Drug",false);
+                return false;
+            }
+        });
+
+        listViewSubstances.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InfoString allergy = substanceList.get(i);
+                showUpdateDialog(allergy, "Substance",true);
+                return false;
+            }
+        });
+
+
     }
 
+    //TODO: consistency
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -199,11 +248,8 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    String getTextFromField(EditText field){
-        return field.getText().toString().trim();
-    }
 
-    void showUpdateDialog(final InfoString oldInfo) {
+    void showUpdateDialog(final InfoString oldInfo, final String category, boolean isSingleField) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -222,31 +268,42 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String info = editTextName.getText().toString().trim();
-                if(TextUtils.isDigitsOnly(info)) {
-                    editTextName.setError("Information required");
-                    return;
-                }
-                patientInfoDatabaseService.deleteCondition(oldInfo.getInfo());
-                patientInfoDatabaseService.updateCondition(info);
+        //TODO: wat do if not single field
+        //update button if value is a single field
+        if (!isSingleField) {
+            buttonUpdate.setVisibility(View.INVISIBLE);
+        }
+        else {
+            buttonUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String info = editTextName.getText().toString().trim();
+                    if (TextUtils.isDigitsOnly(info)) {
+                        editTextName.setError("Information required");
+                        return;
+                    }
+                    patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
+                    patientInfoDatabaseService.addItemToDatabase(info, category, new InfoString(info));
+                    //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
 
-                alertDialog.dismiss();
-            }
-        });
+                    alertDialog.dismiss();
+                }
+            });
+        }
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                patientInfoDatabaseService.deleteCondition(oldInfo.getInfo());
-
+                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(),category);
                 alertDialog.dismiss();
             }
         });
 
 
+    }
+
+    String getTextFromField(EditText field){
+        return field.getText().toString().trim();
     }
 
 

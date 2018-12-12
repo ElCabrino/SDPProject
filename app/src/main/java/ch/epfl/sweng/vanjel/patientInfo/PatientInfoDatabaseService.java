@@ -123,18 +123,19 @@ class PatientInfoDatabaseService {
         }
     }
 
-    void updateCondition(String info) {
-        DatabaseReference dbCat = userDatabaseReference.child("Condition").child(info);
+    //TODO: check if method needed
+    void updateCondition(String info, String category) {
+        DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         InfoString cond = new InfoString(info);
         dbCat.setValue(cond);
         Toast.makeText(this.activity,"Condition updated",Toast.LENGTH_LONG).show();
 
     }
 
-    void deleteCondition(String info) {
-        DatabaseReference dbCat = userDatabaseReference.child("Condition").child(info);
+    void deleteItem(String info, String category) {
+        DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();
-        Toast.makeText(this.activity,"Condition deleted",Toast.LENGTH_LONG).show();
+        Toast.makeText(this.activity,String.format("%s deleted",category),Toast.LENGTH_LONG).show();
     }
 
 
