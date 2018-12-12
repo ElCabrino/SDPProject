@@ -187,16 +187,16 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         database.getReference("Doctor").child(uid+"/Availability/Saturday").addValueEventListener(createValueEventListener(TimeAvailability.SATURDAY));
     }
 
-    private ValueEventListener createValueEventListener(final int dayindex) {
+    @SuppressWarnings("ConstantConditions")
+    private ValueEventListener createValueEventListener(final int dayIndex) {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 @SuppressWarnings("unchecked") //TODO pas sur si on peut faire mieux
                 Map<String, Object> tm = (Map<String, Object>) dataSnapshot.getValue();
 
-                if (tm != null) {
-                    Object value = tm.get("availability");
-                    if (value != null) setOldSlots(TimeAvailability.getAvailability(dayindex, value.toString()), dayindex);
+                if ((tm != null)&&(tm.get("availability")!=null)) { //checking here if the get return a non-null object but lint still warn about a null pointer
+                    setOldSlots(TimeAvailability.getAvailability(dayIndex, tm.get("availability").toString()), dayIndex);
                 } else {
                     Log.d("ERROR", "tm is null");
                 }
@@ -209,8 +209,8 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         };
     }
 
-    private void setOldSlots(boolean[] oldSlots, final int dayindex) {
-        for (int i=dayindex;i<dayindex+22;i++) {
+    private void setOldSlots(boolean[] oldSlots, final int dayIndex) {
+        for (int i=dayIndex;i<dayIndex+22;i++) {
             buttons[i].setChecked(oldSlots[i]);
         }
     }
