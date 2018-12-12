@@ -32,23 +32,24 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  * @author Vincent CABRINI
  * @reviewer Luca JOSS
  */
+@SuppressWarnings("UseSparseArrays")
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    public
-    Toast mToast;
+    @VisibleForTesting()
+    public Toast mToast;
 
     //Appointment with the doctor of this ID
     String doctorUID;
 
     String selectedDate;
 
-    Boolean slotSelected = new Boolean(false);
+    Boolean slotSelected = Boolean.FALSE;
     boolean[] slotsAvailability;
 
-    HashMap<Integer, Button> buttonsAppointment = new HashMap<Integer, Button>();
-    HashMap<Integer, Boolean> buttonsState= new HashMap<Integer, Boolean>();
-    HashMap<Integer, Integer> slotState = new HashMap<Integer, Integer>();
+
+    HashMap<Integer, Button> buttonsAppointment = new HashMap<>();
+    HashMap<Integer, Boolean> buttonsState= new HashMap<>();
+    HashMap<Integer, Integer> slotState = new HashMap<>();
 
     FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -122,7 +123,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     //Change state of button
     void changeState(int i){
         //case where no time slot is selected
-        if (!(buttonsState.get(i)) && !slotSelected) {
+        if ((buttonsState != null) && !(buttonsState.get(i)) && !slotSelected) {
             findViewById(i).setBackgroundColor(0xFF303F9F);
             buttonsState.put(i, true);
             slotSelected = true;
@@ -135,7 +136,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         }
         //case time slot already selected
         else {
-            mToast.makeText(this, "You've already picked a time slot", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You've already picked a time slot", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -160,12 +161,12 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
                 r2.addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        mToast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        mToast.makeText(PatientAppointmentActivity.this, "Failed request appointment.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PatientAppointmentActivity.this, "Failed request appointment.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -190,7 +191,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         String res = "";
         String[] subStrings = selectedDate.split("[0-9]{2}:[0-9]{2}:[0-9]{2}.+[0-9]{2}:[0-9]{2}");
         for (String s : subStrings) {
-            res+=s;
+            res = res.concat(s);
         }
         return res.replaceAll("\\s\\s", " ");
     }
@@ -231,7 +232,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
                 GenericTypeIndicator<HashMap<String, String>> genericType = new GenericTypeIndicator<HashMap<String, String>>() {};
                 HashMap<String, String> av = dataSnapshot.getValue(genericType);
                 // If Doctor has not set availability, we consider he is available all time.
-                if (av != null) {
+                if ((av != null) && (av.get("availability") != null)) {
                     slotsAvailability = TimeAvailability.parseTimeStringToSlots(av.get("availability"));
                     setDoctorAvailability();
                 }
@@ -246,7 +247,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     private void setDoctorAvailability() {
         for (int i=0; i<slotsAvailability.length;i++)
-            if (slotsAvailability[i] == false) {
+            if (!slotsAvailability[i]) {
                 findViewById(slotState.get(i)).setBackgroundColor(0xFFFFFFFF);
                 findViewById(slotState.get(i)).setEnabled(false);
                 buttonsState.put(slotState.get(i), false);
