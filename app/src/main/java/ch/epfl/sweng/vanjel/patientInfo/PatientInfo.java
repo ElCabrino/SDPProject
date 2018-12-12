@@ -50,7 +50,9 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_patient_info);
 
         //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getCurrentUser().getUid());
+        if (auth.getCurrentUser() != null) {
+            patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
+        } //TODO exception not logged in
 
         saveButton = findViewById(R.id.buttonGenInfoPtReg);
 
@@ -126,18 +128,18 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onStart();
         // add the database listeners
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
-                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
+                InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
-                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
+                Surgery.class, new InfoList<>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
         patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
-                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+                InfoString.class, new InfoList<>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
         patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
-                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
+                DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
-                Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
+                Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
 
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
-                InfoString.class, new InfoList<InfoString>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+                InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
 
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");

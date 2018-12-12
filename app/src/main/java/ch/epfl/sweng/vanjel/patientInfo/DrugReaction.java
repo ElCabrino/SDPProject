@@ -6,7 +6,7 @@ package ch.epfl.sweng.vanjel.patientInfo;
  */
 public class DrugReaction extends Info{
 
-    String drug, reaction;
+    private String drug, reaction;
 
     public DrugReaction() {}
 

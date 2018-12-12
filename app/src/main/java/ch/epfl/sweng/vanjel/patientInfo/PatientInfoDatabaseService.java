@@ -27,11 +27,8 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 class PatientInfoDatabaseService {
 
 
-    private String UserID ; //FirebaseAuth.getInstance().getUid();
     private AppCompatActivity activity;
     private DatabaseReference userDatabaseReference;
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
 
     //TEMPORARY ID
@@ -39,8 +36,8 @@ class PatientInfoDatabaseService {
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
         //String s = auth.getCurrentUser().getUid();
-        String s = patientID;
-        this.userDatabaseReference = database.getReference("Patient").child(s);
+        FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+        this.userDatabaseReference = database.getReference("Patient").child(patientID);
     }
 
 

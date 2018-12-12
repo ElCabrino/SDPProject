@@ -19,9 +19,8 @@ public class InfoList<Info> extends ArrayAdapter<Info> {
     private Activity context;
     private List<Info> infoList;
     private int idLayout, idTextView;
-    private ch.epfl.sweng.vanjel.patientInfo.Info info;
 
-    public InfoList(Activity context, List<Info> infoList, int idLayout, int idTextView) {
+    InfoList(Activity context, List<Info> infoList, int idLayout, int idTextView) {
         super(context, idLayout, infoList);
         this.idTextView = idTextView;
         this.idLayout = idLayout;
@@ -31,22 +30,24 @@ public class InfoList<Info> extends ArrayAdapter<Info> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
         View listViewItem = inflater.inflate(idLayout,null,true);
-        TextView textView = (TextView) listViewItem.findViewById(idTextView);
+        TextView textView = listViewItem.findViewById(idTextView);
 
-        info = (ch.epfl.sweng.vanjel.patientInfo.Info) infoList.get(position);
+        ch.epfl.sweng.vanjel.patientInfo.Info info = (ch.epfl.sweng.vanjel.patientInfo.Info) infoList.get(position);
 
         if(info instanceof Surgery) {
-            textView.setText(((Surgery) info).type + " in " + ((Surgery) info).getYear());
-            //textViewDrugReactions.setText(drugReaction.getDrug() + " : " + drugReaction.getReaction());
+            String surgeryInfo = ((Surgery) info).getType() + " in " + ((Surgery) info).getYear();
+            textView.setText(surgeryInfo);
         } else if (info instanceof DrugReaction) {
-            textView.setText(((DrugReaction) info).getDrug() + " : " + ((DrugReaction) info).getReaction());
+            String drugReactionInfo = ((DrugReaction) info).getDrug() + " : " + ((DrugReaction) info).getReaction();
+            textView.setText(drugReactionInfo);
         } else if(info instanceof Drug) {
-            textView.setText(((Drug) info).getDrug() + " " + ((Drug) info).getDosage()+ ", " +
-                    ((Drug) info).getFrequency() + " per day");
+            String drugInfo = ((Drug) info).getDrug() + " " + ((Drug) info).getDosage()+ ", " +
+                    ((Drug) info).getFrequency() + " per day";
+            textView.setText(drugInfo);
         }
         else {
             textView.setText(info.getAndroidInfo());
