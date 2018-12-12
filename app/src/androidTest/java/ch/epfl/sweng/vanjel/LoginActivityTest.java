@@ -16,6 +16,7 @@ import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -65,7 +66,7 @@ public class LoginActivityTest {
         setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
         helper.enterEmail(email);
         helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(click());
+        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
         intended(hasComponent(MainMenu.class.getName()));
 
     }
@@ -92,7 +93,7 @@ public class LoginActivityTest {
         setupNoExtras(LoginActivity.class,ActivityRule,true,false,true,false,false,false);
         helper.enterEmail(email);
         helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(click());
+        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
        // onView(withText("Authentication failed.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }
