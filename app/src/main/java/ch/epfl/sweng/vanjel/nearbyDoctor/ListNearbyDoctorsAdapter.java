@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.models.Doctor;
@@ -58,7 +59,8 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
-        viewHolder.distance.setText(String.format("%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0) + " km");
+        String formattedString = String.format(Locale.getDefault(),"%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0).concat(" km");
+        viewHolder.distance.setText(formattedString);
 
         final int id = i;
 
@@ -87,7 +89,6 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            int i = 0;
             firstName = itemView.findViewById(R.id.firstName);
             lastName = itemView.findViewById(R.id.lastName);
             activity = itemView.findViewById(R.id.activity);
