@@ -1,8 +1,12 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -142,6 +146,17 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
+
+        //TODO: finish update list
+        listViewConditions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InfoString cond = conditionList.get(i);
+                showUpdateDialog(cond);
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -187,4 +202,52 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     String getTextFromField(EditText field){
         return field.getText().toString().trim();
     }
+
+    void showUpdateDialog(final InfoString oldInfo) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
+
+        dialogBuilder.setView(dialogView);
+
+        //final TextView textViewName = (TextView) dialogView.findViewById(R.id.patientInfoUpdateTextView);
+        final EditText editTextName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateEditView);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdate);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDelete);
+
+        dialogBuilder.setTitle("Updating condition");
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String info = editTextName.getText().toString().trim();
+                if(TextUtils.isDigitsOnly(info)) {
+                    editTextName.setError("Information required");
+                    return;
+                }
+                patientInfoDatabaseService.deleteCondition(oldInfo.getInfo());
+                patientInfoDatabaseService.updateCondition(info);
+
+                alertDialog.dismiss();
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                patientInfoDatabaseService.deleteCondition(oldInfo.getInfo());
+
+                alertDialog.dismiss();
+            }
+        });
+
+
+    }
+
+
 }

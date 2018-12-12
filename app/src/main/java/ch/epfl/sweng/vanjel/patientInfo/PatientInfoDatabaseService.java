@@ -1,8 +1,11 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -94,12 +97,18 @@ class PatientInfoDatabaseService {
 
     <T> void addItemToDatabase(String item, String category, T itemObject) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
+        String toastText = category;
+        // for correct string format
+        if (category == "DrugReaction") {
+            toastText = "Drug reaction";
+        }
+
         if (!TextUtils.isEmpty(item)) {
             dbCat.child(item).setValue(itemObject);
-            Toast.makeText(this.activity, "%s added".format(category), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("%s added.",toastText), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity, "Please enter the %s information you want to add".format(category.toLowerCase()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.",toastText.toLowerCase()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -107,11 +116,27 @@ class PatientInfoDatabaseService {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         if(!TextUtils.isEmpty(amount)) {
             dbCat.setValue(amount);
-            Toast.makeText(this.activity,"%s added".format(category),Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity,String.format("%s amount added.",category),Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity,"Please enter the %s amount".format(category), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("Please enter the %s amount.",category.toLowerCase()), Toast.LENGTH_LONG).show();
         }
     }
+
+    void updateCondition(String info) {
+        DatabaseReference dbCat = userDatabaseReference.child("Condition").child(info);
+        InfoString cond = new InfoString(info);
+        dbCat.setValue(cond);
+        Toast.makeText(this.activity,"Condition updated",Toast.LENGTH_LONG).show();
+
+    }
+
+    void deleteCondition(String info) {
+        DatabaseReference dbCat = userDatabaseReference.child("Condition").child(info);
+        dbCat.removeValue();
+        Toast.makeText(this.activity,"Condition deleted",Toast.LENGTH_LONG).show();
+    }
+
+
 
 }
