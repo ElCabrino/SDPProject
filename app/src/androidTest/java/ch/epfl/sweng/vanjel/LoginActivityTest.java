@@ -66,7 +66,7 @@ public class LoginActivityTest {
         setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
         helper.enterEmail(email);
         helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
+        onView(withId(R.id.buttonLogin)).perform(click());
         intended(hasComponent(MainMenu.class.getName()));
 
     }
@@ -93,7 +93,7 @@ public class LoginActivityTest {
         setupNoExtras(LoginActivity.class,ActivityRule,true,false,true,false,false,false);
         helper.enterEmail(email);
         helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
+        onView(withId(R.id.buttonLogin)).perform(click());
        // onView(withText("Authentication failed.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }
