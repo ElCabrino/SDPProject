@@ -154,7 +154,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     private void storeAppointment() {
         DatabaseReference ref = database.getReference("Requests");
         for (Integer i: buttonsAppointment.keySet()) {
-            if (buttonsState.get(i) == true) {
+            if (buttonsState.get(i)) {
                 Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, auth.getCurrentUser().getUid());
                 DatabaseReference r1 = ref.push();
                 Task r2 = r1.updateChildren(request);

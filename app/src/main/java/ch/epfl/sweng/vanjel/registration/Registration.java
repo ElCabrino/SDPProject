@@ -115,7 +115,7 @@ public class Registration extends AppCompatActivity {
     private OnCompleteListener<AuthResult> createAuthListener(final Boolean DoctorReg,
                                                               final Doctor doctor,
                                                               final Patient patient) {
-        OnCompleteListener<AuthResult> listener = new OnCompleteListener<AuthResult>() {
+        return new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // task : create account
@@ -127,7 +127,6 @@ public class Registration extends AppCompatActivity {
                 }
             }
         };
-        return listener;
     }
 
     private Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
@@ -231,10 +230,7 @@ public class Registration extends AppCompatActivity {
         // Compare the regex with the email address
         pattern = Pattern.compile(emailRegEx);
         Matcher matcher = pattern.matcher(email);
-        if (!matcher.find()) {
-            return false;
-        }
-        return true;
+        return matcher.find();
 
     }
 

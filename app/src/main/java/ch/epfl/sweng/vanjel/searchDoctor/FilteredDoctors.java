@@ -95,10 +95,7 @@ public class FilteredDoctors extends AppCompatActivity {
     }
 
     private boolean compareString(String s1, String s2){
-        if(s1.toLowerCase().equals(s2.toLowerCase()))
-            return true;
-        else
-            return false;
+        return s1.toLowerCase().equals(s2.toLowerCase());
     }
 
     private void select(){
