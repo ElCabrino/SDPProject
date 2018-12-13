@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,14 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.AppointmentNotificationBackgroundService;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
 import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
-import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
-import ch.epfl.sweng.vanjel.R;
 
 /**
  * @author Vincent CABRINI
@@ -34,7 +31,6 @@ import ch.epfl.sweng.vanjel.R;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText emailField, passwordField;
-    private ProgressBar progressBarLogin;
     private Button buttonLogin;
 
     private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -53,7 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonLogin.setOnClickListener(this);
         findViewById(R.id.registrationLogin).setOnClickListener(this);
 
-        progressBarLogin = findViewById(R.id.progressBarLogin);
     }
 
 
@@ -92,9 +87,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validateForm()) {
             return;
         }
-        progressBarLogin.setVisibility(View.VISIBLE);
-        buttonLogin.setVisibility(View.GONE);
-
 
         // [START sign_in_with_email]
         Task<AuthResult> t = auth.signInWithEmailAndPassword(email, password);
@@ -110,15 +102,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            progressBarLogin.setVisibility(View.GONE);
-                            buttonLogin.setVisibility(View.VISIBLE);
                         }
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, R.string.login_failed_error, Toast.LENGTH_SHORT).show();
-                            progressBarLogin.setVisibility(View.GONE);
-                            buttonLogin.setVisibility(View.VISIBLE);
                         }
                         // [END_EXCLUDE]
                     }
