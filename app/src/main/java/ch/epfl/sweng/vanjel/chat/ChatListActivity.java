@@ -34,8 +34,8 @@ public class ChatListActivity extends AppCompatActivity {
 
     private Map<String,Chat> chats;
 
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     private String userUid;
     private Map<String,String> UidToName;

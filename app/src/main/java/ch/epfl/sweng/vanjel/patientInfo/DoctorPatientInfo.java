@@ -17,18 +17,25 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class DoctorPatientInfo extends AppCompatActivity {
 
-    PatientInfoDatabaseService patientInfoDatabaseService;
+    private PatientInfoDatabaseService patientInfoDatabaseService;
 
-    ListView listViewConditions, listViewSurgeries, listViewAllergies, listViewDrugReactions, listViewDrugs, listViewSubstances;
+    private ListView listViewConditions;
+    private ListView listViewSurgeries;
+    private ListView listViewAllergies;
+    private ListView listViewDrugReactions;
+    private ListView listViewDrugs;
+    private ListView listViewSubstances;
 
-    TextView textViewSmoking, textViewDrinking, textViewExercise;
+    private TextView textViewSmoking;
+    private TextView textViewDrinking;
+    private TextView textViewExercise;
 
-    List<InfoString> conditionList = new ArrayList<>();
-    List<Surgery> surgeryList = new ArrayList<>();
-    List<InfoString> allergyList = new ArrayList<>();
-    List<DrugReaction> drugReactionList = new ArrayList<>();
-    List<Drug> drugList = new ArrayList<>();
-    List<InfoString> substanceList = new ArrayList<>();
+    private final List<InfoString> conditionList = new ArrayList<>();
+    private final List<Surgery> surgeryList = new ArrayList<>();
+    private final List<InfoString> allergyList = new ArrayList<>();
+    private final List<DrugReaction> drugReactionList = new ArrayList<>();
+    private final List<Drug> drugList = new ArrayList<>();
+    private final List<InfoString> substanceList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) throws Resources.NotFoundException {

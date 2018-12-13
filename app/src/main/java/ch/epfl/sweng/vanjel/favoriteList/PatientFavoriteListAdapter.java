@@ -19,7 +19,7 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavoriteListAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     List<DoctorFavorite> favoriteDoctorList;
 
     PatientFavoriteListAdapter(Context context){
@@ -67,9 +67,15 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstNameFavorite, lastNameFavorite, numberFavorite, streetFavorite, cityFavorite, countryFavorite, activityFavorite;
+        final TextView firstNameFavorite;
+        final TextView lastNameFavorite;
+        final TextView numberFavorite;
+        final TextView streetFavorite;
+        final TextView cityFavorite;
+        final TextView countryFavorite;
+        final TextView activityFavorite;
         String doctorUid;
-        int favoriteListIndex; //number of the cardview, index in appointmentList
+        final int favoriteListIndex; //number of the cardview, index in appointmentList
 
         ViewHolder(@NonNull View itemView, int i) {
             super(itemView);

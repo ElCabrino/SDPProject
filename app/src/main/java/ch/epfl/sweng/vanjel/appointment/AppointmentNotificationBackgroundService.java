@@ -35,8 +35,8 @@ import static ch.epfl.sweng.vanjel.firebase.FirebaseHelper.dataSnapshotChildToSt
 public class AppointmentNotificationBackgroundService extends Service {
 
 
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     public IBinder onBind(Intent intent) {

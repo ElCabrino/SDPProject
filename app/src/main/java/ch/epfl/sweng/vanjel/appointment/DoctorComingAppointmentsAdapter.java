@@ -26,11 +26,11 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorComingAppointmentsAdapter.ViewHolder> {
 
-    private ArrayList<Appointment> appointments;
-    private SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
+    private final ArrayList<Appointment> appointments;
+    private final SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
     private Date currentDate;
-    private Context context;
-    private HashMap<String, Patient> patientHashMap;
+    private final Context context;
+    private final HashMap<String, Patient> patientHashMap;
 
 
     DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
@@ -104,9 +104,13 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
 
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
-        TextView lastName, date, time, duration, firstName;
+        final TextView lastName;
+        final TextView date;
+        final TextView time;
+        final TextView duration;
+        final TextView firstName;
 
-        public ViewHolder(@NonNull View itemView){
+        ViewHolder(@NonNull View itemView){
             super(itemView);
             duration = itemView.findViewById(R.id.appointmentDuration);
             lastName = itemView.findViewById(R.id.appointmentLastName);

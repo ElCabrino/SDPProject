@@ -10,6 +10,7 @@ public class DoctorFavorite {
 
     @PrimaryKey
     @NonNull
+    private
     String doctorID;
 
     @ColumnInfo(name = "first_name")

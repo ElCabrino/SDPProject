@@ -35,7 +35,7 @@ public class FilteredDoctors extends AppCompatActivity {
      */
 
     private static final String TAG = "OKLM2727";
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;
     private ArrayList<Doctor> doctors;
@@ -49,7 +49,6 @@ public class FilteredDoctors extends AppCompatActivity {
 
     // if it's a forward request
     private Boolean isForward;
-    private String doctor1Forward, patientForward;
     private HashMap<String, Object> isForwardDetails;
     private HashMap<String, Doctor> allDoctors;
 
@@ -65,7 +64,7 @@ public class FilteredDoctors extends AppCompatActivity {
         databaseListener();
     }
 
-    public void init(){
+    private void init(){
         // get Database pointer
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
@@ -76,8 +75,8 @@ public class FilteredDoctors extends AppCompatActivity {
         bundle = getIntent().getExtras();
         isForward = bundle.getBoolean("isForward");
         isForwardDetails = new HashMap<>();
-        doctor1Forward = bundle.getString("doctor1Forward");
-        patientForward = bundle.getString("patientForward");
+        String doctor1Forward = bundle.getString("doctor1Forward");
+        String patientForward = bundle.getString("patientForward");
         isForwardDetails.put("patient", patientForward);
         isForwardDetails.put("doctor1UID", doctor1Forward);
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails, allDoctors);
@@ -87,7 +86,7 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
-    public void getUserFilters(){
+    private void getUserFilters(){
         lastName = bundle.getString("lastName");
         firstName = bundle.getString("firstName");
         specialisation = bundle.getString("specialisation");
@@ -95,14 +94,11 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
-    public boolean compareString(String s1, String s2){
-        if(s1.toLowerCase().equals(s2.toLowerCase()))
-            return true;
-        else
-            return false;
+    private boolean compareString(String s1, String s2){
+        return s1.toLowerCase().equals(s2.toLowerCase());
     }
 
-    public void select(){
+    private void select(){
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
@@ -127,7 +123,7 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = selectedDoctorsHashMap;
         adapter.notifyDataSetChanged();
     }
-    public void databaseListener(){
+    private void databaseListener(){
 
         // useful to see if DB problem or not
 //        Doctor myDoctor = new Doctor("lol", "Gregory", "House", "10/08/8010", "Revolution Street", "45", "New Jersey", "US", Gender.Male, DoctorActivity.Generalist);

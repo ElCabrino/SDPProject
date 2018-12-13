@@ -20,10 +20,10 @@ import ch.epfl.sweng.vanjel.models.Patient;
  */
 public class DoctorCalendar extends AppCompatActivity {
 
-    private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
+    private final ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
     private RecyclerView recyclerView;
     private DoctorCalendarAdapter adapter;
-    Calendar cal = Calendar.getInstance();
+    private final Calendar cal = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

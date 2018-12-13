@@ -28,8 +28,8 @@ public class TreatedPatients extends AppCompatActivity {
     private List<String> treatedPatientsUID;
     private TreatedPatientsAdapter adapter;
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

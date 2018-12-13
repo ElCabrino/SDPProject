@@ -10,14 +10,14 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class TimeAvailability {
 
-    public static int MONDAY = 0;
-    public static int TUESDAY = 22;
-    public static int WEDNESDAY = 44;
-    public static int THURSDAY = 66;
-    public static int FRIDAY = 88;
-    public static int SATURDAY = 110;
+    public static final int MONDAY = 0;
+    public static final int TUESDAY = 22;
+    public static final int WEDNESDAY = 44;
+    public static final int THURSDAY = 66;
+    public static final int FRIDAY = 88;
+    public static final int SATURDAY = 110;
 
-    public static int[] times = {
+    public static final int[] times = {
 
     R.id.monday8,
     R.id.monday8_3,

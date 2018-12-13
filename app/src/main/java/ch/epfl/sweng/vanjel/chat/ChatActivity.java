@@ -44,8 +44,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText message;
 
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     private String senderUid;
     private String contactUid;

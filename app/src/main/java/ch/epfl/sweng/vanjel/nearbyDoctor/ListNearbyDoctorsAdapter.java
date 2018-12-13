@@ -23,10 +23,10 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
 
-    private ArrayList<Doctor> doctors;
-    private HashMap<String, Doctor> doctorHashMap;
-    private Context context;
-    private LatLng userLocation;
+    private final ArrayList<Doctor> doctors;
+    private final HashMap<String, Doctor> doctorHashMap;
+    private final Context context;
+    private final LatLng userLocation;
 
 
     ListNearbyDoctorsAdapter(Context context, HashMap<String, Doctor> data, LatLng userLocation) {
@@ -85,9 +85,12 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, distance;
+        final TextView firstName;
+        final TextView lastName;
+        final TextView activity;
+        final TextView distance;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             firstName = itemView.findViewById(R.id.firstName);
             lastName = itemView.findViewById(R.id.lastName);

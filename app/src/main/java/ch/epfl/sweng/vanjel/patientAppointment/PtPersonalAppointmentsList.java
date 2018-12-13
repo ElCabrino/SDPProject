@@ -16,10 +16,10 @@ import ch.epfl.sweng.vanjel.R;
  * @author Nicolas BRANDT
  * @reviewer
  */
-public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
+class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
 
-    private Activity context;
-    private List<PtPersonalAppointment> appointmentList;
+    private final Activity context;
+    private final List<PtPersonalAppointment> appointmentList;
 
     public PtPersonalAppointmentsList(Activity context, List<PtPersonalAppointment> appointmentList) {
         super(context, R.layout.list_pt_personal_appointments, appointmentList);
@@ -33,11 +33,11 @@ public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointme
         LayoutInflater inflater = context.getLayoutInflater();
 
         View listViewItem = inflater.inflate(R.layout.list_pt_personal_appointments,null,true);
-        TextView textViewDoctorDate = (TextView) listViewItem.findViewById(R.id.textViewAppointmentDoctorDate);
-        TextView textViewTime = (TextView) listViewItem.findViewById(R.id.textViewAppointmentTime);
-        TextView textViewLocation = (TextView) listViewItem.findViewById(R.id.textViewAppointmentLocation);
+        TextView textViewDoctorDate = listViewItem.findViewById(R.id.textViewAppointmentDoctorDate);
+        TextView textViewTime = listViewItem.findViewById(R.id.textViewAppointmentTime);
+        TextView textViewLocation = listViewItem.findViewById(R.id.textViewAppointmentLocation);
 
-        PtPersonalAppointment ap = (PtPersonalAppointment) appointmentList.get(position);
+        PtPersonalAppointment ap = appointmentList.get(position);
 
         String confirmationStatus;
         if (ap.pendingStatus) {

@@ -59,7 +59,7 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         dbReferenceAppointments.addValueEventListener(valueListener);
     }
 
-    public ValueEventListener getAppointmentValueEventListener() {
+    private ValueEventListener getAppointmentValueEventListener() {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

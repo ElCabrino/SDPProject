@@ -13,10 +13,10 @@ package ch.epfl.sweng.vanjel.chat;
  */
 public class Chat {
 
-    private String time;
-    private String lastMessage;
-    private String contactName;
-    private String contactUid;
+    private final String time;
+    private final String lastMessage;
+    private final String contactName;
+    private final String contactUid;
 
     /**
      *

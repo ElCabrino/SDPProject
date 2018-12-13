@@ -48,15 +48,38 @@ import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
  */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-    TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
+    private TextView email;
+    private TextView lastName;
+    private TextView firstName;
+    private TextView birthday;
+    private TextView gender;
+    private TextView street;
+    private TextView streetNumber;
+    private TextView city;
+    private TextView country;
 
-    String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry, userType;
+    private String newLastName;
+    private String newFirstName;
+    private String newStreet;
+    private String newStreetNumber;
+    private String newCity;
+    private String newCountry;
+    private String userType;
 
-    Button editButton, saveButton, searchButton,  treatedPatientsButton, setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton, patientInfoButton, logoutButton, buttonNextAppointments, forwardButton;
+    private Button editButton;
+    private Button saveButton;
+    private Button searchButton;
+    private Button setAvailabilityButton;
+    private Button requestsListButton;
+    private Button favoriteListButton;
+    private Button nearbyDoctorButton;
+    private Button logoutButton;
+    private Button buttonNextAppointments;
+    private Button forwardButton;
 
 
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +91,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_profile);
         getAllTextView();
 
-        patientInfoButton = findViewById(R.id.patientInfoButton);
+        Button patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
-        treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
+        Button treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
 
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
@@ -149,7 +172,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    public void nextAppointments(){
+    private void nextAppointments(){
         if (userType.equals("Patient")) {
             startActivity(new Intent(this, PatientPersonalAppointments.class));
         } else {
@@ -157,7 +180,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    public void patientInfo() {
+    private void patientInfo() {
         if (userType.equals("Patient")) {
             startActivity(new Intent(this, PatientInfo.class));
         } else {
@@ -217,7 +240,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     // Get string values from the fields.
-    void getStringFromFields(){
+    private void getStringFromFields(){
         this.newFirstName = this.firstName.getText().toString().trim();
         this.newLastName = this.lastName.getText().toString().trim();
         this.newStreet = this.street.getText().toString().trim();
@@ -226,7 +249,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         this.newCountry = this.country.getText().toString().trim();
     }
 
-    void isPatientUser() {
+    private void isPatientUser() {
         DatabaseReference patientRef = database.getReference("Patient");
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -254,7 +277,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     // Updates user with values in the fields.
-    void saveNewValues() {
+    private void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
         if (auth.getCurrentUser() != null) {
             database.getReference(userType).child(auth.getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {

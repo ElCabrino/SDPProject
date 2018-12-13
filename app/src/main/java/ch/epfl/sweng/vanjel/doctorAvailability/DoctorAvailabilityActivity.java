@@ -32,7 +32,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 public class DoctorAvailabilityActivity extends AppCompatActivity {
 
-    private int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
+    private final int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
 
     private Button valid;
 
@@ -40,8 +40,8 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     private Boolean[] slots;
 
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         return newAvailability;
     }
 
-    public Map<String, Object> getDayAvailability(int start) {
+    private Map<String, Object> getDayAvailability(int start) {
         Map<String, Object> day = new HashMap<>();
         String res = getStringFromSlots(start);
         if (res.equals("")) {

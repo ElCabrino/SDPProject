@@ -29,17 +29,18 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 public class PatientPersonalAppointments extends AppCompatActivity {
 
-    DatabaseReference dbAp, dbDoc;
+    private DatabaseReference dbAp;
+    private DatabaseReference dbDoc;
 
-    ListView listViewAp;
-    String uid;
+    private ListView listViewAp;
+    private String uid;
 
-    List<PtPersonalAppointment> apList = new ArrayList<>();
+    private final List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc;
 
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

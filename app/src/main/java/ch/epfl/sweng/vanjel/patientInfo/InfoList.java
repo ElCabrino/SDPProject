@@ -14,11 +14,12 @@ import java.util.List;
  * @author Vincent CABRINI
  * @reviewer Nicolas BRANDT
  */
-public class InfoList<Info> extends ArrayAdapter<Info> {
+class InfoList<Info> extends ArrayAdapter<Info> {
 
-    private Activity context;
-    private List<Info> infoList;
-    private int idLayout, idTextView;
+    private final Activity context;
+    private final List<Info> infoList;
+    private final int idLayout;
+    private final int idTextView;
 
     InfoList(Activity context, List<Info> infoList, int idLayout, int idTextView) {
         super(context, idLayout, infoList);

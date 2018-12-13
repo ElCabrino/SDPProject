@@ -26,8 +26,6 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
     private String doctor1Forward, patientForward;
     private Boolean isForward;
 
-    private Bundle bundle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +57,7 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getBundle(){
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         isForward = bundle.getBoolean("isForward");
         doctor1Forward = bundle.getString("doctor1Forward");
         patientForward = bundle.getString("patientForward");

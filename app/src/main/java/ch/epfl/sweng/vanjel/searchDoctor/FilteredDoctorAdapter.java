@@ -33,16 +33,15 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
-    ArrayList<Doctor> doctors;
-    HashMap<String, Doctor> doctorHashMap;
-    Context context;
+    private final ArrayList<Doctor> doctors;
+    private final HashMap<String, Doctor> doctorHashMap;
+    private final Context context;
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    DatabaseReference ref;
+    private final DatabaseReference ref;
 
-    Boolean isForward;
-    HashMap<String, Object> isForwardDetails;
-    private HashMap<String, Doctor> allDoctors;
+    private final Boolean isForward;
+    private final HashMap<String, Object> isForwardDetails;
+    private final HashMap<String, Doctor> allDoctors;
 
 
     public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
@@ -55,6 +54,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
         doctors = new ArrayList<>();
 
+        FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
         ref = database.getReference("Forwards");
 
         // loop for to take doctorHashmap to doctor
@@ -80,10 +80,8 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
         viewHolder.city.setText(doctors.get(i).getCity());
         viewHolder.country.setText(doctors.get(i).getCountry());
 
-        final int id = i;
-
         // we need to give the uid of the doctor the user want to see
-        final String finalKey = getDoctorUIDWithKey(id);
+        final String finalKey = getDoctorUIDWithKey(i);
 
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +97,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
             @Override
             public void onClick(View v) {
-                isForwardDetails.put("doctor2name", doctors.get(id).toString());
+                isForwardDetails.put("doctor2name", doctors.get(i).toString());
                 isForwardDetails.put("doctor2UID", finalKey);
                 String doctor1UID = (String) isForwardDetails.get("doctor1UID");
                 isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).toString());
@@ -140,13 +138,19 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, street, streetNumber, city, country;
+        final TextView firstName;
+        final TextView lastName;
+        final TextView activity;
+        final TextView street;
+        final TextView streetNumber;
+        final TextView city;
+        final TextView country;
 
-        Button forwardButton;
+        final Button forwardButton;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             firstName = itemView.findViewById(R.id.firstName);
