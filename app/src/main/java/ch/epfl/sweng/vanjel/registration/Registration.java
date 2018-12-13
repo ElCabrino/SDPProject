@@ -121,20 +121,25 @@ public class Registration extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // task : create account
                 if (task.isSuccessful()) {
-                    Task<Void> val = createUser(DoctorReg, patient, doctor);
-                    val.addOnCompleteListener(createDatabaseListener());
+                    Task<Void> val;
+                    try {
+                        val = createUser(DoctorReg, patient, doctor);
+                        val.addOnCompleteListener(createDatabaseListener());
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    Toast.makeText(Registration.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registration.this, "Registration failed", Toast.LENGTH_SHORT).show();
                 }
             }
         };
     }
 
-    private Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
+    private Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor) throws FirebaseAuthInvalidUserException {
         Task<Void> val;
-//        if (mAuth.getCurrentUser() == null){
-//            throw new FirebaseAuthInvalidUserException("registration", "User not found after its registration");
-//        }
+        if (mAuth.getCurrentUser() == null){
+            throw new FirebaseAuthInvalidUserException("registration", "User not found after its registration");
+        }
         if(DoctorReg) {
             val = database.getReference("Doctor").child(mAuth.getCurrentUser().getUid()).setValue(doctor);
         } else {
@@ -144,7 +149,7 @@ public class Registration extends AppCompatActivity {
     }
 
     private OnCompleteListener<Void> createDatabaseListener() {
-        OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
+        return new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 // task: put data in database
@@ -155,7 +160,6 @@ public class Registration extends AppCompatActivity {
                 }
             }
         };
-        return listener;
     }
 
     private void getAllFields(){
@@ -262,7 +266,8 @@ public class Registration extends AppCompatActivity {
 
 
     private boolean areFieldsValid(){
-        boolean valid = isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
+
+        return isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
         &&isFieldNotEmpty(lastNameReg, lastName, R.string.input_last_name_error)
         &&isFieldNotEmpty(passwordReg, password, R.string.input_password_error)
         &&isFieldNotEmpty(confirmPasswordReg, confirmedPassword, R.string.input_password_conf_error)
@@ -271,7 +276,5 @@ public class Registration extends AppCompatActivity {
         &&isFieldNotEmpty(numberReg, streetNumber, R.string.input_street_number_error)
         &&isFieldNotEmpty(countryReg, country, R.string.input_country_error)
         &&arePasswordMatching(password, confirmedPassword, confirmPasswordReg);
-
-        return valid;
     }
 }
