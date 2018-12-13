@@ -18,8 +18,8 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsAdapter.ViewHolder> {
 
-    ArrayList<Patient> treatedPatients;
-    Context context;
+    private final ArrayList<Patient> treatedPatients;
+    private final Context context;
 
     public TreatedPatientsAdapter(Context context, ArrayList<Patient> data){
         this.context = context;
@@ -57,9 +57,15 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, street, streetNumber, city, country;
+        final TextView firstName;
+        final TextView lastName;
+        final TextView activity;
+        final TextView street;
+        final TextView streetNumber;
+        final TextView city;
+        final TextView country;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             firstName = itemView.findViewById(R.id.firstName);

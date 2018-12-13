@@ -5,7 +5,11 @@ package ch.epfl.sweng.vanjel.patientAppointment;
  * @reviewer Aslam CADER
  */
 public class PtPersonalAppointment {
-    String doctor, location, date, time, duration;
+    private String doctor;
+    private String location;
+    private String date;
+    private String time;
+    private String duration;
     // 0 = appointment confirmed, 1 = pending
     Boolean pendingStatus;
 

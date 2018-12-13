@@ -69,12 +69,12 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap gmap;
 
     // Database
-    FirebaseDatabase database;
+    private FirebaseDatabase database;
 
     // this will contain the doctors
-    ArrayList<Doctor> doctors = new ArrayList<>();
+    private final ArrayList<Doctor> doctors = new ArrayList<>();
 
-    private HashMap<String, Doctor> doctorHashMap = new HashMap<>();
+    private final HashMap<String, Doctor> doctorHashMap = new HashMap<>();
 
     private RecyclerView recyclerView;
 
@@ -278,7 +278,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
      * depending on user's device preference toward GPS usage on app
      * @param grantResult The permission to access the localisation of the user
      */
-    public void permissionsMessage(int grantResult){
+    private void permissionsMessage(int grantResult){
         switch (grantResult){
             case PackageManager.PERMISSION_GRANTED:
 

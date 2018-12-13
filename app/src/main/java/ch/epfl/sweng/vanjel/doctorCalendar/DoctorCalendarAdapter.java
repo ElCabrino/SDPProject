@@ -20,7 +20,7 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAdapter.ViewHolder> {
 
-    private ArrayList<DoctorCalendarItem> mData;
+    private final ArrayList<DoctorCalendarItem> mData;
 
     DoctorCalendarAdapter(ArrayList<DoctorCalendarItem> data) {
         mData = data;
@@ -60,11 +60,11 @@ public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView date;
-        TextView patient;
-        Button delete;
+        final TextView date;
+        final TextView patient;
+        final Button delete;
 
-        public ViewHolder(@NonNull View itemView, int id1, int id2, int id3) {
+        ViewHolder(@NonNull View itemView, int id1, int id2, int id3) {
             super(itemView);
             date = itemView.findViewById(id1);
             patient = itemView.findViewById(id2);

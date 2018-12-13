@@ -39,20 +39,20 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     public Toast mToast;
 
     //Appointment with the doctor of this ID
-    String doctorUID;
+    private String doctorUID;
 
-    String selectedDate;
+    private String selectedDate;
 
-    Boolean slotSelected = Boolean.FALSE;
-    boolean[] slotsAvailability;
+    private Boolean slotSelected = Boolean.FALSE;
+    private boolean[] slotsAvailability;
 
 
-    HashMap<Integer, Button> buttonsAppointment = new HashMap<>();
-    HashMap<Integer, Boolean> buttonsState= new HashMap<>();
-    HashMap<Integer, Integer> slotState = new HashMap<>();
+    private final HashMap<Integer, Button> buttonsAppointment = new HashMap<>();
+    private final HashMap<Integer, Boolean> buttonsState= new HashMap<>();
+    private final HashMap<Integer, Integer> slotState = new HashMap<>();
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     }
 
     //Fill the button hasmap
-    void getAllButton(){
+    private void getAllButton(){
         addButton(R.id.button0800, 0);
         addButton(R.id.button0830, 1);
         addButton(R.id.button0900, 2);
@@ -100,20 +100,20 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         addButton(R.id.button1830, 21);
     }
 
-    void addButton(int i, int slot_i) {
+    private void addButton(int i, int slot_i) {
         buttonsAppointment.put(i, (Button)findViewById(i));
         slotState.put(slot_i, i);
     }
 
     //Fill the state hashmap with a loop
-    void initButtonState(){
+    private void initButtonState(){
         for (Integer key: buttonsAppointment.keySet()){
             buttonsState.put(key, false);
         }
     }
 
     //Add listener on all buttons of the hashmap
-    void addButtonListener(){
+    private void addButtonListener(){
         Iterator iterator = buttonsAppointment.entrySet().iterator();
         for (Button button: buttonsAppointment.values()){
             button.setOnClickListener(this);
@@ -121,7 +121,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
     }
 
     //Change state of button
-    void changeState(int i){
+    private void changeState(int i){
         //case where no time slot is selected
         if ((buttonsState != null) && !(buttonsState.get(i)) && !slotSelected) {
             findViewById(i).setBackgroundColor(0xFF303F9F);

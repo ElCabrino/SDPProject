@@ -22,27 +22,52 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
 
-    PatientInfoDatabaseService patientInfoDatabaseService;
+    private PatientInfoDatabaseService patientInfoDatabaseService;
 
-    Button saveButton;
+    private Button saveButton;
 
-    EditText priorConditionsReg, surgeriesReg, surgeriesYearReg, allergyReg, drugReactionDrugReg, drugReactionReactionReg, drugRegimenDrugReg;
-    EditText drugRegimenDosageReg, drugRegimenTimesReg, substancesReg, smokingReg, drinkingReg, exerciseReg;
+    private EditText priorConditionsReg;
+    private EditText surgeriesReg;
+    private EditText surgeriesYearReg;
+    private EditText allergyReg;
+    private EditText drugReactionDrugReg;
+    private EditText drugReactionReactionReg;
+    private EditText drugRegimenDrugReg;
+    private EditText drugRegimenDosageReg;
+    private EditText drugRegimenTimesReg;
+    private EditText substancesReg;
+    private EditText smokingReg;
+    private EditText drinkingReg;
+    private EditText exerciseReg;
 
-    Button buttonConditions, buttonSurgeries, buttonAllergies, buttonDrugReactions, buttonDrug, buttonSubstance, buttonSmoking;
-    Button buttonDrinking, buttonExercise;
+    private Button buttonConditions;
+    private Button buttonSurgeries;
+    private Button buttonAllergies;
+    private Button buttonDrugReactions;
+    private Button buttonDrug;
+    private Button buttonSubstance;
+    private Button buttonSmoking;
+    private Button buttonDrinking;
+    private Button buttonExercise;
 
-    ListView listViewConditions, listViewSurgeries, listViewAllergies, listViewDrugReactions, listViewDrugs, listViewSubstances;
-    TextView textViewSmoking, textViewDrinking, textViewExercise;
+    private ListView listViewConditions;
+    private ListView listViewSurgeries;
+    private ListView listViewAllergies;
+    private ListView listViewDrugReactions;
+    private ListView listViewDrugs;
+    private ListView listViewSubstances;
+    private TextView textViewSmoking;
+    private TextView textViewDrinking;
+    private TextView textViewExercise;
 
-    List<InfoString> conditionList;
-    List<Surgery> surgeryList;
-    List<InfoString> allergyList;
-    List<DrugReaction> drugReactionList;
-    List<Drug> drugList;
-    List<InfoString> substanceList;
+    private List<InfoString> conditionList;
+    private List<Surgery> surgeryList;
+    private List<InfoString> allergyList;
+    private List<DrugReaction> drugReactionList;
+    private List<Drug> drugList;
+    private List<InfoString> substanceList;
 
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +211,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    String getTextFromField(EditText field){
+    private String getTextFromField(EditText field){
         return field.getText().toString().trim();
     }
 }

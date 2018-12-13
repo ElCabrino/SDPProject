@@ -21,10 +21,10 @@ import ch.epfl.sweng.vanjel.R;
  * @author Etienne Caquot
  * @reviewer Vincent Cabrini
  */
-public class ChatListAdapter extends RecyclerView.Adapter {
+class ChatListAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private List<Chat> chatList;
+    private final Context context;
+    private final List<Chat> chatList;
 
     /**
      *
@@ -68,7 +68,9 @@ public class ChatListAdapter extends RecyclerView.Adapter {
      */
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView contact, time, lastMessage;
+        final TextView contact;
+        final TextView time;
+        final TextView lastMessage;
 
         /**
          * Creates the ViewHolder

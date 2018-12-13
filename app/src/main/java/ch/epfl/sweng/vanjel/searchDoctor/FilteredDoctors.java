@@ -35,7 +35,7 @@ public class FilteredDoctors extends AppCompatActivity {
      */
 
     private static final String TAG = "OKLM2727";
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;
     private ArrayList<Doctor> doctors;
@@ -65,7 +65,7 @@ public class FilteredDoctors extends AppCompatActivity {
         databaseListener();
     }
 
-    public void init(){
+    private void init(){
         // get Database pointer
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
@@ -87,7 +87,7 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
-    public void getUserFilters(){
+    private void getUserFilters(){
         lastName = bundle.getString("lastName");
         firstName = bundle.getString("firstName");
         specialisation = bundle.getString("specialisation");
@@ -95,14 +95,14 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
-    public boolean compareString(String s1, String s2){
+    private boolean compareString(String s1, String s2){
         if(s1.toLowerCase().equals(s2.toLowerCase()))
             return true;
         else
             return false;
     }
 
-    public void select(){
+    private void select(){
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
@@ -127,7 +127,7 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = selectedDoctorsHashMap;
         adapter.notifyDataSetChanged();
     }
-    public void databaseListener(){
+    private void databaseListener(){
 
         // useful to see if DB problem or not
 //        Doctor myDoctor = new Doctor("lol", "Gregory", "House", "10/08/8010", "Revolution Street", "45", "New Jersey", "US", Gender.Male, DoctorActivity.Generalist);

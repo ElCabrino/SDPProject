@@ -27,8 +27,8 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 class PatientInfoDatabaseService {
 
 
-    private AppCompatActivity activity;
-    private DatabaseReference userDatabaseReference;
+    private final AppCompatActivity activity;
+    private final DatabaseReference userDatabaseReference;
 
 
     //TEMPORARY ID

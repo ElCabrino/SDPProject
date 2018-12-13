@@ -8,9 +8,9 @@ package ch.epfl.sweng.vanjel.chat;
  */
 public class Message {
 
-    private String time;
-    private String message;
-    private String senderUid;
+    private final String time;
+    private final String message;
+    private final String senderUid;
 
     /**
      *

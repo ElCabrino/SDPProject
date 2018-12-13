@@ -39,8 +39,8 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 public class Registration extends AppCompatActivity {
 
-    private FirebaseAuth mAuth = FirebaseAuthCustomBackend.getInstance();
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     // attribute that will contain pointer
     private EditText mailReg, passwordReg, confirmPasswordReg, firstNameReg, lastNameReg, birthdayReg, streetReg, numberReg, cityReg, countryReg;
@@ -130,7 +130,7 @@ public class Registration extends AppCompatActivity {
         return listener;
     }
 
-    Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
+    private Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
         Task<Void> val;
         if(DoctorReg) {
             val = database.getReference("Doctor").child(mAuth.getCurrentUser().getUid()).setValue(doctor);
@@ -155,7 +155,7 @@ public class Registration extends AppCompatActivity {
         return listener;
     }
 
-    void getAllFields(){
+    private void getAllFields(){
         // getting pointer to corresponding element on screen
         mailReg = findViewById(R.id.mailReg);
         passwordReg = findViewById(R.id.passwordReg);
@@ -179,7 +179,7 @@ public class Registration extends AppCompatActivity {
         activityReg = findViewById(R.id.activityReg);
     }
 
-    void getStringFromFields(){
+    private void getStringFromFields(){
         this.email = mailReg.getText().toString().trim();
         this.password = passwordReg.getText().toString().trim();
         this.confirmedPassword = confirmPasswordReg.getText().toString().trim();
@@ -194,7 +194,7 @@ public class Registration extends AppCompatActivity {
         this.activity = activityReg.getSelectedItem().toString().trim();
     }
 
-    void setBirthdayListener(){
+    private void setBirthdayListener(){
         birthdayReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,7 +212,7 @@ public class Registration extends AppCompatActivity {
         });
     }
 
-    void setDateListener(){
+    private void setDateListener(){
         mDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -223,7 +223,7 @@ public class Registration extends AppCompatActivity {
         };
     }
 
-    boolean isEmailValid(String email){
+    private boolean isEmailValid(String email){
         String emailRegEx;
         Pattern pattern;
         // Regex for a valid email address
@@ -238,7 +238,7 @@ public class Registration extends AppCompatActivity {
 
     }
 
-    boolean isFieldNotEmpty(EditText editText, String editTextString, int error_id){
+    private boolean isFieldNotEmpty(EditText editText, String editTextString, int error_id){
         if (editTextString.isEmpty()) {
             editText.setError(getString(error_id));
             editText.requestFocus();
@@ -248,7 +248,7 @@ public class Registration extends AppCompatActivity {
         }
     }
 
-    boolean arePasswordMatching(String password, String confirmedPassword, EditText confirmPasswordReg, int error_id){
+    private boolean arePasswordMatching(String password, String confirmedPassword, EditText confirmPasswordReg, int error_id){
         if (password.compareTo(confirmedPassword) != 0) {
             confirmPasswordReg.setError(getString(error_id));
             confirmPasswordReg.requestFocus();
@@ -256,7 +256,7 @@ public class Registration extends AppCompatActivity {
         } else { return true; }
     }
 
-    boolean areFieldsValid(){
+    private boolean areFieldsValid(){
         boolean valid = true;
         valid = isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
         &&isFieldNotEmpty(lastNameReg, lastName, R.string.input_last_name_error)

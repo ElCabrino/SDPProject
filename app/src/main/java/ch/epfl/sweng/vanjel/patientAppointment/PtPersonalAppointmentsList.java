@@ -16,10 +16,10 @@ import ch.epfl.sweng.vanjel.R;
  * @author Nicolas BRANDT
  * @reviewer
  */
-public class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
+class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
 
-    private Activity context;
-    private List<PtPersonalAppointment> appointmentList;
+    private final Activity context;
+    private final List<PtPersonalAppointment> appointmentList;
 
     public PtPersonalAppointmentsList(Activity context, List<PtPersonalAppointment> appointmentList) {
         super(context, R.layout.list_pt_personal_appointments, appointmentList);

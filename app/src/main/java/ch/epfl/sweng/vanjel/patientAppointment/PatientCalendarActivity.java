@@ -16,7 +16,7 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class PatientCalendarActivity extends AppCompatActivity implements View.OnClickListener{
 
-    String doctorUID;
+    private String doctorUID;
     private String selectedDate = Calendar.getInstance().getTime().toString();
 
     @Override

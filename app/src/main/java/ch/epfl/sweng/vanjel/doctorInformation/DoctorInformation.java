@@ -34,15 +34,21 @@ import ch.epfl.sweng.vanjel.patientAppointment.PatientCalendarActivity;
  */
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
-    TextView lastName, firstName, activity, street, streetNumber, city, country;
+    private TextView lastName;
+    private TextView firstName;
+    private TextView activity;
+    private TextView street;
+    private TextView streetNumber;
+    private TextView city;
+    private TextView country;
     private Bundle bundle;
     private Doctor doctor;
-    String doctorUID;
+    private String doctorUID;
     // database
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    DatabaseReference ref;
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private DatabaseReference ref;
     //local database
-    LocalDatabaseService localDatabaseService;
+    private LocalDatabaseService localDatabaseService;
 
     private Button favorite;
     private Boolean favoriteState = false;
@@ -177,7 +183,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         country.setText(doctor.getCountry());
     }
 
-    public void putMarkerOnMap(){
+    private void putMarkerOnMap(){
         if(isMapReady && isDatabaseReady) {
             LatLng doctorLocation = doctor.getLocationFromAddress(this);
 

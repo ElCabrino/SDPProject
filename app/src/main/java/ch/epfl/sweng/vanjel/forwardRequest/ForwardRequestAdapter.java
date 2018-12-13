@@ -29,9 +29,9 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAdapter.ViewHolder> {
 
-    private Map<String,Forward> forwardsMap;
-    private List<Forward> forwardsList;
-    private Context context;
+    private final Map<String,Forward> forwardsMap;
+    private final List<Forward> forwardsList;
+    private final Context context;
 
     ForwardRequestAdapter(Context context, Map<String, Forward> forward){
         this.context = context;
@@ -85,10 +85,12 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
 
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
-        TextView doctor1, doctor2;
-        Button doctorDetails, delete;
+        final TextView doctor1;
+        final TextView doctor2;
+        final Button doctorDetails;
+        final Button delete;
 
-        public ViewHolder(@NonNull View itemView){
+        ViewHolder(@NonNull View itemView){
             super(itemView);
             doctor1 = itemView.findViewById(R.id.firstDoctorRequested);
             doctor2 = itemView.findViewById(R.id.secondDoctorAdviced);

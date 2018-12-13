@@ -26,13 +26,13 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class ForwardRequest extends AppCompatActivity {
 
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private String currentUserUID;
     private DatabaseReference ref;
 
     private RecyclerView recyclerView;
 
-    Map<String,Forward> forward;
+    private Map<String,Forward> forward;
 
 
 
@@ -49,7 +49,7 @@ public class ForwardRequest extends AppCompatActivity {
         notifyAdapter();
     }
 
-    public void init(){
+    private void init(){
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         forward = new HashMap<>();
@@ -60,7 +60,7 @@ public class ForwardRequest extends AppCompatActivity {
         getMyForwards();
     }
 
-    public void getMyForwards(){
+    private void getMyForwards(){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -83,7 +83,7 @@ public class ForwardRequest extends AppCompatActivity {
     }
 
 
-    public void notifyAdapter() {
+    private void notifyAdapter() {
         ForwardRequestAdapter adapter = new ForwardRequestAdapter(ForwardRequest.this, forward);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

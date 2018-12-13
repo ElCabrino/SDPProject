@@ -11,9 +11,9 @@ import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
 
 public class PatientFavoriteListActivity extends AppCompatActivity {
 
-    PatientFavoriteListAdapter adapter;
-    RecyclerView recyclerView;
-    LocalDatabase localDatabase;
+    private PatientFavoriteListAdapter adapter;
+    private RecyclerView recyclerView;
+    private LocalDatabase localDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
         refreshView();
     }
 
-    public void refreshView(){
+    private void refreshView(){
         setContentView(R.layout.activity_favorite_list);
         //set up adapter
         recyclerView = findViewById(R.id.doctorCardView);

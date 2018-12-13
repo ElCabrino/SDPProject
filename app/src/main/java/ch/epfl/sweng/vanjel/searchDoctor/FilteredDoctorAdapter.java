@@ -33,16 +33,16 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
-    ArrayList<Doctor> doctors;
-    HashMap<String, Doctor> doctorHashMap;
-    Context context;
+    private final ArrayList<Doctor> doctors;
+    private final HashMap<String, Doctor> doctorHashMap;
+    private final Context context;
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    DatabaseReference ref;
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final DatabaseReference ref;
 
-    Boolean isForward;
-    HashMap<String, Object> isForwardDetails;
-    private HashMap<String, Doctor> allDoctors;
+    private final Boolean isForward;
+    private final HashMap<String, Object> isForwardDetails;
+    private final HashMap<String, Doctor> allDoctors;
 
 
     public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
@@ -140,13 +140,19 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, street, streetNumber, city, country;
+        final TextView firstName;
+        final TextView lastName;
+        final TextView activity;
+        final TextView street;
+        final TextView streetNumber;
+        final TextView city;
+        final TextView country;
 
-        Button forwardButton;
+        final Button forwardButton;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             firstName = itemView.findViewById(R.id.firstName);
