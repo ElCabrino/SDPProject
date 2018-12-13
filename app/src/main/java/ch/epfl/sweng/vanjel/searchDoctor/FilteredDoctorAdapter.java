@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -58,8 +57,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
         ref = database.getReference("Forwards");
 
         // loop for to take doctorHashmap to doctor
-        for(Doctor doc: doctorHashMap.values())
-            doctors.add(doc);
+        doctors.addAll(doctorHashMap.values());
 
     }
 
@@ -102,21 +100,22 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
                 isForwardDetails.put("doctor2name", doctors.get(id).toString());
                 isForwardDetails.put("doctor2UID", finalKey);
                 String doctor1UID = (String) isForwardDetails.get("doctor1UID");
-                isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).toString());
-                DatabaseReference r1 = ref.push();
-                Task r2 = r1.updateChildren(isForwardDetails);
-                r2.addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
-                        // TODO: delete request??
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Doctor doctor = allDoctors.get(doctor1UID);
+                if (doctor != null) {
+                    isForwardDetails.put("doctor1name", doctor.toString());
+                    ref.push().updateChildren(isForwardDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
+                            // TODO: delete request??
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } //TODO exception doctor not found
             }
         });
     }
