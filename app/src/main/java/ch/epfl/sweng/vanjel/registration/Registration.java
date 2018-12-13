@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
@@ -115,7 +116,7 @@ public class Registration extends AppCompatActivity {
     private OnCompleteListener<AuthResult> createAuthListener(final Boolean DoctorReg,
                                                               final Doctor doctor,
                                                               final Patient patient) {
-        OnCompleteListener<AuthResult> listener = new OnCompleteListener<AuthResult>() {
+        return new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // task : create account
@@ -127,11 +128,13 @@ public class Registration extends AppCompatActivity {
                 }
             }
         };
-        return listener;
     }
 
-    Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){
+    Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor){ //throws FirebaseAuthInvalidUserException {
         Task<Void> val;
+//        if (mAuth.getCurrentUser() == null){
+//            throw new FirebaseAuthInvalidUserException("registration", "User not found after its registration");
+//        }
         if(DoctorReg) {
             val = database.getReference("Doctor").child(mAuth.getCurrentUser().getUid()).setValue(doctor);
         } else {
@@ -205,9 +208,12 @@ public class Registration extends AppCompatActivity {
 
                 DatePickerDialog dialog = new DatePickerDialog(Registration.this,
                         android.R.style.Theme_Holo_Light,mDateListener,year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setGravity(Gravity.CENTER);
-                dialog.show();
+                if (dialog.getWindow() != null){
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.getWindow().setGravity(Gravity.CENTER);
+                    dialog.show();
+                } //TODO exception
+
             }
         });
     }
@@ -248,17 +254,16 @@ public class Registration extends AppCompatActivity {
         }
     }
 
-    boolean arePasswordMatching(String password, String confirmedPassword, EditText confirmPasswordReg, int error_id){
+    boolean arePasswordMatching(String password, String confirmedPassword, EditText confirmPasswordReg){
         if (password.compareTo(confirmedPassword) != 0) {
-            confirmPasswordReg.setError(getString(error_id));
+            confirmPasswordReg.setError(getString(R.string.input_password_conf_error));
             confirmPasswordReg.requestFocus();
             return false;
         } else { return true; }
     }
 
     boolean areFieldsValid(){
-        boolean valid = true;
-        valid = isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
+        boolean valid = isEmailValid(email)&&isFieldNotEmpty(firstNameReg, firstName, R.string.input_first_name_error)
         &&isFieldNotEmpty(lastNameReg, lastName, R.string.input_last_name_error)
         &&isFieldNotEmpty(passwordReg, password, R.string.input_password_error)
         &&isFieldNotEmpty(confirmPasswordReg, confirmedPassword, R.string.input_password_conf_error)
@@ -266,7 +271,7 @@ public class Registration extends AppCompatActivity {
         &&isFieldNotEmpty(streetReg, street, R.string.input_street_name_error)
         &&isFieldNotEmpty(numberReg, streetNumber, R.string.input_street_number_error)
         &&isFieldNotEmpty(countryReg, country, R.string.input_country_error)
-        &&arePasswordMatching(password, confirmedPassword, confirmPasswordReg, R.string.input_password_conf_error);
+        &&arePasswordMatching(password, confirmedPassword, confirmPasswordReg);
 
         return valid;
     }
