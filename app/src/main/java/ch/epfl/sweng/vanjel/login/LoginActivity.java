@@ -29,6 +29,7 @@ import ch.epfl.sweng.vanjel.R;
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,7 +37,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar progressBarLogin;
     private Button buttonLogin;
 
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         progressBarLogin.setVisibility(View.VISIBLE);
-        buttonLogin.setVisibility(View.INVISIBLE);
+        buttonLogin.setVisibility(View.GONE);
 
 
         // [START sign_in_with_email]
@@ -110,14 +110,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            progressBarLogin.setVisibility(View.INVISIBLE);
+                            progressBarLogin.setVisibility(View.GONE);
                             buttonLogin.setVisibility(View.VISIBLE);
                         }
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, R.string.login_failed_error, Toast.LENGTH_SHORT).show();
-                            progressBarLogin.setVisibility(View.INVISIBLE);
+                            progressBarLogin.setVisibility(View.GONE);
                             buttonLogin.setVisibility(View.VISIBLE);
                         }
                         // [END_EXCLUDE]
