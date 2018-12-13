@@ -12,7 +12,6 @@ import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
 public class PatientFavoriteListActivity extends AppCompatActivity {
 
     private PatientFavoriteListAdapter adapter;
-    private RecyclerView recyclerView;
     private LocalDatabase localDatabase;
 
     @Override
@@ -30,7 +29,7 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
     private void refreshView(){
         setContentView(R.layout.activity_favorite_list);
         //set up adapter
-        recyclerView = findViewById(R.id.doctorCardView);
+        RecyclerView recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PatientFavoriteListAdapter(this);
         recyclerView.setAdapter(adapter);

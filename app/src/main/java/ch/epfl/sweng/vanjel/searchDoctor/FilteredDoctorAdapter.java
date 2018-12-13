@@ -37,7 +37,6 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
     private final HashMap<String, Doctor> doctorHashMap;
     private final Context context;
 
-    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private final DatabaseReference ref;
 
     private final Boolean isForward;
@@ -55,6 +54,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
         doctors = new ArrayList<>();
 
+        FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
         ref = database.getReference("Forwards");
 
         // loop for to take doctorHashmap to doctor

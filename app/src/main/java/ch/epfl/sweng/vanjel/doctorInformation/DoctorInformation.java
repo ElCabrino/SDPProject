@@ -46,7 +46,6 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private String doctorUID;
     // database
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private DatabaseReference ref;
     //local database
     private LocalDatabaseService localDatabaseService;
 
@@ -143,7 +142,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     private void getDocWithUID(String uid){
 
-        ref = database.getReference().child("Doctor").child(uid);
+        DatabaseReference ref = database.getReference().child("Doctor").child(uid);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

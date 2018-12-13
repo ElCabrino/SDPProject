@@ -69,12 +69,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private Button editButton;
     private Button saveButton;
     private Button searchButton;
-    private Button treatedPatientsButton;
     private Button setAvailabilityButton;
     private Button requestsListButton;
     private Button favoriteListButton;
     private Button nearbyDoctorButton;
-    private Button patientInfoButton;
     private Button logoutButton;
     private Button buttonNextAppointments;
     private Button forwardButton;
@@ -93,9 +91,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_profile);
         getAllTextView();
 
-        patientInfoButton = findViewById(R.id.patientInfoButton);
+        Button patientInfoButton = findViewById(R.id.patientInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
-        treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
+        Button treatedPatientsButton = findViewById(R.id.treatedPatientsButton);
 
         logoutButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
