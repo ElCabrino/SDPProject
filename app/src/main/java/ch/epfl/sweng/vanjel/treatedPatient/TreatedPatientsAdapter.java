@@ -21,7 +21,7 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
     private final ArrayList<Patient> treatedPatients;
     private final Context context;
 
-    public TreatedPatientsAdapter(Context context, ArrayList<Patient> data){
+    TreatedPatientsAdapter(Context context, ArrayList<Patient> data){
         this.context = context;
         this.treatedPatients = data;
     }

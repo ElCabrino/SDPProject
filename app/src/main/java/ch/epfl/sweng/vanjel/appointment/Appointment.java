@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel.appointment;
 
-/**
+/*
  * Due to unreasonable code climate duplicate issue with Appointment class
  * This class is ignored by code climate.
  */
