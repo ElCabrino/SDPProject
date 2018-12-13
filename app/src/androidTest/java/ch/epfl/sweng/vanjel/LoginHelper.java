@@ -12,11 +12,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 class LoginHelper {
 
     void enterEmail(String email) {
-        onView(withId(R.id.mailLogin)).perform(replaceText(email),closeSoftKeyboard());
+        onView(withId(R.id.mailLogin)).perform(replaceText(email));
     }
 
     void enterPassword(String password){
-        onView(withId(R.id.passwordLogin)).perform(replaceText(password),closeSoftKeyboard());
+        onView(withId(R.id.passwordLogin)).perform(replaceText(password));
     }
 
     /*void signOutIfPossible() {
