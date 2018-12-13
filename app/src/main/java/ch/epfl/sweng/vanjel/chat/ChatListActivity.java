@@ -85,7 +85,7 @@ public class ChatListActivity extends AppCompatActivity {
     }
 
     /**
-     * Get all user of the request and put them in a map uid->names
+     * Get all user of the application and put them in a map uid->names
      */
     private void getAllUsers() {
         getChats = 0;

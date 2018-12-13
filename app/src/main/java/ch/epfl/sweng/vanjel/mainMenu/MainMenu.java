@@ -35,6 +35,7 @@ import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
 
 /**
  * @author Etienne CAQUOT
+ * @reviewer Aslam CADER
  */
 public class MainMenu extends AppCompatActivity implements View.OnClickListener {
 
