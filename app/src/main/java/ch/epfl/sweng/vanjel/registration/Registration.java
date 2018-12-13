@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
@@ -206,7 +207,7 @@ public class Registration extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(Registration.this,
-                        android.R.style.Theme_Holo_Light,mDateListener,year,month,day);
+                        android.R.style.Theme_DeviceDefault,mDateListener,year,month,day);
                 if (dialog.getWindow() != null){
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.getWindow().setGravity(Gravity.CENTER);
