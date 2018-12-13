@@ -52,7 +52,7 @@ class PatientInfoDatabaseService {
                 for (DataSnapshot snap: dataSnapshot.getChildren()) {
                     T item = (T) snap.getValue(c);
 
-                    typeList.add((T) item);
+                    typeList.add(item);
 
                 }
 
