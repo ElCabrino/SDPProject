@@ -44,7 +44,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
     private final HashMap<String, Doctor> allDoctors;
 
 
-    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
+    FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
 
         this.doctorHashMap = data;
         this.context = context;
@@ -83,6 +83,8 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
         // we need to give the uid of the doctor the user want to see
         final String finalKey = getDoctorUIDWithKey(i);
 
+        final int id = i;
+
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +99,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
             @Override
             public void onClick(View v) {
-                isForwardDetails.put("doctor2name", doctors.get(i).toString());
+                isForwardDetails.put("doctor2name", doctors.get(id).toString());
                 isForwardDetails.put("doctor2UID", finalKey);
                 String doctor1UID = (String) isForwardDetails.get("doctor1UID");
                 isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).toString());
