@@ -104,20 +104,21 @@ class PatientInfoDatabaseService {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
+                View dialogView;
                 if (category == "Condition" || category == "Allergy" || category == "Substance") {
-                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
+                    dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
                     showUpdateInfoString(oldInfo, category, dialogView,dialogBuilder);
                 }
                 if (category == "Surgery") {
-                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
+                    dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
                     showUpdateSurgery(oldInfo, category, dialogView,dialogBuilder);
                 }
                 if (category == "DrugReaction") {
-                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
+                    dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
                     showUpdateDrugReaction(oldInfo, category, dialogView,dialogBuilder);
                 }
                 if (category == "Drug") {
-                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
+                    dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
                     showUpdateDrug(oldInfo, category, dialogView,dialogBuilder);
                 }
                 return false;
