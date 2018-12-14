@@ -109,15 +109,15 @@ class PatientInfoDatabaseService {
                     dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
                     showUpdateInfoString(oldInfo, category, dialogView,dialogBuilder);
                 }
-                if (category == "Surgery") {
+                else if (category == "Surgery") {
                     dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
                     showUpdateSurgery(oldInfo, category, dialogView,dialogBuilder);
                 }
-                if (category == "DrugReaction") {
+                else if (category == "DrugReaction") {
                     dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
                     showUpdateDrugReaction(oldInfo, category, dialogView,dialogBuilder);
                 }
-                if (category == "Drug") {
+                else if (category == "Drug") {
                     dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
                     showUpdateDrug(oldInfo, category, dialogView,dialogBuilder);
                 }
@@ -125,6 +125,7 @@ class PatientInfoDatabaseService {
             }
         });
     }
+
 
     void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
 
@@ -135,6 +136,8 @@ class PatientInfoDatabaseService {
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateEditView);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdate);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDelete);
+
+        //if (category)
 
         dialogBuilder.setTitle(String.format("Updating %s",category.toLowerCase()));
 
