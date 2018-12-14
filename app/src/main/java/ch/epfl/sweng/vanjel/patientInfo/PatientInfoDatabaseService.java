@@ -105,25 +105,29 @@ class PatientInfoDatabaseService {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
                 if (category == "Condition" || category == "Allergy" || category == "Substance") {
-                    showUpdateInfoString(oldInfo, category, inflater,dialogBuilder);
+                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
+                    showUpdateInfoString(oldInfo, category, dialogView,dialogBuilder);
                 }
                 if (category == "Surgery") {
-                    showUpdateSurgery(oldInfo, category, inflater,dialogBuilder);
+                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
+                    showUpdateSurgery(oldInfo, category, dialogView,dialogBuilder);
                 }
                 if (category == "DrugReaction") {
-                    showUpdateDrugReaction(oldInfo, category, inflater,dialogBuilder);
+                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
+                    showUpdateDrugReaction(oldInfo, category, dialogView,dialogBuilder);
                 }
                 if (category == "Drug") {
-                    showUpdateDrug(oldInfo, category, inflater,dialogBuilder);
+                    final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
+                    showUpdateDrug(oldInfo, category, dialogView,dialogBuilder);
                 }
                 return false;
             }
         });
     }
 
-    void showUpdateInfoString(final String oldInfo, final String category, LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
+    void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
 
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
+        //final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
 
         dialogBuilder.setView(dialogView);
 
@@ -170,9 +174,9 @@ class PatientInfoDatabaseService {
     }
 
 
-    void showUpdateSurgery(final String oldInfo, final String category,LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
+    void showUpdateSurgery(final String oldInfo, final String category,View dialogView, AlertDialog.Builder dialogBuilder) {
 
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
+        //final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
 
         dialogBuilder.setView(dialogView);
 
@@ -212,9 +216,9 @@ class PatientInfoDatabaseService {
 
     }
 
-    void showUpdateDrugReaction(final String oldInfo, final String category,LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
+    void showUpdateDrugReaction(final String oldInfo, final String category,View dialogView, AlertDialog.Builder dialogBuilder) {
 
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
+        //final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
 
         dialogBuilder.setView(dialogView);
 
@@ -255,9 +259,9 @@ class PatientInfoDatabaseService {
     }
 
 
-    void showUpdateDrug(final String oldInfo, final String category,LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
+    void showUpdateDrug(final String oldInfo, final String category,View dialogView , AlertDialog.Builder dialogBuilder) {
 
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
+        //final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
 
         dialogBuilder.setView(dialogView);
         //final AlertDialog alertDialog = initView(R.layout.activity_patient_info_update_drug,this);
