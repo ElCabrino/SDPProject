@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel.doctorInformation;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -43,7 +45,9 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     //local database
     LocalDatabaseService localDatabaseService;
 
-    private Button takeAppointment, chat, favorite;
+    MaterialFavoriteButton favorite;
+
+    private Button takeAppointment, chat;
     private Boolean favoriteState = false;
 
     // map
@@ -103,6 +107,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         //favorite
         favorite = findViewById(R.id.addToFavoriteButton);
         favorite.setOnClickListener(this);
+
     }
 
     public void onClick(View v) {
@@ -123,14 +128,18 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         case R.id.addToFavoriteButton:
             if (!favoriteState){
                 favoriteState = true;
-                favorite.setBackgroundColor(0xDDDDBB33);
+                favorite.setFavorite(true);
                 this.localDatabaseService.save(this.doctor, this.doctorUID);
             }
             else {
-                favorite.setBackgroundColor(0xFFD6D7D7);
                 favoriteState = false;
+                favorite.setFavorite(false);
                 this.localDatabaseService.delete(this.doctor, this.doctorUID);
             }
+
+
+
+
         }
     }
 
@@ -162,7 +171,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private void findIfAlreadyFavoriteButtonState(){
         if (localDatabaseService.getWithKey(this.doctorUID).size() != 0){
             favoriteState = true;
-            favorite.setBackgroundColor(0xDDDDBB33);
+            favorite.setFavorite(true);
         }
     }
 

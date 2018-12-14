@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".doctorInformation.DoctorInformation"
     android:layout_margin="5dp"
@@ -40,12 +41,13 @@
                 android:textSize="23sp"
                 android:textStyle="normal" />
 
-            <Button
+
+            <com.github.ivbaranov.mfb.MaterialFavoriteButton
                 android:id="@+id/addToFavoriteButton"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="favorite" />
+                android:layout_height="wrap_content" />
+
+
 
         </LinearLayout>
 
