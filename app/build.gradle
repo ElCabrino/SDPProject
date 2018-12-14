@@ -27,7 +27,7 @@ android {
 
     adbOptions {
         timeOutInMs 10 * 60 * 1000 // 20 minutes
-        installOptions "-d","-t"
+        installOptions "-d", "-t"
     }
 
     buildTypes {

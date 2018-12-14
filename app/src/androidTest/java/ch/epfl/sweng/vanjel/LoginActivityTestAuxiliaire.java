@@ -21,7 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  Test class for LoginActivity
 
  @author: Aslam CADER
- reviewer:
+ reviewer: Etienne CAQUOT
  **/
 
 @RunWith(AndroidJUnit4.class)
@@ -40,7 +40,7 @@ public class LoginActivityTestAuxiliaire {
 
     private void signOutIfPossible() {
         try {
-            onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
+            onView(withId(R.id.logoutMainMenu)).perform(click());
         } catch (NoMatchingViewException e) {
             // Ignore
         }

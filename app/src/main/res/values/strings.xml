@@ -78,4 +78,8 @@
     <string name="grant_permission">Grant permission</string>
     <string name="your_next_appointments">Your next appointments</string>
     <string name="adviced_you_to_visit">adviced you to visit:</string>
+    <!-- Login Page -->
+    <string name="mail">Mail</string>
+    <string name="password">Password</string>
+    <string name="notRegisteredYet">Not registered yet ? Click here</string>
 </resources>
