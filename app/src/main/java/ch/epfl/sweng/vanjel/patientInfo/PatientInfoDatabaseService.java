@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,6 +95,68 @@ class PatientInfoDatabaseService {
         });
     }
 
+    //LISTVIEW LISTENERS FOR UPDATING ITEMS
+    void listViewSingleInfoListener(ListView listView, final List<? extends InfoString> typeList, final String category, final Context context) {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InfoString cond = typeList.get(i);
+                showUpdateInfoString(cond, category,true,context);
+                return false;
+            }
+        });
+    }
+
+    void showUpdateInfoString(final InfoString oldInfo, final String category, boolean isSingleField,Context context) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
+
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateEditView);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdate);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDelete);
+
+        dialogBuilder.setTitle(String.format("Updating %s",category.toLowerCase()));
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        //final String info = editTextName.getText().toString().trim();
+        alertDialog.show();
+
+
+        /*if (!isSingleField) {
+            buttonUpdate.setVisibility(View.INVISIBLE);
+        }
+        else {*/
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String info = editTextName.getText().toString().trim();
+                if (TextUtils.isDigitsOnly(info)) {
+                    editTextName.setError("Information required");
+                    return;
+                }
+                deleteItem(oldInfo.getInfo(), category);
+                addItemToDatabase(info, category, new InfoString(info));
+                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
+
+                alertDialog.dismiss();
+            }
+        });
+        //}
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItem(oldInfo.getInfo(),category);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
 
 
 

@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -148,15 +149,10 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
 
         //TODO: finish update list; refactor
-        listViewConditions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                InfoString cond = conditionList.get(i);
-                showUpdateInfoString(cond, "Condition",true);
-                return false;
-            }
-        });
 
+        patientInfoDatabaseService.listViewSingleInfoListener(listViewConditions,conditionList,"Condition",this);
+        patientInfoDatabaseService.listViewSingleInfoListener(listViewAllergies,allergyList,"Allergy",this);
+        patientInfoDatabaseService.listViewSingleInfoListener(listViewSubstances,substanceList,"Substance",this);
 
         listViewSurgeries.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -166,16 +162,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 return false;
             }
         });
-
-        listViewAllergies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                InfoString allergy = allergyList.get(i);
-                showUpdateInfoString(allergy, "Allergy",true);
-                return false;
-            }
-        });
-
 
         listViewDrugReactions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -194,16 +180,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 return false;
             }
         });
-
-        listViewSubstances.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                InfoString allergy = substanceList.get(i);
-                showUpdateInfoString(allergy, "Substance",true);
-                return false;
-            }
-        });
-
 
     }
 
@@ -248,45 +224,20 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /*<T>private void initButtons(String item, String category, T itemObject,
+                               final T oldItem, Button buttonUpdate, Button buttonDelete, AlertDialog alertDialog) {
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //String info = editTextName.getText().toString().trim();
 
-    void showUpdateInfoString(final InfoString oldInfo, final String category, boolean isSingleField) {
+                patientInfoDatabaseService.deleteItem(((Info)oldItem).getInfo(), category);
+                patientInfoDatabaseService.addItemToDatabase(info, category, new InfoString(info));
+                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
-
-        dialogBuilder.setView(dialogView);
-
-        final EditText editTextName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateEditView);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdate);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDelete);
-
-        dialogBuilder.setTitle(String.format("Updating %s",category.toLowerCase()));
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
-
-
-        /*if (!isSingleField) {
-            buttonUpdate.setVisibility(View.INVISIBLE);
-        }
-        else {*/
-            buttonUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String info = editTextName.getText().toString().trim();
-                    if (TextUtils.isDigitsOnly(info)) {
-                        editTextName.setError("Information required");
-                        return;
-                    }
-                    patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
-                    patientInfoDatabaseService.addItemToDatabase(info, category, new InfoString(info));
-                    //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
-
-                    alertDialog.dismiss();
-                }
-            });
+                alertDialog.dismiss();
+            }
+        });
         //}
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
@@ -296,9 +247,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 alertDialog.dismiss();
             }
         });
-
-
-    }
+    }*/
 
     void showUpdateSurgery(final InfoString oldInfo, final String category) {
 
@@ -317,6 +266,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         dialogBuilder.setTitle("Updating surgery");
 
         final AlertDialog alertDialog = dialogBuilder.create();
+        //final Surgery chir = new Surgery(getTextFromField(surgeryUpdateType), getTextFromField(surgeryUpdateYear));
         alertDialog.show();
 
             buttonUpdate.setOnClickListener(new View.OnClickListener() {
@@ -326,7 +276,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                     Surgery chir = new Surgery(getTextFromField(surgeryUpdateType), getTextFromField(surgeryUpdateYear));
 
                     patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
-                    patientInfoDatabaseService.addItemToDatabase(chir.type, category, chir);
+                    patientInfoDatabaseService.addItemToDatabase(chir.getAndroidInfo(), category, chir);
                     //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
 
                     alertDialog.dismiss();
@@ -362,13 +312,14 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         dialogBuilder.setTitle("Updating drug reaction");
 
         final AlertDialog alertDialog = dialogBuilder.create();
+        final DrugReaction dr = new DrugReaction(getTextFromField(drUpdateType), getTextFromField(drUpdateYear));
         alertDialog.show();
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: check not null
-                DrugReaction dr = new DrugReaction(getTextFromField(drUpdateType), getTextFromField(drUpdateYear));
+                //DrugReaction dr = new DrugReaction(getTextFromField(drUpdateType), getTextFromField(drUpdateYear));
 
                 patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
                 patientInfoDatabaseService.addItemToDatabase(dr.getDrug(), category, dr);
@@ -390,6 +341,15 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /*private View initView(Integer id, Context context) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(id,null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle("Updating drug");
+        return dialogView;
+    }*/
+
     void showUpdateDrug(final InfoString oldInfo, final String category) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -398,24 +358,26 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
 
         dialogBuilder.setView(dialogView);
-
+        //final AlertDialog alertDialog = initView(R.layout.activity_patient_info_update_drug,this);
         final EditText drugUpdateDrug = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDrug);
         final EditText drugUpdateDosage = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDosage);
         final EditText drugUpdateFrequency = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugFrequency);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrug);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrug);
 
-        dialogBuilder.setTitle("Updating drug");
+        //dialogBuilder.setTitle("Updating drug");
 
         final AlertDialog alertDialog = dialogBuilder.create();
+        final Drug drug = new Drug(getTextFromField(drugUpdateDrug),
+                getTextFromField(drugUpdateDosage),getTextFromField(drugUpdateFrequency));
         alertDialog.show();
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: check not null
-                Drug drug = new Drug(getTextFromField(drugUpdateDrug),
-                        getTextFromField(drugUpdateDosage),getTextFromField(drugUpdateFrequency));
+                //Drug drug = new Drug(getTextFromField(drugUpdateDrug),
+                //        getTextFromField(drugUpdateDosage),getTextFromField(drugUpdateFrequency));
 
                 patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
                 patientInfoDatabaseService.addItemToDatabase(drug.getDrug(), category, drug);

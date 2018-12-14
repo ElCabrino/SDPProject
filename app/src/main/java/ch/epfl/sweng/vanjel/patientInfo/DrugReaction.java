@@ -30,6 +30,6 @@ public class DrugReaction extends Info{
 
     @Override
     public String getAndroidInfo() {
-        return getReaction();
+        return getDrug();
     }
 }
