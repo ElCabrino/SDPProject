@@ -148,38 +148,15 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
 
-        //TODO: finish update list; refactor
+        //add listeners to listviews for updates
+        patientInfoDatabaseService.listViewListener(listViewConditions,conditionList,"Condition",this);
+        patientInfoDatabaseService.listViewListener(listViewAllergies,allergyList,"Allergy",this);
+        patientInfoDatabaseService.listViewListener(listViewSubstances,substanceList,"Substance",this);
+        patientInfoDatabaseService.listViewListener(listViewSurgeries,surgeryList,"Surgery",this);
+        patientInfoDatabaseService.listViewListener(listViewDrugReactions,drugReactionList,"DrugReaction",this);
+        patientInfoDatabaseService.listViewListener(listViewDrugs,drugList,"Drug",this);
 
-        patientInfoDatabaseService.listViewSingleInfoListener(listViewConditions,conditionList,"Condition",this);
-        patientInfoDatabaseService.listViewSingleInfoListener(listViewAllergies,allergyList,"Allergy",this);
-        patientInfoDatabaseService.listViewSingleInfoListener(listViewSubstances,substanceList,"Substance",this);
 
-        listViewSurgeries.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Surgery chir = surgeryList.get(i);
-                showUpdateSurgery(new InfoString(chir.getType()), "Surgery");
-                return false;
-            }
-        });
-
-        listViewDrugReactions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DrugReaction dr = drugReactionList.get(i);
-                showUpdateDrugReaction(new InfoString(dr.getDrug()), "DrugReaction");
-                return false;
-            }
-        });
-
-        listViewDrugs.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Drug drug = drugList.get(i);
-                showUpdateDrug(new InfoString(drug.getDrug()), "Drug");
-                return false;
-            }
-        });
 
     }
 
@@ -249,97 +226,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         });
     }*/
 
-    void showUpdateSurgery(final InfoString oldInfo, final String category) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
-
-        dialogBuilder.setView(dialogView);
-
-        final EditText surgeryUpdateType = (EditText) dialogView.findViewById(R.id.patientInfoUpdateSurgeryType);
-        final EditText surgeryUpdateYear = (EditText) dialogView.findViewById(R.id.patientInfoUpdateSurgeryYear);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery);
-
-        dialogBuilder.setTitle("Updating surgery");
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        //final Surgery chir = new Surgery(getTextFromField(surgeryUpdateType), getTextFromField(surgeryUpdateYear));
-        alertDialog.show();
-
-            buttonUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO: check not null
-                    Surgery chir = new Surgery(getTextFromField(surgeryUpdateType), getTextFromField(surgeryUpdateYear));
-
-                    patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
-                    patientInfoDatabaseService.addItemToDatabase(chir.getAndroidInfo(), category, chir);
-                    //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
-
-                    alertDialog.dismiss();
-                }
-            });
-
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(),category);
-                alertDialog.dismiss();
-            }
-        });
-
-
-    }
-
-    void showUpdateDrugReaction(final InfoString oldInfo, final String category) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
-
-        dialogBuilder.setView(dialogView);
-
-        final EditText drUpdateType = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugReactionDrug);
-        final EditText drUpdateYear = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugReactionReaction);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrugReaction);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrugReaction);
-
-        dialogBuilder.setTitle("Updating drug reaction");
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        final DrugReaction dr = new DrugReaction(getTextFromField(drUpdateType), getTextFromField(drUpdateYear));
-        alertDialog.show();
-
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: check not null
-                //DrugReaction dr = new DrugReaction(getTextFromField(drUpdateType), getTextFromField(drUpdateYear));
-
-                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
-                patientInfoDatabaseService.addItemToDatabase(dr.getDrug(), category, dr);
-                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
-
-                alertDialog.dismiss();
-            }
-        });
-
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(),category);
-                alertDialog.dismiss();
-            }
-        });
-
-
-    }
 
     /*private View initView(Integer id, Context context) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -350,59 +236,11 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         return dialogView;
     }*/
 
-    void showUpdateDrug(final InfoString oldInfo, final String category) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
-
-        dialogBuilder.setView(dialogView);
-        //final AlertDialog alertDialog = initView(R.layout.activity_patient_info_update_drug,this);
-        final EditText drugUpdateDrug = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDrug);
-        final EditText drugUpdateDosage = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDosage);
-        final EditText drugUpdateFrequency = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugFrequency);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrug);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrug);
-
-        //dialogBuilder.setTitle("Updating drug");
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        final Drug drug = new Drug(getTextFromField(drugUpdateDrug),
-                getTextFromField(drugUpdateDosage),getTextFromField(drugUpdateFrequency));
-        alertDialog.show();
-
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: check not null
-                //Drug drug = new Drug(getTextFromField(drugUpdateDrug),
-                //        getTextFromField(drugUpdateDosage),getTextFromField(drugUpdateFrequency));
-
-                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(), category);
-                patientInfoDatabaseService.addItemToDatabase(drug.getDrug(), category, drug);
-                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
-
-                alertDialog.dismiss();
-            }
-        });
-
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(),category);
-                alertDialog.dismiss();
-            }
-        });
-
-
-    }
 
 
 
-
-    String getTextFromField(EditText field){
+    //TODO move or refactor
+    static String getTextFromField(EditText field){
         return field.getText().toString().trim();
     }
 

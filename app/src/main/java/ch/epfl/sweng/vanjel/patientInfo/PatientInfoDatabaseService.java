@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Locale;
 
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
@@ -96,18 +97,29 @@ class PatientInfoDatabaseService {
     }
 
     //LISTVIEW LISTENERS FOR UPDATING ITEMS
-    void listViewSingleInfoListener(ListView listView, final List<? extends InfoString> typeList, final String category, final Context context) {
+    void listViewListener(ListView listView, final List<? extends Info> typeList, final String category, final Context context) {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                InfoString cond = typeList.get(i);
-                showUpdateInfoString(cond, category,true,context);
+                String oldInfo = typeList.get(i).getAndroidInfo();
+                if (category == "Condition" || category == "Allergy" || category == "Substance") {
+                    showUpdateInfoString(oldInfo, category, true, context);
+                }
+                if (category == "Surgery") {
+                    showUpdateSurgery(oldInfo, category, context);
+                }
+                if (category == "DrugReaction") {
+                    showUpdateDrugReaction(oldInfo, category, context);
+                }
+                if (category == "Drug") {
+                    showUpdateDrug(oldInfo, category, context);
+                }
                 return false;
             }
         });
     }
 
-    void showUpdateInfoString(final InfoString oldInfo, final String category, boolean isSingleField,Context context) {
+    void showUpdateInfoString(final String oldInfo, final String category, boolean isSingleField,Context context) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -139,7 +151,7 @@ class PatientInfoDatabaseService {
                     editTextName.setError("Information required");
                     return;
                 }
-                deleteItem(oldInfo.getInfo(), category);
+                deleteItem(oldInfo, category);
                 addItemToDatabase(info, category, new InfoString(info));
                 //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
 
@@ -151,12 +163,155 @@ class PatientInfoDatabaseService {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteItem(oldInfo.getInfo(),category);
+                deleteItem(oldInfo,category);
                 alertDialog.dismiss();
             }
         });
 
     }
+
+
+    void showUpdateSurgery(final String oldInfo, final String category,Context context) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
+
+        dialogBuilder.setView(dialogView);
+
+        final EditText surgeryUpdateType = (EditText) dialogView.findViewById(R.id.patientInfoUpdateSurgeryType);
+        final EditText surgeryUpdateYear = (EditText) dialogView.findViewById(R.id.patientInfoUpdateSurgeryYear);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery);
+
+        dialogBuilder.setTitle("Updating surgery");
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        //final Surgery chir = new Surgery(getTextFromField(surgeryUpdateType), getTextFromField(surgeryUpdateYear));
+        alertDialog.show();
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: check not null
+                Surgery chir = new Surgery(PatientInfo.getTextFromField(surgeryUpdateType), PatientInfo.getTextFromField(surgeryUpdateYear));
+
+                deleteItem(oldInfo, category);
+                addItemToDatabase(chir.getAndroidInfo(), category, chir);
+
+                alertDialog.dismiss();
+            }
+        });
+
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItem(oldInfo,category);
+                alertDialog.dismiss();
+            }
+        });
+
+
+    }
+
+    void showUpdateDrugReaction(final String oldInfo, final String category,Context context) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
+
+        dialogBuilder.setView(dialogView);
+
+        final EditText drUpdateType = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugReactionDrug);
+        final EditText drUpdateYear = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugReactionReaction);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrugReaction);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrugReaction);
+
+        dialogBuilder.setTitle("Updating drug reaction");
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        /*final DrugReaction dr = new DrugReaction(PatientInfo.getTextFromField(drUpdateType), PatientInfo.getTextFromField(drUpdateYear));
+        */alertDialog.show();
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: check not null
+                DrugReaction dr = new DrugReaction(PatientInfo.getTextFromField(drUpdateType), PatientInfo.getTextFromField(drUpdateYear));
+
+                deleteItem(oldInfo, category);
+                addItemToDatabase(dr.getAndroidInfo(), category, dr);
+                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
+
+                alertDialog.dismiss();
+            }
+        });
+
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItem(oldInfo,category);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+
+    void showUpdateDrug(final String oldInfo, final String category,Context context) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
+
+        dialogBuilder.setView(dialogView);
+        //final AlertDialog alertDialog = initView(R.layout.activity_patient_info_update_drug,this);
+        final EditText drugUpdateDrug = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDrug);
+        final EditText drugUpdateDosage = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDosage);
+        final EditText drugUpdateFrequency = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugFrequency);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrug);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrug);
+
+        //dialogBuilder.setTitle("Updating drug");
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        /*final Drug drug = new Drug(PatientInfo.getTextFromField(drugUpdateDrug),
+                PatientInfo.getTextFromField(drugUpdateDosage),PatientInfo.getTextFromField(drugUpdateFrequency));*/
+        alertDialog.show();
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: check not null
+                Drug drug = new Drug(PatientInfo.getTextFromField(drugUpdateDrug),
+                        PatientInfo.getTextFromField(drugUpdateDosage),PatientInfo.getTextFromField(drugUpdateFrequency));
+
+                deleteItem(oldInfo, category);
+                addItemToDatabase(drug.getAndroidInfo(), category, drug);
+                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
+
+                alertDialog.dismiss();
+            }
+        });
+
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItem(oldInfo,category);
+                alertDialog.dismiss();
+            }
+        });
+
+
+    }
+
+
 
 
 
