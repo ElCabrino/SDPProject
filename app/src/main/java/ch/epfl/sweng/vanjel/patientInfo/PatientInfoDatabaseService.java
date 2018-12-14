@@ -98,31 +98,30 @@ class PatientInfoDatabaseService {
 
     //LISTVIEW LISTENERS FOR UPDATING ITEMS
     void listViewListener(ListView listView, final List<? extends Info> typeList, final String category, final Context context) {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        final LayoutInflater inflater = LayoutInflater.from(context);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
                 if (category == "Condition" || category == "Allergy" || category == "Substance") {
-                    showUpdateInfoString(oldInfo, category, true, context);
+                    showUpdateInfoString(oldInfo, category, inflater,dialogBuilder);
                 }
                 if (category == "Surgery") {
-                    showUpdateSurgery(oldInfo, category, context);
+                    showUpdateSurgery(oldInfo, category, inflater,dialogBuilder);
                 }
                 if (category == "DrugReaction") {
-                    showUpdateDrugReaction(oldInfo, category, context);
+                    showUpdateDrugReaction(oldInfo, category, inflater,dialogBuilder);
                 }
                 if (category == "Drug") {
-                    showUpdateDrug(oldInfo, category, context);
+                    showUpdateDrug(oldInfo, category, inflater,dialogBuilder);
                 }
                 return false;
             }
         });
     }
 
-    void showUpdateInfoString(final String oldInfo, final String category, boolean isSingleField,Context context) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
+    void showUpdateInfoString(final String oldInfo, final String category, LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
 
         final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
 
@@ -171,10 +170,7 @@ class PatientInfoDatabaseService {
     }
 
 
-    void showUpdateSurgery(final String oldInfo, final String category,Context context) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
+    void showUpdateSurgery(final String oldInfo, final String category,LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
 
         final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
 
@@ -216,10 +212,7 @@ class PatientInfoDatabaseService {
 
     }
 
-    void showUpdateDrugReaction(final String oldInfo, final String category,Context context) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
+    void showUpdateDrugReaction(final String oldInfo, final String category,LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
 
         final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
 
@@ -262,10 +255,7 @@ class PatientInfoDatabaseService {
     }
 
 
-    void showUpdateDrug(final String oldInfo, final String category,Context context) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
+    void showUpdateDrug(final String oldInfo, final String category,LayoutInflater inflater, AlertDialog.Builder dialogBuilder) {
 
         final View dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
 
