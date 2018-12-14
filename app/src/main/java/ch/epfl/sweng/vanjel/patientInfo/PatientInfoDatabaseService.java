@@ -179,25 +179,9 @@ class PatientInfoDatabaseService {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Info info;
-                if (category.equals("Condition") || category.equals("Allergy") || category.equals("Substance")) {
-                    info = new InfoString(PatientInfo.getTextFromField(androidName));
-                }
-                else if (category.equals("Surgery")) {
-                    info = new Surgery(PatientInfo.getTextFromField(androidName),
-                            PatientInfo.getTextFromField(additionalField1));
-                }
-                else if (category.equals("DrugReaction")) {
-                    info = new DrugReaction(PatientInfo.getTextFromField(androidName),
-                            PatientInfo.getTextFromField(additionalField1));
-                }
-                else {
-                    info= new Drug(PatientInfo.getTextFromField(androidName),
-                            PatientInfo.getTextFromField(additionalField1),PatientInfo.getTextFromField(additionalField2));
-                }
-                /*String info = editTextName.getText().toString().trim();
-                TODO: check information present
-                if (TextUtils.isDigitsOnly(info)) {
+                Info info = getCorrectInfo(category, androidName, additionalField1, additionalField2);
+                //TODO: check information present
+                /*if (TextUtils.isDigitsOnly(info)) {
                     editTextName.setError("Information required");
                     return;
                 }*/
@@ -219,6 +203,28 @@ class PatientInfoDatabaseService {
         });
 
     }
+
+    //TODO: change to switch
+    private Info getCorrectInfo(String category, EditText androidName, EditText additionalField1, EditText additionalField2) {
+        Info info;
+        if (category.equals("Condition") || category.equals("Allergy") || category.equals("Substance")) {
+            info = new InfoString(PatientInfo.getTextFromField(androidName));
+        }
+        else if (category.equals("Surgery")) {
+            info = new Surgery(PatientInfo.getTextFromField(androidName),
+                    PatientInfo.getTextFromField(additionalField1));
+        }
+        else if (category.equals("DrugReaction")) {
+            info = new DrugReaction(PatientInfo.getTextFromField(androidName),
+                    PatientInfo.getTextFromField(additionalField1));
+        }
+        else {
+            info= new Drug(PatientInfo.getTextFromField(androidName),
+                    PatientInfo.getTextFromField(additionalField1),PatientInfo.getTextFromField(additionalField2));
+        }
+        return info;
+    }
+
 
 
     //SETTERS
