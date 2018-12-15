@@ -313,6 +313,37 @@ PatientInfoTest {
         addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }
 
+
+    @Test
+    public void updateSingleInfo() throws InterruptedException {
+        onView(withId(R.id.buttonPriorConditions)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(5);
+        for (InfoString condition : conditions) {
+            onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());
+            onView(withId(R.id.buttonPriorConditions)).perform(click());
+        }
+        TimeUnit.SECONDS.sleep(5);
+        onView(withId(R.id.textViewConditions)).perform(scrollTo());
+        onView(withId(R.id.textViewConditions)).perform(click());
+        TimeUnit.SECONDS.sleep(1);
+        onView(withId(R.id.buttonPatientInfoUpdate)).perform(click());
+    }
+
+    @Test
+    public void deleteSingleInfo() throws InterruptedException {
+        onView(withId(R.id.buttonPriorConditions)).perform(scrollTo());
+        TimeUnit.SECONDS.sleep(5);
+        for (InfoString condition : conditions) {
+            onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());
+            onView(withId(R.id.buttonPriorConditions)).perform(click());
+        }
+        TimeUnit.SECONDS.sleep(5);
+        onView(withId(R.id.textViewConditions)).perform(scrollTo());
+        onView(withId(R.id.textViewConditions)).perform(click());
+        TimeUnit.SECONDS.sleep(1);
+        onView(withId(R.id.buttonPatientInfoDelete)).perform(click());
+    }
+
     private void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo(), closeSoftKeyboard());
         //onView(withId(R.id.ptDrugReactionList)).perform(swipeDown());

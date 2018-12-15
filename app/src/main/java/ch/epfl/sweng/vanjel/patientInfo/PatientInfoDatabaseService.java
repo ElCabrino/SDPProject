@@ -97,13 +97,12 @@ class PatientInfoDatabaseService {
     void listViewListener(ListView listView, final List<? extends Info> typeList, final String category, final Context context) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         final LayoutInflater inflater = LayoutInflater.from(context);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
                 View dialogView = getDialogView(category,inflater);
                 showUpdateInfoString(oldInfo, category, dialogView,dialogBuilder);
-                return false;
             }
         });
     }
