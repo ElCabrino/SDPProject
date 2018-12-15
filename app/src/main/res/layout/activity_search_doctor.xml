@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".searchDoctor.SearchDoctor">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:paddingTop="56dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
         <TextView
             android:id="@+id/titleSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:height="100dp"
-            android:gravity="center"
-            android:text=" Search"
             android:drawableLeft="@drawable/search"
             android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text=" Search"
             android:textSize="24sp" />
 
 
@@ -42,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="First name"
                 android:fontFamily="sans-serif-light"
+                android:hint="First name"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -59,8 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Last name"
                 android:fontFamily="sans-serif-light"
+                android:hint="Last name"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
@@ -75,8 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Specialisation"
                 android:fontFamily="sans-serif-light"
+                android:hint="Specialisation"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
@@ -91,29 +89,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="City"
                 android:fontFamily="sans-serif-light"
+                android:hint="City"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
 
-
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/buttonSearch"
-            android:layout_width="fill_parent"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:text="Search"
             android:fontFamily="sans-serif-light"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Search"
             android:visibility="visible" />
 
-
-
     </LinearLayout>
-    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
