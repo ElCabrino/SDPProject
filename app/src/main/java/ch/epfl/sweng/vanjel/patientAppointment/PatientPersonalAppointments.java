@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,18 +37,21 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     private DatabaseReference dbAp, dbDoc;
 
     private ListView listViewAp;
+
+    private TextView noAppointement;
+
     private String uid;
 
-    List<PtPersonalAppointment> apList = new ArrayList<>();
+    private List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc;
 
     private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
-
     private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
     private Date currentDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,72 +65,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         dbDoc = database.getReference("Doctor");
 
         listViewAp = findViewById(R.id.ptPersonalAppointmentsListView);
-
+        noAppointement = findViewById(R.id.ptNoAppointements);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         populateDocMap();
-        currentDate = new Date();
-
-
-        dbAp.addValueEventListener(new ValueEventListener() {
-            //@TargetApi(Build.VERSION_CODES.N)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                apList.clear();
-
-                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                            if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
-                                String docId = idSnapshot.child("doctor").getValue(String.class);
-                                String doc = "";
-                                String loc = "";
-                                if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
-                                    doc = idToDoc.get(docId).get(0);
-                                    loc = idToDoc.get(docId).get(1);
-                                }
-                                String date = idSnapshot.child("date").getValue(String.class);
-                                String time = idSnapshot.child("time").getValue(String.class);
-                                String duration = idSnapshot.child("duration").getValue(String.class);
-                                Boolean pending = Integer.parseInt(duration) == 0;
-
-                                try {
-
-                                    currentDate = dateFormat.parse(dateFormat.format(currentDate));
-                                    int comparaison = dateFormat.parse(date).compareTo(currentDate);
-
-                                    if(comparaison != -1){
-                                        apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
-                                    }
-
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                }
-
-                Collections.sort(apList, new appointmentsComparator());
-                //apList.sort(new appointmentsComparator());
-                PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
-                listViewAp.setAdapter(adapter);
-                //TODO: click on appointment to get doctor info
-                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
-                        startActivity(appInfo);
-                    }
-                });*/
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
-        });
 
     }
 
@@ -213,8 +159,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
                     String name = idSnapshot.child("lastName").getValue(String.class);
-                    String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
-                            idSnapshot.child("street").getValue(String.class) + " " +
+                    String location = idSnapshot.child("street").getValue(String.class) + ", " +
+                            idSnapshot.child("streetNumber").getValue(String.class) + " - " +
                             idSnapshot.child("city").getValue(String.class);
                     String docId = idSnapshot.getKey();
                     ArrayList<String> list = new ArrayList<>();
@@ -222,11 +168,80 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                     list.add(location);
                     idToDoc.put(docId,list);
                 }
+                getAppointements();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
+    }
+
+    private void getAppointements() {
+        currentDate = new Date();
+
+        dbAp.addValueEventListener(new ValueEventListener() {
+            //@TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                apList.clear();
+
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
+                        String docId = idSnapshot.child("doctor").getValue(String.class);
+                        String doc = "";
+                        String loc = "";
+                        if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                            doc = idToDoc.get(docId).get(0);
+                            loc = idToDoc.get(docId).get(1);
+                        }
+                        String date = idSnapshot.child("date").getValue(String.class);
+                        String time = idSnapshot.child("time").getValue(String.class);
+                        String duration = idSnapshot.child("duration").getValue(String.class);
+                        Boolean pending = Integer.parseInt(duration) == 0;
+                        try {
+
+                            currentDate = dateFormat.parse(dateFormat.format(currentDate));
+                            int comparaison = dateFormat.parse(date).compareTo(currentDate);
+
+                            if(comparaison != -1){
+                                apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
+                            }
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                Collections.sort(apList, new appointmentsComparator());
+                //apList.sort(new appointmentsComparator());
+                PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
+                listViewAp.setAdapter(adapter);
+                //TODO: click on appointment to get doctor info
+                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
+                        startActivity(appInfo);
+                    }
+                });*/
+
+                AdaptLayoutIfNoAppointment(apList.isEmpty());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
+            }
+        });
+    }
+
+    private void AdaptLayoutIfNoAppointment(boolean isEmpty) {
+        if(isEmpty){
+            noAppointement.setVisibility(View.VISIBLE);
+        } else {
+            noAppointement.setVisibility(View.GONE);
+        }
     }
 }
