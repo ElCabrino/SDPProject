@@ -397,21 +397,21 @@ PatientInfoTest {
     public void deleteDrugInfo() throws InterruptedException {
         onView(withId(R.id.buttonSurgery)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
-        for (Surgery surgery: surgeries) {
-            onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()), closeSoftKeyboard());
-            onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()), closeSoftKeyboard());
-            onView(withId(R.id.buttonSurgery)).perform(click());
+        for (Drug drug : drugs) {
+            onView(withId(R.id.ptDrugRegimenDrugReg)).perform(setTextInTextView(drug.getDrug()), closeSoftKeyboard());
+            onView(withId(R.id.ptDrugRegimenDosageReg)).perform(setTextInTextView(drug.getDosage()), closeSoftKeyboard());
+            onView(withId(R.id.ptDrugRegimenTimesReg)).perform(setTextInTextView(drug.getFrequency()), closeSoftKeyboard());
+            onView(withId(R.id.buttonDrugRegimen)).perform(click());
         }
         TimeUnit.SECONDS.sleep(5);
-        onView(withId(R.id.textViewSurgeries)).perform(scrollTo());
-        onView(withId(R.id.textViewSurgeries)).perform(click());
+        onView(withId(R.id.textViewDrugs)).perform(scrollTo());
+        onView(withId(R.id.textViewDrugs)).perform(click());
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.buttonPatientInfoDeleteDrug)).perform(click());
     }
 
     private void addAndRecoverSingleValue(int idButton, int idEditText, int idTextField, String text) {
         onView(withId(idButton)).perform(scrollTo(), closeSoftKeyboard());
-        //onView(withId(R.id.ptDrugReactionList)).perform(swipeDown());
         onView(withId(idEditText)).perform(clearText(), setTextInTextView(text), closeSoftKeyboard());
         onView(withId(idButton)).perform(click());
         onView(withId(idTextField)).perform(scrollTo());

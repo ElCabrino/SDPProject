@@ -6,6 +6,10 @@ import android.widget.EditText;
 
 import ch.epfl.sweng.vanjel.R;
 
+/**
+ * @author Nicolas BRANDT
+ * @reviewer
+ */
 public class UpdateViewsHolder {
 
     private EditText androidName;
@@ -57,14 +61,6 @@ public class UpdateViewsHolder {
                 dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery),
                 dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery));
     }
-
-    /*static UpdateViewsHolder forDrugReaction(View dialogView) {
-        return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateDrugReactionDrug),
-                dialogView.findViewById(R.id.patientInfoUpdateDrugReactionReaction),
-                null,
-                dialogView.findViewById(R.id.buttonPatientInfoUpdateDrugReaction),
-                dialogView.findViewById(R.id.buttonPatientInfoDeleteDrugReaction));
-    }*/
 
     static UpdateViewsHolder forDrug(View dialogView) {
         return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateDrugDrug),

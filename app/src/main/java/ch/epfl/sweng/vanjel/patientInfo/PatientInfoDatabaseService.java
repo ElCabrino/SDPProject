@@ -28,6 +28,8 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
+ * A utility class containing methods for the PatientInfo class.
+ *
  * @author Nicolas BRANDT
  * @reviewer Vincent CABRINI
  */
@@ -52,6 +54,19 @@ class PatientInfoDatabaseService {
 
 
     //LISTENERS
+
+    /**
+     * A generic method for creating listeners.
+     *
+     *
+     * @param typeList a list of the type of the patient information
+     * @param listView the listView corresponding to the list
+     * @param category the category of the patient information
+     * @param c the class used
+     * @param adapter the adapter for the list and the listView
+     * @param <T> the class used
+     */
+    //TODO: check if c param is needed considering T is given
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
         db.addValueEventListener(new ValueEventListener() {
@@ -75,6 +90,12 @@ class PatientInfoDatabaseService {
         });
     }
 
+    /**
+     * Adds listeners for informations that do not require a list
+     *
+     * @param textView the textview of corresponding to the information
+     * @param category the category of the information
+     */
     void addAmountListener(final TextView textView, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         dbCat.addValueEventListener(new ValueEventListener() {
@@ -128,12 +149,9 @@ class PatientInfoDatabaseService {
 
     private void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
 
-        //final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
 
         dialogBuilder.setView(dialogView);
-
         final UpdateViewsHolder holder = getHolder(category,dialogView);
-
         dialogBuilder.setTitle(String.format("Updating %s",category.toLowerCase()));
 
         final AlertDialog alertDialog = dialogBuilder.create();
@@ -173,9 +191,6 @@ class PatientInfoDatabaseService {
             case "Substance":
                 return UpdateViewsHolder.forSingleInfo(dialogView);
             case "Surgery":
-                return UpdateViewsHolder.forSurgery(dialogView);
-            //case "DrugReaction":
-            //    return UpdateViewsHolder.forDrugReaction(dialogView);
             case "DrugReaction":
                 return UpdateViewsHolder.forSurgery(dialogView);
             //drug
@@ -208,7 +223,7 @@ class PatientInfoDatabaseService {
     <T> void addItemToDatabase(String item, String category, T itemObject) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
-        // for correct string format
+        // correct string format
         if (category.equals("DrugReaction")) {
             toastText = "Drug reaction";
         }
@@ -242,6 +257,7 @@ class PatientInfoDatabaseService {
 
     }*/
 
+    //TODO: fix delete toast display when updating
     private void deleteItem(String info, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();
