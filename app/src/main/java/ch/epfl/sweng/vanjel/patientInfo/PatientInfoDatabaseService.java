@@ -130,9 +130,6 @@ class PatientInfoDatabaseService {
             case "Substance":
                 return inflater.inflate(R.layout.activity_patient_info_update, null);
             case "Surgery":
-                return inflater.inflate(R.layout.activity_patient_info_update_surgery, null);
-            //case "DrugReaction":
-            //    return inflater.inflate(R.layout.activity_patient_info_update_drug_reaction, null);
             case "DrugReaction":
                 return inflater.inflate(R.layout.activity_patient_info_update_surgery, null);
             //Drug
