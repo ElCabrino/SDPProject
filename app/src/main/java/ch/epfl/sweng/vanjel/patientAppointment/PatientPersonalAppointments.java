@@ -39,7 +39,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     private ListView listViewAp;
 
-    private TextView noAppointement;
+    private TextView noAppointment;
 
     private String uid;
 
@@ -66,7 +66,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         dbDoc = database.getReference("Doctor");
 
         listViewAp = findViewById(R.id.ptPersonalAppointmentsListView);
-        noAppointement = findViewById(R.id.ptNoAppointements);
+        noAppointment = findViewById(R.id.ptNoAppointements);
     }
 
     @Override
@@ -76,6 +76,93 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     }
 
+    private void populateDocMap() {
+        //recover doctor names and locations
+        dbDoc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    String name = idSnapshot.child("lastName").getValue(String.class);
+                    String location = idSnapshot.child("street").getValue(String.class) + ", " +
+                            idSnapshot.child("streetNumber").getValue(String.class) + " - " +
+                            idSnapshot.child("city").getValue(String.class);
+                    String docId = idSnapshot.getKey();
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(name);
+                    list.add(location);
+                    idToDoc.put(docId,list);
+                }
+                getAppointments();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
+            }
+        });
+    }
+
+    private void getAppointments() {
+        currentDate = new Date();
+        dbAp.addValueEventListener(new ValueEventListener() {
+            //@TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                apList.clear();
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
+                        String docId = idSnapshot.child("doctor").getValue(String.class);
+                        String doc = "";
+                        String loc = "";
+                        if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                            doc = idToDoc.get(docId).get(0);
+                            loc = idToDoc.get(docId).get(1);
+                        }
+                        String date = idSnapshot.child("date").getValue(String.class);
+                        String time = idSnapshot.child("time").getValue(String.class);
+                        String duration = idSnapshot.child("duration").getValue(String.class);
+                        Boolean pending = Integer.parseInt(duration) == 0;
+                        try {
+                            currentDate = dateFormat.parse(dateFormat.format(currentDate));
+                            int comparison = dateFormat.parse(date).compareTo(currentDate);
+                            if(comparison != -1){
+                                apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                Collections.sort(apList, new appointmentsComparator());
+                //apList.sort(new appointmentsComparator());
+                PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
+                listViewAp.setAdapter(adapter);
+                //TODO: click on appointment to get doctor info
+                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
+                        startActivity(appInfo);
+                    }
+                });*/
+
+                AdaptLayoutIfNoAppointment(apList.isEmpty());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
+            }
+        });
+    }
+
+    private void AdaptLayoutIfNoAppointment(boolean isEmpty) {
+        if(isEmpty){
+            noAppointment.setVisibility(View.VISIBLE);
+        } else {
+            noAppointment.setVisibility(View.GONE);
+        }
+    }
 
 
     private class appointmentsComparator implements Comparator<PtPersonalAppointment> {
@@ -149,102 +236,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         private int yearNum(String y) {
             int i = Integer.parseInt(y);
             return i * 10000;
-        }
-
-    }
-
-    private void populateDocMap() {
-        //recover doctor names and locations
-        dbDoc.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                    String name = idSnapshot.child("lastName").getValue(String.class);
-                    String location = idSnapshot.child("street").getValue(String.class) + ", " +
-                            idSnapshot.child("streetNumber").getValue(String.class) + " - " +
-                            idSnapshot.child("city").getValue(String.class);
-                    String docId = idSnapshot.getKey();
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(name);
-                    list.add(location);
-                    idToDoc.put(docId,list);
-                }
-                getAppointements();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
-        });
-    }
-
-    private void getAppointements() {
-        currentDate = new Date();
-
-        dbAp.addValueEventListener(new ValueEventListener() {
-            //@TargetApi(Build.VERSION_CODES.N)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                apList.clear();
-
-                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                    if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
-                        String docId = idSnapshot.child("doctor").getValue(String.class);
-                        String doc = "";
-                        String loc = "";
-                        if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
-                            doc = idToDoc.get(docId).get(0);
-                            loc = idToDoc.get(docId).get(1);
-                        }
-                        String date = idSnapshot.child("date").getValue(String.class);
-                        String time = idSnapshot.child("time").getValue(String.class);
-                        String duration = idSnapshot.child("duration").getValue(String.class);
-                        Boolean pending = Integer.parseInt(duration) == 0;
-                        try {
-
-                            currentDate = dateFormat.parse(dateFormat.format(currentDate));
-                            Log.d("PPA",currentDate.toString());
-                            Log.d("PPA", date);
-                            int comparison = dateFormat.parse(date).compareTo(currentDate);
-                            Log.d("PPA",String.valueOf(comparison));
-                            if(comparison != -1){
-                                apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
-                            }
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                Collections.sort(apList, new appointmentsComparator());
-                //apList.sort(new appointmentsComparator());
-                PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
-                listViewAp.setAdapter(adapter);
-                //TODO: click on appointment to get doctor info
-                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
-                        startActivity(appInfo);
-                    }
-                });*/
-
-                AdaptLayoutIfNoAppointment(apList.isEmpty());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
-        });
-    }
-
-    private void AdaptLayoutIfNoAppointment(boolean isEmpty) {
-        if(isEmpty){
-            noAppointement.setVisibility(View.VISIBLE);
-        } else {
-            noAppointement.setVisibility(View.GONE);
         }
     }
 }
