@@ -31,7 +31,7 @@ public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAda
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_doctor_calendar,
                 parent,false);
-        return new ViewHolder(view, R.id.date, R.id.patient, R.id.delete);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -64,11 +64,11 @@ public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAda
         final TextView patient;
         final Button delete;
 
-        ViewHolder(@NonNull View itemView, int id1, int id2, int id3) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            date = itemView.findViewById(id1);
-            patient = itemView.findViewById(id2);
-            delete = itemView.findViewById(id3);
+            date = itemView.findViewById(R.id.date);
+            patient = itemView.findViewById(R.id.patient);
+            delete = itemView.findViewById(R.id.delete);
         }
 
     }

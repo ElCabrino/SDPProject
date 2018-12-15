@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +36,6 @@ public class FilteredDoctors extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;
-    private ArrayList<Doctor> doctors;
     private FilteredDoctorAdapter adapter;
 
     // bundle to retrieve data from search
@@ -68,7 +66,6 @@ public class FilteredDoctors extends AppCompatActivity {
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        doctors = new ArrayList<>();
         doctorHashMap = new HashMap<>();
         allDoctors = new HashMap<>();
         bundle = getIntent().getExtras();
@@ -139,7 +136,6 @@ public class FilteredDoctors extends AppCompatActivity {
                     Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
                     String key = dataSnapshot1.getKey();
                     doctorHashMap.put(key, myDoctor);
-                    doctors.add(myDoctor);
                 }
                 allDoctors = doctorHashMap;
                 select(); // remove unwanted doctors

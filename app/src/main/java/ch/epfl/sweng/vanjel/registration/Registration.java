@@ -125,7 +125,7 @@ public class Registration extends AppCompatActivity {
         };
     }
 
-    public void onCompleteTask(Task<AuthResult> task, final Boolean DoctorReg, final Doctor doctor, final Patient patient){
+    private void onCompleteTask(Task<AuthResult> task, final Boolean DoctorReg, final Doctor doctor, final Patient patient){
         if (task.isSuccessful()) {
             Task<Void> val;
             try {

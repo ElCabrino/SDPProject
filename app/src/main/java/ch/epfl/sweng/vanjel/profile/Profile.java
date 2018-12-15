@@ -34,16 +34,30 @@ import ch.epfl.sweng.vanjel.models.User;
  */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-    EditText email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
+    private EditText email;
+    private EditText lastName;
+    private EditText firstName;
+    private EditText birthday;
+    private EditText gender;
+    private EditText street;
+    private EditText streetNumber;
+    private EditText city;
+    private EditText country;
 
-    String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry;
+    private String newLastName;
+    private String newFirstName;
+    private String newStreet;
+    private String newStreetNumber;
+    private String newCity;
+    private String newCountry;
 
-    Button editButton, saveButton;
+    private Button editButton;
+    private Button saveButton;
 
-    String userType;
+    private String userType;
 
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +76,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     private ValueEventListener createValueEventListener(final String type) {
-        ValueEventListener listener = new ValueEventListener() {
+        return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (type.compareTo("Patient") == 0) {
@@ -76,7 +90,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         };
-        return listener;
     }
 
     private void setTextFields(DataSnapshot dataSnapshot, Class<? extends User> c) {
@@ -149,7 +162,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     // Get string values from the fields.
-    void getStringFromFields(){
+    private void getStringFromFields(){
         this.newFirstName = this.firstName.getText().toString().trim();
         this.newLastName = this.lastName.getText().toString().trim();
         this.newStreet = this.street.getText().toString().trim();
@@ -159,7 +172,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     // Updates user with values in the fields.
-    void saveNewValues() {
+    private void saveNewValues() {
         Map<String, Object> userValues = storeUpdatedValues();
         database.getReference(userType).child(auth.getCurrentUser().getUid()).updateChildren(userValues).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

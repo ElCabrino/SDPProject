@@ -32,7 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -70,9 +69,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     // Database
     private FirebaseDatabase database;
-
-    // this will contain the doctors
-    private final ArrayList<Doctor> doctors = new ArrayList<>();
 
     private final HashMap<String, Doctor> doctorHashMap = new HashMap<>();
 
@@ -186,7 +182,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
-                    doctors.add(myDoctor);
 
                     if (myDoctor!=null) {
                         LatLng doctorLocation = myDoctor.getLocationFromAddress(NearbyDoctor.this);

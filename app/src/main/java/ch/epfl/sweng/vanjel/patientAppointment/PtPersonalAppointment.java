@@ -15,7 +15,7 @@ public class PtPersonalAppointment {
 
     public PtPersonalAppointment() {}
 
-    public PtPersonalAppointment(String doctor, String location, String date, String time, String duration,Boolean pendingStatus) {
+    PtPersonalAppointment(String doctor, String location, String date, String time, String duration, Boolean pendingStatus) {
         this.doctor = doctor;
         this.location = location;
         this.date = date;

@@ -10,13 +10,13 @@ import ch.epfl.sweng.vanjel.R;
  * @author Nicolas BRANDT
  * @reviewer
  */
-public class UpdateViewsHolder {
+class UpdateViewsHolder {
 
-    private EditText androidName;
-    private EditText additionalField1;
-    private EditText additionalField2;
-    private Button buttonUpdate;
-    private Button buttonDelete;
+    private final EditText androidName;
+    private final EditText additionalField1;
+    private final EditText additionalField2;
+    private final Button buttonUpdate;
+    private final Button buttonDelete;
 
     private UpdateViewsHolder(View androidName, View additionalField1, View additionalField2, View buttonUpdate, View buttonDelete) {
         this.androidName = (EditText) androidName;
