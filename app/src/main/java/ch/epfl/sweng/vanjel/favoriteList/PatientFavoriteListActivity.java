@@ -29,7 +29,7 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
     private void refreshView(){
         setContentView(R.layout.activity_favorite_list);
         //set up adapter
-        RecyclerView recyclerView = findViewById(R.id.doctorCardView);
+        RecyclerView recyclerView = findViewById(R.id.doctorFavoriteCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PatientFavoriteListAdapter(this);
         recyclerView.setAdapter(adapter);
