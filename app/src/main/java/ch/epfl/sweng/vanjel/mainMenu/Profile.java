@@ -48,35 +48,11 @@ import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
  */
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView email;
-    private TextView lastName;
-    private TextView firstName;
-    private TextView birthday;
-    private TextView gender;
-    private TextView street;
-    private TextView streetNumber;
-    private TextView city;
-    private TextView country;
+    private TextView email, lastName, firstName, birthday, gender, street, streetNumber, city, country;
 
-    private String newLastName;
-    private String newFirstName;
-    private String newStreet;
-    private String newStreetNumber;
-    private String newCity;
-    private String newCountry;
-    private String userType;
+    private String newLastName, newFirstName, newStreet, newStreetNumber, newCity, newCountry, userType;
 
-    private Button editButton;
-    private Button saveButton;
-    private Button searchButton;
-    private Button setAvailabilityButton;
-    private Button requestsListButton;
-    private Button favoriteListButton;
-    private Button nearbyDoctorButton;
-    private Button logoutButton;
-    private Button buttonNextAppointments;
-    private Button forwardButton;
-
+    private Button editButton, saveButton,searchButton, setAvailabilityButton, requestsListButton, favoriteListButton, nearbyDoctorButton, logoutButton, buttonNextAppointments, forwardButton;
 
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -175,17 +151,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private void nextAppointments(){
         if (userType.equals("Patient")) {
             startActivity(new Intent(this, PatientPersonalAppointments.class));
-        } else {
-            startActivity(new Intent(this, DoctorComingAppointments.class));
-        }
+        } else { startActivity(new Intent(this, DoctorComingAppointments.class)); }
     }
 
     private void patientInfo() {
         if (userType.equals("Patient")) {
             startActivity(new Intent(this, PatientInfo.class));
-        } else {
-            Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show();
-        }
+        } else { Toast.makeText(this, "You must be a patient to access this feature", Toast.LENGTH_LONG).show(); }
     }
 
     private void logOut(){
@@ -287,9 +259,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show();
-                }
+                public void onFailure(@NonNull Exception e) { Toast.makeText(Profile.this, "Failed to update user.", Toast.LENGTH_SHORT).show(); }
             });
         }
     }
@@ -305,8 +275,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         return userValues;
     }
 
-    public void openChats(View v) {
-        startActivity(new Intent(this, ChatListActivity.class));
-    }
+    public void openChats(View v) { startActivity(new Intent(this, ChatListActivity.class)); }
 
 }
