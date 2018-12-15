@@ -22,10 +22,11 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.firebase.FirebaseHelper;
 
 /**
  * @author Nicolas BRANDT
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 public class PatientPersonalAppointments extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     private final List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
-    private static HashMap<String,ArrayList<String>> idToDoc;
+    private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -70,7 +71,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 apList.clear();
 
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                            if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
+                            if (uid.equals(idSnapshot.child("patient").getValue(String.class))) {
                                 String docId = idSnapshot.child("doctor").getValue(String.class);
                                 String doc = "";
                                 String loc = "";
@@ -80,7 +81,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 }
                                 String date = idSnapshot.child("date").getValue(String.class);
                                 String time = idSnapshot.child("time").getValue(String.class);
-                                String duration = idSnapshot.child("duration").getValue(String.class);
+                                //String duration = idSnapshot.child("duration").getValue(String.class);
+                                String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
                                 Boolean pending = Integer.parseInt(duration) == 0;
                                 PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
                                 apList.add(ap);
