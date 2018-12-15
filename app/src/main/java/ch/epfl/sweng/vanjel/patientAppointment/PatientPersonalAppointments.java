@@ -27,11 +27,10 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
-import ch.epfl.sweng.vanjel.login.LoginActivity;
 
 /**
  * @author Nicolas BRANDT
- * @reviewer
+ * @reviewer Etienne CAQUOT
  */
 public class PatientPersonalAppointments extends AppCompatActivity {
 
