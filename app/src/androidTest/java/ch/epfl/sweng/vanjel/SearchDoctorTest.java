@@ -63,7 +63,7 @@ public class SearchDoctorTest {
         onView(withId(R.id.firstNameSearch)).check(matches(withText(firstName)));
         onView(withId(R.id.lastNameSearch)).check(matches(withText(lastName)));
         onView(withId(R.id.specialisationSearch)).check(matches(withText(specialisation)));
-        onView(withId(R.id.citySearch))..check(matches(withText(city)));
+        onView(withId(R.id.citySearch)).check(matches(withText(city)));
     }
 
     @Test
