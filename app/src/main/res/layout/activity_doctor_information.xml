@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DoctorInformation"
+    tools:context=".doctorInformation.DoctorInformation"
     android:layout_margin="5dp"
     android:background="@drawable/background_item"
     android:padding="8dp">

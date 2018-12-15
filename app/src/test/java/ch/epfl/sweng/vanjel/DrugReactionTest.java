@@ -2,6 +2,8 @@ package ch.epfl.sweng.vanjel;
 
 import org.junit.Test;
 
+import ch.epfl.sweng.vanjel.patientInfo.DrugReaction;
+
 import static org.junit.Assert.*;
 
 public class DrugReactionTest {

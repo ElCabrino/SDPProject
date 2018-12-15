@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.login.LoginActivity;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
@@ -19,7 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  Test class for LoginActivity
 
  @author: Aslam CADER
- reviewer:
+ reviewer: Etienne CAQUOT
  **/
 
 @RunWith(AndroidJUnit4.class)
@@ -38,7 +40,7 @@ public class LoginActivityTestAuxiliaire {
 
     private void signOutIfPossible() {
         try {
-            onView(withId(R.id.logoutButton)).perform(scrollTo(), click());
+            onView(withId(R.id.logoutMainMenu)).perform(click());
         } catch (NoMatchingViewException e) {
             // Ignore
         }
