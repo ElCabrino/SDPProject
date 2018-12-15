@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:height="100dp"
             android:gravity="center"
-            android:margin="10dp"
             android:text=" Search"
             android:drawableLeft="@drawable/search"
             android:fontFamily="sans-serif-light"
