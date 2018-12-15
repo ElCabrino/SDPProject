@@ -27,6 +27,8 @@ public class FirebaseAuthCustomBackend {
 
     private static boolean mockPatient = true;
     private static boolean nullUser = false;
+    private static boolean shouldFail = false;
+
 
     @Mock
     private FirebaseAuth mockAuth;
@@ -50,6 +52,11 @@ public class FirebaseAuthCustomBackend {
     public static void setNullUser(boolean b) {
         nullUser = b;
     }
+
+    public static void setShouldFail(boolean b) {
+        shouldFail = b;
+    }
+
 
     private static boolean isTestRunning() {
         boolean res;
@@ -102,7 +109,7 @@ public class FirebaseAuthCustomBackend {
     }
 
     private void initUserTask() {
-        when(mockUserTask.isSuccessful()).thenReturn(true);
+        when(mockUserTask.isSuccessful()).thenReturn(!shouldFail);
     }
 
     private void initListenerAuth() {

@@ -22,10 +22,12 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 /**
+ * A class to represent the medical information of a patient.
+ *
  * @author Nicolas BRANDT
  * @reviewer Vincent CABRINI
  */
-public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
+public class PatientInfo extends AppCompatActivity implements View.OnClickListener {
 
     PatientInfoDatabaseService patientInfoDatabaseService;
 
@@ -55,7 +57,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_patient_info);
 
         //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getCurrentUser().getUid());
+        patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
 
         saveButton = findViewById(R.id.buttonGenInfoPtReg);
 
@@ -130,30 +132,29 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     protected void onStart() {
         super.onStart();
         // add the database listeners
-        patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
+        patientInfoDatabaseService.addListListener(conditionList, listViewConditions, "Condition",
                 InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
-        patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
+        patientInfoDatabaseService.addListListener(surgeryList, listViewSurgeries, "Surgery",
                 Surgery.class, new InfoList<>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
-        patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
+        patientInfoDatabaseService.addListListener(allergyList, listViewAllergies, "Allergy",
                 InfoString.class, new InfoList<>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
-        patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
+        patientInfoDatabaseService.addListListener(drugReactionList, listViewDrugReactions, "DrugReaction",
                 DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
-        patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
+        patientInfoDatabaseService.addListListener(drugList, listViewDrugs, "Drug",
                 Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
-        patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
+        patientInfoDatabaseService.addListListener(substanceList, listViewSubstances, "Substance",
                 InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
 
         //add listeners to listviews for updates
-        patientInfoDatabaseService.listViewListener(listViewConditions,conditionList,"Condition",this);
-        patientInfoDatabaseService.listViewListener(listViewAllergies,allergyList,"Allergy",this);
-        patientInfoDatabaseService.listViewListener(listViewSubstances,substanceList,"Substance",this);
-        patientInfoDatabaseService.listViewListener(listViewSurgeries,surgeryList,"Surgery",this);
-        patientInfoDatabaseService.listViewListener(listViewDrugReactions,drugReactionList,"DrugReaction",this);
-        patientInfoDatabaseService.listViewListener(listViewDrugs,drugList,"Drug",this);
-
+        patientInfoDatabaseService.listViewListener(listViewConditions, conditionList, "Condition", this);
+        patientInfoDatabaseService.listViewListener(listViewAllergies, allergyList, "Allergy", this);
+        patientInfoDatabaseService.listViewListener(listViewSubstances, substanceList, "Substance", this);
+        patientInfoDatabaseService.listViewListener(listViewSurgeries, surgeryList, "Surgery", this);
+        patientInfoDatabaseService.listViewListener(listViewDrugReactions, drugReactionList, "DrugReaction", this);
+        patientInfoDatabaseService.listViewListener(listViewDrugs, drugList, "Drug", this);
 
 
     }
@@ -162,23 +163,23 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        switch (i){
+        switch (i) {
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(getTextFromField(priorConditionsReg),"Condition", new InfoString(getTextFromField(priorConditionsReg)));
+                        addItemToDatabase(getTextFromField(priorConditionsReg), "Condition", new InfoString(getTextFromField(priorConditionsReg)));
                 break;
             case R.id.buttonSurgery:
                 patientInfoDatabaseService.addItemToDatabase(getTextFromField(surgeriesReg), "Surgery",
                         new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(allergyReg),"Allergy",
-                                new InfoString(allergyReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(allergyReg), "Allergy",
+                        new InfoString(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
                 Drug drug = new Drug(getTextFromField(drugRegimenDrugReg), getTextFromField(drugRegimenDosageReg),
                         getTextFromField(drugRegimenTimesReg));
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugRegimenDrugReg), "Drug",drug);
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugRegimenDrugReg), "Drug", drug);
                 break;
             case R.id.buttonDrugReaction:
                 patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugReactionDrugReg),
@@ -186,24 +187,24 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                                 getTextFromField(drugReactionReactionReg)));
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(substancesReg),"Substance",
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(substancesReg), "Substance",
                         new InfoString(getTextFromField(substancesReg)));
                 break;
             case R.id.buttonSmoking:
-                patientInfoDatabaseService.addAmount(getTextFromField(smokingReg),"Smoking");
+                patientInfoDatabaseService.addAmount(getTextFromField(smokingReg), "Smoking");
                 break;
             case R.id.buttonDrinking:
-                patientInfoDatabaseService.addAmount(getTextFromField(drinkingReg),"Drinking");
+                patientInfoDatabaseService.addAmount(getTextFromField(drinkingReg), "Drinking");
                 break;
             case R.id.buttonExercise:
-                patientInfoDatabaseService.addAmount(getTextFromField(exerciseReg),"Exercise");
+                patientInfoDatabaseService.addAmount(getTextFromField(exerciseReg), "Exercise");
                 break;
 
         }
     }
 
     //TODO move or refactor
-    static String getTextFromField(EditText field){
+    static String getTextFromField(EditText field) {
         return field.getText().toString().trim();
     }
 

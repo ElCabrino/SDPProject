@@ -35,12 +35,11 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 class PatientInfoDatabaseService {
 
-    private String UserID ; //FirebaseAuth.getInstance().getUid();
+    private String UserID; //FirebaseAuth.getInstance().getUid();
     private AppCompatActivity activity;
     private DatabaseReference userDatabaseReference;
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-
 
     //TEMPORARY ID
     /*TODO: put the user ID of the logged user*/
@@ -52,19 +51,17 @@ class PatientInfoDatabaseService {
     }
 
 
-
     //LISTENERS
 
     /**
      * A generic method for creating listeners.
      *
-     *
      * @param typeList a list of the type of the patient information
      * @param listView the listView corresponding to the list
      * @param category the category of the patient information
-     * @param c the class used
-     * @param adapter the adapter for the list and the listView
-     * @param <T> the class used
+     * @param c        the class used
+     * @param adapter  the adapter for the list and the listView
+     * @param <T>      the class used
      */
     //TODO: check if c param is needed considering T is given
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
@@ -73,16 +70,14 @@ class PatientInfoDatabaseService {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 typeList.clear();
-                for (DataSnapshot snap: dataSnapshot.getChildren()) {
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     T item = (T) snap.getValue(c);
-
                     typeList.add((T) item);
 
                 }
-
                 listView.setAdapter(adapter);
-
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -122,8 +117,8 @@ class PatientInfoDatabaseService {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
-                View dialogView = getDialogView(category,inflater);
-                showUpdateInfoString(oldInfo, category, dialogView,dialogBuilder);
+                View dialogView = getDialogView(category, inflater);
+                showUpdateInfoString(oldInfo, category, dialogView, dialogBuilder);
             }
         });
     }
@@ -148,11 +143,9 @@ class PatientInfoDatabaseService {
 
 
     private void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
-
-
         dialogBuilder.setView(dialogView);
-        final UpdateViewsHolder holder = getHolder(category,dialogView);
-        dialogBuilder.setTitle(String.format("Updating %s",category.toLowerCase()));
+        final UpdateViewsHolder holder = getHolder(category, dialogView);
+        dialogBuilder.setTitle(String.format("Updating %s", category.toLowerCase()));
 
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -177,14 +170,13 @@ class PatientInfoDatabaseService {
         holder.getButtonDelete().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteItem(oldInfo,category);
+                deleteItem(oldInfo, category);
                 alertDialog.dismiss();
             }
         });
-
     }
 
-    private UpdateViewsHolder getHolder(String category,View dialogView) {
+    private UpdateViewsHolder getHolder(String category, View dialogView) {
         switch (category) {
             case "Condition":
             case "Allergy":
@@ -230,21 +222,21 @@ class PatientInfoDatabaseService {
 
         if (!TextUtils.isEmpty(item)) {
             dbCat.child(item).setValue(itemObject);
-            Toast.makeText(this.activity, String.format("%s added.",toastText), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.",toastText.toLowerCase()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.", toastText.toLowerCase()), Toast.LENGTH_LONG).show();
         }
     }
 
     void addAmount(String amount, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
-        if(!TextUtils.isEmpty(amount)) {
+        if (!TextUtils.isEmpty(amount)) {
             dbCat.setValue(amount);
-            Toast.makeText(this.activity,String.format("%s amount added.",category),Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("%s amount added.", category), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity, String.format("Please enter the %s amount.",category.toLowerCase()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity, String.format("Please enter the %s amount.", category.toLowerCase()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -261,9 +253,8 @@ class PatientInfoDatabaseService {
     private void deleteItem(String info, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();
-        Toast.makeText(this.activity,String.format("%s deleted",category),Toast.LENGTH_LONG).show();
+        Toast.makeText(this.activity, String.format("%s deleted", category), Toast.LENGTH_LONG).show();
     }
-
 
 
 }
