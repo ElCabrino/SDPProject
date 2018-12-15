@@ -113,27 +113,30 @@ public class Registration extends AppCompatActivity {
                 .addOnCompleteListener(this, createAuthListener(DoctorReg, doctor, patient));
     }
 
-    private OnCompleteListener<AuthResult> createAuthListener(final Boolean DoctorReg,
+    private OnCompleteListener<AuthResult> createAuthListener(final Boolean doctorReg,
                                                               final Doctor doctor,
                                                               final Patient patient) {
-        OnCompleteListener<AuthResult> listener =  new OnCompleteListener<AuthResult>() {
+        return new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // task : create account
-                if (task.isSuccessful()) {
-                    Task<Void> val;
-                    try {
-                        val = createUser(DoctorReg, patient, doctor);
-                        val.addOnCompleteListener(createDatabaseListener());
-                    } catch (FirebaseAuthInvalidUserException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(Registration.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                }
+                onCompleteTask(task , doctorReg, doctor, patient);
             }
         };
-        return listener;
+    }
+
+    public void onCompleteTask(Task<AuthResult> task, final Boolean DoctorReg, final Doctor doctor, final Patient patient){
+        if (task.isSuccessful()) {
+            Task<Void> val;
+            try {
+                val = createUser(DoctorReg, patient, doctor);
+                val.addOnCompleteListener(createDatabaseListener());
+            } catch (FirebaseAuthInvalidUserException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(Registration.this, "Registration failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private Task<Void> createUser(Boolean DoctorReg, Patient patient, Doctor doctor) throws FirebaseAuthInvalidUserException {
