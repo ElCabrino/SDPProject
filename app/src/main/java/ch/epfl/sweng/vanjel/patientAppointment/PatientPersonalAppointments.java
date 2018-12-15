@@ -90,7 +90,6 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 String time = idSnapshot.child("time").getValue(String.class);
                                 String duration = idSnapshot.child("duration").getValue(String.class);
                                 Boolean pending = Integer.parseInt(duration) == 0;
-                                PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
 
                                 try {
 
@@ -98,7 +97,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                     int comparaison = dateFormat.parse(date).compareTo(currentDate);
 
                                     if(comparaison != -1){
-                                        apList.add(ap);
+                                        apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
                                     }
 
                                 } catch (ParseException e) {
