@@ -200,45 +200,7 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
 
         }
     }
-
-    /*<T>private void initButtons(String item, String category, T itemObject,
-                               final T oldItem, Button buttonUpdate, Button buttonDelete, AlertDialog alertDialog) {
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //String info = editTextName.getText().toString().trim();
-
-                patientInfoDatabaseService.deleteItem(((Info)oldItem).getInfo(), category);
-                patientInfoDatabaseService.addItemToDatabase(info, category, new InfoString(info));
-                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
-
-                alertDialog.dismiss();
-            }
-        });
-        //}
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                patientInfoDatabaseService.deleteItem(oldInfo.getInfo(),category);
-                alertDialog.dismiss();
-            }
-        });
-    }*/
-
-
-    /*private View initView(Integer id, Context context) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(id,null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setTitle("Updating drug");
-        return dialogView;
-    }*/
-
-
-
-
+    
     //TODO move or refactor
     static String getTextFromField(EditText field){
         return field.getText().toString().trim();
