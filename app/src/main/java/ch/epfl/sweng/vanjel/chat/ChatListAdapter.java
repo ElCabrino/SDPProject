@@ -68,9 +68,9 @@ class ChatListAdapter extends RecyclerView.Adapter {
      */
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView contact;
-        final TextView time;
-        final TextView lastMessage;
+        TextView contact;
+        TextView time;
+        TextView lastMessage;
 
         /**
          * Creates the ViewHolder
@@ -78,6 +78,10 @@ class ChatListAdapter extends RecyclerView.Adapter {
          */
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            getTextView();
+        }
+
+        private void getTextView() {
             contact = itemView.findViewById(R.id.contactName);
             time = itemView.findViewById(R.id.time);
             lastMessage = itemView.findViewById(R.id.lastMessage);

@@ -120,22 +120,12 @@ public class FilteredDoctors extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
     private void databaseListener(){
-
-        // useful to see if DB problem or not
-//        Doctor myDoctor = new Doctor("lol", "Gregory", "House", "10/08/8010", "Revolution Street", "45", "New Jersey", "US", Gender.Male, DoctorActivity.Generalist);
-//        doctors.add(myDoctor);
-//        doctors.add(myDoctor);
-//        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
-//        recyclerView.setAdapter(adapter);
-
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
-                    String key = dataSnapshot1.getKey();
-                    doctorHashMap.put(key, myDoctor);
+                    doctorHashMap.put(dataSnapshot1.getKey(), dataSnapshot1.getValue(Doctor.class));
                 }
                 allDoctors = doctorHashMap;
                 select(); // remove unwanted doctors
