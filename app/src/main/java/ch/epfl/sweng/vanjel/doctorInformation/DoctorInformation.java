@@ -35,17 +35,17 @@ import ch.epfl.sweng.vanjel.patientAppointment.PatientCalendarActivity;
  */
 public class DoctorInformation extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
-    TextView lastName, firstName, activity, street, streetNumber, city, country;
+    private TextView lastName, firstName, activity, street, streetNumber, city, country;
     private Bundle bundle;
     private Doctor doctor;
-    String doctorUID;
+    private String doctorUID;
     // database
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    DatabaseReference ref;
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private DatabaseReference ref;
     //local database
-    LocalDatabaseService localDatabaseService;
+    private LocalDatabaseService localDatabaseService;
 
-    MaterialFavoriteButton favorite;
+    private MaterialFavoriteButton favorite;
 
     private Button takeAppointment, chat;
     private Boolean favoriteState = false;
