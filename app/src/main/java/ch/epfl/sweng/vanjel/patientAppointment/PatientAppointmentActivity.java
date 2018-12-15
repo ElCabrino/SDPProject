@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +19,6 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
@@ -32,7 +30,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  * @author Vincent CABRINI
  * @reviewer Luca JOSS
  */
-@SuppressWarnings("UseSparseArrays")
+@SuppressWarnings({"UseSparseArrays", "ConstantConditions"})
 public class PatientAppointmentActivity extends AppCompatActivity implements View.OnClickListener{
 
     @VisibleForTesting()
@@ -114,7 +112,6 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     //Add listener on all buttons of the hashmap
     private void addButtonListener(){
-        Iterator iterator = buttonsAppointment.entrySet().iterator();
         for (Button button: buttonsAppointment.values()){
             button.setOnClickListener(this);
         }
@@ -122,8 +119,9 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
 
     //Change state of button
     private void changeState(int i){
+
         //case where no time slot is selected
-        if ((buttonsState != null) && !(buttonsState.get(i)) && !slotSelected) {
+        if (!(buttonsState.get(i)) && !slotSelected) {
             findViewById(i).setBackgroundColor(0xFF303F9F);
             buttonsState.put(i, true);
             slotSelected = true;
@@ -156,9 +154,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
         for (Integer i: buttonsAppointment.keySet()) {
             if (buttonsState.get(i)) {
                 Map<String, Object> request = generateAppointmentValues(buttonsAppointment.get(i).getContentDescription().toString(), doctorUID, auth.getCurrentUser().getUid());
-                DatabaseReference r1 = ref.push();
-                Task r2 = r1.updateChildren(request);
-                r2.addOnSuccessListener(new OnSuccessListener<Void>() {
+                ref.push().updateChildren(request).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
