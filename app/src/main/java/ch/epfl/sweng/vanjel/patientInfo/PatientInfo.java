@@ -22,8 +22,8 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
 /**
- * @author Vincent CABRINI
- * @reviewer Nicolas BRANDT
+ * @author Nicolas BRANDT
+ * @reviewer Vincent CABRINI
  */
 public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
 
