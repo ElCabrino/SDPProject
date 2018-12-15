@@ -13,10 +13,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+    private Date currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         super.onStart();
 
         populateDocMap();
+        currentDate = new Date();
+
 
         dbAp.addValueEventListener(new ValueEventListener() {
             //@TargetApi(Build.VERSION_CODES.N)
@@ -87,8 +92,19 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 Boolean pending = Integer.parseInt(duration) == 0;
                                 PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
 
-//                                int comparaison = dateFormat.parse(day).compareTo(currentDate);
-                                apList.add(ap);
+                                try {
+
+                                    currentDate = dateFormat.parse(dateFormat.format(currentDate));
+                                    int comparaison = dateFormat.parse(date).compareTo(currentDate);
+
+                                    if(comparaison != -1){
+                                        apList.add(ap);
+                                    }
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                 }
 
