@@ -1,6 +1,7 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.forwardRequest;
 
 import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
@@ -38,7 +40,7 @@ public class ForwardRequestTest {
         setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false, false);
 
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.forwardCardView)).check(matches(hasChildCount(1)));
+        onView(ViewMatchers.withId(R.id.forwardCardView)).check(matches(hasChildCount(1)));
     }
 
     @Test

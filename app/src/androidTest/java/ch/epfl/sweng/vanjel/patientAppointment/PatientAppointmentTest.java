@@ -1,10 +1,11 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.patientAppointment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientAppointmentActivity;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -58,7 +60,7 @@ public class PatientAppointmentTest {
 
     @Test
     public void testAppointmentHighlight(){
-        onView(withId(R.id.button0830)).perform(scrollTo(), click());
+        onView(ViewMatchers.withId(R.id.button0830)).perform(scrollTo(), click());
         onView(withId(R.id.button0830)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF303F9F)));
         onView(withId(R.id.button0830)).perform(scrollTo(), click());
         onView(withId(R.id.button0830)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF3F51B5)));

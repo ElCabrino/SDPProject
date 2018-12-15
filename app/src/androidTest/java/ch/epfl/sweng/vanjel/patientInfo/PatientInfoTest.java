@@ -1,8 +1,9 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.patientInfo;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.patientInfo.Drug;
 import ch.epfl.sweng.vanjel.patientInfo.DrugReaction;
@@ -38,9 +40,6 @@ import static org.hamcrest.core.AllOf.allOf;
 @RunWith(AndroidJUnit4.class)
 public class
 PatientInfoTest {
-
-
-    private LoginHelper helper = new LoginHelper();
 
     private String id = "ABLlrLukjAaPzaf5GA03takkw5k2";
 
@@ -179,7 +178,7 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverCondition() throws InterruptedException {
-        onView(withId(R.id.buttonPriorConditions)).perform(scrollTo());
+        onView(ViewMatchers.withId(R.id.buttonPriorConditions)).perform(scrollTo());
         TimeUnit.SECONDS.sleep(5);
         for (InfoString condition : conditions) {
             onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());

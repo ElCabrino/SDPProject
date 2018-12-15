@@ -1,5 +1,6 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.doctorAvailability;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
 import ch.epfl.sweng.vanjel.doctorAvailability.TimeAvailability;
 
@@ -101,7 +103,7 @@ public class DoctorAvailabilityActivityTest {
     public void validateTest() throws Exception {
         setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.valid)).perform(scrollTo(), click());
+        onView(ViewMatchers.withId(R.id.valid)).perform(scrollTo(), click());
         onView(withText("Doctor availability successfully updated.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
 
     }

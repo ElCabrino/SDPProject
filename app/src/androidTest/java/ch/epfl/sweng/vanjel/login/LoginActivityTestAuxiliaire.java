@@ -1,7 +1,8 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.login;
 
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.login.LoginActivity;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -40,7 +42,7 @@ public class LoginActivityTestAuxiliaire {
 
     private void signOutIfPossible() {
         try {
-            onView(withId(R.id.logoutMainMenu)).perform(click());
+            onView(ViewMatchers.withId(R.id.logoutMainMenu)).perform(click());
         } catch (NoMatchingViewException e) {
             // Ignore
         }

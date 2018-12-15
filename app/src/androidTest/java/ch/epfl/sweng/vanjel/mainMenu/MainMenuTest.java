@@ -1,6 +1,7 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.mainMenu;
 
 import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.DoctorAppointmentsList;
 import ch.epfl.sweng.vanjel.appointment.DoctorComingAppointments;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
@@ -53,7 +55,7 @@ public class MainMenuTest {
     public void searchDoctorButtonTest() throws Exception {
         setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.searchMainMenu)).perform(click());
+        onView(ViewMatchers.withId(R.id.searchMainMenu)).perform(click());
         intended(hasComponent(SearchDoctor.class.getName()));
     }
 

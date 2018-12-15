@@ -1,10 +1,11 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.searchDoctor;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -14,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -60,7 +62,7 @@ public class SearchDoctorTest {
     public void getFieldStringsTest() {
         fillFields();
 
-        onView(withId(R.id.firstNameSearch)).perform(scrollTo()).check(matches(withText(firstName)));
+        onView(ViewMatchers.withId(R.id.firstNameSearch)).perform(scrollTo()).check(matches(withText(firstName)));
         onView(withId(R.id.lastNameSearch)).perform(scrollTo()).check(matches(withText(lastName)));
         onView(withId(R.id.specialisationSearch)).perform(scrollTo()).check(matches(withText(specialisation)));
         onView(withId(R.id.citySearch)).perform(scrollTo()).check(matches(withText(city)));

@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.firebase;
 
 import android.support.test.runner.AndroidJUnit4;
 

@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.profile;
 
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;

@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.favoriteList;
 
 
 import android.content.Intent;

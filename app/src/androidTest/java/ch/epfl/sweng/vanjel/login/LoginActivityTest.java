@@ -1,6 +1,7 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.login;
 
 import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -10,6 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ch.epfl.sweng.vanjel.LoginHelper;
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.login.LoginActivity;
 import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
 import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
@@ -57,7 +60,7 @@ public class LoginActivityTest {
    @Test
     public void testOpenChooseRegistration() {
         setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
-        onView(withId(R.id.registrationLogin)).perform(click());
+        onView(ViewMatchers.withId(R.id.registrationLogin)).perform(click());
         intended(hasComponent(ChooseRegistration.class.getName()));
     }
 

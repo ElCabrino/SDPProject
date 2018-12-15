@@ -1,6 +1,7 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.appointment;
 
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.AfterClass;
@@ -10,7 +11,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.appointment.DoctorAppointmentsList;
+import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -38,7 +39,7 @@ public class DoctorAppointmentsListTest {
     public void acceptAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.acceptAppointmentButton)).perform(click());
+        onView(ViewMatchers.withId(R.id.acceptAppointmentButton)).perform(click());
         // id taken in stacktrace
         onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
         onView(withId(16908313)).check(matches(withText("Confirm")));

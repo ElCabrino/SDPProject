@@ -1,8 +1,9 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.patientInfo;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -42,7 +44,7 @@ public class DoctorPatientInfoTest {
     public void searchTextViewsTest() throws Exception {
 //        setupNoExtras(DoctorPatientInfo.class, ActivityRule, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.textViewConditions)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("Cats")));
+        onView(ViewMatchers.withId(R.id.textViewConditions)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("Cats")));
         onView(withId(R.id.textViewSurgeries)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("THA in 2000")));
         onView(withId(R.id.textViewAllergies)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("Cats")));
         onView(withId(R.id.textViewDrugReactions)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("Carbamazepine : TEN")));

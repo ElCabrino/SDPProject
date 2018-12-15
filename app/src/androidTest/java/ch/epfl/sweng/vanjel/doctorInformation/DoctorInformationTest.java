@@ -1,9 +1,10 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.doctorInformation;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
@@ -60,7 +62,7 @@ public class DoctorInformationTest {
         //setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, false, false, extras);
         //TimeUnit.SECONDS.sleep(1);
         Intents.init();
-        onView(withId(R.id.buttonChat)).perform(click());
+        onView(ViewMatchers.withId(R.id.buttonChat)).perform(click());
         TimeUnit.SECONDS.sleep(5); // wait to change page
         intended(hasComponent(ChatActivity.class.getName()));
         Intents.release();
