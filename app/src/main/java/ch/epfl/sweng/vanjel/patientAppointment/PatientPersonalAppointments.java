@@ -27,6 +27,7 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.login.LoginActivity;
 
 /**
  * @author Nicolas BRANDT
@@ -202,9 +203,11 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                         try {
 
                             currentDate = dateFormat.parse(dateFormat.format(currentDate));
-                            int comparaison = dateFormat.parse(date).compareTo(currentDate);
-
-                            if(comparaison != -1){
+                            Log.d("PPA",currentDate.toString());
+                            Log.d("PPA", date);
+                            int comparison = dateFormat.parse(date).compareTo(currentDate);
+                            Log.d("PPA",String.valueOf(comparison));
+                            if(comparison != -1){
                                 apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
                             }
 

@@ -23,21 +23,21 @@ import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 
 public class PatientPersonalAppointmentsTest {
 
-    private final String ap1DateString = "Tue Jan 16 2018";
-    private final String ap2DateString = "Tue Feb 06 2018";
-    private final String ap3DateString = "Tue Mar 06 2018";
-    private final String ap4DateString = "Tue Apr 03 2018";
-    private final String ap5DateString = "Tue May 15 2018";
-    private final String ap6DateString = "Tue Jun 12 2018";
-    private final String ap7DateString = "Tue Jul 10 2018";
-    private final String ap8DateString = "Tue Aug 14 2018";
-    private final String ap9DateString = "Tue Sep 11 2018";
-    private final String ap10DateString = "Tue Oct 16 2018";
-    private final String ap11DateString = "Tue Nov 20 2018";
-    private final String ap12DateString = "Tue Dev 18 2018";
+    private final String ap1DateString = "Tue Jan 16 2019";
+    private final String ap2DateString = "Tue Feb 06 2019";
+    private final String ap3DateString = "Tue Mar 06 2019";
+    private final String ap4DateString = "Tue Apr 03 2019";
+    private final String ap5DateString = "Tue May 15 2019";
+    private final String ap6DateString = "Tue Jun 12 2019";
+    private final String ap7DateString = "Tue Jul 10 2019";
+    private final String ap8DateString = "Tue Aug 14 2019";
+    private final String ap9DateString = "Tue Sep 11 2019";
+    private final String ap10DateString = "Tue Oct 16 2019";
+    private final String ap11DateString = "Tue Nov 20 2019";
+    private final String ap12DateString = "Tue Dev 18 2019";
     private final String apTimeString = "10:00";
     private final String docNameString = "ln_dtest1";
-    private final String docAddressString = "11 street_dtest1 city_dtest1";
+    private final String docAddressString = "street_dtest1, 11 - city_dtest1";
 
     @Rule
     public final IntentsTestRule<PatientPersonalAppointments> ActivityRule =
@@ -49,7 +49,7 @@ public class PatientPersonalAppointmentsTest {
     public void searchTextViewsTest() throws Exception {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.titlePatAppointment)).check(matches(withText("Your next appointments")));
+        onView(withId(R.id.titlePatAppointment)).check(matches(withText(" Your Next Appointments")));
     }
 
     @Test
