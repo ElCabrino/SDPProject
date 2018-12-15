@@ -4,7 +4,7 @@ package ch.epfl.sweng.vanjel.patientInfo;
  * @author Nicolas BRANDT
  * @reviewer
  */
-public class DrugReaction extends Info{
+public class DrugReaction extends Info {
 
     String drug, reaction;
 

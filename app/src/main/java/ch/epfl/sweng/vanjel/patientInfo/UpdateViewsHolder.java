@@ -58,13 +58,13 @@ public class UpdateViewsHolder {
                 dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery));
     }
 
-    static UpdateViewsHolder forDrugReaction(View dialogView) {
+    /*static UpdateViewsHolder forDrugReaction(View dialogView) {
         return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateDrugReactionDrug),
                 dialogView.findViewById(R.id.patientInfoUpdateDrugReactionReaction),
                 null,
                 dialogView.findViewById(R.id.buttonPatientInfoUpdateDrugReaction),
                 dialogView.findViewById(R.id.buttonPatientInfoDeleteDrugReaction));
-    }
+    }*/
 
     static UpdateViewsHolder forDrug(View dialogView) {
         return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateDrugDrug),

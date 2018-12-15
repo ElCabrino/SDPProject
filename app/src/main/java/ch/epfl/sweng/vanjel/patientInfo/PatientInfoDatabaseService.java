@@ -116,8 +116,10 @@ class PatientInfoDatabaseService {
                 return inflater.inflate(R.layout.activity_patient_info_update, null);
             case "Surgery":
                 return inflater.inflate(R.layout.activity_patient_info_update_surgery, null);
+            //case "DrugReaction":
+            //    return inflater.inflate(R.layout.activity_patient_info_update_drug_reaction, null);
             case "DrugReaction":
-                return inflater.inflate(R.layout.activity_patient_info_update_drug_reaction, null);
+                return inflater.inflate(R.layout.activity_patient_info_update_surgery, null);
             //Drug
             default:
                 return inflater.inflate(R.layout.activity_patient_info_update_drug, null);
@@ -173,8 +175,11 @@ class PatientInfoDatabaseService {
                 return UpdateViewsHolder.forSingleInfo(dialogView);
             case "Surgery":
                 return UpdateViewsHolder.forSurgery(dialogView);
+            //case "DrugReaction":
+            //    return UpdateViewsHolder.forDrugReaction(dialogView);
             case "DrugReaction":
-                return UpdateViewsHolder.forDrugReaction(dialogView);
+                return UpdateViewsHolder.forSurgery(dialogView);
+            //drug
             default:
                 return UpdateViewsHolder.forDrug(dialogView);
         }
