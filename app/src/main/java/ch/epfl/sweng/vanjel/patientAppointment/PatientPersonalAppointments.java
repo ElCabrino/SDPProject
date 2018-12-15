@@ -22,7 +22,6 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
-import ch.epfl.sweng.vanjel.firebase.FirebaseHelper;
 
 /**
  * @author Nicolas BRANDT
@@ -81,8 +80,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 }
                                 String date = idSnapshot.child("date").getValue(String.class);
                                 String time = idSnapshot.child("time").getValue(String.class);
-                                //String duration = idSnapshot.child("duration").getValue(String.class);
-                                String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
+                                String duration = idSnapshot.child("duration").getValue(String.class);
+                                //String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
                                 Boolean pending = Integer.parseInt(duration) == 0;
                                 PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
                                 apList.add(ap);

@@ -26,7 +26,6 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
-import static ch.epfl.sweng.vanjel.firebase.FirebaseHelper.dataSnapshotChildToString;
 
 /**
  * @author Vincent CABRINI
@@ -66,8 +65,8 @@ public class AppointmentNotificationBackgroundService extends Service {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
                 //ensure getValue return a non null object
-                String doctor = dataSnapshotChildToString(dataSnapshot, "doctor");
-                String notified = dataSnapshotChildToString(dataSnapshot, "doctorNotified");
+                String doctor = dataSnapshot.child("doctor").toString();
+                String notified = dataSnapshot.child("doctorNotified").toString();
                 Boolean notify = Boolean.parseBoolean(notified);
                 if (!notify) {
                     String title = "New appointment";
@@ -79,9 +78,9 @@ public class AppointmentNotificationBackgroundService extends Service {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
-                String patient = dataSnapshotChildToString(dataSnapshot, "patient");
-                String bool = dataSnapshotChildToString(dataSnapshot, "userNotified");
-                String durationString = dataSnapshotChildToString(dataSnapshot, "duration");
+                String patient = dataSnapshot.child("patient").toString();
+                String bool = dataSnapshot.child("userNotified").toString();
+                String durationString = dataSnapshot.child("duration").toString();
 
                 int duration = Integer.parseInt(durationString);
                 Boolean notify = Boolean.parseBoolean(bool);
