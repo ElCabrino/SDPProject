@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,17 +30,20 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 public class PatientPersonalAppointments extends AppCompatActivity {
 
-    DatabaseReference dbAp, dbDoc;
+    private DatabaseReference dbAp, dbDoc;
 
-    ListView listViewAp;
-    String uid;
+    private ListView listViewAp;
+    private String uid;
 
     List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc;
 
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 String duration = idSnapshot.child("duration").getValue(String.class);
                                 Boolean pending = Integer.parseInt(duration) == 0;
                                 PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
+
+//                                int comparaison = dateFormat.parse(day).compareTo(currentDate);
                                 apList.add(ap);
                             }
                 }
