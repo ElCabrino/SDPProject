@@ -34,7 +34,7 @@
             android:gravity="center"
             android:paddingTop="5dp"
             android:text="You don't have any upcomming appointments"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
         <ListView
             android:id="@+id/ptPersonalAppointmentsListView"

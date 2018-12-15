@@ -1,6 +1,7 @@
 package ch.epfl.sweng.vanjel;
 
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.espresso.matcher.ViewMatchers;
 
 import org.junit.AfterClass;
 import org.junit.Rule;
@@ -16,6 +17,7 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
@@ -34,7 +36,7 @@ public class PatientPersonalAppointmentsTest {
     private final String ap9DateString = "Tue Sep 11 2019";
     private final String ap10DateString = "Tue Oct 16 2019";
     private final String ap11DateString = "Tue Nov 20 2019";
-    private final String ap12DateString = "Tue Dev 18 2019";
+    private final String ap12DateString = "Tue Dec 18 2019";
     private final String apTimeString = "10:00";
     private final String docNameString = "ln_dtest1";
     private final String docAddressString = "street_dtest1, 11 - city_dtest1";
@@ -189,9 +191,11 @@ public class PatientPersonalAppointmentsTest {
         FirebaseDatabaseCustomBackend.setDateFlag(1);
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, true, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap1DateString+" - Dr. (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("")));
+        onView(withId(R.id.textViewAppointmentDoctorDate)).check(doesNotExist());
+        onView(withId(R.id.textViewAppointmentTime)).check(doesNotExist());
+        onView(withId(R.id.textViewAppointmentLocation)).check(doesNotExist());
+        onView(withId(R.id.ptNoAppointements)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+
     }
 
     @Test
@@ -202,6 +206,7 @@ public class PatientPersonalAppointmentsTest {
         onView(withId(R.id.textViewAppointmentDoctorDate)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentTime)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentLocation)).check(doesNotExist());
+        onView(withId(R.id.ptNoAppointements)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     @AfterClass

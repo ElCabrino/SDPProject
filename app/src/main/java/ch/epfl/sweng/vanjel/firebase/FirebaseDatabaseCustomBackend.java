@@ -69,7 +69,7 @@ public final class FirebaseDatabaseCustomBackend {
     private final String ap9DateString = "Tue Sep 11 2019";
     private final String ap10DateString = "Tue Oct 16 2019";
     private final String ap11DateString = "Tue Nov 20 2019";
-    private final String ap12DateString = "Tue Dev 18 2019";
+    private final String ap12DateString = "Tue Dec 18 2019";
     private final String apTimeString = "10:00";
 
     private static boolean isCancelled = false;
