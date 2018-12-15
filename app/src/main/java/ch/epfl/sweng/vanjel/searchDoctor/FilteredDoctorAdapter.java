@@ -33,15 +33,15 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
-    ArrayList<Doctor> doctors;
-    HashMap<String, Doctor> doctorHashMap;
-    Context context;
+    private ArrayList<Doctor> doctors;
+    private HashMap<String, Doctor> doctorHashMap;
+    private Context context;
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    DatabaseReference ref;
+    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private DatabaseReference ref;
 
-    Boolean isForward;
-    HashMap<String, Object> isForwardDetails;
+    private Boolean isForward;
+    private HashMap<String, Object> isForwardDetails;
     private HashMap<String, Doctor> allDoctors;
 
 
