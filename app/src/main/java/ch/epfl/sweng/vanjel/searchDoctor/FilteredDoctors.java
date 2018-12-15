@@ -34,7 +34,6 @@ public class FilteredDoctors extends AppCompatActivity {
      * that correspond to the filters
      */
 
-    private static final String TAG = "OKLM2727";
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;

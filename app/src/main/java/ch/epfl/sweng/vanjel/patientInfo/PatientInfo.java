@@ -77,8 +77,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
             patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
         } //TODO exception not logged in
 
-        Button saveButton = findViewById(R.id.buttonGenInfoPtReg);
-
         getAllEditText();
 
         getAllPatientInfoFields();

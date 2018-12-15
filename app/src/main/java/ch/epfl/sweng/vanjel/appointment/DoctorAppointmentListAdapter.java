@@ -88,9 +88,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        final TextView dayCardView;
         final TextView dayTextView;
-        final TextView hourCardView;
         final TextView fromHourTextView;
         final Button acceptRequestButton;
         final Button declineRequestButton;
@@ -100,9 +98,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
         ViewHolder(@NonNull View itemView, int i) {
             super(itemView);
 
-            dayCardView = itemView.findViewById(R.id.dayCardView);
             dayTextView = itemView.findViewById(R.id.dayTextView);
-            hourCardView = itemView.findViewById(R.id.hourCardview);
             fromHourTextView = itemView.findViewById(R.id.fromTextView);
             acceptRequestButton = itemView.findViewById(R.id.acceptAppointmentButton);
             declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);

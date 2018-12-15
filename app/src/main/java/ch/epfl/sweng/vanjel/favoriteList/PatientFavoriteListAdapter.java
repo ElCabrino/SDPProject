@@ -30,7 +30,7 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
     @NonNull
     @Override
     public PatientFavoriteListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new PatientFavoriteListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false), i);
+        return new PatientFavoriteListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_cardview, viewGroup, false));
     }
 
     @Override
@@ -75,9 +75,8 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
         final TextView countryFavorite;
         final TextView activityFavorite;
         String doctorUid;
-        final int favoriteListIndex; //number of the cardview, index in appointmentList
 
-        ViewHolder(@NonNull View itemView, int i) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             firstNameFavorite = itemView.findViewById(R.id.firstName);
@@ -87,7 +86,6 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
             numberFavorite = itemView.findViewById(R.id.streetNumber);
             cityFavorite = itemView.findViewById(R.id.city);
             countryFavorite= itemView.findViewById(R.id.country);
-            favoriteListIndex = i;
 
         }
     }

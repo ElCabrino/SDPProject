@@ -21,7 +21,7 @@ class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
     private final Activity context;
     private final List<PtPersonalAppointment> appointmentList;
 
-    public PtPersonalAppointmentsList(Activity context, List<PtPersonalAppointment> appointmentList) {
+    PtPersonalAppointmentsList(Activity context, List<PtPersonalAppointment> appointmentList) {
         super(context, R.layout.list_pt_personal_appointments, appointmentList);
         this.context = context;
         this.appointmentList = appointmentList;
@@ -29,7 +29,7 @@ class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
         View listViewItem = inflater.inflate(R.layout.list_pt_personal_appointments,null,true);
