@@ -85,10 +85,8 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
 
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
-        final TextView doctor1;
-        final TextView doctor2;
-        final Button doctorDetails;
-        final Button delete;
+        final TextView doctor1, doctor2;
+        final Button doctorDetails, delete;
 
         ViewHolder(@NonNull View itemView){
             super(itemView);
