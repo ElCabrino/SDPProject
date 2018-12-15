@@ -47,8 +47,8 @@ class PatientInfoDatabaseService {
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
         //String s = auth.getCurrentUser().getUid();
-        String s = patientID;
-        this.userDatabaseReference = database.getReference("Patient").child(s);
+        //String s = patientID;
+        this.userDatabaseReference = database.getReference("Patient").child(patientID);
     }
 
 
@@ -103,28 +103,31 @@ class PatientInfoDatabaseService {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
-                View dialogView;
-                if (category.equals("Condition") || category.equals("Allergy") || category.equals("Substance")) {
-                    dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
-                }
-                else if (category.equals("Surgery")) {
-                    dialogView = inflater.inflate(R.layout.activity_patient_info_update_surgery,null);
-                }
-                else if (category.equals("DrugReaction")) {
-                    dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug_reaction,null);
-                }
-                //Drug
-                else {
-                    dialogView = inflater.inflate(R.layout.activity_patient_info_update_drug,null);
-                }
+                View dialogView = getDialogView(category,inflater);
                 showUpdateInfoString(oldInfo, category, dialogView,dialogBuilder);
                 return false;
             }
         });
     }
 
+    private View getDialogView(String category, LayoutInflater inflater) {
+        switch (category) {
+            case "Condition":
+            case "Allergy":
+            case "Substance":
+                return inflater.inflate(R.layout.activity_patient_info_update, null);
+            case "Surgery":
+                return inflater.inflate(R.layout.activity_patient_info_update_surgery, null);
+            case "DrugReaction":
+                return inflater.inflate(R.layout.activity_patient_info_update_drug_reaction, null);
+            //Drug
+            default:
+                return inflater.inflate(R.layout.activity_patient_info_update_drug, null);
+        }
+    }
 
-    void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
+
+    private void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
 
         //final View dialogView = inflater.inflate(R.layout.activity_patient_info_update,null);
 
@@ -137,32 +140,32 @@ class PatientInfoDatabaseService {
         Button buttonDelete;
 
         if (category.equals("Condition") || category.equals("Allergy") || category.equals("Substance")) {
-            androidName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateEditView);
+            androidName = dialogView.findViewById(R.id.patientInfoUpdateEditView);
             additionalField1 = null;
             additionalField2 = null;
-            buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdate);
-            buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDelete);
+            buttonUpdate = dialogView.findViewById(R.id.buttonPatientInfoUpdate);
+            buttonDelete = dialogView.findViewById(R.id.buttonPatientInfoDelete);
         }
         else if (category.equals("Surgery")) {
-            androidName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateSurgeryType);
-            additionalField1 = (EditText) dialogView.findViewById(R.id.patientInfoUpdateSurgeryYear);
+            androidName = dialogView.findViewById(R.id.patientInfoUpdateSurgeryType);
+            additionalField1 = dialogView.findViewById(R.id.patientInfoUpdateSurgeryYear);
             additionalField2 = null;
-            buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery);
-            buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery);
+            buttonUpdate = dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery);
+            buttonDelete = dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery);
         }
         else if (category.equals("DrugReaction")) {
-            androidName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugReactionDrug);
-            additionalField1 = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugReactionReaction);
+            androidName = dialogView.findViewById(R.id.patientInfoUpdateDrugReactionDrug);
+            additionalField1 = dialogView.findViewById(R.id.patientInfoUpdateDrugReactionReaction);
             additionalField2 = null;
-            buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrugReaction);
-            buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrugReaction);
+            buttonUpdate = dialogView.findViewById(R.id.buttonPatientInfoUpdateDrugReaction);
+            buttonDelete = dialogView.findViewById(R.id.buttonPatientInfoDeleteDrugReaction);
         }
         else {
-            androidName = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDrug);
-            additionalField1 = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugDosage);
-            additionalField2 = (EditText) dialogView.findViewById(R.id.patientInfoUpdateDrugFrequency);
-            buttonUpdate = (Button) dialogView.findViewById(R.id.buttonPatientInfoUpdateDrug);
-            buttonDelete = (Button) dialogView.findViewById(R.id.buttonPatientInfoDeleteDrug);
+            androidName = dialogView.findViewById(R.id.patientInfoUpdateDrugDrug);
+            additionalField1 = dialogView.findViewById(R.id.patientInfoUpdateDrugDosage);
+            additionalField2 = dialogView.findViewById(R.id.patientInfoUpdateDrugFrequency);
+            buttonUpdate = dialogView.findViewById(R.id.buttonPatientInfoUpdateDrug);
+            buttonDelete = dialogView.findViewById(R.id.buttonPatientInfoDeleteDrug);
         }
 
         dialogBuilder.setTitle(String.format("Updating %s",category.toLowerCase()));
@@ -187,7 +190,6 @@ class PatientInfoDatabaseService {
                 }*/
                 deleteItem(oldInfo, category);
                 addItemToDatabase(info.getAndroidInfo(), category, info);
-                //patientInfoDatabaseService.updateCondition(oldInfo.getInfo(),category);
 
                 alertDialog.dismiss();
             }
@@ -204,27 +206,23 @@ class PatientInfoDatabaseService {
 
     }
 
-    //TODO: change to switch
     private Info getCorrectInfo(String category, EditText androidName, EditText additionalField1, EditText additionalField2) {
-        Info info;
-        if (category.equals("Condition") || category.equals("Allergy") || category.equals("Substance")) {
-            info = new InfoString(PatientInfo.getTextFromField(androidName));
+        switch (category) {
+            case "Condition":
+            case "Allergy":
+            case "Substance":
+                return new InfoString(PatientInfo.getTextFromField(androidName));
+            case "Surgery":
+                return new Surgery(PatientInfo.getTextFromField(androidName),
+                        PatientInfo.getTextFromField(additionalField1));
+            case "DrugReaction":
+                return new DrugReaction(PatientInfo.getTextFromField(androidName),
+                        PatientInfo.getTextFromField(additionalField1));
+            default:
+                return new Drug(PatientInfo.getTextFromField(androidName),
+                        PatientInfo.getTextFromField(additionalField1), PatientInfo.getTextFromField(additionalField2));
         }
-        else if (category.equals("Surgery")) {
-            info = new Surgery(PatientInfo.getTextFromField(androidName),
-                    PatientInfo.getTextFromField(additionalField1));
-        }
-        else if (category.equals("DrugReaction")) {
-            info = new DrugReaction(PatientInfo.getTextFromField(androidName),
-                    PatientInfo.getTextFromField(additionalField1));
-        }
-        else {
-            info= new Drug(PatientInfo.getTextFromField(androidName),
-                    PatientInfo.getTextFromField(additionalField1),PatientInfo.getTextFromField(additionalField2));
-        }
-        return info;
     }
-
 
 
     //SETTERS
@@ -233,7 +231,7 @@ class PatientInfoDatabaseService {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
         // for correct string format
-        if (category == "DrugReaction") {
+        if (category.equals("DrugReaction")) {
             toastText = "Drug reaction";
         }
 
@@ -266,7 +264,7 @@ class PatientInfoDatabaseService {
 
     }*/
 
-    void deleteItem(String info, String category) {
+    private void deleteItem(String info, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();
         Toast.makeText(this.activity,String.format("%s deleted",category),Toast.LENGTH_LONG).show();
