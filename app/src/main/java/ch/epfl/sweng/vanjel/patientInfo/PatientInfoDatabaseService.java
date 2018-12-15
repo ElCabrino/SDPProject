@@ -8,7 +8,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +16,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
@@ -35,14 +33,14 @@ class PatientInfoDatabaseService {
     /*TODO: put the user ID of the logged user*/
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
-        //String s = auth.getCurrentUser().getUid();
         FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
         this.userDatabaseReference = database.getReference("Patient").child(patientID);
     }
 
 
 
-        //LISTENERS
+    //LISTENERS
+    @SuppressWarnings("unchecked")
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
         db.addValueEventListener(new ValueEventListener() {
@@ -93,10 +91,12 @@ class PatientInfoDatabaseService {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         if (!TextUtils.isEmpty(item)) {
             dbCat.child(item).setValue(itemObject);
-            Toast.makeText(this.activity, "%s added".format(category), Toast.LENGTH_LONG).show();
+            String categoryText = category.concat(" added");
+            Toast.makeText(this.activity, categoryText, Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity, "Please enter the %s information you want to add".format(category.toLowerCase()), Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this.activity, "Please enter the ".concat(category.toLowerCase()).concat(" information you want to add"), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -104,10 +104,10 @@ class PatientInfoDatabaseService {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         if(!TextUtils.isEmpty(amount)) {
             dbCat.setValue(amount);
-            Toast.makeText(this.activity,"%s added".format(category),Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity,category.concat(" added"),Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity,"Please enter the %s amount".format(category), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.activity,"Please enter the ".concat(category).concat(" amount"), Toast.LENGTH_LONG).show();
         }
     }
 
