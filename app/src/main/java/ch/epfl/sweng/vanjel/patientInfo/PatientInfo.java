@@ -13,14 +13,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 
 /**
- * @author Vincent CABRINI
- * @reviewer Nicolas BRANDT
+ * A class to represent the medical information of a patient.
+ *
+ * @author Nicolas BRANDT
+ * @reviewer Vincent CABRINI
  */
-public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
+public class PatientInfo extends AppCompatActivity implements View.OnClickListener {
 
     private PatientInfoDatabaseService patientInfoDatabaseService;
 
@@ -158,56 +160,72 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
                 DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
                 Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
-
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
                 InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+
 
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
+
+        //add listeners to listviews for updates
+        patientInfoDatabaseService.listViewListener(listViewConditions, conditionList, "Condition", this);
+        patientInfoDatabaseService.listViewListener(listViewAllergies, allergyList, "Allergy", this);
+        patientInfoDatabaseService.listViewListener(listViewSubstances, substanceList, "Substance", this);
+        patientInfoDatabaseService.listViewListener(listViewSurgeries, surgeryList, "Surgery", this);
+        patientInfoDatabaseService.listViewListener(listViewDrugReactions, drugReactionList, "DrugReaction", this);
+        patientInfoDatabaseService.listViewListener(listViewDrugs, drugList, "Drug", this);
+
+
     }
 
+    //TODO: consistency
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        switch (i){
+        switch (i) {
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition", new InfoString(priorConditionsReg.getText().toString().trim()));
+                        addItemToDatabase(getTextFromField(priorConditionsReg), "Condition", new InfoString(getTextFromField(priorConditionsReg)));
                 break;
             case R.id.buttonSurgery:
-                patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(), "Surgery", new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(surgeriesReg), "Surgery",
+                        new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
-                                new InfoString(allergyReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(allergyReg), "Allergy",
+                        new InfoString(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
-                Drug drug = new Drug(drugRegimenDrugReg.getText().toString().trim(), drugRegimenDosageReg.getText().toString().trim(),
-                        drugRegimenTimesReg.getText().toString().trim());
-                patientInfoDatabaseService.addItemToDatabase(drugRegimenDrugReg.getText().toString().trim(), "Drug",drug);
+                Drug drug = new Drug(getTextFromField(drugRegimenDrugReg), getTextFromField(drugRegimenDosageReg),
+                        getTextFromField(drugRegimenTimesReg));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugRegimenDrugReg), "Drug", drug);
                 break;
             case R.id.buttonDrugReaction:
-                patientInfoDatabaseService.addItemToDatabase(drugReactionDrugReg.getText().toString().trim(),
-                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg), getTextFromField(drugReactionReactionReg)));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugReactionDrugReg),
+                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg),
+                                getTextFromField(drugReactionReactionReg)));
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new InfoString(substancesReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(substancesReg), "Substance",
+                        new InfoString(getTextFromField(substancesReg)));
                 break;
             case R.id.buttonSmoking:
-                patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");
+                patientInfoDatabaseService.addAmount(getTextFromField(smokingReg), "Smoking");
                 break;
             case R.id.buttonDrinking:
-                patientInfoDatabaseService.addAmount(drinkingReg.getText().toString().trim(),"Drinking");
+                patientInfoDatabaseService.addAmount(getTextFromField(drinkingReg), "Drinking");
                 break;
             case R.id.buttonExercise:
-                patientInfoDatabaseService.addAmount(exerciseReg.getText().toString().trim(),"Exercise");
+                patientInfoDatabaseService.addAmount(getTextFromField(exerciseReg), "Exercise");
                 break;
 
         }
     }
 
-    private String getTextFromField(EditText field){
+    static String getTextFromField(EditText field) {
         return field.getText().toString().trim();
     }
+
+
 }

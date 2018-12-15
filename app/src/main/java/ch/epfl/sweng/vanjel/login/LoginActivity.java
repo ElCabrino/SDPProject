@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,15 +17,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import ch.epfl.sweng.vanjel.appointment.AppointmentNotificationBackgroundService;
-import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
-import ch.epfl.sweng.vanjel.mainMenu.Profile;
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.appointment.AppointmentNotificationBackgroundService;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
+import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
 
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -41,13 +44,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordField = findViewById(R.id.passwordLogin);
 
         //Button listener
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
+        buttonLogin.setOnClickListener(this);
         findViewById(R.id.registrationLogin).setOnClickListener(this);
+
     }
 
 
     @Override
     public void onStart() {
+
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser a = auth.getCurrentUser();
@@ -58,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI() {
         // user is logged, open his profile page
-        startActivity(new Intent(LoginActivity.this,Profile.class));
+        startActivity(new Intent(LoginActivity.this,MainMenu.class));
 
         // start Appointment service
         startService(new Intent(this, AppointmentNotificationBackgroundService.class));
@@ -81,13 +87,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-
         // [START sign_in_with_email]
         Task<AuthResult> t = auth.signInWithEmailAndPassword(email, password);
+        Log.d("Login","TaskCreated");
         t.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        Log.d("Login","onComplete");
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             updateUI();
@@ -95,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
 
                         // [START_EXCLUDE]
