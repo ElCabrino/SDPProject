@@ -108,58 +108,54 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
+
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <android.support.design.widget.TextInputLayout
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-
-                    <EditText
-                        android:id="@+id/firstNameReg"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:fontFamily="sans-serif-light"
-                        android:hint="@string/first_name"
-                        android:inputType="textPersonName"
-                        android:textColor="#000000" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/lastNameReg"
+                    android:id="@+id/firstNameReg"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/last_name"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPersonName"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="#000000"/>
+                    android:hint="@string/first_name"
+                    android:inputType="textPersonName"
+                    android:textColor="#000000" />
 
-                </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
 
-            </LinearLayout>
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/lastNameReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/last_name"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
 
             <android.support.design.widget.TextInputLayout
                 android:paddingLeft="14dp"
