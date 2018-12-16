@@ -107,18 +107,35 @@
 
         </LinearLayout>
 
-
-
-
-        <TextView
-            android:id="@+id/country"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/city"
-            android:text="country"
-            android:textColor="#000000"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-light"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="city"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:paddingRight="10dp"
+                android:fontFamily="sans-serif-light"/>
+
+
+
+
+            <TextView
+                android:id="@+id/country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/city"
+                android:text="country"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-light"/>
+
+        </LinearLayout>
 
 
         <Button
@@ -129,125 +146,11 @@
             android:text="Forward to this doctor"
             style="@style/Widget.AppCompat.Button.Colored"
             />
-
-
-
-
-
-
-
+        
 
 
     </LinearLayout>
 
 
-
-    <!--<LinearLayout
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/lastName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="lastName"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/firstName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lastName"
-            android:fontFamily="sans-serif-light"
-            android:text="firstName"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="22sp" />
-
-
-
-        <TextView
-            android:id="@+id/activity"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lastName"
-            android:fontFamily="sans-serif-light"
-            android:text="activity"
-            android:textStyle="italic"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="22sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical">
-
-        adresse
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/street"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="street"
-                android:textColor="@android:color/darker_gray"
-                android:layout_marginRight="10dp"
-                android:textSize="22sp"
-                android:fontFamily="sans-serif-light"/>
-
-            <TextView
-                android:id="@+id/streetNumber"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="streetNumber"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="22sp"
-                android:fontFamily="sans-serif-light"/>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/city"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/streetNumber"
-            android:text="city"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-light"/>
-
-        <TextView
-            android:id="@+id/country"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/city"
-            android:text="country"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-light"/>
-
-
-        <Button
-            android:id="@+id/forwardButtonInFilteredDoctors"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forward to this doctor"
-            style="@style/Widget.AppCompat.Button.Colored"
-            />
-
-
-
-</LinearLayout> -->
 
     </RelativeLayout>
