@@ -6,7 +6,7 @@ package ch.epfl.sweng.vanjel.patientInfo;
  */
 public class InfoString extends Info{
 
-    String info;
+    private String info;
 
     public InfoString() {}
 

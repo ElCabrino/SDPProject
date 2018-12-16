@@ -1,13 +1,13 @@
 package ch.epfl.sweng.vanjel.appointment;
 
-/**
+/*
  * Due to unreasonable code climate duplicate issue with Appointment class
  * This class is ignored by code climate.
  */
 
 /**
  * @author Vincent CABRINI
- * @reviewer
+ * @reviewer Luca Joss
  */
 public class Appointment {
     private String day;

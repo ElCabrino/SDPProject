@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class Doctor extends User {
 
-    DoctorActivity activity;
+    private DoctorActivity activity;
 
     public Doctor(String email, String firstName, String lastName, String birthday, String street, String streetNumber, String city, String country, Gender gender, DoctorActivity activity) {
         super(email, firstName, lastName, birthday, street, streetNumber, city, country, gender);

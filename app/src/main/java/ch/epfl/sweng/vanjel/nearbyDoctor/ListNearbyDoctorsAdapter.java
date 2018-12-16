@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.models.Doctor;
@@ -22,13 +23,13 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
 
-    ArrayList<Doctor> doctors;
-    HashMap<String, Doctor> doctorHashMap;
-    Context context;
-    private LatLng userLocation;
+    private final ArrayList<Doctor> doctors;
+    private final HashMap<String, Doctor> doctorHashMap;
+    private final Context context;
+    private final LatLng userLocation;
 
 
-    public ListNearbyDoctorsAdapter(Context context, HashMap<String, Doctor> data, LatLng userLocation) {
+    ListNearbyDoctorsAdapter(Context context, HashMap<String, Doctor> data, LatLng userLocation) {
 
         this.doctorHashMap = data;
         this.context = context;
@@ -37,8 +38,7 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
         doctors = new ArrayList<>();
 
 //         loop for to take doctorHashmap to doctor
-        for (Doctor doc : doctorHashMap.values())
-            doctors.add(doc);
+        doctors.addAll(doctorHashMap.values());
 
 
     }
@@ -86,7 +86,7 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
         TextView address, lastName, activity, distance;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             int i = 0;
             lastName = itemView.findViewById(R.id.lastName);

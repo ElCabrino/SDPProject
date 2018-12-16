@@ -2,6 +2,7 @@ package ch.epfl.sweng.vanjel.patientAppointment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CalendarView;
@@ -16,7 +17,7 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class PatientCalendarActivity extends AppCompatActivity implements View.OnClickListener{
 
-    String doctorUID;
+    private String doctorUID;
     private String selectedDate = Calendar.getInstance().getTime().toString();
 
     @Override
@@ -51,7 +52,7 @@ public class PatientCalendarActivity extends AppCompatActivity implements View.O
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month,
                                             int day) {
                 Calendar c = Calendar.getInstance();
                 c.set(year, month, day);
