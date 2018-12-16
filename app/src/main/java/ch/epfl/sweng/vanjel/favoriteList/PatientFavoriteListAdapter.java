@@ -19,10 +19,10 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavoriteListAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     List<DoctorFavorite> favoriteDoctorList;
 
-    public PatientFavoriteListAdapter(Context context){
+    PatientFavoriteListAdapter(Context context){
         this.context = context;
         this.favoriteDoctorList = new ArrayList<>();
     }
@@ -30,7 +30,7 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
     @NonNull
     @Override
     public PatientFavoriteListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new PatientFavoriteListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_favorite_list, viewGroup, false), i);
+        return new PatientFavoriteListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_favorite_list, viewGroup, false));
     }
 
     @Override
@@ -67,11 +67,16 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstNameFavorite, lastNameFavorite, numberFavorite, streetFavorite, cityFavorite, countryFavorite, activityFavorite;
+        final TextView firstNameFavorite;
+        final TextView lastNameFavorite;
+        final TextView numberFavorite;
+        final TextView streetFavorite;
+        final TextView cityFavorite;
+        final TextView countryFavorite;
+        final TextView activityFavorite;
         String doctorUid;
-        int favoriteListIndex; //number of the cardview, index in appointmentList
 
-        ViewHolder(@NonNull View itemView, int i) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             firstNameFavorite = itemView.findViewById(R.id.firstName);
@@ -81,7 +86,6 @@ public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavor
             numberFavorite = itemView.findViewById(R.id.streetNumber);
             cityFavorite = itemView.findViewById(R.id.city);
             countryFavorite= itemView.findViewById(R.id.country);
-            favoriteListIndex = i;
 
         }
     }

@@ -14,16 +14,14 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class ChooseRegistration extends AppCompatActivity implements View.OnClickListener {
 
-    private Button buttonPatient, buttonDoctor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_registration);
 
-        buttonPatient = findViewById(R.id.patientButton);
+        Button buttonPatient = findViewById(R.id.patientButton);
         buttonPatient.setOnClickListener(this);
-        buttonDoctor = findViewById(R.id.doctorButton);
+        Button buttonDoctor = findViewById(R.id.doctorButton);
         buttonDoctor.setOnClickListener(this);
     }
 

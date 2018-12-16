@@ -4,8 +4,8 @@ package ch.epfl.sweng.vanjel.patientInfo;
  * @reviewer Vincent CABRINI
  */
 public class Surgery extends Info{
-    String type;
-    String year;
+    private String type;
+    private String year;
 
     public Surgery() {}
 

@@ -10,30 +10,31 @@ public class DoctorFavorite {
 
     @PrimaryKey
     @NonNull
+    private
     String doctorID;
 
     @ColumnInfo(name = "first_name")
-    String firstName;
+    private String firstName;
 
     @ColumnInfo(name = "last_name")
-    String lastName;
+    private String lastName;
 
     @ColumnInfo(name = "street")
-    String street;
+    private String street;
 
     @ColumnInfo(name = "street_number")
-    String streetNumber;
+    private String streetNumber;
 
     @ColumnInfo(name = "city")
-    String city;
+    private String city;
 
     @ColumnInfo(name = "country")
-    String country;
+    private String country;
 
     @ColumnInfo(name = "profession")
-    String profession;
+    private String profession;
 
-    public DoctorFavorite(String doctorID, String firstName, String lastName, String street, String streetNumber, String city, String country, String profession) {
+    public DoctorFavorite(@NonNull String doctorID, String firstName, String lastName, String street, String streetNumber, String city, String country, String profession) {
         this.doctorID = doctorID;
         this.firstName = firstName;
         this.lastName = lastName;
