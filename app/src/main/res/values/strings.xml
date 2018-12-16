@@ -95,4 +95,6 @@
     <string name="set_availabilities">Set availabilities</string>
     <string name="your_medical_infos">Your medical infos</string>
     <string name="recommendations">Recommendations</string>
+    <string name="date">Date</string>
+    <string name="patient">Patient</string>
 </resources>
