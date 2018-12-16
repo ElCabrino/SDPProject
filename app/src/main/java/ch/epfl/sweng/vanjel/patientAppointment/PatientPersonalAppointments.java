@@ -31,27 +31,27 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 /**
  * @author Nicolas BRANDT
  * @reviewer Etienne CAQUOT
+ * @reviewer Vincent CABRINI
  */
+
+ 
 public class PatientPersonalAppointments extends AppCompatActivity {
 
-    private DatabaseReference dbAp, dbDoc;
+    private DatabaseReference dbAp;
+    private DatabaseReference dbDoc;
 
     private ListView listViewAp;
-
-    private TextView noAppointment;
-
     private String uid;
 
-    private List<PtPersonalAppointment> apList = new ArrayList<>();
+    private final List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
-    private static HashMap<String,ArrayList<String>> idToDoc;
-
-    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
     private Date currentDate;
 
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,19 +108,20 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                    if (idSnapshot.child("patient").getValue(String.class).equals(uid)) {
-                        String docId = idSnapshot.child("doctor").getValue(String.class);
-                        String doc = "";
-                        String loc = "";
-                        if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
-                            doc = idToDoc.get(docId).get(0);
-                            loc = idToDoc.get(docId).get(1);
-                        }
-                        String date = idSnapshot.child("date").getValue(String.class);
-                        String time = idSnapshot.child("time").getValue(String.class);
-                        String duration = idSnapshot.child("duration").getValue(String.class);
-                        Boolean pending = Integer.parseInt(duration) == 0;
-                        try {
+                            if (uid.equals(idSnapshot.child("patient").getValue(String.class))) {
+                                String docId = idSnapshot.child("doctor").getValue(String.class);
+                                String doc = "";
+                                String loc = "";
+                                if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                                    doc = idToDoc.get(docId).get(0);
+                                    loc = idToDoc.get(docId).get(1);
+                                }
+                                String date = idSnapshot.child("date").getValue(String.class);
+                                String time = idSnapshot.child("time").getValue(String.class);
+                                String duration = idSnapshot.child("duration").getValue(String.class);
+                                //String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
+                                Boolean pending = Integer.parseInt(duration) == 0;
+                                try {
                             currentDate = dateFormat.parse(dateFormat.format(currentDate));
                             int comparison = dateFormat.parse(date).compareTo(currentDate);
                             if(comparison != -1){

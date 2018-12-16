@@ -34,7 +34,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
-/**
+/*
  * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
  */
 
@@ -346,6 +346,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
         when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
+        when(appointmentSnapshot.child("duration").getValue()).thenReturn(new Object());
         when(dateAppointmentSnapshot.getValue(String.class)).thenReturn(getDateFromFlag());
         when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
         when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn(apTimeString);

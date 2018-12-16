@@ -1,6 +1,5 @@
 package ch.epfl.sweng.vanjel.doctorCalendar;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,17 +15,15 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 /**
  * Etienne?? Nicolas??
- * @author
- * @reviewer
+ * @author ??
+ * @reviewer Vincent Cabrini
  */
 public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAdapter.ViewHolder> {
 
-    private ArrayList<DoctorCalendarItem> mData = new ArrayList<>();
-    private Context mContext;
+    private final ArrayList<DoctorCalendarItem> mData;
 
-    public DoctorCalendarAdapter(ArrayList<DoctorCalendarItem> data, Context context) {
+    DoctorCalendarAdapter(ArrayList<DoctorCalendarItem> data) {
         mData = data;
-        mContext = context;
     }
 
     @NonNull
@@ -34,8 +31,7 @@ public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAda
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_doctor_calendar,
                 parent,false);
-        ViewHolder holder = new ViewHolder(view, R.id.date, R.id.patient, R.id.delete);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -64,15 +60,15 @@ public class DoctorCalendarAdapter extends RecyclerViewAdapter<DoctorCalendarAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView date;
-        TextView patient;
-        Button delete;
+        final TextView date;
+        final TextView patient;
+        final Button delete;
 
-        public ViewHolder(@NonNull View itemView, int id1, int id2, int id3) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            date = itemView.findViewById(id1);
-            patient = itemView.findViewById(id2);
-            delete = itemView.findViewById(id3);
+            date = itemView.findViewById(R.id.date);
+            patient = itemView.findViewById(R.id.patient);
+            delete = itemView.findViewById(R.id.delete);
         }
 
     }

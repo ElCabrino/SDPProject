@@ -1,6 +1,5 @@
 package ch.epfl.sweng.vanjel.chat;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,17 +42,14 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView messageRecycler;
     private List<Message> messageList;
 
-    private TextView contactName;
     private EditText message;
 
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     private String senderUid;
     private String contactUid;
     private String chatUid;
-
-    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +63,19 @@ public class ChatActivity extends AppCompatActivity {
      * This method bind all the necessary components for the activity
      */
     private void bind() {
-        contactName = findViewById(R.id.contactName);
-        contactName.setText(getIntent().getExtras().getString("contactName"));
+        TextView contactName = findViewById(R.id.contactName);
+        if (getIntent().getExtras()!=null) {
+            contactName.setText(getIntent().getExtras().getString("contactName"));
+        }
         message = findViewById(R.id.messageToSend);
         messageRecycler = findViewById(R.id.RecyclerViewChat);
         messageList = new ArrayList<>();
-        senderUid = auth.getCurrentUser().getUid();
+        if (auth.getCurrentUser()!=null) {
+            senderUid = auth.getCurrentUser().getUid();
+        } //TODO user not logged exception
         messageRecycler.setLayoutManager(new LinearLayoutManager(this));
         contactUid = getIntent().getExtras().getString("contactUID");
+        assert contactUid != null;
         if (senderUid.compareTo(contactUid) > 0) {
             chatUid = contactUid+senderUid;
         } else {
@@ -126,15 +127,17 @@ public class ChatActivity extends AppCompatActivity {
         database.getReference("Chat").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if(snapshot.getKey().equals(chatUid)) {
-                        String message = (String) snapshot.child("text").getValue();
-                        String time = (String) snapshot.child("time").getValue();
-                        String sender = (String) snapshot.child("sender").getValue();
-                        messageList.add(new Message(time, message, sender));
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (snapshot.getKey() != null) {
+                        if (snapshot.getKey().equals(chatUid)) {
+                            String message = (String) snapshot.child("text").getValue();
+                            String time = (String) snapshot.child("time").getValue();
+                            String sender = (String) snapshot.child("sender").getValue();
+                            messageList.add(new Message(time, message, sender));
                         }
                     }
-                messageAdapter = new MessageListAdapter(context, messageList, senderUid);
+                } //TODO firebase exception
+                messageAdapter = new MessageListAdapter(messageList, senderUid);
                 messageRecycler.setAdapter(messageAdapter);
             }
 

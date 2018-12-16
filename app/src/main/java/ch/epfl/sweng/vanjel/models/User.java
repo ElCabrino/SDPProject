@@ -4,6 +4,7 @@ package ch.epfl.sweng.vanjel.models;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -34,7 +35,7 @@ public abstract class User {
         this.gender = gender;
     }
 
-    User() {}
+    User() {} //TODO check if possible to rm
 
     public String getEmail() {
         return email;
@@ -118,7 +119,7 @@ public abstract class User {
         List<Address> address;
         // default value Lausanne, just for the compilation: the real default value is in onMapReady()
 //        LatLng locationForMap = new LatLng(	46.519962, 	6.633597);
-        LatLng locationForMap = null;
+        LatLng locationForMap;
 
         try {
             address = coder.getFromLocationName(strAddress,5);
@@ -139,6 +140,7 @@ public abstract class User {
         return null;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getFirstName() + " " + getLastName();

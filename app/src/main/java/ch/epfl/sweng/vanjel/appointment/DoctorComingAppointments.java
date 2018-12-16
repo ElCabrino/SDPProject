@@ -27,13 +27,14 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
+
 /**
  * @author Aslam CADER
  * @reviewer
  */
 public class DoctorComingAppointments extends AppCompatActivity {
 
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private String uid;
     private DatabaseReference ref, patientRef;
 
@@ -44,10 +45,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
     private HashMap<String, Patient> patientHashMap;
 
     private Date currentDate;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
 
-    Boolean appointmentsReady = false;
-    Boolean patientHashMapReady = false;
+    private Boolean appointmentsReady = false;
+    private Boolean patientHashMapReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
     }
 
     // set cardview, database reference
-    public void init(){
-        uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+    private void init(){
+        if (FirebaseAuthCustomBackend.getInstance().getCurrentUser()!= null) {
+            uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        } //TODO null user exception
         ref = database.getReference("Requests");
         patientRef = database.getReference("Patient");
         // adapter
@@ -75,7 +78,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     }
 
-    public void getAppointments(){
+    private void getAppointments(){
         // for debbuging:
 //        Appointment appointment = new Appointment("oklm", "12:00", 50, "lol", "oklm");
 //        doctorAppointments.add(appointment);
@@ -98,7 +101,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                 }
                 Collections.sort(doctorAppointments, new AppointmentComparator());
                 appointmentsReady = true;
-                if(patientHashMapReady && appointmentsReady) notifyAdapter();
+                if(patientHashMapReady) notifyAdapter();
 
 
             }
@@ -110,20 +113,21 @@ public class DoctorComingAppointments extends AppCompatActivity {
         });
     }
 
-    public void addAppointment(DataSnapshot request) throws ParseException {
+    private void addAppointment(DataSnapshot request) throws ParseException {
         // check if appointment is in the past
 
-        if(request.child("doctor").getValue(String.class).equals(uid)){
-            String day, hour, patientUid, doctorUid, appointmentID;
+        if(uid.equals(request.child("doctor").getValue(String.class))){
+            String day, hour, patientUid, doctorUid;
             int duration = Integer.valueOf(request.child("duration").getValue(String.class));
+            //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
             day = request.child("date").getValue(String.class);
             doctorUid = request.child("doctor").getValue(String.class);
             hour = request.child("time").getValue(String.class);
             patientUid = request.child("patient").getValue(String.class);
             currentDate = dateFormat.parse(dateFormat.format(currentDate));
-            int comparaison = dateFormat.parse(day).compareTo(currentDate);
+            int comparison = dateFormat.parse(day).compareTo(currentDate);
             // 0 is today, -1 is before, 1 is after
-             if(comparaison != -1 && duration != 0){
+             if ((comparison > -1) && (duration != 0)){
                 Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
                 doctorAppointments.add(appointment);
             }
@@ -131,7 +135,9 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     }
 
+
     public void patientListener() {
+
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,7 +147,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                     patientHashMap.put(key, myPatient);
                 }
                 patientHashMapReady = true;
-                if(patientHashMapReady && appointmentsReady) notifyAdapter();
+                if(appointmentsReady) notifyAdapter();
 
             }
 
@@ -153,7 +159,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
         });
     }
 
-    public void notifyAdapter() {
+    private void notifyAdapter() {
         adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
