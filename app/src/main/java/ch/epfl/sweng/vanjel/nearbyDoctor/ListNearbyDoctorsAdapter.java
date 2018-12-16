@@ -56,9 +56,9 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.firstName.setText(doctors.get(i).getFirstName());
-        viewHolder.lastName.setText(doctors.get(i).getLastName());
+        viewHolder.lastName.setText("Dr." + doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
+        viewHolder.address.setText(doctors.get(i).getStreet() + ", " + doctors.get(i).getStreetNumber() + " - " + doctors.get(i).getCity());
         viewHolder.distance.setText(String.format("%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0) + " km");
 
         final int id = i;
@@ -84,15 +84,14 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, distance;
+        TextView address, lastName, activity, distance;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            int i = 0;
-            firstName = itemView.findViewById(R.id.firstName);
             lastName = itemView.findViewById(R.id.lastName);
             activity = itemView.findViewById(R.id.activity);
             distance = itemView.findViewById(R.id.distance);
+            address = itemView.findViewById(R.id.address);
 
         }
 
