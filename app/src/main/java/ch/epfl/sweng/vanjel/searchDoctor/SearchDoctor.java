@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.NoSuchElementException;
+
 import ch.epfl.sweng.vanjel.R;
 
 /**
@@ -25,8 +27,6 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
     // Strings that are getted in the bundle
     private String doctor1Forward, patientForward;
     private Boolean isForward;
-
-    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +59,14 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getBundle(){
-        bundle = getIntent().getExtras();
-        isForward = bundle.getBoolean("isForward");
-        doctor1Forward = bundle.getString("doctor1Forward");
-        patientForward = bundle.getString("patientForward");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            isForward = bundle.getBoolean("isForward");
+            doctor1Forward = bundle.getString("doctor1Forward");
+            patientForward = bundle.getString("patientForward");
+        } else {
+            throw new NoSuchElementException("Extras in search doctor are empty");
+        }
 
     }
 

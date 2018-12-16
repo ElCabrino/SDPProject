@@ -22,9 +22,9 @@ public class ChooseRegistration extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_registration);
 
-        buttonPatient = findViewById(R.id.patientButton);
+        Button buttonPatient = findViewById(R.id.patientButton);
         buttonPatient.setOnClickListener(this);
-        buttonDoctor = findViewById(R.id.doctorButton);
+        Button buttonDoctor = findViewById(R.id.doctorButton);
         buttonDoctor.setOnClickListener(this);
     }
 

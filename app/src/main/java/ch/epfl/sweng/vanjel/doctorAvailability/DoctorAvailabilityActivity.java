@@ -27,14 +27,12 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
- * @author Luca JOSS
- * @reviewer
+ * @author Luca Joss
+ * @reviewer Vincent Cabrini
  */
 public class DoctorAvailabilityActivity extends AppCompatActivity {
 
-    private static final String TAG = "DoctorAvailability";
-
-    private int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
+    private final int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
 
     private Button valid;
 
@@ -42,8 +40,8 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
     private Boolean[] slots;
 
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +57,9 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
             }
         });
 
-        loadAvailability();
+        if (auth.getCurrentUser()!= null) {
+            loadAvailability(auth.getCurrentUser().getUid());
+        } //TODO user not logged in exception
     }
 
     private void initButtons() {
@@ -73,6 +73,10 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     }
 
     private void validate() {
+        if (auth.getCurrentUser() == null) {
+            return;
+        } //TODO user not logged in exception
+
         slots = new Boolean[NUMBER_OF_SLOTS];
         for (int i = 0; i < NUMBER_OF_SLOTS; i++) {
             slots[i] = buttons[i].isChecked();
@@ -122,7 +126,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         return newAvailability;
     }
 
-    public Map<String, Object> getDayAvailability(int start) {
+    private Map<String, Object> getDayAvailability(int start) {
         Map<String, Object> day = new HashMap<>();
         String res = getStringFromSlots(start);
         if (res.equals("")) {
@@ -138,10 +142,10 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         int minutes = 480; //480 minutes corresponds to 8:00
         String t = "";
         for (int i=start;i<start+22;i++) {
-            if(slots[i] == true && isChain == 0) {
+            if(slots[i] && isChain == 0) {
                 isChain = minutes;
             } else {
-                t = t+buildAvailabilityString(isChain, minutes, t.isEmpty());
+                t = t.concat(buildAvailabilityString(isChain, minutes, t.isEmpty()));
                 isChain = 0;
             }
             minutes +=30;
@@ -174,22 +178,25 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         return time;
     }
 
-    private void loadAvailability() {
-        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Monday").addValueEventListener(createValueEventListener(TimeAvailability.MONDAY));
-        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Tuesday").addValueEventListener(createValueEventListener(TimeAvailability.TUESDAY));
-        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Wednesday").addValueEventListener(createValueEventListener(TimeAvailability.WEDNESDAY));
-        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Thursday").addValueEventListener(createValueEventListener(TimeAvailability.THURSDAY));
-        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Friday").addValueEventListener(createValueEventListener(TimeAvailability.FRIDAY));
-        database.getReference("Doctor").child(auth.getCurrentUser().getUid()+"/Availability/Saturday").addValueEventListener(createValueEventListener(TimeAvailability.SATURDAY));
+    private void loadAvailability(String uid) {
+        database.getReference("Doctor").child(uid+"/Availability/Monday").addValueEventListener(createValueEventListener(TimeAvailability.MONDAY));
+        database.getReference("Doctor").child(uid+"/Availability/Tuesday").addValueEventListener(createValueEventListener(TimeAvailability.TUESDAY));
+        database.getReference("Doctor").child(uid+"/Availability/Wednesday").addValueEventListener(createValueEventListener(TimeAvailability.WEDNESDAY));
+        database.getReference("Doctor").child(uid+"/Availability/Thursday").addValueEventListener(createValueEventListener(TimeAvailability.THURSDAY));
+        database.getReference("Doctor").child(uid+"/Availability/Friday").addValueEventListener(createValueEventListener(TimeAvailability.FRIDAY));
+        database.getReference("Doctor").child(uid+"/Availability/Saturday").addValueEventListener(createValueEventListener(TimeAvailability.SATURDAY));
     }
 
-    private ValueEventListener createValueEventListener(final int dayindex) {
-        ValueEventListener listener = new ValueEventListener() {
+    @SuppressWarnings("ConstantConditions")
+    private ValueEventListener createValueEventListener(final int dayIndex) {
+        return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                @SuppressWarnings("unchecked") //TODO pas sur si on peut faire mieux
                 Map<String, Object> tm = (Map<String, Object>) dataSnapshot.getValue();
-                if (tm != null) {
-                    setOldSlots(TimeAvailability.getAvailability(dayindex, tm.get("availability").toString()), dayindex);
+
+                if ((tm != null)&&(tm.get("availability")!=null)) { //checking here if the get return a non-null object but lint still warn about a null pointer
+                    setOldSlots(TimeAvailability.getAvailability(dayIndex, tm.get("availability").toString()), dayIndex);
                 } else {
                     Log.d("ERROR", "tm is null");
                 }
@@ -200,11 +207,10 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         };
-        return listener;
     }
 
-    private void setOldSlots(boolean[] oldSlots, final int dayindex) {
-        for (int i=dayindex;i<dayindex+22;i++) {
+    private void setOldSlots(boolean[] oldSlots, final int dayIndex) {
+        for (int i=dayIndex;i<dayIndex+22;i++) {
             buttons[i].setChecked(oldSlots[i]);
         }
     }

@@ -30,15 +30,12 @@ import ch.epfl.sweng.vanjel.models.User;
  */
 public class ChatListActivity extends AppCompatActivity {
 
-    private static final String TAG = "ChatListActivity";
-
     private RecyclerView chatList;
-    private ChatListAdapter chatListAdapter;
 
     private Map<String,Chat> chats;
 
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
     private String userUid;
     private Map<String,String> UidToName;
@@ -49,7 +46,10 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-        userUid = auth.getCurrentUser().getUid();
+
+        if (auth.getCurrentUser() != null) {
+            userUid = auth.getCurrentUser().getUid();
+        } //TODO user not logged exception
         chats = new HashMap<>();
         UidToName = new HashMap<>();
         chatList = findViewById(R.id.chatList);
@@ -66,7 +66,7 @@ public class ChatListActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     String chatUid = snapshot.getKey();
-                    if(chatUid.contains(userUid)){
+                    if(chatUid != null && chatUid.contains(userUid)){
                         String contactUid = snapshot.getKey().replace(userUid,"");
                         String contactName =  UidToName.get(contactUid);
                         String message = (String) snapshot.child("text").getValue();
@@ -105,7 +105,9 @@ public class ChatListActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(c);
                     c.cast(user);
-                    UidToName.put(snapshot.getKey(),user.toString());
+                    if ((snapshot.getKey() != null)&&(user != null)) {
+                        UidToName.put(snapshot.getKey(), user.toString());
+                    } //TODO firebase exception
                 }
                 getChats++;
                 if(getChats > 0){
@@ -125,7 +127,7 @@ public class ChatListActivity extends AppCompatActivity {
      * Update the adapter
      */
     private void updateAdapter(){
-        chatListAdapter = new ChatListAdapter(this,chats);
+        ChatListAdapter chatListAdapter = new ChatListAdapter(this, chats);
         chatList.setAdapter(chatListAdapter);
         chatListAdapter.notifyDataSetChanged();
     }

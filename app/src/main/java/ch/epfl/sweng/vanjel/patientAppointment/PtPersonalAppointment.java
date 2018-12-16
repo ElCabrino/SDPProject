@@ -5,13 +5,17 @@ package ch.epfl.sweng.vanjel.patientAppointment;
  * @reviewer Aslam CADER
  */
 public class PtPersonalAppointment {
-    String doctor, location, date, time, duration;
+    private String doctor;
+    private String location;
+    private String date;
+    private String time;
+    private String duration;
     // 0 = appointment confirmed, 1 = pending
     Boolean pendingStatus;
 
     public PtPersonalAppointment() {}
 
-    public PtPersonalAppointment(String doctor, String location, String date, String time, String duration,Boolean pendingStatus) {
+    PtPersonalAppointment(String doctor, String location, String date, String time, String duration, Boolean pendingStatus) {
         this.doctor = doctor;
         this.location = location;
         this.date = date;

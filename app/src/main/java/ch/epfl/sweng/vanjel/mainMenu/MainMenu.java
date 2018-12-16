@@ -39,8 +39,14 @@ import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
  */
 public class MainMenu extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView logout, profile, nextAppointement, chat, requests, search, treated, nearby,
-            setAvailability, favorite, infos, recommendations;
+    private TextView requests;
+    private TextView search;
+    private TextView treated;
+    private TextView nearby;
+    private TextView setAvailability;
+    private TextView favorite;
+    private TextView infos;
+    private TextView recommendations;
 
     private String userType;
 
@@ -56,13 +62,13 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void init() {
-        logout = findViewById(R.id.logoutMainMenu);
+        TextView logout = findViewById(R.id.logoutMainMenu);
         logout.setOnClickListener(this);
-        profile = findViewById(R.id.profileMainMenu);
+        TextView profile = findViewById(R.id.profileMainMenu);
         profile.setOnClickListener(this);
-        nextAppointement = findViewById(R.id.nextAppointMainMenu);
+        TextView nextAppointement = findViewById(R.id.nextAppointMainMenu);
         nextAppointement.setOnClickListener(this);
-        chat = findViewById(R.id.chatMainMenu);
+        TextView chat = findViewById(R.id.chatMainMenu);
         chat.setOnClickListener(this);
         requests = findViewById(R.id.requestsMainMenu);
         requests.setOnClickListener(this);
@@ -82,7 +88,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         recommendations.setOnClickListener(this);
     }
 
-    void isUserPatient() {
+    private void isUserPatient() {
         DatabaseReference patientRef = database.getReference("Patient");
         patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
