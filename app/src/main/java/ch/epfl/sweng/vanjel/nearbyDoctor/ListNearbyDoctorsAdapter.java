@@ -88,6 +88,7 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            int i = 0;
             lastName = itemView.findViewById(R.id.lastName);
             activity = itemView.findViewById(R.id.activity);
             distance = itemView.findViewById(R.id.distance);
