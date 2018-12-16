@@ -57,7 +57,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
 
     private View permissionDeniedView;
-    private TextView permissionDeniedRationaleView;
+    private TextView permissionDeniedRationaleView, mapButton, listButton;
     private LinearLayout NearbyDoctorTop;
 
     //to get user Location
@@ -110,9 +110,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         // user position
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //layout
-        TextView mapButton = findViewById(R.id.mapButton);
+        mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(this);
-        TextView listButton = findViewById(R.id.listButton);
+        listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(this);
         NearbyDoctorTop = findViewById(R.id.NearbyTopBar);
     }
