@@ -87,7 +87,7 @@ public class ChatActivity extends AppCompatActivity {
      */
     public void sendMessage(View v){
         if (message.getText().length() != 0){
-            DateFormat dateFormat = new SimpleDateFormat("h.mm");
+            DateFormat dateFormat = new SimpleDateFormat("H:mm");
             String dateString = dateFormat.format(new Date());
             database.getReference("Chat").child(chatUid).updateChildren(createMessage(message.getText().toString(), dateString)).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
