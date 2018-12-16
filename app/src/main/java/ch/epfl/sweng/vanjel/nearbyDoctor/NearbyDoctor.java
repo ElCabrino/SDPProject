@@ -82,9 +82,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    private Boolean mapPressed = true;
-    private Boolean listPressed = false;
-
     private LatLng userLocation;
 
 
@@ -330,20 +327,21 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.mapButton:
-                mapButton.setVisibility(View.GONE);
-                listButton.setVisibility(View.VISIBLE);
-                mapView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
+                changeVisibility(View.GONE,View.VISIBLE);
                 break;
             case R.id.listButton:
-                mapButton.setVisibility(View.VISIBLE);
-                listButton.setVisibility(View.GONE);
-                mapView.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
+                changeVisibility(View.VISIBLE,View.GONE);
                 break;
             default:
                 break;
 
         }
+    }
+
+    private void changeVisibility(Integer visibilityList, Integer visibilityMap){
+        mapButton.setVisibility(visibilityList);
+        listButton.setVisibility(visibilityMap);
+        mapView.setVisibility(visibilityMap);
+        recyclerView.setVisibility(visibilityList);
     }
 }
