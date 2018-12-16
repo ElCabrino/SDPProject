@@ -4,13 +4,13 @@ import ch.epfl.sweng.vanjel.models.Patient;
 
 /**
  * Nicolas?? Etienne??
- * @author
- * @reviewer
+ * @author ??
+ * @reviewer Vincent Cabrini
  */
 public class DoctorCalendarItem {
 
-    private String date;
-    private Patient patient;
+    private final String date;
+    private final Patient patient;
 
     public DoctorCalendarItem(String dt, Patient pt) {
         this.date = dt;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +19,19 @@ import ch.epfl.sweng.vanjel.R;
  * A class to populate the chatList RecyclerView in ChatListActivity
  *
  * @author Etienne Caquot
+ * @reviewer Vincent Cabrini
  */
-public class ChatListAdapter extends RecyclerView.Adapter {
+class ChatListAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private List<Chat> chatList;
+    private final Context context;
+    private final List<Chat> chatList;
 
     /**
      *
      * @param context the context of Adapter
      * @param chatMap the list of Chats the user participates in
      */
-    public ChatListAdapter(Context context, Map<String,Chat> chatMap) {
+    ChatListAdapter(Context context, Map<String, Chat> chatMap) {
         this.context = context;
         chatList = new ArrayList<>();
         chatList.addAll(chatMap.values());
@@ -44,7 +44,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Chat chat = chatList.get(position);
         ((ChatListAdapter.ViewHolder) holder).bind(chat);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +68,9 @@ public class ChatListAdapter extends RecyclerView.Adapter {
      */
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView contact, time, lastMessage;
+        TextView contact;
+        TextView time;
+        TextView lastMessage;
 
         /**
          * Creates the ViewHolder
@@ -76,6 +78,10 @@ public class ChatListAdapter extends RecyclerView.Adapter {
          */
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            getTextView();
+        }
+
+        private void getTextView() {
             contact = itemView.findViewById(R.id.contactName);
             time = itemView.findViewById(R.id.time);
             lastMessage = itemView.findViewById(R.id.lastMessage);

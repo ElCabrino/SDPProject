@@ -9,14 +9,14 @@ import ch.epfl.sweng.vanjel.models.Doctor;
 
 public final class LocalDatabaseService {
 
-    private LocalDatabase db;
+    private final LocalDatabase db;
 
     public LocalDatabaseService(Context context) {
         this.db = Room.databaseBuilder(context,
                 LocalDatabase.class, "local-database").allowMainThreadQueries().build();
     }
 
-    public DoctorFavorite doctorToDoctorFavorite(Doctor doctor, String DoctorUid){
+    private DoctorFavorite doctorToDoctorFavorite(Doctor doctor, String DoctorUid){
         return new DoctorFavorite(DoctorUid, doctor.getFirstName(), doctor.getLastName(),
                 doctor.getStreet(), doctor.getStreetNumber(), doctor.getCity(), doctor.getCountry(), doctor.getActivity());
     }

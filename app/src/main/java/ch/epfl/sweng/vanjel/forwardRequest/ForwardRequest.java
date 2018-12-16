@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,14 +26,13 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class ForwardRequest extends AppCompatActivity {
 
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private String currentUserUID;
     private DatabaseReference ref;
 
     private RecyclerView recyclerView;
-    private ForwardRequestAdapter adapter;
 
-    Map<String,Forward> forward;
+    private Map<String,Forward> forward;
 
 
 
@@ -51,26 +49,27 @@ public class ForwardRequest extends AppCompatActivity {
         notifyAdapter();
     }
 
-    public void init(){
+    private void init(){
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         forward = new HashMap<>();
         ref = database.getReference().child("Forwards");
-        currentUserUID = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        if (FirebaseAuthCustomBackend.getInstance().getCurrentUser() != null) {
+            currentUserUID = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+        } //TODO user not logged exception
         getMyForwards();
     }
 
-    public void getMyForwards(){
+    private void getMyForwards(){
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 forward = new HashMap<>(); // in case the the forward is updated, we need to remove ther old stuff
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     Forward dbForward = dataSnapshot1.getValue(Forward.class);
-                    Log.d("Forward",dbForward.getPatient());
-                    Log.d("Forward",currentUserUID);
-                    if(dbForward.getPatient().equals(currentUserUID))
+                    if ((dbForward !=null) && (dbForward.getPatient().equals(currentUserUID)) && (dataSnapshot1.getKey() != null))
                         forward.put(dataSnapshot1.getKey(),dbForward);
+                    //TODO exception
                 }
                 notifyAdapter();
             }
@@ -84,8 +83,8 @@ public class ForwardRequest extends AppCompatActivity {
     }
 
 
-    public void notifyAdapter() {
-        adapter = new ForwardRequestAdapter(ForwardRequest.this, forward);
+    private void notifyAdapter() {
+        ForwardRequestAdapter adapter = new ForwardRequestAdapter(ForwardRequest.this, forward);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
