@@ -23,15 +23,14 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/titleReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="@string/create_your_account"
                 android:fontFamily="sans-serif-light"
@@ -44,6 +43,8 @@
             android:background="@android:color/darker_gray"/>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -65,6 +66,8 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -84,6 +87,8 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -110,6 +115,8 @@
                 android:weightSum="2">
 
                 <android.support.design.widget.TextInputLayout
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -118,7 +125,7 @@
 
                     <EditText
                         android:id="@+id/firstNameReg"
-                        android:layout_width="175dp"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
@@ -130,6 +137,8 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -138,7 +147,7 @@
 
                 <EditText
                     android:id="@+id/lastNameReg"
-                    android:layout_width="175dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
@@ -153,6 +162,8 @@
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -177,6 +188,8 @@
                 android:orientation="horizontal">
 
                 <Spinner
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:id="@+id/genderReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -194,6 +207,9 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.TextInputLayout
+
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -220,6 +236,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:layout_marginBottom="8dp">
 
 
@@ -243,10 +261,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:orientation="horizontal">
 
 
                 <android.support.design.widget.TextInputLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -282,6 +303,8 @@
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
