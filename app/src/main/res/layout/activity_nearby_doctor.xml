@@ -12,22 +12,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/titleSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/placeholder"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text=" Nearby Doctors "
+            android:textSize="24sp" />
+
         <LinearLayout
             android:id="@+id/NearbyTopBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:gravity="center"
             android:orientation="horizontal"
+            android:paddingBottom="8dp"
             android:visibility="invisible">
 
             <TextView
                 android:id="@+id/listButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_default_small"
+                android:layout_margin="1dp"
+                android:background="@drawable/border"
                 android:clickable="true"
                 android:drawableLeft="@drawable/list_icon"
                 android:gravity="center"
+                android:padding="5dp"
                 android:text="  List"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -36,13 +52,17 @@
                 android:id="@+id/mapButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_default_small"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/border"
                 android:clickable="true"
                 android:drawableLeft="@drawable/map_icon"
                 android:gravity="center"
+                android:padding="5dp"
                 android:text=" Map"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -93,13 +113,14 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:text="@string/permission_denied_rationale_short" />
 
-    <Button
-        android:id="@+id/grant_permission_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="onGrantPermission"
-        android:text="@string/grant_permission"/>
+        <Button
+            android:id="@+id/grant_permission_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="onGrantPermission"
+            android:text="@string/grant_permission" />
 
     </LinearLayout>
 

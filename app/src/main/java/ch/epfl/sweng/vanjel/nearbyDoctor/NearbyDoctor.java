@@ -330,10 +330,14 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.mapButton:
+                mapButton.setVisibility(View.GONE);
+                listButton.setVisibility(View.VISIBLE);
                 mapView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.listButton:
+                mapButton.setVisibility(View.VISIBLE);
+                listButton.setVisibility(View.GONE);
                 mapView.setVisibility(View.INVISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
                 break;
