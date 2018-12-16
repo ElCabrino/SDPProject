@@ -69,7 +69,11 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = new HashMap<>();
         allDoctors = new HashMap<>();
         bundle = getIntent().getExtras();
-        isForward = bundle.getBoolean("isForward");
+        if (bundle != null) {
+            isForward = bundle.getBoolean("isForward");
+        } else {
+            isForward = Boolean.FALSE;
+        }
         isForwardDetails = new HashMap<>();
         String doctor1Forward = bundle.getString("doctor1Forward");
         String patientForward = bundle.getString("patientForward");
