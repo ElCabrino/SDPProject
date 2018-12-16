@@ -9,7 +9,24 @@
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update information" />
+        android:text="Update information"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
 
     <EditText
         android:id="@+id/patientInfoUpdateEditView"
@@ -17,19 +34,37 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Enter new information" />
+        android:hint="Enter new information"
+        android:fontFamily="sans-serif-light"/>
 
-    <Button
-        android:id="@+id/buttonPatientInfoUpdate"
-        android:layout_width="match_parent"
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update" />
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/buttonPatientInfoUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Update" />
 
 
-    <Button
-        android:id="@+id/buttonPatientInfoDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete" />
+        <Button
+            android:id="@+id/buttonPatientInfoDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Delete" />
+
+
+    </LinearLayout>
+
+
+
+
 
 </LinearLayout>
