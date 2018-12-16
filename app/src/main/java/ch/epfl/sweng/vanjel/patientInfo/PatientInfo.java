@@ -203,7 +203,12 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    //TODO move or refactor
+    /**
+     * Method used to return the trimmed string from an EditText.
+     *
+     * @param field an EditText
+     * @return the trimmed string from field
+     */
     static String getTextFromField(EditText field) {
         return field.getText().toString().trim();
     }

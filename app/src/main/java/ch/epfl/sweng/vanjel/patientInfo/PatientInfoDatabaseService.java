@@ -41,12 +41,8 @@ class PatientInfoDatabaseService {
     final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
-    //TEMPORARY ID
-    /*TODO: put the user ID of the logged user*/
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
-        //String s = auth.getCurrentUser().getUid();
-        //String s = patientID;
         this.userDatabaseReference = database.getReference("Patient").child(patientID);
     }
 
@@ -71,6 +67,7 @@ class PatientInfoDatabaseService {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 typeList.clear();
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
+
                     T item = (T) snap.getValue(c);
                     typeList.add((T) item);
 
@@ -86,7 +83,7 @@ class PatientInfoDatabaseService {
     }
 
     /**
-     * Adds listeners for informations that do not require a list
+     * Method to add listeners for medical information that does not require a list
      *
      * @param textView the textview of corresponding to the information
      * @param category the category of the information
@@ -123,6 +120,13 @@ class PatientInfoDatabaseService {
         });
     }
 
+    /**
+     * Method to return the appropriate inflated View for the update of a patient information
+     *
+     * @param category a category of patient information
+     * @param inflater an inflater
+     * @return the inflated update View corresponding to the category
+     */
     private View getDialogView(String category, LayoutInflater inflater) {
         switch (category) {
             case "Condition":
@@ -173,15 +177,22 @@ class PatientInfoDatabaseService {
         });
     }
 
+    /**
+     * Method to return an UpdateViewsHolder object containing the appropriate views for the patient information category
+     *
+     * @param category a category of patient information
+     * @param dialogView a dialogView
+     * @return UpdateViewsHolder object with the fields corresponding to the patient information category
+     */
     private UpdateViewsHolder getHolder(String category, View dialogView) {
         switch (category) {
             case "Condition":
             case "Allergy":
             case "Substance":
-                return UpdateViewsHolder.forSingleInfo(dialogView);
+                return UpdateViewsHolder.forSingleFieldInfo(dialogView);
             case "Surgery":
             case "DrugReaction":
-                return UpdateViewsHolder.forSurgery(dialogView);
+                return UpdateViewsHolder.forDoubleFieldInfo(dialogView);
             //drug
             default:
                 return UpdateViewsHolder.forDrug(dialogView);
@@ -208,8 +219,7 @@ class PatientInfoDatabaseService {
 
 
     //SETTERS
-
-    <T> void addItemToDatabase(String item, String category, T itemObject) {
+    void addItemToDatabase(String item, String category, Info itemObject) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
         // correct string format
@@ -226,6 +236,12 @@ class PatientInfoDatabaseService {
         }
     }
 
+    /**
+     * Method to add a non-list patient information to firebase.
+     *
+     * @param amount the value to be added
+     * @param category the category of the patient information
+     */
     void addAmount(String amount, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         if (!TextUtils.isEmpty(amount)) {
