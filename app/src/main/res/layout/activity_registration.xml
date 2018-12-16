@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,10 +29,27 @@
                 android:id="@+id/titleReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:height="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="Create Your MediScan Account"
+                android:text="@string/create_your_account"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"
                 android:textSize="24sp" />
+
+            <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/mailReg"
@@ -39,16 +57,43 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="name@example.com"
-                android:inputType="textEmailAddress" />
+                android:hint="@string/name_example_com"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"
+                android:inputType="textEmailAddress"
+                />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/passwordReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="password"
+                android:hint="@string/password"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"
                 android:inputType="textPassword" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/confirmPasswordReg"
@@ -56,34 +101,70 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:hint="confirm password"
+                android:hint="@string/confirm_password"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"
                 android:inputType="textPassword" />
 
-            <LinearLayout
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
                 <EditText
                     android:id="@+id/firstNameReg"
-                    android:layout_width="wrap_content"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="first name"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/first_name"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@+id/lastNameReg" />
+                    android:textColor="#000000" />
 
-                <EditText
-                    android:id="@+id/lastNameReg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="last name"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/lastNameReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/last_name"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
             <EditText
                 android:id="@+id/birthdayReg"
@@ -91,7 +172,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:hint="birthday" />
+                android:hint="@string/date_format"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"/>
+
+            </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,12 +184,16 @@
                 android:orientation="horizontal">
 
                 <Spinner
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
                     android:id="@+id/genderReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
-                    android:entries="@array/gender" />
+                    android:entries="@array/gender"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
@@ -113,15 +202,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <android.support.design.widget.TextInputLayout
+
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
+
                 <EditText
                     android:id="@+id/streetReg"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="street"
+                    android:hint="@string/street"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/numberReg" />
+                    android:nextFocusDown="@id/numberReg"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:layout_marginBottom="8dp">
+
+
 
                 <EditText
                     android:id="@+id/numberReg"
@@ -129,15 +244,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
-                    android:hint="number"
+                    android:hint="@string/number"
                     android:inputType="number"
-                    android:nextFocusDown="@id/cityReg" />
+                    android:nextFocusDown="@id/cityReg"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"/>
+
+                </android.support.design.widget.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
                 android:orientation="horizontal">
+
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
 
                 <EditText
                     android:id="@+id/cityReg"
@@ -145,9 +277,25 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:ems="10"
-                    android:hint="city"
+                    android:hint="@string/city"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/postcodeReg" />
+                    android:nextFocusDown="@id/postcodeReg"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"/>
+
+
+
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
 
                 <EditText
                     android:id="@+id/postcodeReg"
@@ -155,9 +303,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="postcode"
-                    android:inputType="number" />
+                    android:hint="@string/postcode"
+                    android:inputType="number"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"/>
+
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
 
             <EditText
                 android:id="@+id/countryReg"
@@ -165,8 +327,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:hint="country"
-                android:inputType="textPersonName" />
+                android:hint="@string/country"
+                android:inputType="textPersonName"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000"/>
+
+            </android.support.design.widget.TextInputLayout>
 
             <Spinner
                 android:id="@+id/activityReg"
@@ -179,7 +345,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Register" />
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/register"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </ScrollView>

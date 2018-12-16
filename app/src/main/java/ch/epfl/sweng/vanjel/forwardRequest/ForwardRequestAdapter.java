@@ -29,11 +29,11 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAdapter.ViewHolder> {
 
-    Map<String,Forward> forwardsMap;
-    List<Forward> forwardsList;
-    Context context;
+    private final Map<String,Forward> forwardsMap;
+    private final List<Forward> forwardsList;
+    private final Context context;
 
-    public ForwardRequestAdapter(Context context, Map<String,Forward> forward){
+    ForwardRequestAdapter(Context context, Map<String, Forward> forward){
         this.context = context;
         this.forwardsMap = forward;
         this.forwardsList = new ArrayList<>();
@@ -88,8 +88,12 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
         TextView doctor1, doctor2;
         Button doctorDetails, delete;
 
-        public ViewHolder(@NonNull View itemView){
+        ViewHolder(@NonNull View itemView){
             super(itemView);
+            getViews();
+        }
+
+        private void getViews(){
             doctor1 = itemView.findViewById(R.id.firstDoctorRequested);
             doctor2 = itemView.findViewById(R.id.secondDoctorAdviced);
             doctorDetails = itemView.findViewById(R.id.seeForwadedDoctor);
@@ -97,13 +101,13 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
         }
     }
 
-    private String forwardToUid(Forward f){
+    private String forwardToUid(Forward f) throws RuntimeException{
         for (Map.Entry<String, Forward> entry : forwardsMap.entrySet()) {
             if (f.equals(entry.getValue())) {
                 return entry.getKey();
             }
         }
-        return null;
+        throw new RuntimeException("Missing element when forwarding");
     }
 
 }
