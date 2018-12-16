@@ -10,6 +10,6 @@ public enum DoctorActivity {
     Physiotherapist,
     Psychologist,
     Orthopedist,
-    Ophthalmologist;
+    Ophthalmologist
 
 }
