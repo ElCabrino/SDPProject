@@ -268,7 +268,7 @@
 
                 <android.support.design.widget.TextInputLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
@@ -286,6 +286,19 @@
                     android:nextFocusDown="@id/postcodeReg"
                     android:fontFamily="sans-serif-light"
                     android:textColor="#000000"/>
+
+
+
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
 
 
                 <EditText
@@ -337,7 +350,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:text="@string/register" />
+                android:text="@string/register"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </ScrollView>
