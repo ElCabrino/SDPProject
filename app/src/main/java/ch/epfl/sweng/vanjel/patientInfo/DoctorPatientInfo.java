@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
@@ -9,12 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.patientInfo.Drug;
-import ch.epfl.sweng.vanjel.patientInfo.DrugReaction;
-import ch.epfl.sweng.vanjel.patientInfo.InfoList;
-import ch.epfl.sweng.vanjel.patientInfo.InfoString;
-import ch.epfl.sweng.vanjel.patientInfo.PatientInfoDatabaseService;
-import ch.epfl.sweng.vanjel.patientInfo.Surgery;
 
 /**
  * @author Nicolas BRANDT
@@ -22,28 +17,38 @@ import ch.epfl.sweng.vanjel.patientInfo.Surgery;
  */
 public class DoctorPatientInfo extends AppCompatActivity {
 
-    private Bundle bundle;
+    private PatientInfoDatabaseService patientInfoDatabaseService;
 
-    PatientInfoDatabaseService patientInfoDatabaseService;
+    private ListView listViewConditions;
+    private ListView listViewSurgeries;
+    private ListView listViewAllergies;
+    private ListView listViewDrugReactions;
+    private ListView listViewDrugs;
+    private ListView listViewSubstances;
 
-    ListView listViewConditions, listViewSurgeries, listViewAllergies, listViewDrugReactions, listViewDrugs, listViewSubstances;
+    private TextView textViewSmoking;
+    private TextView textViewDrinking;
+    private TextView textViewExercise;
 
-    TextView textViewSmoking, textViewDrinking, textViewExercise;
-
-    List<InfoString> conditionList = new ArrayList<>();
-    List<Surgery> surgeryList = new ArrayList<>();
-    List<InfoString> allergyList = new ArrayList<>();
-    List<DrugReaction> drugReactionList = new ArrayList<>();
-    List<Drug> drugList = new ArrayList<>();
-    List<InfoString> substanceList = new ArrayList<>();
+    private final List<InfoString> conditionList = new ArrayList<>();
+    private final List<Surgery> surgeryList = new ArrayList<>();
+    private final List<InfoString> allergyList = new ArrayList<>();
+    private final List<DrugReaction> drugReactionList = new ArrayList<>();
+    private final List<Drug> drugList = new ArrayList<>();
+    private final List<InfoString> substanceList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) throws Resources.NotFoundException {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_patient_info);
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 
-        String patientID = bundle.getString("patientUID");
+        String patientID;
+        if (bundle != null){
+            patientID = bundle.getString("patientUID");
+        } else {
+            throw new Resources.NotFoundException("Extra not found");
+        }
 
         patientInfoDatabaseService = new PatientInfoDatabaseService(this,patientID);
 
@@ -73,18 +78,18 @@ public class DoctorPatientInfo extends AppCompatActivity {
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
-                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
+                InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
-                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
+                Surgery.class, new InfoList<>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
         patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
-                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+                InfoString.class, new InfoList<>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
         patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
-                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
+                DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
-                Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
+                Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
 
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
-                InfoString.class, new InfoList<InfoString>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+                InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
     }
 
 }

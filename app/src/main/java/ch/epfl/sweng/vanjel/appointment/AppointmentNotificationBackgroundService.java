@@ -8,8 +8,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.widget.Toast;
@@ -26,20 +26,16 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
+
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
  */
 public class AppointmentNotificationBackgroundService extends Service {
 
-    public static final String APPOINTMENT_SERVICE_INTENT = "ch.epfl.sweng.vanjel.appointmentService";
 
-    private Handler handler;
-    private Runnable runnable;
-    private Context context = this;
-
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -66,9 +62,12 @@ public class AppointmentNotificationBackgroundService extends Service {
         DatabaseReference ref = database.getReference("Requests");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                String doctor = dataSnapshot.child("doctor").getValue().toString();
-                Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
+
+                //ensure getValue return a non null object
+                String doctor = dataSnapshot.child("doctor").toString();
+                String notified = dataSnapshot.child("doctorNotified").toString();
+                Boolean notify = Boolean.parseBoolean(notified);
                 if (!notify) {
                     String title = "New appointment";
                     String text = "A patient took a new appointment!";
@@ -77,17 +76,17 @@ public class AppointmentNotificationBackgroundService extends Service {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
-                String patient = dataSnapshot.child("patient").getValue().toString();
-                String bool = dataSnapshot.child("userNotified").getValue().toString();
-                String durationString = dataSnapshot.child("duration").getValue().toString();
+                String patient = dataSnapshot.child("patient").toString();
+                String bool = dataSnapshot.child("userNotified").toString();
+                String durationString = dataSnapshot.child("duration").toString();
 
                 int duration = Integer.parseInt(durationString);
                 Boolean notify = Boolean.parseBoolean(bool);
 
                 Boolean isAppointmentNull = duration == 0;
-                
+
                 if(!notify && !isAppointmentNull){
                     String title = "One of your appointment has been updated!";
                     String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
@@ -96,13 +95,13 @@ public class AppointmentNotificationBackgroundService extends Service {
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {}
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
@@ -121,24 +120,6 @@ public class AppointmentNotificationBackgroundService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
     }
-//
-//    private void notifyDoctor(String id) {
-//        if (auth.getCurrentUser().getUid().equals(id)){
-//            //create notification
-//            String title = "New appointment";
-//            String text = "A patient took a new appointment!";
-//            createNotification(title, text);
-//        }
-//    }
-//
-//    private void notifyPatient(String id) {
-//        if(auth.getCurrentUser().getUid().equals(id)){
-//            // create notification
-//            String title = "One of your appointment has been updated!";
-//            String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
-//            createNotification(title, text);
-//        }
-//    }
 
     private PendingIntent setupActivityToRun(Class<?> c) {
         Intent resIntent = new Intent(this, c);
@@ -159,18 +140,21 @@ public class AppointmentNotificationBackgroundService extends Service {
         } else {
             pIntent = setupActivityToRun(DoctorAppointmentsList.class);
         }
-        if(auth.getCurrentUser().getUid().equals(id)) {
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(title)
-                    .setContentText(text)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setPriority(0x00000002)
-                    .setContentIntent(pIntent);
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (auth.getCurrentUser()!=null) {
+            if (id.equals(auth.getCurrentUser().getUid())) {
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(title)
+                        .setContentText(text)
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setPriority(0x00000002)
+                        .setContentIntent(pIntent);
 
-            notificationManager.notify(0, mBuilder.build());
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                notificationManager.notify(0, mBuilder.build());
+            }
         }
     }
 }
