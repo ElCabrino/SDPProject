@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.profile.Profile;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -82,7 +80,7 @@ public class ProfileTest {
 
     @Test
     public void displayPatientProfileTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).check(matches(withText(p_expectedLastname)));
@@ -98,7 +96,7 @@ public class ProfileTest {
 
     @Test
     public void EditTextTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         String newLastName = "JossEdit";
@@ -129,7 +127,7 @@ public class ProfileTest {
 
     @Test
     public void editButtonTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile edit button")).perform(click());
@@ -150,7 +148,7 @@ public class ProfileTest {
 
     @Test
     public void saveButtonTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient,new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient,new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile edit button")).perform(click());
@@ -175,7 +173,7 @@ public class ProfileTest {
 
     @Test
     public void displayDoctorProfileTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, false, false, false, false, false, doctor, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, false, false, false, false, false, false, doctor, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).check(matches(withText(d_expectedLastname)));
@@ -191,7 +189,7 @@ public class ProfileTest {
 
     @Test
     public void createValueEventListenerCancelled() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, true, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, true, false, false, false, patient, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).check(matches(withText("")));
         onView(withContentDescription("profile name")).check(matches(withText("")));
@@ -206,7 +204,7 @@ public class ProfileTest {
 
     @Test
     public void saveNewValuesFailureTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, true, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, true, false, false, false, false, patient, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile edit button")).perform(click());
         TimeUnit.SECONDS.sleep(1);

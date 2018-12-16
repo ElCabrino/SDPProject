@@ -1,5 +1,7 @@
 package ch.epfl.sweng.vanjel.firebase;
 
+import android.app.Activity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,10 +38,6 @@ public class FirebaseAuthCustomBackend {
     @Mock
     private static FirebaseUser mockUser;
 
-    @Mock
-    private Task<AuthResult> mockRegistrationTask;
-    @Mock
-    private Task<AuthResult> mockCompleteTask;
     @Mock
     private Task<AuthResult> mockLoginTask;
     @Mock
@@ -121,5 +119,14 @@ public class FirebaseAuthCustomBackend {
                 return listener;
             }
         })).when(mockLoginTask).addOnCompleteListener(any(OnCompleteListener.class));
+
+        doAnswer((new Answer<OnCompleteListener<AuthResult>>() {
+            @Override
+            public OnCompleteListener<AuthResult> answer(InvocationOnMock invocation) throws Throwable {
+                OnCompleteListener<AuthResult> listener = (OnCompleteListener<AuthResult>) invocation.getArguments()[1];
+                listener.onComplete(mockUserTask);
+                return listener;
+            }
+        })).when(mockLoginTask).addOnCompleteListener(any(Activity.class), any(OnCompleteListener.class));
     }
 }

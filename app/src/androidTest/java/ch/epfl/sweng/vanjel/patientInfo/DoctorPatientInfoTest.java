@@ -13,7 +13,6 @@ import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;

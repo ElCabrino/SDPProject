@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.doctorCalendar.DoctorCalendar;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -35,7 +34,7 @@ public class DoctorCalendarTest {
 
     @Test
     public void TestInterface() {
-        setupNoExtras(DoctorCalendar.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(DoctorCalendar.class, mActivityRule, false, false, false, false, false, false, false);
         onView(ViewMatchers.withId(R.id.add)).perform(click());
         onView(withId(R.id.calender_recyclerView)).check(matches(hasChildCount(1)));
         onView(withId(R.id.calender_recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,new ViewAction() {

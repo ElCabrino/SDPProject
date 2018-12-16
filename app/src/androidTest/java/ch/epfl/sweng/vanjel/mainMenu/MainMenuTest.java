@@ -18,7 +18,6 @@ import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
-import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
 import ch.epfl.sweng.vanjel.nearbyDoctor.NearbyDoctor;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientPersonalAppointments;
 import ch.epfl.sweng.vanjel.patientInfo.PatientInfo;
@@ -53,7 +52,7 @@ public class MainMenuTest {
 
     @Test
     public void searchDoctorButtonTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(ViewMatchers.withId(R.id.searchMainMenu)).perform(click());
         intended(hasComponent(SearchDoctor.class.getName()));
@@ -61,7 +60,7 @@ public class MainMenuTest {
 
     @Test
     public void patientInfoButtonAsPatientTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.infosMainMenu)).perform(click());
         intended(hasComponent(PatientInfo.class.getName()));
@@ -69,7 +68,7 @@ public class MainMenuTest {
 
     @Test
     public void setAvailabilityButton() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.setAvailMainMenu)).perform(click());
         intended(hasComponent(DoctorAvailabilityActivity.class.getName()));
@@ -77,7 +76,7 @@ public class MainMenuTest {
 
     @Test
     public void nearbyDoctorButtonTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.nearbyMainMenu)).perform(click());
         intended(hasComponent(NearbyDoctor.class.getName()));
@@ -85,7 +84,7 @@ public class MainMenuTest {
 
     @Test
     public void treatedPatientsButtonTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.treatedMainMenu)).perform(click());
         intended(hasComponent(TreatedPatients.class.getName()));
@@ -93,7 +92,7 @@ public class MainMenuTest {
 
     @Test
     public void favoriteListButtonTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.favoriteMainMenu)).perform(click());
         intended(hasComponent(PatientFavoriteListActivity.class.getName()));
@@ -101,7 +100,7 @@ public class MainMenuTest {
 
     @Test
     public void nextAppointmentsAsPatientTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.nextAppointMainMenu)).perform(click());
         intended(hasComponent(PatientPersonalAppointments.class.getName()));
@@ -109,7 +108,7 @@ public class MainMenuTest {
 
     @Test
     public void nextAppointmentsAsDoctorTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.nextAppointMainMenu)).perform(click());
         intended(hasComponent(DoctorComingAppointments.class.getName()));
@@ -118,7 +117,7 @@ public class MainMenuTest {
 
     @Test
     public void requestsListTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.requestsMainMenu)).perform(click());
         intended(hasComponent(DoctorAppointmentsList.class.getName()));
@@ -126,7 +125,7 @@ public class MainMenuTest {
 
     @Test
     public void chatAccessTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.chatMainMenu)).perform(click());
         intended(hasComponent(ChatListActivity.class.getName()));
@@ -134,7 +133,7 @@ public class MainMenuTest {
 
     @Test
     public void logOutTest() throws Exception {
-        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.logoutMainMenu)).perform(click());
         //verifiy if local favorite are erased

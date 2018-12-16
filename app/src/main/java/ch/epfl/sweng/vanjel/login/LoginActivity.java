@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,9 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
         findViewById(R.id.registrationLogin).setOnClickListener(this);
-
     }
-
 
     @Override
     public void onStart() {
@@ -65,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI() {
         // user is logged, open his profile page
-        startActivity(new Intent(LoginActivity.this,MainMenu.class));
+        startActivity(new Intent(LoginActivity.this, MainMenu.class));
 
         // start Appointment service
         startService(new Intent(this, AppointmentNotificationBackgroundService.class));
@@ -90,27 +87,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // [START sign_in_with_email]
         Task<AuthResult> t = auth.signInWithEmailAndPassword(email, password);
-        Log.d("Login","TaskCreated");
         t.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("Login","onComplete");
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            updateUI();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // [START_EXCLUDE]
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, R.string.login_failed_error, Toast.LENGTH_SHORT).show();
-                        }
-                        // [END_EXCLUDE]
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    updateUI();
+                    } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
                     }
-                });
+            }
+        });
         // [END sign_in_with_email]
     }
 

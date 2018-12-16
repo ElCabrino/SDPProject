@@ -11,22 +11,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ch.epfl.sweng.vanjel.LoginHelper;
+import java.util.concurrent.TimeUnit;
+
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.login.LoginActivity;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
 import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
+import static org.hamcrest.Matchers.not;
 
 /**
 
@@ -41,10 +47,11 @@ public class LoginActivityTest {
 
     private String email = "test@test.ch";
     private String password = "123456";
+    private String wrongPassword = "1234";
 
     @Rule
     public final ActivityTestRule<LoginActivity> ActivityRule =
-            new ActivityTestRule<>(LoginActivity.class);
+            new ActivityTestRule<>(LoginActivity.class, true, false);
 
     @BeforeClass
     public static void setUp() {
@@ -58,45 +65,51 @@ public class LoginActivityTest {
     }
 
    @Test
-    public void testOpenChooseRegistration() {
-        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
-        onView(ViewMatchers.withId(R.id.registrationLogin)).perform(click());
+    public void testOpenChooseRegistration() throws Exception {
+        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false, false);
+        TimeUnit.SECONDS.sleep(1);
+        onView(ViewMatchers.withId(R.id.registrationLogin)).perform(scrollTo(), click());
         intended(hasComponent(ChooseRegistration.class.getName()));
     }
 
     @Test
-    public void successfulLogin(){
-        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
-        helper.enterEmail(email);
-        helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(click());
+    public void successfulLogin() throws  Exception {
+        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false, false);
+        TimeUnit.SECONDS.sleep(1);
+        onView(ViewMatchers.withId(R.id.mailLogin)).perform(scrollTo(), replaceText(email));
+        onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(password));
+        FirebaseAuthCustomBackend.setNullUser(false);
+        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
         intended(hasComponent(MainMenu.class.getName()));
 
     }
 
     @Test
-    public void emptyEmailLogin() {
-        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
-        helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(click());
+    public void emptyEmailLogin() throws Exception {
+        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false, false);
+        TimeUnit.SECONDS.sleep(1);
+        onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(password));
+        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
         onView(withId(R.id.mailLogin)).check(matches(hasErrorText("Required.")));
 
     }
 
     @Test
-    public void emptyPasswordLogin() {
-        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false);
-        helper.enterEmail(email);
-        onView(withId(R.id.buttonLogin)).perform(click());
+    public void emptyPasswordLogin() throws Exception {
+        setupNoExtras(LoginActivity.class,ActivityRule,true,false,false,false,false,false, false);
+        TimeUnit.SECONDS.sleep(1);
+        onView(ViewMatchers.withId(R.id.mailLogin)).perform(scrollTo(), replaceText(email));
+        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
         onView(withId(R.id.passwordLogin)).check(matches(hasErrorText("Required.")));
     }
 
     @Test
-    public void wrongCredentialLogin() {
-        setupNoExtras(LoginActivity.class,ActivityRule,true,false,true,false,false,false);
-        helper.enterEmail(email);
-        helper.enterPassword(password);
-        onView(withId(R.id.buttonLogin)).perform(click());
-       // onView(withText("Authentication failed.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+    public void wrongCredentialLogin() throws Exception {
+        setupNoExtras(LoginActivity.class,ActivityRule,true,false,true,false,false,false, true);
+        TimeUnit.SECONDS.sleep(1);
+        onView(ViewMatchers.withId(R.id.mailLogin)).perform(scrollTo(), replaceText(email));
+        onView(withId(R.id.passwordLogin)).perform(scrollTo(), replaceText(wrongPassword));
+        onView(withId(R.id.buttonLogin)).perform(scrollTo(), click());
+        onView(withText("Authentication failed.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }

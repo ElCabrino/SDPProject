@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.registration.Registration;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

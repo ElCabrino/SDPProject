@@ -9,7 +9,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.AfterClass;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +18,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
-import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.chat.ChatActivity;
+import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientCalendarActivity;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -29,7 +27,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasBackground;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -125,7 +122,7 @@ public class DoctorInformationTest {
         Map<String, String> extras = new HashMap<>();
         extras.put("doctorUID", "doctorid1");
         TimeUnit.SECONDS.sleep(3);
-        setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, true, false, false, extras, new HashMap<String, Boolean>());
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, true, false, false, false, extras, new HashMap<String, Boolean>());
         onView(withText(R.string.database_error)).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 

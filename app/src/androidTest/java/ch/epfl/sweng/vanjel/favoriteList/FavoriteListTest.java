@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
-import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
 import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.models.DoctorActivity;
 import ch.epfl.sweng.vanjel.models.Gender;

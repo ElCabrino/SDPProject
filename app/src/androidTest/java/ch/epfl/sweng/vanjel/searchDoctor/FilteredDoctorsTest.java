@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.searchDoctor.FilteredDoctors;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -41,7 +40,7 @@ public class FilteredDoctorsTest {
         extras.put("firstName", "fn_dtest1");
         extras.put("specialisation", "Dentist");
         extras.put("city", "city_dtest1");
-        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, false, extras, new HashMap<String, Boolean>());
+        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
         onView(ViewMatchers.withId(R.id.firstName)).check(matches(withText("fn_dtest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_dtest1")));

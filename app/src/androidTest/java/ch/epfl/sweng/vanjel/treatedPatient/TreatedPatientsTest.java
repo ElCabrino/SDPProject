@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -27,7 +26,7 @@ public class TreatedPatientsTest {
 
     @Test
     public void displayTreatedPatientsTest() throws Exception {
-        setupNoExtras(TreatedPatients.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(TreatedPatients.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(ViewMatchers.withId(R.id.firstName)).check(matches(withText("fn_ptest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_ptest1")));

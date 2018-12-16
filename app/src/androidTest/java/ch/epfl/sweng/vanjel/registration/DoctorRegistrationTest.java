@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.registration.Registration;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -34,7 +33,7 @@ public class DoctorRegistrationTest {
 
     @Test
     public void testForm() throws Exception {
-        setupNoExtras(Registration.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(Registration.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         // Check if register without anything affect
         onView(ViewMatchers.withId(R.id.buttonReg)).perform(scrollTo(), click());
