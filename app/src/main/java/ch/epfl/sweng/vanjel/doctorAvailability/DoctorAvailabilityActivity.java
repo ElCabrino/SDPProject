@@ -12,6 +12,7 @@ import android.widget.ToggleButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,16 +51,18 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
         initButtons();
 
-        valid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validate();
-            }
-        });
-
-        if (auth.getCurrentUser()!= null) {
-            loadAvailability(auth.getCurrentUser().getUid());
-        } //TODO user not logged in exception
+        final FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            valid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    validate(user.getUid());
+                }
+            });
+            loadAvailability(user.getUid());
+        } else {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initButtons() {
@@ -72,11 +75,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         valid = findViewById(R.id.valid);
     }
 
-    private void validate() {
-        if (auth.getCurrentUser() == null) {
-            return;
-        } //TODO user not logged in exception
-
+    private void validate(String userId) {
         slots = new Boolean[NUMBER_OF_SLOTS];
         for (int i = 0; i < NUMBER_OF_SLOTS; i++) {
             slots[i] = buttons[i].isChecked();
@@ -93,7 +92,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
 
         int i = 0;
         for (String d: days) {
-            String s = auth.getCurrentUser().getUid() + "/Availability/"+d;
+            String s = userId + "/Availability/"+d;
             database.getReference("Doctor").child(s).updateChildren(availabilities.get(i++)).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -192,7 +191,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                @SuppressWarnings("unchecked") //TODO pas sur si on peut faire mieux
+                @SuppressWarnings("unchecked")
                 Map<String, Object> tm = (Map<String, Object>) dataSnapshot.getValue();
 
                 if ((tm != null)&&(tm.get("availability")!=null)) { //checking here if the get return a non-null object but lint still warn about a null pointer
