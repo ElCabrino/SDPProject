@@ -41,22 +41,22 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppointmentListAdapter.ViewHolder> {
 
-    Context context;
+    private final Context context;
     ArrayList<Appointment> appointmentsList;
 
     private List<String> treatedPatientsMap;
 
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
 
-    public DoctorAppointmentListAdapter(Context context){
+    DoctorAppointmentListAdapter(Context context){
         this.context = context;
 
         this.appointmentsList = new ArrayList<>();
 
     }
 
-    public DoctorAppointmentListAdapter(Context context, ArrayList<Appointment> appointments){
+    DoctorAppointmentListAdapter(Context context, ArrayList<Appointment> appointments){
         this.context = context;
 
         this.appointmentsList = appointments;
@@ -88,22 +88,22 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView dayCardView, dayTextView, hourCardView, fromHourTextView;
-        Button acceptRequestButton, declineRequestButton, forwardRequestButton;
-        int appointmentListIndex; //number of the cardview, index in appointmentList
+        final TextView dayTextView;
+        final TextView fromHourTextView;
+        final Button acceptRequestButton;
+        final Button declineRequestButton;
+        final Button forwardRequestButton;
+        final int appointmentListIndex; //number of the cardview, index in appointmentList
 
-        public ViewHolder(@NonNull View itemView, int i) {
+        ViewHolder(@NonNull View itemView, int i) {
             super(itemView);
 
-            dayCardView = itemView.findViewById(R.id.dayCardView);
             dayTextView = itemView.findViewById(R.id.dayTextView);
-            hourCardView = itemView.findViewById(R.id.hourCardview);
             fromHourTextView = itemView.findViewById(R.id.fromTextView);
             acceptRequestButton = itemView.findViewById(R.id.acceptAppointmentButton);
             declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);
             forwardRequestButton = itemView.findViewById(R.id.forwardAppointmentButton);
             appointmentListIndex = i;
-            int id = i;
 
         }
 

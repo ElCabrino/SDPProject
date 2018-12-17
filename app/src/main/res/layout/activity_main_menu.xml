@@ -25,7 +25,7 @@
                 android:drawableTop="@drawable/logout"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Logout"
+                android:text="@string/logout"
                 android:textSize="14sp" />
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_weight="9"
                 android:background="@color/colorAccent"
                 android:gravity="center"
-                android:text="VANJEL"
+                android:text="@string/appname"
                 android:textSize="30sp" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:drawableTop="@drawable/user"
                 android:gravity="center_horizontal"
                 android:padding="5dp"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -77,7 +77,7 @@
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Next Appointment"
+                    android:text="@string/next_appointment"
                     android:textSize="18sp" />
 
                 <TextView
@@ -91,7 +91,7 @@
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Chat"
+                    android:text="@string/chat"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -127,7 +127,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Requests"
+                        android:text="@string/requests"
                          />
 
                     <TextView
@@ -141,7 +141,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Search"
+                        android:text="@string/search"
                         android:textSize="18sp"
                          />
 
@@ -170,7 +170,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Treated patients"
+                        android:text="@string/treated_patients"
                          />
 
                     <TextView
@@ -184,7 +184,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Nearby doctors"
+                        android:text="@string/nearby_doctors"
                         android:textSize="18sp"
                          />
 
@@ -215,7 +215,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Favorites"
+                        android:text="@string/favorites"
                          />
 
                     <TextView
@@ -234,7 +234,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Set availabilities"
+                        android:text="@string/set_availabilities"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -261,7 +261,7 @@
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Your medical infos"
+                        android:text="@string/your_medical_infos"
                         android:textSize="18sp"
                          />
                 </RelativeLayout>
@@ -291,7 +291,7 @@
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Recommendations"
+                    android:text="@string/recommendations"
                     android:textSize="18sp"
                      />
 
