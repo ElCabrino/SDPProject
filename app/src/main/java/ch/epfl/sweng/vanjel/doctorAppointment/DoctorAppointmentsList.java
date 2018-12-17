@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,11 +39,13 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         FirebaseUser user = FirebaseAuthCustomBackend.getInstance().getCurrentUser();
         if (user != null) {
             this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        } //TODO: exception
-        this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
-        initAdapter();
-        getAppointments();
+            this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
+            initAdapter();
+            getAppointments();
+        } else {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void initAdapter() {

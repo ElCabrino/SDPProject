@@ -23,7 +23,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 
 public class FilteredDoctors extends AppCompatActivity {

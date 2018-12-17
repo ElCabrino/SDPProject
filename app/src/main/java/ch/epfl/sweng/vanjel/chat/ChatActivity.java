@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,14 +56,19 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        bind();
-        getLastMessage();
+        try {
+            bind();
+            getLastMessage();
+        } catch (FirebaseAuthInvalidUserException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "An error occured when initializing the chat", Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
      * This method bind all the necessary components for the activity
      */
-    private void bind() {
+    private void bind() throws FirebaseAuthInvalidUserException {
         TextView contactName = findViewById(R.id.contactName);
         if (getIntent().getExtras()!=null) {
             contactName.setText(getIntent().getExtras().getString("contactName"));
@@ -72,14 +78,16 @@ public class ChatActivity extends AppCompatActivity {
         messageList = new ArrayList<>();
         if (auth.getCurrentUser()!=null) {
             senderUid = auth.getCurrentUser().getUid();
-        } //TODO user not logged exception
-        messageRecycler.setLayoutManager(new LinearLayoutManager(this));
-        contactUid = getIntent().getExtras().getString("contactUID");
-        assert contactUid != null;
-        if (senderUid.compareTo(contactUid) > 0) {
-            chatUid = contactUid+senderUid;
+            messageRecycler.setLayoutManager(new LinearLayoutManager(this));
+            contactUid = getIntent().getExtras().getString("contactUID");
+            assert contactUid != null;
+            if (senderUid.compareTo(contactUid) > 0) {
+                chatUid = contactUid+senderUid;
+            } else {
+                chatUid = senderUid+contactUid;
+            }
         } else {
-            chatUid = senderUid+contactUid;
+            throw new FirebaseAuthInvalidUserException("chat", "No user logged in");
         }
     }
 
@@ -128,15 +136,13 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.getKey() != null) {
-                        if (snapshot.getKey().equals(chatUid)) {
+                        if (snapshot.getKey() != null && snapshot.getKey().equals(chatUid)) {
                             String message = (String) snapshot.child("text").getValue();
                             String time = (String) snapshot.child("time").getValue();
                             String sender = (String) snapshot.child("sender").getValue();
                             messageList.add(new Message(time, message, sender));
                         }
-                    }
-                } //TODO firebase exception
+                }
                 messageAdapter = new MessageListAdapter(messageList, senderUid);
                 messageRecycler.setAdapter(messageAdapter);
             }

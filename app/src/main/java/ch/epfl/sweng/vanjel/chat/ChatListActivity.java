@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -49,12 +50,14 @@ public class ChatListActivity extends AppCompatActivity {
 
         if (auth.getCurrentUser() != null) {
             userUid = auth.getCurrentUser().getUid();
-        } //TODO user not logged exception
-        chats = new HashMap<>();
-        UidToName = new HashMap<>();
-        chatList = findViewById(R.id.chatList);
-        chatList.setLayoutManager(new LinearLayoutManager(this));
-        getAllUsers();
+            chats = new HashMap<>();
+            UidToName = new HashMap<>();
+            chatList = findViewById(R.id.chatList);
+            chatList.setLayoutManager(new LinearLayoutManager(this));
+            getAllUsers();
+        } else {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -107,7 +110,7 @@ public class ChatListActivity extends AppCompatActivity {
                     c.cast(user);
                     if ((snapshot.getKey() != null)&&(user != null)) {
                         UidToName.put(snapshot.getKey(), user.toString());
-                    } //TODO firebase exception
+                    }
                 }
                 getChats++;
                 if(getChats > 0){
