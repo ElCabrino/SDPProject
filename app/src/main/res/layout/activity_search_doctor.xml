@@ -1,71 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".searchDoctor.SearchDoctor">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
         <TextView
-            android:id="@+id/titlSearch"
-            android:layout_width="match_parent"
+            android:id="@+id/titleSearch"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:height="100dp"
+            android:drawableLeft="@drawable/search"
+            android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="Search"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text=" Search"
             android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/firstNameSearch"
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="first name"
-            android:inputType="textEmailAddress" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <EditText
-            android:id="@+id/lastNameSearch"
+            <EditText
+                android:id="@+id/firstNameSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:hint="First name"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="last name" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <EditText
-            android:id="@+id/specialisationSearch"
+            <EditText
+                android:id="@+id/lastNameSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:hint="Last name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="specialisation" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <EditText
-            android:id="@+id/citySearch"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/specialisationSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:hint="Specialisation"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="city"
-            android:inputType="textPersonName"
-            android:nextFocusDown="@+id/lastNameReg" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <Button
+            <EditText
+                android:id="@+id/citySearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:hint="City"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/buttonSearch"
-            android:layout_width="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Search" />
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Search"
+            android:visibility="visible" />
 
     </LinearLayout>
-    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

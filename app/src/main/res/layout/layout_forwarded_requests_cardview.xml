@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:text="Doctor 1"
                 android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginBottom="5dp"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -36,6 +38,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/adviced_you_to_visit"
                 android:textColor="@android:color/darker_gray"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginBottom="5dp"
                 android:textSize="20sp"
                 android:textStyle="italic" />
 
@@ -45,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="Doctor 2"
                 android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-light"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -57,19 +62,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:paddingLeft="15dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/seeForwadedDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:text="See Doctor" />
 
             <Button
                 android:id="@+id/deleteForwardRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:text="Delete" />
+
 
 
         </LinearLayout>
