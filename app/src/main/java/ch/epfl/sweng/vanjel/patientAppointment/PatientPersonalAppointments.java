@@ -41,6 +41,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     private DatabaseReference dbDoc;
 
     private ListView listViewAp;
+    private TextView noAppointment;
     private String uid;
 
     private final List<PtPersonalAppointment> apList = new ArrayList<>();
