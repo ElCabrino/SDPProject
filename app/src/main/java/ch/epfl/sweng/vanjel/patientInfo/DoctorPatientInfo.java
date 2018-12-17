@@ -17,6 +17,8 @@ import ch.epfl.sweng.vanjel.patientInfo.PatientInfoDatabaseService;
 import ch.epfl.sweng.vanjel.patientInfo.Surgery;
 
 /**
+ * Class to represent a patient's medical information from the doctor's point of view.
+ *
  * @author Nicolas BRANDT
  * @reviewer Aslam CADER
  */
@@ -51,7 +53,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
         
     }
 
-
     private void getAllPatientInfoFields() {
         listViewConditions = findViewById(R.id.doctorPtPriorConditionsList);
         listViewSurgeries = findViewById(R.id.doctorPtSurgeryList);
@@ -64,7 +65,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
         textViewExercise = findViewById(R.id.doctorPtExerciseValue);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -73,18 +73,17 @@ public class DoctorPatientInfo extends AppCompatActivity {
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
-                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
+                InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
-                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
+                Surgery.class, new InfoList<>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
         patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
-                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+                InfoString.class, new InfoList<>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
         patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
-                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
+                DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
-                Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
-
+                Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
-                InfoString.class, new InfoList<InfoString>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+                InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
     }
 
 }

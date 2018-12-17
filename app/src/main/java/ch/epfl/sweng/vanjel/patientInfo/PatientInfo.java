@@ -1,13 +1,8 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 
 /**
  * A class to represent the medical information of a patient.
@@ -56,7 +51,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-        //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
         patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
 
         saveButton = findViewById(R.id.buttonGenInfoPtReg);
@@ -155,8 +149,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.listViewListener(listViewSurgeries, surgeryList, "Surgery", this);
         patientInfoDatabaseService.listViewListener(listViewDrugReactions, drugReactionList, "DrugReaction", this);
         patientInfoDatabaseService.listViewListener(listViewDrugs, drugList, "Drug", this);
-
-
     }
 
     //TODO: consistency
@@ -166,28 +158,27 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         switch (i) {
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(getTextFromField(priorConditionsReg), "Condition", new InfoString(getTextFromField(priorConditionsReg)));
+                        addItemToDatabase("Condition", new InfoString(getTextFromField(priorConditionsReg)));
                 break;
             case R.id.buttonSurgery:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(surgeriesReg), "Surgery",
+                patientInfoDatabaseService.addItemToDatabase("Surgery",
                         new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(allergyReg), "Allergy",
+                patientInfoDatabaseService.addItemToDatabase("Allergy",
                         new InfoString(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
                 Drug drug = new Drug(getTextFromField(drugRegimenDrugReg), getTextFromField(drugRegimenDosageReg),
                         getTextFromField(drugRegimenTimesReg));
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugRegimenDrugReg), "Drug", drug);
+                patientInfoDatabaseService.addItemToDatabase( "Drug", drug);
                 break;
             case R.id.buttonDrugReaction:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugReactionDrugReg),
-                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg),
+                patientInfoDatabaseService.addItemToDatabase("DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg),
                                 getTextFromField(drugReactionReactionReg)));
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(substancesReg), "Substance",
+                patientInfoDatabaseService.addItemToDatabase("Substance",
                         new InfoString(getTextFromField(substancesReg)));
                 break;
             case R.id.buttonSmoking:

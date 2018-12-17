@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
 /**
- * Class used to allow the listViews to expand and be displayed correctly.
+ * Class to allow the listViews to expand and be displayed correctly.
  *
  * @author Etienne CAQUOT
  * @reviewer Nicolas BRANDT

@@ -50,7 +50,7 @@ class PatientInfoDatabaseService {
     //LISTENERS
 
     /**
-     * A generic method for creating listeners.
+     * A generic method for creating listeners for medical informations that can be displayed in a list.
      *
      * @param typeList a list of the type of the patient information
      * @param listView the listView corresponding to the list
@@ -83,7 +83,7 @@ class PatientInfoDatabaseService {
     }
 
     /**
-     * Method to add listeners for medical information that does not require a list
+     * Method to add listeners for medical information that does not require a list.
      *
      * @param textView the textview of corresponding to the information
      * @param category the category of the information
@@ -161,7 +161,7 @@ class PatientInfoDatabaseService {
                     return;
                 }*/
                 deleteItem(oldInfo, category);
-                addItemToDatabase(info.getAndroidInfo(), category, info);
+                addItemToDatabase(category, info);
 
                 alertDialog.dismiss();
             }
@@ -199,6 +199,15 @@ class PatientInfoDatabaseService {
         }
     }
 
+    /**
+     * Method to return the correct medical information from EditTexts given a category.
+     *
+     * @param category the category of the medical information
+     * @param androidName the main information field, used by all informations
+     * @param additionalField1 an additional information field, will be null if the category does not require it
+     * @param additionalField2 an additional information field, will be null if the category does not require it
+     * @return the medical information of the category
+     */
     private Info getCorrectInfo(String category, EditText androidName, EditText additionalField1, EditText additionalField2) {
         switch (category) {
             case "Condition":
@@ -219,7 +228,14 @@ class PatientInfoDatabaseService {
 
 
     //SETTERS
-    void addItemToDatabase(String item, String category, Info itemObject) {
+    /**
+     * Method for adding informations on firebase for medical informations that can be displayed in a list.
+     *
+     * @param category category of the medical information
+     * @param info the information
+     */
+    void addItemToDatabase(String category, Info info) {
+        String firebaseName = info.getAndroidInfo();
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
         // correct string format
@@ -227,8 +243,8 @@ class PatientInfoDatabaseService {
             toastText = "Drug reaction";
         }
 
-        if (!TextUtils.isEmpty(item)) {
-            dbCat.child(item).setValue(itemObject);
+        if (!TextUtils.isEmpty(firebaseName)) {
+            dbCat.child(firebaseName).setValue(info);
             Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
 
         } else {
@@ -263,6 +279,13 @@ class PatientInfoDatabaseService {
     }*/
 
     //TODO: fix delete toast display when updating
+
+    /**
+     * Method to delete an item from firebase.
+     *
+     * @param info the information to delete
+     * @param category the category of the information
+     */
     private void deleteItem(String info, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();

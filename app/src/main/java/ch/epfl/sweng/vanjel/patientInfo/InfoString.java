@@ -1,6 +1,8 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
 /**
+ * Class to represent medical informations that require only a single information.
+ *
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
  */

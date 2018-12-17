@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 /**
+ * Patient information adapter.
+ *
  * @author Vincent CABRINI
  * @reviewer Nicolas BRANDT
  */
