@@ -37,9 +37,6 @@ class PatientInfoDatabaseService {
     private final AppCompatActivity activity;
     private final DatabaseReference userDatabaseReference;
 
-
-    //TEMPORARY ID
-    /*TODO: put the user ID of the logged user*/
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
         FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -58,7 +55,6 @@ class PatientInfoDatabaseService {
      * @param adapter  the adapter for the list and the listView
      * @param <T>      the class used
      */
-    //TODO: check if c param is needed considering T is given
 
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
@@ -147,18 +143,12 @@ class PatientInfoDatabaseService {
             @Override
             public void onClick(View view) {
                 Info info = getCorrectInfo(category, holder.getAndroidName(), holder.getAdditionalField1(), holder.getAdditionalField2());
-                //TODO: check information present
-                /*if (TextUtils.isDigitsOnly(info)) {
-                    editTextName.setError("Information required");
-                    return;
-                }*/
                 deleteItem(oldInfo, category);
                 addItemToDatabase(info.getAndroidInfo(), category, info);
 
                 alertDialog.dismiss();
             }
         });
-        //}
 
         holder.getButtonDelete().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,16 +226,7 @@ class PatientInfoDatabaseService {
         }
     }
 
-    //TODO: check if method needed
-    /*void updateCondition(String info, String category) {
-        DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
-        InfoString cond = new InfoString(info);
-        dbCat.setValue(cond);
-        Toast.makeText(this.activity,"Condition updated",Toast.LENGTH_LONG).show();
 
-    }*/
-
-    //TODO: fix delete toast display when updating
     private void deleteItem(String info, String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();
