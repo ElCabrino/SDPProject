@@ -99,7 +99,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                     }
 
                 }
-                Collections.sort(doctorAppointments, new appointmentComparator());
+                Collections.sort(doctorAppointments, new AppointmentComparator());
                 appointmentsReady = true;
                 if(patientHashMapReady) notifyAdapter();
 
@@ -135,40 +135,9 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     }
 
-    private class appointmentComparator implements Comparator<Appointment> {
 
-        private final SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
-        final DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+    public void patientListener() {
 
-        // compare depending date
-        @Override
-        public int compare(Appointment o1, Appointment o2) {
-            try {
-                Date o1Date = formatter.parse(o1.getDay());
-                Date o2Date = formatter.parse(o2.getDay());
-
-                int comparator = o1Date.compareTo(o2Date);
-
-                if(comparator == 0) {
-                    // we need to compare hour
-                    Date o1Hour = hourFormatter.parse(o1.getHour());
-                    Date o2Hour = hourFormatter.parse(o2.getHour());
-
-                    return o1Hour.compareTo(o2Hour);
-                }
-
-                return comparator;
-
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            return -1;
-        }
-    }
-
-    private void patientListener() {
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

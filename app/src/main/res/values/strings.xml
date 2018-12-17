@@ -110,4 +110,5 @@
     <string name="postcode">PostCode</string>
     <string name="country">Country</string>
     <string name="enter_new_information">Enter new information</string>
+    <string name="personal_appointments">Personal Appointments</string>
 </resources>
