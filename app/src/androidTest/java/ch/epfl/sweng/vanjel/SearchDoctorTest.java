@@ -60,10 +60,10 @@ public class SearchDoctorTest {
     public void getFieldStringsTest() {
         fillFields();
 
-        onView(withId(R.id.firstNameSearch)).perform(scrollTo()).check(matches(withText(firstName)));
-        onView(withId(R.id.lastNameSearch)).perform(scrollTo()).check(matches(withText(lastName)));
-        onView(withId(R.id.specialisationSearch)).perform(scrollTo()).check(matches(withText(specialisation)));
-        onView(withId(R.id.citySearch)).perform(scrollTo()).check(matches(withText(city)));
+        onView(withId(R.id.firstNameSearch)).check(matches(withText(firstName)));
+        onView(withId(R.id.lastNameSearch)).check(matches(withText(lastName)));
+        onView(withId(R.id.specialisationSearch)).check(matches(withText(specialisation)));
+        onView(withId(R.id.citySearch)).check(matches(withText(city)));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class SearchDoctorTest {
         b.putString("city", city);
 
         fillFields();
-        onView(withId(R.id.buttonSearch)).perform(scrollTo(), click());
+        onView(withId(R.id.buttonSearch)).perform(click());
         intended(hasExtra("lastName", lastName));
         intended(hasExtra("firstName", firstName));
         intended(hasExtra("specialisation", specialisation));
