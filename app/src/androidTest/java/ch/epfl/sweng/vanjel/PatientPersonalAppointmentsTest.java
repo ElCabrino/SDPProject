@@ -51,7 +51,7 @@ public class PatientPersonalAppointmentsTest {
     public void searchTextViewsTest() throws Exception {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.titleAppointments)).check(matches(withText("Personal Appointments")));
+        onView(withId(R.id.titlePatAppointment)).check(matches(withText(" Your Next Appointments")));
 
     }
 
