@@ -48,7 +48,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         idToDoc = new HashMap<>();
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        uid = auth.getCurrentUser().getUid();
+        if (auth.getCurrentUser() != null) {
+            uid = auth.getCurrentUser().getUid();
+        } else {
+            uid = "";
+        }
+
 
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
@@ -57,6 +62,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onStart() {
         super.onStart();
@@ -81,25 +87,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 String date = idSnapshot.child("date").getValue(String.class);
                                 String time = idSnapshot.child("time").getValue(String.class);
                                 String duration = idSnapshot.child("duration").getValue(String.class);
-                                //String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
-                                Boolean pending = Integer.parseInt(duration) == 0;
-                                PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
-                                apList.add(ap);
+                                addAppointment(duration, doc, loc, date, time);
                             }
                 }
 
                 Collections.sort(apList, new appointmentsComparator());
-                //apList.sort(new appointmentsComparator());
                 PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
                 listViewAp.setAdapter(adapter);
-                //TODO: click on appointment to get doctor info
-                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
-                        startActivity(appInfo);
-                    }
-                });*/
             }
 
             @Override
@@ -107,7 +101,14 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
+    }
 
+    private void addAppointment(String duration, String doc, String loc, String date, String time){
+        if (duration != null) {
+            Boolean pending = Integer.parseInt(duration) == 0;
+            PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time, duration, pending);
+            apList.add(ap);
+        }
     }
 
 
