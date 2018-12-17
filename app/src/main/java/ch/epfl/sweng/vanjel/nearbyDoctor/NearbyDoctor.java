@@ -172,7 +172,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Method to fetch all doctors from firebase and add them to doctorHasMap and then call sort method them by distance.
+     * Method to fetch all doctors from firebase and add them to doctorHashMap and then call sort method them by distance.
      */
     private void getDoctors() {
         database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -195,7 +195,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                             markerOptions.position(doctorLocation);
                             gmap.addMarker(markerOptions);
                         }
-                    } //TODO firebase exception
+                    }
                 }
                 orderDoctors(doctorHashMap,userLocation);
             }
