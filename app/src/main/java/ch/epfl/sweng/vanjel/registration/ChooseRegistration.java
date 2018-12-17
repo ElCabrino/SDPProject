@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import ch.epfl.sweng.vanjel.R;
 
@@ -14,14 +15,16 @@ import ch.epfl.sweng.vanjel.R;
  */
 public class ChooseRegistration extends AppCompatActivity implements View.OnClickListener {
 
+    private TextView buttonPatient, buttonDoctor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_registration);
 
-        Button buttonPatient = findViewById(R.id.patientButton);
+        buttonPatient = findViewById(R.id.patientButton);
         buttonPatient.setOnClickListener(this);
-        Button buttonDoctor = findViewById(R.id.doctorButton);
+        buttonDoctor = findViewById(R.id.doctorButton);
         buttonDoctor.setOnClickListener(this);
     }
 
