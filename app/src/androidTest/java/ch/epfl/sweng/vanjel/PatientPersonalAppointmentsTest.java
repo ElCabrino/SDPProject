@@ -52,6 +52,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.titlePatAppointment)).check(matches(withText(" Your Next Appointments")));
+
     }
 
     @Test
