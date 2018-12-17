@@ -58,18 +58,18 @@ public final class FirebaseDatabaseCustomBackend {
 
     private final static String appointmentKey = "aptKey";
 
-    private final String ap1DateString = "Tue Jan 16 2018";
-    private final String ap2DateString = "Tue Feb 06 2018";
-    private final String ap3DateString = "Tue Mar 06 2018";
-    private final String ap4DateString = "Tue Apr 03 2018";
-    private final String ap5DateString = "Tue May 15 2018";
-    private final String ap6DateString = "Tue Jun 12 2018";
-    private final String ap7DateString = "Tue Jul 10 2018";
-    private final String ap8DateString = "Tue Aug 14 2018";
-    private final String ap9DateString = "Tue Sep 11 2018";
-    private final String ap10DateString = "Tue Oct 16 2018";
-    private final String ap11DateString = "Tue Nov 20 2018";
-    private final String ap12DateString = "Tue Dev 18 2018";
+    private final String ap1DateString = "Tue Jan 16 2019";
+    private final String ap2DateString = "Tue Feb 06 2019";
+    private final String ap3DateString = "Tue Mar 06 2019";
+    private final String ap4DateString = "Tue Apr 03 2019";
+    private final String ap5DateString = "Tue May 15 2019";
+    private final String ap6DateString = "Tue Jun 12 2019";
+    private final String ap7DateString = "Tue Jul 10 2019";
+    private final String ap8DateString = "Tue Aug 14 2019";
+    private final String ap9DateString = "Tue Sep 11 2019";
+    private final String ap10DateString = "Tue Oct 16 2019";
+    private final String ap11DateString = "Tue Nov 20 2019";
+    private final String ap12DateString = "Tue Dec 18 2019";
     private final String apTimeString = "10:00";
 
     private static boolean isCancelled = false;
