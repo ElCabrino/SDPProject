@@ -165,7 +165,15 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
             country = itemView.findViewById(R.id.country);
             forwardButton = itemView.findViewById(R.id.forwardButtonInFilteredDoctors);
 
-            if(!isForward) forwardButton.setVisibility(View.GONE);
+            if(!isForward) {
+
+                forwardButton.setVisibility(View.GONE);
+
+            } else {
+
+                forwardButton.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 }
