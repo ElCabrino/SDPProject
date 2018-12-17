@@ -84,7 +84,7 @@ public class FirebaseAuthCustomBackend {
             initMockDoctor();
         }
         initUserTask();
-        initListenerAuth();
+//        initListenerAuth();
         return mockAuth;
     }
 

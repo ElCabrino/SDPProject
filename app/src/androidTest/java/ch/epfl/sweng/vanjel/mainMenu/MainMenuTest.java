@@ -18,6 +18,8 @@ import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.login.LoginActivity;
 import ch.epfl.sweng.vanjel.nearbyDoctor.NearbyDoctor;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientPersonalAppointments;
 import ch.epfl.sweng.vanjel.patientInfo.PatientInfo;
@@ -135,7 +137,9 @@ public class MainMenuTest {
     public void logOutTest() throws Exception {
         setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
+        FirebaseAuthCustomBackend.setNullUser(true);
         onView(withId(R.id.logoutMainMenu)).perform(click());
+        intended(hasComponent(LoginActivity.class.getName()));
         //verifiy if local favorite are erased
         LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         assertEquals(0, l.getAll().size());

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -113,6 +114,11 @@ PatientInfoTest {
         populateDrugReactions();
         populateDrugs();
 
+    }
+
+    @After
+    public void waitForToast() throws Exception {
+        TimeUnit.SECONDS.sleep(5);
     }
 
     private void populateArray(ArrayList<Info> list, Info e1, Info e2) {
