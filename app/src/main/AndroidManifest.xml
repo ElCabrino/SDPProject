@@ -48,11 +48,11 @@
         <activity android:name=".patientAppointment.PatientAppointmentActivity" />
         <activity android:name=".doctorInformation.DoctorInformation" />
 
-        <service android:name=".appointment.AppointmentNotificationBackgroundService" />
+        <service android:name=".doctorAppointment.AppointmentNotificationBackgroundService" />
 
-        <activity android:name=".appointment.DoctorComingAppointments" />
+        <activity android:name=".doctorAppointment.DoctorComingAppointments" />
         <activity android:name=".patientInfo.DoctorPatientInfo" />
-        <activity android:name=".appointment.DoctorAppointmentsList" />
+        <activity android:name=".doctorAppointment.DoctorAppointmentsList" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".chat.ChatListActivity" />
         <activity android:name=".treatedPatient.TreatedPatients" />

@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

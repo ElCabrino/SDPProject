@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 import android.content.Context;
 import android.content.Intent;

@@ -2,7 +2,7 @@ package ch.epfl.sweng.vanjel;
 
 import org.junit.Test;
 
-import ch.epfl.sweng.vanjel.appointment.Appointment;
+import ch.epfl.sweng.vanjel.doctorAppointment.Appointment;
 
 import static org.junit.Assert.assertEquals;
 
