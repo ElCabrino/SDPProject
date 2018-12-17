@@ -77,17 +77,19 @@ public class ChatActivity extends AppCompatActivity {
         messageRecycler = findViewById(R.id.RecyclerViewChat);
         messageList = new ArrayList<>();
         if (auth.getCurrentUser()!=null) {
-            senderUid = auth.getCurrentUser().getUid();
-            messageRecycler.setLayoutManager(new LinearLayoutManager(this));
-            contactUid = getIntent().getExtras().getString("contactUID");
-            assert contactUid != null;
-            if (senderUid.compareTo(contactUid) > 0) {
-                chatUid = contactUid+senderUid;
-            } else {
-                chatUid = senderUid+contactUid;
-            }
+            setChat(auth.getCurrentUser().getUid(), getIntent().getExtras().getString("contactUID"));
         } else {
             throw new FirebaseAuthInvalidUserException("chat", "No user logged in");
+        }
+    }
+
+    private void setChat(String senderUid, String contactUid){
+        messageRecycler.setLayoutManager(new LinearLayoutManager(this));
+        assert contactUid != null;
+        if (senderUid.compareTo(contactUid) > 0) {
+            chatUid = contactUid+senderUid;
+        } else {
+            chatUid = senderUid+contactUid;
         }
     }
 
