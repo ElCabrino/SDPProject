@@ -118,27 +118,31 @@ public class DoctorComingAppointments extends AppCompatActivity {
         // check if appointment is in the past
 
         if(uid.equals(request.child("doctor").getValue(String.class))){
-            String day, hour, patientUid, doctorUid;
             String durationText = request.child("duration").getValue(String.class);
             if (durationText != null) {
-                int duration = Integer.valueOf(durationText);
-                //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
-                day = request.child("date").getValue(String.class);
-                doctorUid = request.child("doctor").getValue(String.class);
-                hour = request.child("time").getValue(String.class);
-                patientUid = request.child("patient").getValue(String.class);
-                currentDate = dateFormat.parse(dateFormat.format(currentDate));
-                int comparison = dateFormat.parse(day).compareTo(currentDate);
-                // 0 is today, -1 is before, 1 is after
-                if ((comparison > -1) && (duration != 0)) {
-                    Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
-                    doctorAppointments.add(appointment);
-                }
+                appendListAppointment(durationText, request);
             } else {
                 Toast.makeText(this, "An error occured when adding the appointment", Toast.LENGTH_LONG).show();
             }
         }
 
+    }
+
+    private void appendListAppointment(String durationText, DataSnapshot request) throws ParseException {
+        String day, hour, patientUid, doctorUid;
+        int duration = Integer.valueOf(durationText);
+        //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
+        day = request.child("date").getValue(String.class);
+        doctorUid = request.child("doctor").getValue(String.class);
+        hour = request.child("time").getValue(String.class);
+        patientUid = request.child("patient").getValue(String.class);
+        currentDate = dateFormat.parse(dateFormat.format(currentDate));
+        int comparison = dateFormat.parse(day).compareTo(currentDate);
+        // 0 is today, -1 is before, 1 is after
+        if ((comparison > -1) && (duration != 0)) {
+            Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
+            doctorAppointments.add(appointment);
+        }
     }
 
     private class appointmentComparator implements Comparator<Appointment> {
