@@ -32,6 +32,7 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
+
     private final ArrayList<Doctor> doctors;
     private final HashMap<String, Doctor> doctorHashMap;
     private final Context context;
@@ -41,6 +42,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
     private final Boolean isForward;
     private final HashMap<String, Object> isForwardDetails;
     private final HashMap<String, Doctor> allDoctors;
+
 
 
     FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
