@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,17 +56,23 @@ public class DoctorComingAppointments extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_coming_appointment);
-        init();
-        patientListener();
-        getAppointments();
+        try {
+            init();
+            patientListener();
+            getAppointments();
+        } catch (FirebaseAuthInvalidUserException e) {
+            Toast.makeText(this, "An error occured while initializing the activity", Toast.LENGTH_LONG).show();
+        }
 
     }
 
     // set cardview, database reference
-    private void init(){
+    private void init() throws FirebaseAuthInvalidUserException {
         if (FirebaseAuthCustomBackend.getInstance().getCurrentUser()!= null) {
             uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        } //TODO null user exception
+        } else {
+            throw new FirebaseAuthInvalidUserException("doctorAppointment", "No user logged in");
+        }
         ref = database.getReference("Requests");
         patientRef = database.getReference("Patient");
         // adapter

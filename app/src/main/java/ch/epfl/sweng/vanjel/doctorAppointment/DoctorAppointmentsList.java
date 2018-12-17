@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,7 +69,12 @@ public class DoctorAppointmentsList extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.appointmentsList = new ArrayList<>();
                 for (DataSnapshot request : dataSnapshot.getChildren()) {
-                    refreshAppointmentsList(request);
+                    try {
+                        refreshAppointmentsList(request);
+                    } catch (FirebaseException e) {
+                        showError();
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -79,7 +85,11 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         };
     }
 
-    private void refreshAppointmentsList(DataSnapshot request) {
+    private void showError() {
+        Toast.makeText(this, "An error occured while fetching the data", Toast.LENGTH_LONG).show();
+    }
+
+    private void refreshAppointmentsList(DataSnapshot request) throws FirebaseException {
         String day, hour, patientUid, doctorUid, appointmentID, duration;
         appointmentID = request.getKey();
         day = request.child("date").getValue(String.class);
@@ -97,6 +107,8 @@ public class DoctorAppointmentsList extends AppCompatActivity{
                 adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
                 recyclerView.setAdapter(adapter);
             }
-        } //TODO: exception, firebase error
+        } else {
+            throw new FirebaseException("Error while fetching the data");
+        }
     }
 }
