@@ -98,17 +98,21 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         patientUid = request.child("patient").getValue(String.class);
         duration = request.child("duration").getValue(String.class);
         if (duration!=null) {
-            if ((this.uid.equals(doctorUid)) && (Integer.valueOf(duration) == 0)) { //refresh with new element
-                Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
-                adapter.appointmentsList.add(appointment);
-                adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
-                recyclerView.setAdapter(adapter);
-            } else { //only refresh the view
-                adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
-                recyclerView.setAdapter(adapter);
-            }
+            Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
+            refresh(doctorUid, duration, appointment);
         } else {
             throw new FirebaseException("Error while fetching the data");
+        }
+    }
+
+    private void refresh(String doctorUid, String duration, Appointment appointment){
+        if ((this.uid.equals(doctorUid)) && (Integer.valueOf(duration) == 0)) { //refresh with new element
+            adapter.appointmentsList.add(appointment);
+            adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
+            recyclerView.setAdapter(adapter);
+        } else { //only refresh the view
+            adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
+            recyclerView.setAdapter(adapter);
         }
     }
 }
