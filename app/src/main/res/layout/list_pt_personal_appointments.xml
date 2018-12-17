@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingTop="10dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#D3D3D3"
+        >
 
     <TextView
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -26,25 +38,46 @@
         android:id="@+id/textViewAppointmentDoctorDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/common_google_signin_btn_text_light_focused"
-        android:textSize="24sp" />
+        android:fontFamily="sans-serif-light"
+        android:maxLines="1"
+        android:text="Date -Dr. First Last (confirmation)"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewAppointmentTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/common_google_signin_btn_text_light_focused"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#000000"
+        android:maxLines="1"
+        android:text="Time, Duration minutes"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textViewAppointmentLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/common_google_signin_btn_text_light_focused"
-        android:textSize="18sp" />
+        android:textColor="#000000"
+        android:fontFamily="sans-serif-light"
+        android:maxLines="1"
+        android:text="Location"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="7dp"
+        android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>
