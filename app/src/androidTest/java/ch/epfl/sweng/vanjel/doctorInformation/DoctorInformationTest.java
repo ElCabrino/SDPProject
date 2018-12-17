@@ -1,14 +1,13 @@
 package ch.epfl.sweng.vanjel.doctorInformation;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,70 +38,68 @@ import static org.hamcrest.Matchers.not;
 @RunWith(AndroidJUnit4.class)
 public class DoctorInformationTest {
 
+    static Map<String, String> extras = new HashMap<>();
+
+    @BeforeClass
+    public static void setup() {
+        Intents.init();
+
+        extras.put("doctorUID", "doctorid1");
+    }
+
+    @AfterClass
+    public static void restore() {
+        Intents.release();
+        restoreMockFlags();
+    }
+
     @Rule
     public final ActivityTestRule<DoctorInformation> mActivityRule =
-            new ActivityTestRule<DoctorInformation>(DoctorInformation.class) {
-                @Override
-                protected Intent getActivityIntent() {
-                    Context targetContext = InstrumentationRegistry.getInstrumentation()
-                            .getTargetContext();
-                    Intent result = new Intent(targetContext, DoctorInformation.class);
-                    result.putExtra("doctorUID", "doctorid1");
-                    return result;
-                }
-            };
+            new ActivityTestRule<>(DoctorInformation.class, true, false);
 
     @Test
     public void chatButtonTest() throws Exception {
-        //Map<String, String> extras = new HashMap<>();
-        //extras.put("doctorUID", "doctorid1");
-        //setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, false, false, extras);
-        //TimeUnit.SECONDS.sleep(1);
-        Intents.init();
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
+        TimeUnit.SECONDS.sleep(5);
         onView(ViewMatchers.withId(R.id.buttonChat)).perform(click());
         TimeUnit.SECONDS.sleep(5); // wait to change page
         intended(hasComponent(ChatActivity.class.getName()));
-        Intents.release();
     }
 
     @Test
     public void takeAppointmentButtonTest() throws Exception {
-        //Intents.release();
-        //Map<String, String> extras = new HashMap<>();
-        //extras.put("doctorUID", "doctorid1");
-        //setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, false, false, extras);
-        //TimeUnit.SECONDS.sleep(1);
-        Intents.init();
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
+        TimeUnit.SECONDS.sleep(5);
         onView(withId(R.id.buttonTakeAppointment)).perform(click());
         TimeUnit.SECONDS.sleep(5); // wait to change page
         intended(hasComponent(PatientCalendarActivity.class.getName()));
-        Intents.release();
     }
 
     @Test
-    public void simpleClickFavoriteButton() {
-        Intents.init();
+    public void simpleClickFavoriteButton() throws Exception {
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
+        TimeUnit.SECONDS.sleep(5);
         onView(withId(R.id.addToFavoriteButton)).perform(click());
         withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
         //reset state
         wipeLocalData();
-        Intents.release();
     }
 
     @Test
-    public void doubleClickFavoriteButton() {
-        Intents.init();
+    public void doubleClickFavoriteButton() throws Exception {
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
+        TimeUnit.SECONDS.sleep(5);
         onView(withId(R.id.addToFavoriteButton)).perform(click());
         withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
         onView(withId(R.id.addToFavoriteButton)).perform(click());
         withId(R.id.addToFavoriteButton).matches(hasBackground(0xFFD6D7D7));
         wipeLocalData();
-        Intents.release();
     }
 
     @Test
-    public void alreadyInFavorite() {
-        Intents.init();
+    public void alreadyInFavorite() throws Exception {
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
+        TimeUnit.SECONDS.sleep(5);
         onView(withId(R.id.addToFavoriteButton)).perform(click());
         Intent i = mActivityRule.getActivity().getIntent();
         mActivityRule.finishActivity();
@@ -110,7 +107,13 @@ public class DoctorInformationTest {
         withId(R.id.addToFavoriteButton).matches(hasBackground(0xDDDDBB33));
         //reset state
         wipeLocalData();
-        Intents.release();
+    }
+
+    @Test
+    public void getDocWithUIDCancelled() throws Exception {
+        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, true, false, false, false, extras, new HashMap<String, Boolean>());
+        TimeUnit.SECONDS.sleep(5);
+        onView(withText(R.string.database_error)).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
     public void wipeLocalData(){
@@ -118,16 +121,10 @@ public class DoctorInformationTest {
         l.nuke();
     }
 
+    @Test
     public void getDocWithUIDCancelledTest() throws Exception {
-        Map<String, String> extras = new HashMap<>();
-        extras.put("doctorUID", "doctorid1");
-        TimeUnit.SECONDS.sleep(3);
         setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, true, false, false, false, extras, new HashMap<String, Boolean>());
+//        TimeUnit.SECONDS.sleep(5);
         onView(withText(R.string.database_error)).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-    }
-
-    @AfterClass
-    public static void restore(){
-        restoreMockFlags();
     }
 }
