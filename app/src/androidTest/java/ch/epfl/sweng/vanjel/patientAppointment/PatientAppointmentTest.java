@@ -1,9 +1,6 @@
 package ch.epfl.sweng.vanjel.patientAppointment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
@@ -14,10 +11,13 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
@@ -31,6 +31,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
+import static ch.epfl.sweng.vanjel.TestHelper.setupWithExtras;
 import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
@@ -45,20 +47,17 @@ public class PatientAppointmentTest {
 
     @Rule
     public final IntentsTestRule<PatientAppointmentActivity> ActivityRule =
-            new IntentsTestRule<PatientAppointmentActivity>(PatientAppointmentActivity.class) {
-                @Override
-                protected Intent getActivityIntent() {
-                    Context targetContext = InstrumentationRegistry.getInstrumentation()
-                            .getTargetContext();
-                    Intent result = new Intent(targetContext, PatientAppointmentActivity.class);
-                    result.putExtra("doctorUID", "doctorid1");
-                    result.putExtra("date", monday);
-                    return result;
-                }
-            };
+            new IntentsTestRule<PatientAppointmentActivity>(PatientAppointmentActivity.class, true, false);
+
+    @AfterClass
+    public static void restore() {
+        restoreMockFlags();
+    }
 
     @Test
     public void testAppointmentHighlight(){
+        Map<String, String> extras = getExtras(monday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
         onView(ViewMatchers.withId(R.id.button0830)).perform(scrollTo(), click());
         onView(withId(R.id.button0830)).perform(scrollTo()).check(matches(withBackgroundColor(0xFF303F9F)));
         onView(withId(R.id.button0830)).perform(scrollTo(), click());
@@ -67,6 +66,8 @@ public class PatientAppointmentTest {
 
     @Test
     public void testDoubleSelection() throws Exception {
+        Map<String, String> extras = getExtras(monday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
         onView(withId(R.id.button0830)).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.button0930)).perform(scrollTo(), click());
@@ -92,6 +93,8 @@ public class PatientAppointmentTest {
 
     @Test
     public void requestAppointmentTest() {
+        Map<String, String> extras = getExtras(monday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
         onView(withId(R.id.button1030)).perform(scrollTo(), click());
         onView(withId(R.id.buttonAppointment)).perform(click());
         onView(withText("Appointment successfully requested.")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
@@ -99,31 +102,36 @@ public class PatientAppointmentTest {
 
     @Test
     public void doctorAvailabilityDisplayTest() throws Exception {
-        loadDayAvailability(monday);
+        Map<String, String> extrasMon = getExtras(monday);
+        Map<String, String> extrasTue = getExtras(tuesday);
+        Map<String, String> extrasWed = getExtras(wednesday);
+        Map<String, String> extrasThu = getExtras(thursday);
+        Map<String, String> extrasFri = getExtras(friday);
+        Map<String, String> extrasSat = getExtras(saturday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasMon, new HashMap<String, Boolean>());
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
-        loadDayAvailability(tuesday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasTue, new HashMap<String, Boolean>());
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
-        loadDayAvailability(wednesday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasWed, new HashMap<String, Boolean>());
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
-        loadDayAvailability(thursday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasThu, new HashMap<String, Boolean>());
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
-        loadDayAvailability(friday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasFri, new HashMap<String, Boolean>());
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
-        loadDayAvailability(saturday);
+        setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasSat, new HashMap<String, Boolean>());
         checkAvailability();
     }
 
-    private void loadDayAvailability(String d) {
-        ActivityRule.finishActivity();
-        Intent i = new Intent();
-        i.putExtra("doctorUID", "doctorid1");
-        i.putExtra("date", d);
-        ActivityRule.launchActivity(i);
+    private Map<String, String> getExtras(String d) {
+        Map<String, String> extras = new HashMap<>();
+        extras.put("doctorUID", "doctorid1");
+        extras.put("date", d);
+        return extras;
     }
 
     private void checkAvailability() {

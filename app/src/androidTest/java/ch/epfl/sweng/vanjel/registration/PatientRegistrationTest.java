@@ -4,11 +4,13 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.TestHelper;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -16,6 +18,8 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
+import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -30,7 +34,7 @@ public class PatientRegistrationTest {
 
     @Rule
     public final ActivityTestRule<Registration> mActivityRule =
-            new ActivityTestRule<>(Registration.class);
+            new ActivityTestRule<>(Registration.class, true, false);
 
     private String email = "test@test.ch";
     private String password = "123456";
@@ -45,8 +49,14 @@ public class PatientRegistrationTest {
 
     private String birthday = "09/10/1997";
 
+    @AfterClass
+    public static void restore() {
+        restoreMockFlags();
+    }
+
     @Test
     public void testEmptyForm(){
+        setupNoExtras(Registration.class, mActivityRule, false, true, false, false, false, false, false);
         // Check if register without anything affect
         onView(ViewMatchers.withId(R.id.buttonReg)).perform(scrollTo(), click());
 
@@ -54,7 +64,8 @@ public class PatientRegistrationTest {
     }
 
     @Test
-    public void testForm() {
+    public void formBehaviourTest() {
+        setupNoExtras(Registration.class, mActivityRule, false, true, false, false, false, false, false);
         onView(withId(R.id.mailReg)).perform(scrollTo(), typeText(email)).perform(closeSoftKeyboard());
         onView(withId(R.id.passwordReg)).perform(scrollTo(), typeText(password)).perform(closeSoftKeyboard());
         onView(withId(R.id.confirmPasswordReg)).perform(scrollTo(), typeText(confirmedPassword)).perform(closeSoftKeyboard());
@@ -76,7 +87,8 @@ public class PatientRegistrationTest {
     }
 
     @Test
-    public void notValidFormTest(){
+    public void incompleteFormTest(){
+        setupNoExtras(Registration.class, mActivityRule, false, true, false, false, false, false, false);
         onView(withId(R.id.mailReg)).perform(scrollTo(), typeText(email)).perform(closeSoftKeyboard());
 
         onView(withId(R.id.buttonReg)).perform(scrollTo(), click());

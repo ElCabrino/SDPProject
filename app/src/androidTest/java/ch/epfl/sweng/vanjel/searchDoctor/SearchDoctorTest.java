@@ -10,10 +10,15 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
 
@@ -26,6 +31,8 @@ import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
+import static ch.epfl.sweng.vanjel.TestHelper.setupWithExtras;
 
 @RunWith(AndroidJUnit4.class)
 public class SearchDoctorTest {
@@ -35,30 +42,27 @@ public class SearchDoctorTest {
     String specialisation = "ORL";
     String city = "Morges";
 
+    static Map<String, Boolean> extras = new HashMap<>();
+
     @Rule
     public final ActivityTestRule<SearchDoctor> ActivityRule =
-            new ActivityTestRule<SearchDoctor>(SearchDoctor.class) {
-                @Override
-                protected Intent getActivityIntent() {
-                    Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-                    Intent result = new Intent(targetContext, SearchDoctor.class);
-                    result.putExtra("isForward", false);
-                    return result;
-                }
-            };
+            new ActivityTestRule<>(SearchDoctor.class, true, false);
 
-    @Before
-    public void initIntents() {
+    @BeforeClass
+    public static void initIntents() {
         Intents.init();
+        extras.put("isForward", false);
     }
 
-    @After
-    public void releaseIntents() {
+    @AfterClass
+    public static void releaseIntents() {
+        restoreMockFlags();
         Intents.release();
     }
 
     @Test
     public void getFieldStringsTest() {
+        setupWithExtras(SearchDoctor.class, ActivityRule, false, true, false, false, false, false, false, new HashMap<String, String>(), extras);
         fillFields();
 
         onView(ViewMatchers.withId(R.id.firstNameSearch)).perform(scrollTo()).check(matches(withText(firstName)));
@@ -69,6 +73,7 @@ public class SearchDoctorTest {
 
     @Test
     public void searchDoctorTest() {
+        setupWithExtras(SearchDoctor.class, ActivityRule, false, true, false, false, false, false, false, new HashMap<String, String>(), extras);
         Bundle b = new Bundle();
         b.putString("lastName", lastName);
         b.putString("firstName", firstName);
