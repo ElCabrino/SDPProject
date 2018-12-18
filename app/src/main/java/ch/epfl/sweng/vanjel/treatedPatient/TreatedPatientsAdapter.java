@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 import ch.epfl.sweng.vanjel.models.Patient;
@@ -24,11 +27,15 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsAdapter.ViewHolder> {
 
     private final ArrayList<Patient> treatedPatients;
+    private final List<String> mapPatients;
     private final Context context;
 
-    TreatedPatientsAdapter(Context context, ArrayList<Patient> data){
+    TreatedPatientsAdapter(Context context, Map<String,Patient> data){
         this.context = context;
-        this.treatedPatients = data;
+        this.treatedPatients = new ArrayList<>();
+        this.treatedPatients.addAll(data.values());
+        this.mapPatients = new ArrayList<>();
+        this.mapPatients.addAll(data.keySet());
     }
 
     @NonNull
@@ -38,7 +45,7 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull TreatedPatientsAdapter.ViewHolder viewHolder,int i) {
         viewHolder.firstName.setText(treatedPatients.get(i).getFirstName());
         viewHolder.lastName.setText(treatedPatients.get(i).getLastName());
         viewHolder.street.setText(treatedPatients.get(i).getStreet());
@@ -46,10 +53,12 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
         viewHolder.city.setText(treatedPatients.get(i).getCity());
         viewHolder.country.setText(treatedPatients.get(i).getCountry());
 
+        final int pos = i;
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DoctorPatientInfo.class);
+                Intent intent = new Intent(context, DoctorPatientInfo.class).putExtra("patientUID",mapPatients.get(pos));
                 context.startActivity(intent);
             }
         });
@@ -69,10 +78,13 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
         final TextView streetNumber;
         final TextView city;
         final TextView country;
+        final TextView drStatus;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            drStatus = itemView.findViewById(R.id.drStatus);
+            drStatus.setVisibility(View.GONE);
             firstName = itemView.findViewById(R.id.firstName);
             lastName = itemView.findViewById(R.id.lastName);
             activity = itemView.findViewById(R.id.activity);

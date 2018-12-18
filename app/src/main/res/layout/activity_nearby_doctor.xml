@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/placeholder"
+            android:drawablePadding="5dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:paddingTop="8dp"
