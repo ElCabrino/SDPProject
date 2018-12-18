@@ -35,6 +35,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <TextView
+            android:id="@+id/noChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="You don't have any chats"
+            android:textSize="18sp"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/chatList"
             android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
@@ -33,6 +35,8 @@ public class ChatListActivity extends AppCompatActivity {
 
     private RecyclerView chatList;
 
+    private TextView noChats;
+
     private Map<String,Chat> chats;
 
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -47,6 +51,8 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
+
+        noChats = findViewById(R.id.noChat);
 
         if (auth.getCurrentUser() != null) {
             userUid = auth.getCurrentUser().getUid();
@@ -78,6 +84,7 @@ public class ChatListActivity extends AppCompatActivity {
                     }
                 }
                 updateAdapter();
+                LayoutHelper.adaptLayoutIfNoData(chats.isEmpty(),noChats);
             }
 
             @Override

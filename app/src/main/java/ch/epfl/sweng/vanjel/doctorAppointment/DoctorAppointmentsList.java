@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
@@ -33,11 +35,13 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     private RecyclerView recyclerView;
     private DatabaseReference dbReferenceAppointments;
     private String uid;
+    private TextView noRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_appointment_list);
+        noRequest = findViewById(R.id.noRequest);
         FirebaseUser user = FirebaseAuthCustomBackend.getInstance().getCurrentUser();
         if (user != null) {
             this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
@@ -114,6 +118,7 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         } else { //only refresh the view
             adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
+            LayoutHelper.adaptLayoutIfNoData(adapter.appointmentsList.isEmpty(),noRequest);
         }
     }
 }
