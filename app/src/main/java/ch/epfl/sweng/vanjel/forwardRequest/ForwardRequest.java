@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
@@ -44,7 +46,7 @@ public class ForwardRequest extends AppCompatActivity {
 
     private Map<String,Forward> forward;
 
-
+    private TextView noRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class ForwardRequest extends AppCompatActivity {
 
     private void init() throws FirebaseAuthInvalidUserException {
 
+        noRequests = findViewById(R.id.noForward);
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         forward = new HashMap<>();
@@ -107,7 +110,7 @@ public class ForwardRequest extends AppCompatActivity {
                 } // end for
 
                 notifyAdapter();
-
+                LayoutHelper.adaptLayoutIfNoData(forward.isEmpty(),noRequests);
             }
 
             @Override
