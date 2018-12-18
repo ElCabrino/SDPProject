@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import ch.epfl.sweng.vanjel.doctorAppointment.DoctorAppointmentsList;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientPersonalAppointments;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;

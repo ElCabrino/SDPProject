@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 
 import android.app.AlertDialog;
@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
@@ -88,9 +89,12 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView dayTextView, fromHourTextView;
-        Button acceptRequestButton, declineRequestButton, forwardRequestButton;
-        int appointmentListIndex; //number of the cardview, index in appointmentList
+        final TextView dayTextView;
+        final TextView fromHourTextView;
+        final Button acceptRequestButton;
+        final Button declineRequestButton;
+        final Button forwardRequestButton;
+        final int appointmentListIndex; //number of the cardview, index in appointmentList
 
 
         ViewHolder(@NonNull View itemView, int i) {

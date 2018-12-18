@@ -109,7 +109,6 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
-                            // TODO: delete request??
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -117,7 +116,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
                             Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                } //TODO exception doctor not found
+                }
             }
         });
     }

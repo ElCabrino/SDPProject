@@ -1,10 +1,11 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,16 +13,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+import ch.epfl.sweng.vanjel.appointment.Appointment;
+import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
 import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
@@ -30,7 +31,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 public class DoctorComingAppointments extends AppCompatActivity {
 
@@ -117,26 +118,35 @@ public class DoctorComingAppointments extends AppCompatActivity {
         // check if appointment is in the past
 
         if(uid.equals(request.child("doctor").getValue(String.class))){
-            String day, hour, patientUid, doctorUid;
-            int duration = Integer.valueOf(request.child("duration").getValue(String.class));
-            //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
-            day = request.child("date").getValue(String.class);
-            doctorUid = request.child("doctor").getValue(String.class);
-            hour = request.child("time").getValue(String.class);
-            patientUid = request.child("patient").getValue(String.class);
-            currentDate = dateFormat.parse(dateFormat.format(currentDate));
-            int comparison = dateFormat.parse(day).compareTo(currentDate);
-            // 0 is today, -1 is before, 1 is after
-             if ((comparison > -1) && (duration != 0)){
-                Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
-                doctorAppointments.add(appointment);
+            String durationText = request.child("duration").getValue(String.class);
+            if (durationText != null) {
+                appendListAppointment(durationText, request);
+            } else {
+                Toast.makeText(this, "An error occured when adding the appointment", Toast.LENGTH_LONG).show();
             }
         }
 
     }
 
+    private void appendListAppointment(String durationText, DataSnapshot request) throws ParseException {
+        String day, hour, patientUid, doctorUid;
+        int duration = Integer.valueOf(durationText);
+        //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
+        day = request.child("date").getValue(String.class);
+        doctorUid = request.child("doctor").getValue(String.class);
+        hour = request.child("time").getValue(String.class);
+        patientUid = request.child("patient").getValue(String.class);
+        currentDate = dateFormat.parse(dateFormat.format(currentDate));
+        int comparison = dateFormat.parse(day).compareTo(currentDate);
+        // 0 is today, -1 is before, 1 is after
+        if ((comparison > -1) && (duration != 0)) {
+            Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
+            doctorAppointments.add(appointment);
+        }
+    }
 
-    public void patientListener() {
+
+    private void patientListener() {
 
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -77,15 +78,14 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
         if (auth.getCurrentUser() != null) {
             patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
-        } //TODO exception not logged in
+            getAllEditText();
+            getAllPatientInfoFields();
+            initializeButtonsListeners();
+            initializeLists();
+        } else {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+        }
 
-        getAllEditText();
-
-        getAllPatientInfoFields();
-
-        initializeButtonsListeners();
-
-        initializeLists();
     }
 
     private void initializeButtonsListeners() {

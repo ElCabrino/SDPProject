@@ -48,7 +48,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
     private Date currentDate;
 
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -60,7 +60,12 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         idToDoc = new HashMap<>();
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        uid = auth.getCurrentUser().getUid();
+        if (auth.getCurrentUser() != null) {
+            uid = auth.getCurrentUser().getUid();
+        } else {
+            uid = "";
+        }
+
 
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
@@ -69,6 +74,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         noAppointment = findViewById(R.id.ptNoAppointements);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onStart() {
         super.onStart();
@@ -101,6 +107,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         });
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void getAppointments() {
         currentDate = new Date();
         dbAp.addValueEventListener(new ValueEventListener() {
@@ -109,24 +116,22 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                            if (uid.equals(idSnapshot.child("patient").getValue(String.class))) {
-                                String docId = idSnapshot.child("doctor").getValue(String.class);
-                                String doc = "";
-                                String loc = "";
-                                if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
-                                    doc = idToDoc.get(docId).get(0);
-                                    loc = idToDoc.get(docId).get(1);
-                                }
-                                String date = idSnapshot.child("date").getValue(String.class);
-                                String time = idSnapshot.child("time").getValue(String.class);
-                                String duration = idSnapshot.child("duration").getValue(String.class);
-                                //String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
-                                Boolean pending = Integer.parseInt(duration) == 0;
-                                try {
+                    if (uid.equals(idSnapshot.child("patient").getValue(String.class))) {
+                        String docId = idSnapshot.child("doctor").getValue(String.class);
+                        String doc = "";
+                        String loc = "";
+                        if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                            doc = idToDoc.get(docId).get(0);
+                            loc = idToDoc.get(docId).get(1);
+                        }
+                        String date = idSnapshot.child("date").getValue(String.class);
+                        String time = idSnapshot.child("time").getValue(String.class);
+                        String duration = idSnapshot.child("duration").getValue(String.class);
+                        try {
                             currentDate = dateFormat.parse(dateFormat.format(currentDate));
                             int comparison = dateFormat.parse(date).compareTo(currentDate);
-                            if(comparison != -1){
-                                apList.add(new PtPersonalAppointment(doc, loc, date, time,duration, pending));
+                            if(comparison > -1){
+                                addAppointment(duration, doc, loc, date, time);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -155,6 +160,15 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
+    }
+
+
+    private void addAppointment(String duration, String doc, String loc, String date, String time){
+        if (duration != null) {
+            Boolean pending = Integer.parseInt(duration) == 0;
+            PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time, duration, pending);
+            apList.add(ap);
+        }
     }
 
     private void AdaptLayoutIfNoAppointment(boolean isEmpty) {

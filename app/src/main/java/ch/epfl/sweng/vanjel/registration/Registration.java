@@ -220,7 +220,7 @@ public class Registration extends AppCompatActivity {
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.getWindow().setGravity(Gravity.CENTER);
                     dialog.show();
-                } //TODO exception
+                }
 
             }
         });

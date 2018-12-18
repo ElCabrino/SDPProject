@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
@@ -33,7 +34,7 @@ public class DoctorComingAppointmentsAdapter extends RecyclerViewAdapter<DoctorC
     private final HashMap<String, Patient> patientHashMap;
 
 
-    DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
+    public DoctorComingAppointmentsAdapter(Context context, ArrayList<Appointment> givenAppointments, HashMap<String, Patient> patients){
 
         this.context = context;
         this.appointments = givenAppointments;

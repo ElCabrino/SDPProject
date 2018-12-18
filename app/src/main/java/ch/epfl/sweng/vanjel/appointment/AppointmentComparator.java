@@ -9,12 +9,12 @@ import java.util.Date;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 public class AppointmentComparator implements Comparator<Appointment> {
 
-    private SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
-    DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+    private final SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
+    private final DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
     // compare depending date
     @Override
