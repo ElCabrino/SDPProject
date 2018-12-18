@@ -19,6 +19,7 @@ import ch.epfl.sweng.vanjel.R;
 /**
  * @author Luca JOSS
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class SearchDoctor extends AppCompatActivity implements View.OnClickListener {
 

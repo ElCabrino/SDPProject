@@ -11,6 +11,11 @@ import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabase;
 
+/**
+ * A class used for the activity that displays the favorite doctors
+ *
+ * @reviewer Etienne CAQUOT
+ */
 public class PatientFavoriteListActivity extends AppCompatActivity {
 
     private PatientFavoriteListAdapter adapter;

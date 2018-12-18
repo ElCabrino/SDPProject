@@ -41,6 +41,7 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppointmentListAdapter.ViewHolder> {
 

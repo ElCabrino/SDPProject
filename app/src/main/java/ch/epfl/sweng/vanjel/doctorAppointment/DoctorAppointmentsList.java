@@ -28,6 +28,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class DoctorAppointmentsList extends AppCompatActivity{
 

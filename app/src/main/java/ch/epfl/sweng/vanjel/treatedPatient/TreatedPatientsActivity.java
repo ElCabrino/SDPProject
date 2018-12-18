@@ -23,6 +23,11 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
+/**
+ * Class that handles the interaction with activity_treated_patients layout
+ *
+ * @reviewer Etienne CAQUOT
+ */
 public class TreatedPatientsActivity extends AppCompatActivity {
 
     private String docUID;

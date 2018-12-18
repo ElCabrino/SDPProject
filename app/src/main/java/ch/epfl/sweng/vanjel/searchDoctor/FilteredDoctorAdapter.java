@@ -30,7 +30,7 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
  */
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Etienne CAQUOT
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 

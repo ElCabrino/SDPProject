@@ -306,9 +306,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    /**
-     * Opens the settings App
-     */
     private void goToSettings() {
         permissionDeniedView.setVisibility(View.INVISIBLE);
         Uri uri = Uri.fromParts("package", getPackageName(), null);

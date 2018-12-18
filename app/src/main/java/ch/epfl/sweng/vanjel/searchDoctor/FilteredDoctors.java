@@ -34,6 +34,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 /**
  * @author Aslam CADER
  * @reviewer Vincent CABRINI
+ * @reviewer Etienne CAQUOT
  */
 
 public class FilteredDoctors extends AppCompatActivity {

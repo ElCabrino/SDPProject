@@ -1,7 +1,7 @@
 package ch.epfl.sweng.vanjel.chat;
 
 /**
- * Class that represents a Messag
+ * Class that represents a Message
  *
  * @author Etienne Caquot
  * @reviewer Vincent Cabrini
@@ -24,26 +24,14 @@ public class Message {
         this.senderUid = senderUid;
     }
 
-    /**
-     *
-     * @return time of message
-     */
     public String getTime() {
         return time;
     }
 
-    /**
-     *
-     * @return message text
-     */
     public String getMessage() {
         return message;
     }
 
-    /**
-     *
-     * @return senderUid
-     */
     public String getSenderUid() {
         return senderUid;
     }

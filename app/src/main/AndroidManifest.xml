@@ -36,7 +36,6 @@
 
         <activity android:name=".registration.ChooseRegistration" />
         <activity android:name=".registration.Registration" />
-        <activity android:name=".doctorCalendar.DoctorCalendar" />
         <activity android:name=".profile.Profile"></activity>
         <activity android:name=".patientInfo.PatientInfo" />
         <activity android:name=".searchDoctor.FilteredDoctors" />
