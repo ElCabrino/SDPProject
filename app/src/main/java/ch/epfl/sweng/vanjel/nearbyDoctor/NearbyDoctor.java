@@ -73,7 +73,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private final HashMap<String, Doctor> doctorHashMap = new HashMap<>();
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
 
     private LatLng userLocation;
 

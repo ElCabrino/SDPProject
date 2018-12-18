@@ -43,14 +43,11 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private String doctorUID;
     // database
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private DatabaseReference ref;
     //local database
     private LocalDatabaseService localDatabaseService;
 
     private MaterialFavoriteButton favorite;
 
-    private Button takeAppointment, chat;
-  
     private Boolean favoriteState = false;
 
     // map
