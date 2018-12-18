@@ -216,7 +216,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="@string/favorites"
-                         />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/setAvailMainMenu"
