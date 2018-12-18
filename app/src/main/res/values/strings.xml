@@ -31,9 +31,6 @@
     <string name="drinks_per_day">How many drinks do you consumme on average per day?</string>
     <string name="exercise_per_week">How many hours of physical exercise do you do per week ?</string>
     <string name="other_substances">Do you consume any other substances (recreationnal drugs, alternative medicines,..) ?</string>
-    <string name="additional_information">Additional information</string>
-    <string name="dyspnea">Do you have trouble breathing ?</string>
-    <string name="pain">Do you have pain somewhere ?</string>
     <string name="save_your_informations">Save your informations</string>
     <string name="year">Year(s)</string>
     <string name="reaction">Reaction</string>
@@ -111,4 +108,15 @@
     <string name="country">Country</string>
     <string name="enter_new_information">Enter new information</string>
     <string name="personal_appointments">Personal Appointments</string>
+    <!-- DoctorPatientInfo -->
+    <string name="previous_medical_conditions">Previous medical conditions</string>
+    <string name="previous_surgeries_doctor_pt_info">Previous surgeries</string>
+    <string name="allergies_doctor_pt_info">Allergies</string>
+    <string name="previous_drug_reactions">Previous drug reactions</string>
+    <string name="current_medications">Current medications</string>
+    <string name="other_substances_doctor_pt_info">Other substances</string>
+    <string name="cigarettes_per_day">Cigarettes per day:</string>
+    <string name="drinks_per_day_doctor_pt_info">Drinks per day:</string>
+    <string name="hours_of_exercises_per_week">Hours of exercises per week:</string>
+    <string name="patient_medical_informations"> Patient Medical Informations</string>
 </resources>

@@ -74,9 +74,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // add the database listeners
-        patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
-        patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
-        patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
                 InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
@@ -89,6 +86,9 @@ public class DoctorPatientInfo extends AppCompatActivity {
                 Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
                 InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+        patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
+        patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
+        patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
     }
 
 }
