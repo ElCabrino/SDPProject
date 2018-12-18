@@ -8,6 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -109,13 +110,6 @@ public class DoctorInformationTest {
         wipeLocalData();
     }
 
-    @Test
-    public void getDocWithUIDCancelled() throws Exception {
-        setupWithExtras(DoctorInformation.class, mActivityRule, false, true, false, true, false, false, false, extras, new HashMap<String, Boolean>());
-        TimeUnit.SECONDS.sleep(5);
-        onView(withText(R.string.database_error)).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
-    }
-
     public void wipeLocalData(){
         LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         l.nuke();
@@ -124,7 +118,6 @@ public class DoctorInformationTest {
     @Test
     public void getDocWithUIDCancelledTest() throws Exception {
         setupWithExtras(DoctorInformation.class, mActivityRule, false, false, false, true, false, false, false, extras, new HashMap<String, Boolean>());
-//        TimeUnit.SECONDS.sleep(5);
         onView(withText(R.string.database_error)).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }

@@ -73,7 +73,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                                 String docId = idSnapshot.child("doctor").getValue(String.class);
                                 String doc = "";
                                 String loc = "";
-                                if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                                if (idToDoc.get(docId) != null && idToDoc.get(docId) != null) {
                                     doc = idToDoc.get(docId).get(0);
                                     loc = idToDoc.get(docId).get(1);
                                 }

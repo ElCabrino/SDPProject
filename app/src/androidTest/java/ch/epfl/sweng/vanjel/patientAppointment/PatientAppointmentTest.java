@@ -39,15 +39,10 @@ import static org.hamcrest.Matchers.not;
 public class PatientAppointmentTest {
 
     private String monday = "Mon Oct 22 2018";
-    private String tuesday = "Tue Oct 23 2018";
-    private String wednesday = "Wed Oct 24 2018";
-    private String thursday = "Thu Oct 25 2018";
-    private String friday = "Fri Oct 26 2018";
-    private String saturday = "Sat Oct 27 2018";
 
     @Rule
     public final IntentsTestRule<PatientAppointmentActivity> ActivityRule =
-            new IntentsTestRule<PatientAppointmentActivity>(PatientAppointmentActivity.class, true, false);
+            new IntentsTestRule<>(PatientAppointmentActivity.class, true, false);
 
     @AfterClass
     public static void restore() {
@@ -102,6 +97,11 @@ public class PatientAppointmentTest {
 
     @Test
     public void doctorAvailabilityDisplayTest() throws Exception {
+        String tuesday = "Tue Oct 23 2018";
+        String wednesday = "Wed Oct 24 2018";
+        String thursday = "Thu Oct 25 2018";
+        String friday = "Fri Oct 26 2018";
+        String saturday = "Sat Oct 27 2018";
         Map<String, String> extrasMon = getExtras(monday);
         Map<String, String> extrasTue = getExtras(tuesday);
         Map<String, String> extrasWed = getExtras(wednesday);
@@ -110,18 +110,23 @@ public class PatientAppointmentTest {
         Map<String, String> extrasSat = getExtras(saturday);
         setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasMon, new HashMap<String, Boolean>());
         checkAvailability();
+        ActivityRule.finishActivity();
         TimeUnit.SECONDS.sleep(1);
         setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasTue, new HashMap<String, Boolean>());
         checkAvailability();
+        ActivityRule.finishActivity();
         TimeUnit.SECONDS.sleep(1);
         setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasWed, new HashMap<String, Boolean>());
         checkAvailability();
+        ActivityRule.finishActivity();
         TimeUnit.SECONDS.sleep(1);
         setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasThu, new HashMap<String, Boolean>());
         checkAvailability();
+        ActivityRule.finishActivity();
         TimeUnit.SECONDS.sleep(1);
         setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasFri, new HashMap<String, Boolean>());
         checkAvailability();
+        ActivityRule.finishActivity();
         TimeUnit.SECONDS.sleep(1);
         setupWithExtras(PatientAppointmentActivity.class, ActivityRule, false, true, false, false, false, false, false, extrasSat, new HashMap<String, Boolean>());
         checkAvailability();

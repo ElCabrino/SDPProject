@@ -71,6 +71,7 @@ public final class FirebaseDatabaseCustomBackend {
     private final String ap11DateString = "Tue Nov 20 2018";
     private final String ap12DateString = "Tue Dev 18 2018";
     private final String apTimeString = "10:00";
+    private final String apTimeString2 = "14:00";
 
     private static boolean isCancelled = false;
     private static boolean isCancelledSecond = false;
@@ -121,8 +122,6 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private DataSnapshot docIdAppointmentSnapshot;
     @Mock
-    private DataSnapshot timeDurationAppointmentSnapshot;
-    @Mock
     private DataSnapshot patIdAppointmentSnapshot;
     @Mock
     private DataSnapshot chatTextSnapshot;
@@ -151,11 +150,21 @@ public final class FirebaseDatabaseCustomBackend {
     @Mock
     private DataSnapshot appointmentSnapshot;
     @Mock
+    private DataSnapshot appointmentSnapshot2;
+    @Mock
     private DataSnapshot chatSnapshot;
     @Mock
     private DataSnapshot dateAppointmentSnapshot;
     @Mock
+    private DataSnapshot dateAppointmentSnapshot2;
+    @Mock
+    private DataSnapshot timeDurationAppointmentSnapshot;
+    @Mock
+    private DataSnapshot timeDurationAppointmentSnapshot2;
+    @Mock
     private DataSnapshot durationAppointmentSnapshot;
+    @Mock
+    private DataSnapshot durationAppointmentSnapshot2;
     @Mock
     private DataSnapshot conditionSnapshot;
     @Mock
@@ -335,22 +344,34 @@ public final class FirebaseDatabaseCustomBackend {
     private void initDoctorAvailabilitySnapshots() {
         List<DataSnapshot> listApp = new ArrayList<>();
         listApp.add(appointmentSnapshot);
+        listApp.add(appointmentSnapshot2);
 
 
         when(doctorAvailabilitySnapshot.getValue(any(GenericTypeIndicator.class))).thenReturn(av);
         when(doctorAvailabilitySnapshot.getValue()).thenReturn(av);
         when(appointmentSnapshot.getChildren()).thenReturn(listApp);
         when(appointmentSnapshot.getKey()).thenReturn(appointmentKey);
-        when(appointmentSnapshot.child("date")).thenReturn(dateAppointmentSnapshot);
         when(appointmentSnapshot.child("doctor")).thenReturn(docIdAppointmentSnapshot);
-        when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("patient")).thenReturn(patIdAppointmentSnapshot);
+        when(appointmentSnapshot.child("date")).thenReturn(dateAppointmentSnapshot);
+        when(appointmentSnapshot.child("time")).thenReturn(timeDurationAppointmentSnapshot);
         when(appointmentSnapshot.child("duration")).thenReturn(durationAppointmentSnapshot);
-        when(dateAppointmentSnapshot.getValue(String.class)).thenReturn(getDateFromFlag());
+
+        when(appointmentSnapshot2.child("doctor")).thenReturn(docIdAppointmentSnapshot);
+        when(appointmentSnapshot2.child("patient")).thenReturn(patIdAppointmentSnapshot);
+        when(appointmentSnapshot2.child("date")).thenReturn(dateAppointmentSnapshot2);
+        when(appointmentSnapshot2.child("time")).thenReturn(timeDurationAppointmentSnapshot2);
+        when(appointmentSnapshot2.child("duration")).thenReturn(durationAppointmentSnapshot2);
+
         when(docIdAppointmentSnapshot.getValue(String.class)).thenReturn(doctor1ID);
-        when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn(apTimeString);
         when(patIdAppointmentSnapshot.getValue(String.class)).thenReturn(patient1ID);
+        when(dateAppointmentSnapshot.getValue(String.class)).thenReturn(getDateFromFlag());
+        when(timeDurationAppointmentSnapshot.getValue(String.class)).thenReturn(apTimeString);
         when(durationAppointmentSnapshot.getValue(String.class)).thenReturn("0");
+
+        when(dateAppointmentSnapshot2.getValue(String.class)).thenReturn(getDateFromFlag());
+        when(timeDurationAppointmentSnapshot2.getValue(String.class)).thenReturn(apTimeString2);
+        when(durationAppointmentSnapshot2.getValue(String.class)).thenReturn("0");
 
         // mock for DoctorAppointmentList where he needs to accept or decline
         when(requestsRef.child(appointmentKey)).thenReturn(appointmentReqRef);

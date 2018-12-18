@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel.patientAppointment;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
@@ -21,6 +23,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
+import static org.hamcrest.CoreMatchers.anything;
 
 public class PatientPersonalAppointmentsTest {
 
@@ -35,8 +38,9 @@ public class PatientPersonalAppointmentsTest {
     private final String ap9DateString = "Tue Sep 11 2018";
     private final String ap10DateString = "Tue Oct 16 2018";
     private final String ap11DateString = "Tue Nov 20 2018";
-    private final String ap12DateString = "Tue Dev 18 2018";
+    private final String ap12DateString = "Tue Dec 18 2018";
     private final String apTimeString = "10:00";
+    private final String apTimeString2 = "14:00";
     private final String docNameString = "ln_dtest1";
     private final String docAddressString = "11 street_dtest1 city_dtest1";
 
@@ -59,9 +63,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap1DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap1DateString);
     }
 
     @Test
@@ -70,9 +72,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap2DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap2DateString);
     }
 
     @Test
@@ -81,9 +81,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap3DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap3DateString);
     }
 
     @Test
@@ -92,9 +90,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap4DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap4DateString);
     }
 
     @Test
@@ -103,9 +99,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap5DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap5DateString);
     }
 
     @Test
@@ -114,9 +108,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap6DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap6DateString);
     }
 
     @Test
@@ -125,9 +117,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap7DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap7DateString);
     }
 
     @Test
@@ -136,9 +126,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap8DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap8DateString);
     }
 
     @Test
@@ -147,9 +135,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap9DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap9DateString);
     }
 
     @Test
@@ -158,9 +144,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap10DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap10DateString);
     }
 
     @Test
@@ -169,9 +153,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap11DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap11DateString);
     }
 
     @Test
@@ -180,9 +162,7 @@ public class PatientPersonalAppointmentsTest {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
 
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap12DateString+" - Dr."+docNameString+" (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+        checkAppointmentValues(ap12DateString);
     }
 
     @Test
@@ -190,9 +170,13 @@ public class PatientPersonalAppointmentsTest {
         FirebaseDatabaseCustomBackend.setDateFlag(1);
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap1DateString+" - Dr. (pending)")));
-        onView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
-        onView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(0).onChildView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap1DateString+" - Dr. (pending)")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(0).onChildView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(0).onChildView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("")));
+
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(1).onChildView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(ap1DateString+" - Dr. (pending)")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(1).onChildView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString2+", 0 minutes")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(1).onChildView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText("")));
     }
 
     @Test
@@ -203,6 +187,16 @@ public class PatientPersonalAppointmentsTest {
         onView(withId(R.id.textViewAppointmentDoctorDate)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentTime)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentLocation)).check(doesNotExist());
+    }
+
+    private void checkAppointmentValues(String date) {
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(0).onChildView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(date+" - Dr."+docNameString+" (pending)")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(0).onChildView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString+", 0 minutes")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(0).onChildView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
+
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(1).onChildView(withId(R.id.textViewAppointmentDoctorDate)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(date+" - Dr."+docNameString+" (pending)")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(1).onChildView(withId(R.id.textViewAppointmentTime)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(apTimeString2+", 0 minutes")));
+        onData(anything()).inAdapterView(withId(R.id.ptPersonalAppointmentsListView)).atPosition(1).onChildView(withId(R.id.textViewAppointmentLocation)).perform(scrollTo(),closeSoftKeyboard()).check(matches(withText(docAddressString)));
     }
 
     @AfterClass
