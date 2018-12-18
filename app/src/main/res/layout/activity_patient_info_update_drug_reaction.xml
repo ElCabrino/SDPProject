@@ -3,13 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/patientInfoUpdateDrugReactionTextView"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textAlignment="center"
+
+    <android.support.design.widget.TextInputLayout
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update information" />
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
 
     <EditText
         android:id="@+id/patientInfoUpdateDrugReactionDrug"
@@ -19,6 +21,17 @@
         android:inputType="textPersonName"
         android:hint="@string/drug" />
 
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
     <EditText
         android:id="@+id/patientInfoUpdateDrugReactionReaction"
         android:layout_width="match_parent"
@@ -27,19 +40,34 @@
         android:inputType="textPersonName"
         android:hint="Reaction" />
 
+    </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/buttonPatientInfoUpdateDrugReaction"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update" />
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/buttonPatientInfoUpdateDrugReaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Update" />
 
 
-    <Button
-        android:id="@+id/buttonPatientInfoDeleteDrugReaction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete" />
+        <Button
+            android:id="@+id/buttonPatientInfoDeleteDrugReaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Delete" />
+
+
+    </LinearLayout>
+
+
+
 
 
 

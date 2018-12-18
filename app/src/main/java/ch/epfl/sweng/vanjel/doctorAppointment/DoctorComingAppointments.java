@@ -7,23 +7,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+import ch.epfl.sweng.vanjel.appointment.Appointment;
+import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
 import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
@@ -32,7 +31,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 public class DoctorComingAppointments extends AppCompatActivity {
 
@@ -56,23 +55,17 @@ public class DoctorComingAppointments extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_coming_appointment);
-        try {
-            init();
-            patientListener();
-            getAppointments();
-        } catch (FirebaseAuthInvalidUserException e) {
-            Toast.makeText(this, "An error occured while initializing the activity", Toast.LENGTH_LONG).show();
-        }
+        init();
+        patientListener();
+        getAppointments();
 
     }
 
     // set cardview, database reference
-    private void init() throws FirebaseAuthInvalidUserException {
+    private void init(){
         if (FirebaseAuthCustomBackend.getInstance().getCurrentUser()!= null) {
             uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        } else {
-            throw new FirebaseAuthInvalidUserException("doctorAppointment", "No user logged in");
-        }
+        } //TODO null user exception
         ref = database.getReference("Requests");
         patientRef = database.getReference("Patient");
         // adapter
@@ -107,7 +100,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                     }
 
                 }
-                Collections.sort(doctorAppointments, new appointmentComparator());
+                Collections.sort(doctorAppointments, new AppointmentComparator());
                 appointmentsReady = true;
                 if(patientHashMapReady) notifyAdapter();
 
@@ -152,40 +145,9 @@ public class DoctorComingAppointments extends AppCompatActivity {
         }
     }
 
-    private class appointmentComparator implements Comparator<Appointment> {
 
-        private final SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
-        final DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+    public void patientListener() {
 
-        // compare depending date
-        @Override
-        public int compare(Appointment o1, Appointment o2) {
-            try {
-                Date o1Date = formatter.parse(o1.getDay());
-                Date o2Date = formatter.parse(o2.getDay());
-
-                int comparator = o1Date.compareTo(o2Date);
-
-                if(comparator == 0) {
-                    // we need to compare hour
-                    Date o1Hour = hourFormatter.parse(o1.getHour());
-                    Date o2Hour = hourFormatter.parse(o2.getHour());
-
-                    return o1Hour.compareTo(o2Hour);
-                }
-
-                return comparator;
-
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            return -1;
-        }
-    }
-
-    private void patientListener() {
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

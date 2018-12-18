@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.doctorAppointment.AppointmentNotificationBackgroundService;
+import ch.epfl.sweng.vanjel.appointment.AppointmentNotificationBackgroundService;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
 import ch.epfl.sweng.vanjel.registration.ChooseRegistration;

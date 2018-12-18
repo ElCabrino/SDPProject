@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.doctorAppointment;
+package ch.epfl.sweng.vanjel.appointment;
 
 /*
  * Due to unreasonable code climate duplicate issue with Appointment class

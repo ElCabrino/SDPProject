@@ -48,7 +48,7 @@
         <activity android:name=".patientAppointment.PatientAppointmentActivity" />
         <activity android:name=".doctorInformation.DoctorInformation" />
 
-        <service android:name=".doctorAppointment.AppointmentNotificationBackgroundService" />
+        <service android:name=".appointment.AppointmentNotificationBackgroundService" />
 
         <activity android:name=".doctorAppointment.DoctorComingAppointments" />
         <activity android:name=".patientInfo.DoctorPatientInfo" />
