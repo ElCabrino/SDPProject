@@ -26,12 +26,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.Appointment;
+import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
@@ -62,6 +64,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
 
         this.appointmentsList = appointments;
 
+        Collections.sort(appointmentsList, new AppointmentComparator());
     }
 
     @NonNull
