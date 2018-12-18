@@ -84,7 +84,6 @@ public class DoctorAppointmentsListTest {
     @Test
     public void declineAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
-        TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.declineAppointmentButton)));
         onView(withText("Appointment declined")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
         TimeUnit.SECONDS.sleep(5);
