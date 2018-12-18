@@ -115,6 +115,7 @@ public class DoctorAppointmentsList extends AppCompatActivity{
             adapter.appointmentsList.add(appointment);
             adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
+            LayoutHelper.adaptLayoutIfNoData(adapter.appointmentsList.isEmpty(),noRequest);
         } else { //only refresh the view
             adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
