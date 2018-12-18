@@ -26,12 +26,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.Appointment;
+import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
@@ -39,6 +41,7 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppointmentListAdapter.ViewHolder> {
 
@@ -62,24 +65,20 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
 
         this.appointmentsList = appointments;
 
+        Collections.sort(appointmentsList, new AppointmentComparator());
+
     }
 
     @NonNull
     @Override
     public DoctorAppointmentListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new DoctorAppointmentListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_appointment_list, viewGroup, false), i);
+        return new DoctorAppointmentListAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_appointment_list, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull DoctorAppointmentListAdapter.ViewHolder viewHolder, int i) {
-        String day = appointmentsList.get(i).getDay();
-        String hour = appointmentsList.get(i).getHour();
-        viewHolder.dayTextView.setText(day);
-        viewHolder.fromHourTextView.setText(hour);
-        viewHolder.acceptRequestButton.setOnClickListener(viewHolder);
-        viewHolder.declineRequestButton.setOnClickListener(viewHolder);
-        viewHolder.forwardRequestButton.setOnClickListener(viewHolder);
-
+        Appointment appointment = appointmentsList.get(i);
+        viewHolder.bind(appointment);
     }
 
     @Override
@@ -87,29 +86,76 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
         return appointmentsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final TextView dayTextView;
-        final TextView fromHourTextView;
-        final Button acceptRequestButton;
-        final Button declineRequestButton;
-        final Button forwardRequestButton;
-        final int appointmentListIndex; //number of the cardview, index in appointmentList
+        TextView dayTextView;
+        TextView fromHourTextView;
+        String appointmentId;
+        String doctorUid;
+        String patientUid;
+        String day;
+        Button acceptRequestButton;
+        Button declineRequestButton;
+        Button forwardRequestButton;
 
-
-        ViewHolder(@NonNull View itemView, int i) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             dayTextView = itemView.findViewById(R.id.dayTextView);
             fromHourTextView = itemView.findViewById(R.id.fromTextView);
             acceptRequestButton = itemView.findViewById(R.id.acceptAppointmentButton);
-            declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);
+            acceptRequestButton.setOnClickListener(this);
             forwardRequestButton = itemView.findViewById(R.id.forwardAppointmentButton);
-            appointmentListIndex = i;
+            forwardRequestButton.setOnClickListener(this);
+            declineRequestButton = itemView.findViewById(R.id.declineAppointmentButton);
+            declineRequestButton.setOnClickListener(this);
 
         }
 
-        void createDialog(){
+        public void bind(Appointment appointment) {
+            dayTextView.setText(appointment.getDay());
+            fromHourTextView.setText(appointment.getHour());
+            appointmentId = appointment.getAppointmentID();
+            doctorUid = appointment.getDoctorUid();
+            patientUid = appointment.getPatientUid();
+            day = appointment.getDay();
+        }
+
+        @Override
+        public void onClick(View v) {
+            int i = v.getId();
+            switch (i) {
+                case R.id.acceptAppointmentButton:
+                    acceptRequest();
+                    break;
+                case R.id.forwardAppointmentButton:
+                    forwardRequest();
+                    break;
+                case R.id.declineAppointmentButton:
+                    declineRequest();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void acceptRequest() {
+            createDialog();
+            Toast.makeText(context, "Accept for " + dayTextView.getText(), Toast.LENGTH_LONG).show();
+        }
+
+        void declineRequest() {
+            deleteRequestFirebase();
+        }
+
+        void forwardRequest() {
+            Intent intent = new Intent(context, SearchDoctor.class);
+            intent.putExtra("isForward", true);
+            intent.putExtra("doctor1Forward", doctorUid);
+            intent.putExtra("patientForward", patientUid);
+            context.startActivity(intent);
+        }
+
+        void createDialog() {
             //builder for dialog window
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             //add the prompt sentence
@@ -124,7 +170,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
             builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    modifyDurationFirebase(appointmentListIndex, durationInputView.getText().toString().trim());
+                    modifyDurationFirebase(durationInputView.getText().toString().trim());
                 }
             });
             //set up the cancel button
@@ -137,94 +183,58 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
             builder.show();
         }
 
-        void acceptRequest(){
-            createDialog();
-            Toast.makeText(context, "Accept for " + dayTextView.getText(), Toast.LENGTH_LONG).show();
-        }
+        private void deleteRequestFirebase() {
+            appointmentsList = new ArrayList<>(); //the list is refreshed in DoctorAppointmentList
 
-        void declineRequest(){
-            deleteRequestFirebase(appointmentListIndex);
-        }
-
-        void forwardRequest() {
-            Intent intent = new Intent(context, SearchDoctor.class);
-            intent.putExtra("isForward", true);
-            intent.putExtra("doctor1Forward", appointmentsList.get(appointmentListIndex).getDoctorUid());
-            intent.putExtra("patientForward", appointmentsList.get(appointmentListIndex).getPatientUid());
-            context.startActivity(intent);
-        }
-
-        @Override
-        public void onClick(View v) {
-            int i = v.getId();
-            switch (i){
-                case R.id.acceptAppointmentButton:
-                    acceptRequest();
-                    break;
-                case R.id.declineAppointmentButton:
-                    declineRequest();
-                    break;
-                case R.id.forwardAppointmentButton:
-                    forwardRequest();
-                    break;
-
-            }
-        }
-    }
-
-    private void deleteRequestFirebase(int i){
-        String appointmentID = appointmentsList.get(i).getAppointmentID();
-        appointmentsList = new ArrayList<>(); //the list is refreshed in DoctorAppointmentList
-
-        database.getReference("Requests").child(appointmentID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(context, "Appointment declined", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, "An error occurred when declining the appointment", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void modifyDurationFirebase(int i, String duration) {
-        String appointmentID = appointmentsList.get(i).getAppointmentID();
-        storeTreatedPatientFirebase(appointmentsList.get(i).getDoctorUid(), appointmentsList.get(i).getPatientUid(), appointmentsList.get(i).getDay());
-        appointmentsList = new ArrayList<>();
-        database.getReference("Requests").child(appointmentID).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(context, "A notification has been sent to the patient", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, "An error occurred when notifying the patient", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void storeTreatedPatientFirebase(final String doctorUID, final String patientUID, final String date) {
-        database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                treatedPatientsMap = new ArrayList<>();
-                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
-                    treatedPatientsMap.add(dataSnapshot1.getValue(String.class));
+            database.getReference("Requests").child(appointmentId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(context, "Appointment declined", Toast.LENGTH_SHORT).show();
                 }
-                if (treatedPatientsMap == null || !(treatedPatientsMap.contains(patientUID))) {
-                    Map<String, Object> newPatient = new HashMap<>();
-                    newPatient.put(patientUID, date);
-                    database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").updateChildren(newPatient);
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "An error occurred when declining the appointment", Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
-        });
+        private void modifyDurationFirebase(String duration) {
+            storeTreatedPatientFirebase(doctorUid, patientUid, day);
+            appointmentsList = new ArrayList<>();
+            database.getReference("Requests").child(appointmentId).child("duration").setValue(duration).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(context, "A notification has been sent to the patient", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "An error occurred when notifying the patient", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        private void storeTreatedPatientFirebase(final String doctorUID, final String patientUID, final String date) {
+            database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    treatedPatientsMap = new ArrayList<>();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        treatedPatientsMap.add(dataSnapshot1.getValue(String.class));
+                    }
+                    if (treatedPatientsMap == null || !(treatedPatientsMap.contains(patientUID))) {
+                        Map<String, Object> newPatient = new HashMap<>();
+                        newPatient.put(patientUID, date);
+                        database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").updateChildren(newPatient);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("ERROR", "The read failed: " + databaseError.getCode());
+                }
+            });
+        }
     }
 }
