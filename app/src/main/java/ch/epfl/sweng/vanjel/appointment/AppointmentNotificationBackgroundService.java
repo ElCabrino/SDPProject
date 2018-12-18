@@ -66,8 +66,8 @@ public class AppointmentNotificationBackgroundService extends Service {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
                 //ensure getValue return a non null object
-                String doctor = dataSnapshot.child("doctor").toString();
-                String notified = dataSnapshot.child("doctorNotified").toString();
+                String doctor = dataSnapshot.child("doctor").getValue().toString();
+                String notified = dataSnapshot.child("doctorNotified").getValue().toString();
                 Boolean notify = Boolean.parseBoolean(notified);
                 if (!notify) {
                     String title = "New appointment";
@@ -79,8 +79,10 @@ public class AppointmentNotificationBackgroundService extends Service {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
-                String patient = dataSnapshot.child("patient").toString();
-                String bool = dataSnapshot.child("userNotified").toString();
+
+                String patient = dataSnapshot.child("patient").getValue().toString();
+                String bool = dataSnapshot.child("userNotified").getValue().toString();
+
                 String durationString = dataSnapshot.child("duration").getValue().toString();
 
                 int duration = Integer.parseInt(durationString);
