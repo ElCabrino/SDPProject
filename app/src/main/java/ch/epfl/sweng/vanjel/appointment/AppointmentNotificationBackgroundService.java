@@ -79,8 +79,10 @@ public class AppointmentNotificationBackgroundService extends Service {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
+
                 String patient = dataSnapshot.child("patient").getValue().toString();
                 String bool = dataSnapshot.child("userNotified").getValue().toString();
+
                 String durationString = dataSnapshot.child("duration").getValue().toString();
 
                 int duration = Integer.parseInt(durationString);
