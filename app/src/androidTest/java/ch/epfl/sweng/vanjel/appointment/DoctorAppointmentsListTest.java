@@ -82,13 +82,13 @@ public class DoctorAppointmentsListTest {
         onView(withId(16908314)).check(matches(withText("Cancel"))).perform(click());
     }
 
-/*    @Test
+    @Test
     public void declineAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.declineAppointmentButton)));
         onView(withText("Appointment declined")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
         TimeUnit.SECONDS.sleep(5);
-    }*/
+    }
 
     @Test
     public void declineAppointmentFailedTest() throws Exception {
