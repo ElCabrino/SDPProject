@@ -24,7 +24,6 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/nearby_doctors"
-            android:drawablePadding="5dp"
             android:textSize="24sp" />
 
         <LinearLayout

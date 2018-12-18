@@ -20,7 +20,6 @@
             android:drawablePadding="5dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:drawablePadding="5dp"
             android:text="@string/next_appointments"
             android:textSize="24sp" />
 
