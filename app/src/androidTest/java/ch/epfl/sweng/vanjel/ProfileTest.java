@@ -98,14 +98,14 @@ public class ProfileTest {
         String newNumberStreet = "12";
         String newCity = "BussignyEdit";
 
-        onView(withContentDescription("profile edit button")).perform(click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
         onView(withContentDescription("profile last name")).perform(replaceText(newLastName));
         onView(withContentDescription("profile name")).perform(replaceText(newName));
         onView(withContentDescription("profile street")).perform(replaceText(newStreet));
         onView(withContentDescription("profile street number")).perform(replaceText(newNumberStreet));
         onView(withContentDescription("profile city")).perform(replaceText(newCity));
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile save button")).perform(click());
+        onView(withContentDescription("profile save button")).perform(scrollTo(),click());
 
         onView(withContentDescription("profile last name")).check(matches(withText(newLastName)));
         onView(withContentDescription("profile name")).check(matches(withText(newName)));
@@ -123,7 +123,7 @@ public class ProfileTest {
         setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile edit button")).perform(click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
         onView(withContentDescription("profile save button")).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
@@ -144,9 +144,9 @@ public class ProfileTest {
         setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient,new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile edit button")).perform(click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile save button")).perform(click());
+        onView(withContentDescription("profile save button")).perform(scrollTo(),click());
         onView(withText("User successfully updated.")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
 
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
@@ -208,9 +208,9 @@ public class ProfileTest {
     public void saveNewValuesFailureTest() throws Exception {
         setupWithExtras(Profile.class, mActivityRule, false, true, true, false, false, false, patient, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile edit button")).perform(click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile save button")).perform(click());
+        onView(withContentDescription("profile save button")).perform(scrollTo(),click());
         onView(withText("Failed to update user.")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }

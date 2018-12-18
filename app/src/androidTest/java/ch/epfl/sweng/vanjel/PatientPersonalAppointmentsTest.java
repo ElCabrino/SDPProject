@@ -195,7 +195,7 @@ public class PatientPersonalAppointmentsTest {
         onView(withId(R.id.textViewAppointmentDoctorDate)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentTime)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentLocation)).check(doesNotExist());
-        onView(withId(R.id.ptNoAppointements)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.ptNoAppointments)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
     }
 
@@ -207,7 +207,7 @@ public class PatientPersonalAppointmentsTest {
         onView(withId(R.id.textViewAppointmentDoctorDate)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentTime)).check(doesNotExist());
         onView(withId(R.id.textViewAppointmentLocation)).check(doesNotExist());
-        onView(withId(R.id.ptNoAppointements)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+        onView(withId(R.id.ptNoAppointments)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     @AfterClass
