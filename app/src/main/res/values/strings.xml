@@ -90,10 +90,10 @@
     <string name="chat">Chat</string>
     <string name="requests">Requests</string>
     <string name="search">Search</string>
-    <string name="nearby_doctors">Nearby doctors</string>
+    <string name="nearby_doctors">Nearby Doctors</string>
     <string name="favorites">Favorites</string>
     <string name="set_availabilities">Set availabilities</string>
-    <string name="your_medical_infos">Your medical infos</string>
+    <string name="your_medical_infos">Your Medical Infos</string>
     <string name="recommendations">Recommendations</string>
     <string name="date">Date</string>
     <string name="patient">Patient</string>
