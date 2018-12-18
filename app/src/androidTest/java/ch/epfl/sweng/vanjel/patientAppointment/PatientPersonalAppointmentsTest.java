@@ -53,7 +53,7 @@ public class PatientPersonalAppointmentsTest {
     public void searchTextViewsTest() throws Exception {
         setupNoExtras(PatientPersonalAppointments.class, ActivityRule, false, true, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(ViewMatchers.withId(R.id.titleAppointments)).check(matches(withText("Your next appointments")));
+        onView(ViewMatchers.withId(R.id.titlePatAppointment)).check(matches(withText("Your Next Appointments")));
     }
 
     @Test
