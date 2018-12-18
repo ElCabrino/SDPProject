@@ -32,10 +32,6 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
  */
-/**
- * @author Vincent CABRINI
- * @reviewer Aslam CADER
- */
 public class AppointmentNotificationBackgroundService extends Service {
 
     private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -66,7 +62,7 @@ public class AppointmentNotificationBackgroundService extends Service {
         DatabaseReference ref = database.getReference("Requests");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
                 String doctor = dataSnapshot.child("doctor").getValue().toString();
                 Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
                 if (!notify) {
@@ -77,7 +73,7 @@ public class AppointmentNotificationBackgroundService extends Service {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
 
                 String patient = dataSnapshot.child("patient").getValue().toString();
                 String bool = dataSnapshot.child("userNotified").getValue().toString();
@@ -96,13 +92,13 @@ public class AppointmentNotificationBackgroundService extends Service {
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {}
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
@@ -121,24 +117,6 @@ public class AppointmentNotificationBackgroundService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
     }
-//
-//    private void notifyDoctor(String id) {
-//        if (auth.getCurrentUser().getUid().equals(id)){
-//            //create notification
-//            String title = "New appointment";
-//            String text = "A patient took a new appointment!";
-//            createNotification(title, text);
-//        }
-//    }
-//
-//    private void notifyPatient(String id) {
-//        if(auth.getCurrentUser().getUid().equals(id)){
-//            // create notification
-//            String title = "One of your appointment has been updated!";
-//            String text = "A doctor saw your appointment request and accepted it, come and look which one is it!";
-//            createNotification(title, text);
-//        }
-//    }
 
     private PendingIntent setupActivityToRun(Class<?> c) {
         Intent resIntent = new Intent(this, c);
@@ -159,7 +137,7 @@ public class AppointmentNotificationBackgroundService extends Service {
         } else {
             pIntent = setupActivityToRun(DoctorAppointmentsList.class);
         }
-        if(auth.getCurrentUser().getUid().equals(id)) {
+        if(auth.getCurrentUser() != null && auth.getCurrentUser().getUid().equals(id)) {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(title)
