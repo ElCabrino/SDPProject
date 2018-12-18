@@ -42,7 +42,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private Doctor doctor;
     private String doctorUID;
     // database
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     //local database
     private LocalDatabaseService localDatabaseService;

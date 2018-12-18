@@ -89,9 +89,12 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView dayTextView, fromHourTextView;
-        Button acceptRequestButton, declineRequestButton, forwardRequestButton;
-        int appointmentListIndex; //number of the cardview, index in appointmentList
+        final TextView dayTextView;
+        final TextView fromHourTextView;
+        final Button acceptRequestButton;
+        final Button declineRequestButton;
+        final Button forwardRequestButton;
+        final int appointmentListIndex; //number of the cardview, index in appointmentList
 
 
         ViewHolder(@NonNull View itemView, int i) {

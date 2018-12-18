@@ -48,7 +48,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
     private Date currentDate;
 
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();

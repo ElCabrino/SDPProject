@@ -84,7 +84,10 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView address, lastName, activity, distance;
+        final TextView address;
+        final TextView lastName;
+        final TextView activity;
+        final TextView distance;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
