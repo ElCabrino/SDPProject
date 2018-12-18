@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
@@ -22,7 +26,7 @@ import ch.epfl.sweng.vanjel.R;
 /**
  * @author Aslam CADER
  * @author Etienne CAQUOT
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 public class ForwardRequest extends AppCompatActivity {
 
@@ -34,29 +38,32 @@ public class ForwardRequest extends AppCompatActivity {
 
     private Map<String,Forward> forward;
 
-
+    private TextView noRequets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forwaded_requests);
-        init();
-
-        // For debugging
-        // forward.add(new Forward("patient1", "VkRC41z4S4U57QQwmcLnyLuEYCv2", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "John Smith", "Peter Capaldi"));
-        // forward.add(new Forward("patfffient1", "VkRC41z4S4U57QQwmcLnyLuEYCv2", "W7ReyyyOwAQKaganjsMQuHRb0Aj2", "Matt Smith", "Clara Oswald"));
-
-        notifyAdapter();
+        try {
+            init();
+            notifyAdapter();
+        } catch (FirebaseAuthInvalidUserException e) {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
-    private void init(){
+    private void init() throws FirebaseAuthInvalidUserException {
+        noRequets = findViewById(R.id.noForward);
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         forward = new HashMap<>();
         ref = database.getReference().child("Forwards");
         if (FirebaseAuthCustomBackend.getInstance().getCurrentUser() != null) {
             currentUserUID = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        } //TODO user not logged exception
+        } else {
+            throw new FirebaseAuthInvalidUserException("forwardRequest", "No user logged in");
+        }
         getMyForwards();
     }
 
@@ -69,9 +76,9 @@ public class ForwardRequest extends AppCompatActivity {
                     Forward dbForward = dataSnapshot1.getValue(Forward.class);
                     if ((dbForward !=null) && (dbForward.getPatient().equals(currentUserUID)) && (dataSnapshot1.getKey() != null))
                         forward.put(dataSnapshot1.getKey(),dbForward);
-                    //TODO exception
                 }
                 notifyAdapter();
+                LayoutHelper.adaptLayoutIfNoData(forward.isEmpty(),noRequets);
             }
 
             @Override

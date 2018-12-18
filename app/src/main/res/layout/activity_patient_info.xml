@@ -23,20 +23,29 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/ptGeneralInfos"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:height="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="@string/general_informations"
-                android:textSize="22sp" />
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/help"
+                android:text=" Your Medical Informations"
+                android:textSize="24sp"
+                android:fontFamily="sans-serif-light"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray"/>
 
             <TextView
                 android:id="@+id/ptPriorConditionsInfo"
@@ -44,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/medical_condition"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,13 +66,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonPriorConditions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="add" />
+                    android:text="add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
 
             </LinearLayout>
@@ -72,8 +84,8 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
 
 
             <TextView
@@ -82,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/previous_surgeries"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +108,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"/>
 
                 <EditText
                     android:id="@+id/ptSurgeryYearReg"
@@ -105,13 +119,15 @@
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
                     android:ems="4"
-                    android:hint="@string/year" />
+                    android:hint="@string/year"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonSurgery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
 
             </LinearLayout>
@@ -121,8 +137,8 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
 
 
             <TextView
@@ -131,7 +147,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/allergies"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,13 +160,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonAllergy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
 
             </LinearLayout>
@@ -170,7 +189,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/drug_reaction"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -183,7 +203,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="5"
-                    android:hint="@string/drug" />
+                    android:hint="@string/drug"
+                    android:fontFamily="sans-serif-light"/>
 
                 <EditText
                     android:id="@+id/ptDrugReactionReactionReg"
@@ -191,14 +212,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/reaction" />
+                    android:hint="@string/reaction"
+                    android:fontFamily="sans-serif-light"/>
 
 
                 <Button
                     android:id="@+id/buttonDrugReaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
             </LinearLayout>
 
@@ -217,7 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/current_medication"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -229,7 +253,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="4"
-                    android:hint="@string/drug" />
+                    android:hint="@string/drug"
+                    android:fontFamily="sans-serif-light"/>
 
 
                 <EditText
@@ -238,7 +263,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="2"
-                    android:hint="@string/dosage" />
+                    android:hint="@string/dosage"
+                    android:fontFamily="sans-serif-light"/>
 
                 <EditText
                     android:id="@+id/ptDrugRegimenTimesReg"
@@ -246,14 +272,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="4"
-                    android:hint="@string/times_per_day" />
+                    android:hint="@string/times_per_day"
+                    android:fontFamily="sans-serif-light"/>
 
 
                 <Button
                     android:id="@+id/buttonDrugRegimen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
             </LinearLayout>
 
@@ -273,7 +301,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/cig_per_day"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -285,13 +314,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="3" />
+                    android:ems="3"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonSmoking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
 
             </LinearLayout>
@@ -301,7 +332,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="3" />
+                android:ems="3"
+                android:fontFamily="sans-serif"/>
 
 
             <TextView
@@ -310,7 +342,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/drinks_per_day"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -322,14 +355,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="3" />
+                    android:ems="3"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonDrinking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
-
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
             </LinearLayout>
 
@@ -338,7 +372,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="3" />
+                android:ems="3"
+                android:fontFamily="sans-serif"/>
 
 
             <TextView
@@ -347,7 +382,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/exercise_per_week"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
 
             <LinearLayout
@@ -360,13 +396,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="3" />
+                    android:ems="3"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonExercise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
             </LinearLayout>
 
@@ -376,7 +414,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="3" />
+                android:ems="3"
+                android:fontFamily="sans-serif"/>
 
 
             <TextView
@@ -385,7 +424,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="@string/other_substances"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -396,13 +436,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="4" />
+                    android:ems="4"
+                    android:fontFamily="sans-serif-light"/>
 
                 <Button
                     android:id="@+id/buttonSubstance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add" />
+                    android:text="@string/add"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
             </LinearLayout>
 
@@ -422,7 +464,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="@string/save_your_informations" />
+                android:text="@string/save_your_informations"
+                style="@style/Widget.AppCompat.Button.Colored"/>
 
 
         </LinearLayout>

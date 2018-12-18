@@ -19,7 +19,7 @@
     <string name="your_profile">Your profile</string>
     <string name="general_informations">General informations</string>
     <string name="medical_condition">Do you suffer from any medical condition ?</string>
-    <string name="previous_surgeries">Have you ever had surgery ? Please list which surgeries and what year</string>
+    <string name="previous_surgeries">Have you ever had surgery ? Please list which surgeries and what year (or years if more than 1)</string>
     <string name="allergies">Do you have any allergies ? Please specify which</string>
     <string name="drug_reaction">Did you ever have a strong reaction, allergic or otherwise, to a drug ? Please write the drug and the reaction</string>
     <string name="current_medication">Are you currently taking medication ? Please write down what medication,the individual dosage and how many times the drug is taken per day</string>
@@ -86,7 +86,7 @@
     <string name="logout">Logout</string>
     <string name="appname">VANJEL</string>
     <string name="profile">Profile</string>
-    <string name="next_appointment">Next Appointment</string>
+    <string name="next_appointment">Next Appointments</string>
     <string name="chat">Chat</string>
     <string name="requests">Requests</string>
     <string name="search">Search</string>
@@ -110,4 +110,5 @@
     <string name="postcode">PostCode</string>
     <string name="country">Country</string>
     <string name="enter_new_information">Enter new information</string>
+    <string name="personal_appointments">Personal Appointments</string>
 </resources>

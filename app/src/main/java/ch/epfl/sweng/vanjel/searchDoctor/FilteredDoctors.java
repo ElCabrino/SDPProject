@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -13,9 +14,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
@@ -23,7 +27,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 
 public class FilteredDoctors extends AppCompatActivity {
@@ -49,8 +53,9 @@ public class FilteredDoctors extends AppCompatActivity {
     private HashMap<String, Object> isForwardDetails;
     private HashMap<String, Doctor> allDoctors;
 
-
     private HashMap<String, Doctor> doctorHashMap;
+
+    private TextView noFiltered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,7 @@ public class FilteredDoctors extends AppCompatActivity {
     }
 
     private void init(){
+        noFiltered = findViewById(R.id.noFiltered);
         // get Database pointer
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
@@ -69,7 +75,11 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = new HashMap<>();
         allDoctors = new HashMap<>();
         bundle = getIntent().getExtras();
-        isForward = bundle.getBoolean("isForward");
+        if (bundle != null) {
+            isForward = bundle.getBoolean("isForward");
+        } else {
+            isForward = Boolean.FALSE;
+        }
         isForwardDetails = new HashMap<>();
         String doctor1Forward = bundle.getString("doctor1Forward");
         String patientForward = bundle.getString("patientForward");
@@ -77,9 +87,6 @@ public class FilteredDoctors extends AppCompatActivity {
         isForwardDetails.put("doctor1UID", doctor1Forward);
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails, allDoctors);
         recyclerView.setAdapter(adapter);
-
-
-
     }
 
     private void getUserFilters(){
@@ -132,6 +139,7 @@ public class FilteredDoctors extends AppCompatActivity {
                 adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails, allDoctors);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                LayoutHelper.adaptLayoutIfNoData(doctorHashMap.isEmpty(),noFiltered);
             }
 
             @Override

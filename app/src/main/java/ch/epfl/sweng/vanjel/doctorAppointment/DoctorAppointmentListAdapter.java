@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 
 import android.app.AlertDialog;
@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
@@ -94,6 +95,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
         final Button declineRequestButton;
         final Button forwardRequestButton;
         final int appointmentListIndex; //number of the cardview, index in appointmentList
+
 
         ViewHolder(@NonNull View itemView, int i) {
             super(itemView);
@@ -205,7 +207,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
     }
 
     private void storeTreatedPatientFirebase(final String doctorUID, final String patientUID, final String date) {
-        database.getReference("Doctor").child(doctorUID).child("TreatedPatients").addValueEventListener(new ValueEventListener() {
+        database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 treatedPatientsMap = new ArrayList<>();
@@ -215,7 +217,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
                 if (treatedPatientsMap == null || !(treatedPatientsMap.contains(patientUID))) {
                     Map<String, Object> newPatient = new HashMap<>();
                     newPatient.put(patientUID, date);
-                    database.getReference("Doctor").child(doctorUID).child("TreatedPatients").updateChildren(newPatient);
+                    database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").updateChildren(newPatient);
                 }
             }
 

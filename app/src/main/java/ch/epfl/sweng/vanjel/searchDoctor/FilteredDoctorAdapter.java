@@ -109,7 +109,6 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
-                            // TODO: delete request??
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -117,7 +116,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
                             Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                } //TODO exception doctor not found
+                }
             }
         });
     }
@@ -165,7 +164,15 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
             country = itemView.findViewById(R.id.country);
             forwardButton = itemView.findViewById(R.id.forwardButtonInFilteredDoctors);
 
-            if(!isForward) forwardButton.setVisibility(View.INVISIBLE);
+            if(!isForward) {
+
+                forwardButton.setVisibility(View.GONE);
+
+            } else {
+
+                forwardButton.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 }

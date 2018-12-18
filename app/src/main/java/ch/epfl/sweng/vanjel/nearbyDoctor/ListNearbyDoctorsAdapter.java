@@ -13,7 +13,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.models.Doctor;
@@ -56,11 +55,10 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.firstName.setText(doctors.get(i).getFirstName());
-        viewHolder.lastName.setText(doctors.get(i).getLastName());
+        viewHolder.lastName.setText("Dr." + doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
-        String formattedString = String.format(Locale.getDefault(),"%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0).concat(" km");
-        viewHolder.distance.setText(formattedString);
+        viewHolder.address.setText(doctors.get(i).getStreet() + ", " + doctors.get(i).getStreetNumber() + " - " + doctors.get(i).getCity());
+        viewHolder.distance.setText(String.format("%.2f", doctors.get(i).getDistance(userLocation,context) / 1000.0) + " km");
 
         final int id = i;
 
@@ -85,14 +83,18 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView firstName, lastName, activity, distance;
+        final TextView address;
+        final TextView lastName;
+        final TextView activity;
+        final TextView distance;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            firstName = itemView.findViewById(R.id.firstName);
+            int i = 0;
             lastName = itemView.findViewById(R.id.lastName);
             activity = itemView.findViewById(R.id.activity);
             distance = itemView.findViewById(R.id.distance);
+            address = itemView.findViewById(R.id.address);
 
         }
 

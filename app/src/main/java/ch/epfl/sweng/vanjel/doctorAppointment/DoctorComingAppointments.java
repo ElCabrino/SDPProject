@@ -1,10 +1,12 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,16 +14,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
+import ch.epfl.sweng.vanjel.appointment.Appointment;
+import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
 import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
@@ -30,7 +33,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 public class DoctorComingAppointments extends AppCompatActivity {
 
@@ -49,6 +52,8 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
     private Boolean appointmentsReady = false;
     private Boolean patientHashMapReady = false;
+
+    private TextView noAppointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +80,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
         adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         currentDate = new Date();
-
+        noAppointments = findViewById(R.id.docNoAppointements);
     }
 
     private void getAppointments(){
@@ -99,9 +104,10 @@ public class DoctorComingAppointments extends AppCompatActivity {
                     }
 
                 }
-                Collections.sort(doctorAppointments, new appointmentComparator());
+                Collections.sort(doctorAppointments, new AppointmentComparator());
                 appointmentsReady = true;
                 if(patientHashMapReady) notifyAdapter();
+
 
 
             }
@@ -117,58 +123,36 @@ public class DoctorComingAppointments extends AppCompatActivity {
         // check if appointment is in the past
 
         if(uid.equals(request.child("doctor").getValue(String.class))){
-            String day, hour, patientUid, doctorUid;
-            int duration = Integer.valueOf(request.child("duration").getValue(String.class));
-            //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
-            day = request.child("date").getValue(String.class);
-            doctorUid = request.child("doctor").getValue(String.class);
-            hour = request.child("time").getValue(String.class);
-            patientUid = request.child("patient").getValue(String.class);
-            currentDate = dateFormat.parse(dateFormat.format(currentDate));
-            int comparison = dateFormat.parse(day).compareTo(currentDate);
-            // 0 is today, -1 is before, 1 is after
-             if ((comparison > -1) && (duration != 0)){
-                Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
-                doctorAppointments.add(appointment);
+            String durationText = request.child("duration").getValue(String.class);
+            if (durationText != null) {
+                appendListAppointment(durationText, request);
+            } else {
+                Toast.makeText(this, "An error occured when adding the appointment", Toast.LENGTH_LONG).show();
             }
         }
 
     }
 
-    private class appointmentComparator implements Comparator<Appointment> {
-
-        private final SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd yyyy");
-        final DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
-
-        // compare depending date
-        @Override
-        public int compare(Appointment o1, Appointment o2) {
-            try {
-                Date o1Date = formatter.parse(o1.getDay());
-                Date o2Date = formatter.parse(o2.getDay());
-
-                int comparator = o1Date.compareTo(o2Date);
-
-                if(comparator == 0) {
-                    // we need to compare hour
-                    Date o1Hour = hourFormatter.parse(o1.getHour());
-                    Date o2Hour = hourFormatter.parse(o2.getHour());
-
-                    return o1Hour.compareTo(o2Hour);
-                }
-
-                return comparator;
-
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            return -1;
+    private void appendListAppointment(String durationText, DataSnapshot request) throws ParseException {
+        String day, hour, patientUid, doctorUid;
+        int duration = Integer.valueOf(durationText);
+        //int duration = Integer.valueOf(FirebaseHelper.dataSnapshotChildToString(request, "duration"));
+        day = request.child("date").getValue(String.class);
+        doctorUid = request.child("doctor").getValue(String.class);
+        hour = request.child("time").getValue(String.class);
+        patientUid = request.child("patient").getValue(String.class);
+        currentDate = dateFormat.parse(dateFormat.format(currentDate));
+        int comparison = dateFormat.parse(day).compareTo(currentDate);
+        // 0 is today, -1 is before, 1 is after
+        if ((comparison > -1) && (duration != 0)) {
+            Appointment appointment = new Appointment(day, hour, duration, doctorUid, patientUid);
+            doctorAppointments.add(appointment);
         }
     }
+
 
     private void patientListener() {
+
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -194,5 +178,6 @@ public class DoctorComingAppointments extends AppCompatActivity {
         adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        LayoutHelper.adaptLayoutIfNoData(doctorAppointments.isEmpty(),noAppointments);
     }
 }

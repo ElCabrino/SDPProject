@@ -10,7 +10,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#d3d3d3"
         android:orientation="vertical"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,11 +32,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
+                android:fontFamily="sans-serif-light"
                 android:gravity="left|center"
                 android:paddingLeft="10dp"
                 android:text="ContactName"
                 android:textColor="#202020"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +49,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="Time"
-                android:textColor="#808080"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <TextView
@@ -56,17 +60,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
             android:gravity="left"
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:text="LastMessage"
-            android:textColor="#808080" />
+            android:textColor="#808080"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <View
         android:id="@+id/view6"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="0.01"
         android:background="#dfdfdf"
         app:layout_constraintEnd_toEndOf="parent"

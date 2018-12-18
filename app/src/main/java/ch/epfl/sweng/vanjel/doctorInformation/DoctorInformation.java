@@ -1,7 +1,6 @@
 package ch.epfl.sweng.vanjel.doctorInformation;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -42,15 +41,12 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private Doctor doctor;
     private String doctorUID;
     // database
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private DatabaseReference ref;
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     //local database
     private LocalDatabaseService localDatabaseService;
 
     private MaterialFavoriteButton favorite;
 
-    private Button takeAppointment, chat;
-  
     private Boolean favoriteState = false;
 
     // map

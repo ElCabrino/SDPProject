@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/doctorCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:layout_weight="2"
-    android:orientation="vertical"
     android:background="@drawable/background_item"
-    android:padding="8dp">
+    android:orientation="vertical">
 
 
     <!-- Main layout -->
+
     <LinearLayout
+        android:id="@+id/linearLayoutDoctor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#d3d3d3"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <!-- First line -->
@@ -28,20 +39,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dr. "
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/lastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lastName"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
                 android:paddingRight="10dp"
-                android:textSize="20sp" />
+                android:text="lastName"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!---->
             <TextView
@@ -68,9 +79,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:text="activity"
-                android:textStyle="italic"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
 
         </LinearLayout>
@@ -87,22 +98,20 @@
                 android:id="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:fontFamily="sans-serif-light"
                 android:text="street"
                 android:textColor="#000000"
-                android:layout_marginRight="5dp"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/streetNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:text="No"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-light"/>
-
-
+                android:textSize="20sp" />
 
 
         </LinearLayout>
@@ -116,13 +125,11 @@
                 android:id="@+id/city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:paddingRight="10dp"
                 android:text="city"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                android:paddingRight="10dp"
-                android:fontFamily="sans-serif-light"/>
-
-
+                android:textSize="20sp" />
 
 
             <TextView
@@ -130,27 +137,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/city"
+                android:fontFamily="sans-serif-light"
                 android:text="country"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
 
 
         <Button
             android:id="@+id/forwardButtonInFilteredDoctors"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Forward to this doctor"
-            style="@style/Widget.AppCompat.Button.Colored"
-            />
-        
+            android:visibility="gone" />
 
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/view7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.01"
+        android:background="#dfdfdf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDoctor" />
 
 
-    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

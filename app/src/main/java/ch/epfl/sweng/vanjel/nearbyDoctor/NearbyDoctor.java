@@ -57,7 +57,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
 
     private View permissionDeniedView;
-    private TextView permissionDeniedRationaleView;
+    private TextView permissionDeniedRationaleView, mapButton, listButton;
     private LinearLayout NearbyDoctorTop;
 
     //to get user Location
@@ -109,9 +109,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         // user position
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //layout
-        TextView mapButton = findViewById(R.id.mapButton);
+        mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(this);
-        TextView listButton = findViewById(R.id.listButton);
+        listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(this);
         NearbyDoctorTop = findViewById(R.id.NearbyTopBar);
     }
@@ -172,7 +172,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Method to fetch all doctors from firebase and add them to doctorHasMap and then call sort method them by distance.
+     * Method to fetch all doctors from firebase and add them to doctorHashMap and then call sort method them by distance.
      */
     private void getDoctors() {
         database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -195,7 +195,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                             markerOptions.position(doctorLocation);
                             gmap.addMarker(markerOptions);
                         }
-                    } //TODO firebase exception
+                    }
                 }
                 orderDoctors(doctorHashMap,userLocation);
             }
@@ -321,16 +321,21 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.mapButton:
-                mapView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
+                changeVisibility(View.GONE,View.VISIBLE);
                 break;
             case R.id.listButton:
-                mapView.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
+                changeVisibility(View.VISIBLE,View.GONE);
                 break;
             default:
                 break;
 
         }
+    }
+
+    private void changeVisibility(Integer visibilityList, Integer visibilityMap){
+        mapButton.setVisibility(visibilityList);
+        listButton.setVisibility(visibilityMap);
+        mapView.setVisibility(visibilityMap);
+        recyclerView.setVisibility(visibilityList);
     }
 }

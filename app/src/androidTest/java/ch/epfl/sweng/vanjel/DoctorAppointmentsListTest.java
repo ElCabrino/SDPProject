@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.appointment.DoctorAppointmentsList;
+import ch.epfl.sweng.vanjel.doctorAppointment.DoctorAppointmentsList;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

@@ -35,7 +35,7 @@ public abstract class User {
         this.gender = gender;
     }
 
-    User() {} //TODO check if possible to rm
+    User() {}
 
     public String getEmail() {
         return email;

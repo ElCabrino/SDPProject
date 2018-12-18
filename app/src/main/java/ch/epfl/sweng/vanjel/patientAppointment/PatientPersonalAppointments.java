@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -13,31 +14,42 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
  * @author Nicolas BRANDT
+ * @reviewer Etienne CAQUOT
  * @reviewer Vincent CABRINI
  */
+
+ 
 public class PatientPersonalAppointments extends AppCompatActivity {
 
     private DatabaseReference dbAp;
     private DatabaseReference dbDoc;
 
     private ListView listViewAp;
+    private TextView noAppointment;
     private String uid;
 
     private final List<PtPersonalAppointment> apList = new ArrayList<>();
     // maps doctor ID to Doctor name and location
     private static HashMap<String,ArrayList<String>> idToDoc = new HashMap<>();
+
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
+    private Date currentDate;
 
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
@@ -48,44 +60,83 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         idToDoc = new HashMap<>();
         setContentView(R.layout.activity_patient_personal_appointments);
 
-        uid = auth.getCurrentUser().getUid();
+        if (auth.getCurrentUser() != null) {
+            uid = auth.getCurrentUser().getUid();
+        } else {
+            uid = "";
+        }
+
 
         dbAp = database.getReference("Requests");
         dbDoc = database.getReference("Doctor");
 
         listViewAp = findViewById(R.id.ptPersonalAppointmentsListView);
-
+        noAppointment = findViewById(R.id.ptNoAppointements);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onStart() {
         super.onStart();
-
         populateDocMap();
 
+    }
+
+    private void populateDocMap() {
+        //recover doctor names and locations
+        dbDoc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
+                    String name = idSnapshot.child("lastName").getValue(String.class);
+                    String location = idSnapshot.child("street").getValue(String.class) + ", " +
+                            idSnapshot.child("streetNumber").getValue(String.class) + " - " +
+                            idSnapshot.child("city").getValue(String.class);
+                    String docId = idSnapshot.getKey();
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(name);
+                    list.add(location);
+                    idToDoc.put(docId,list);
+                }
+                getAppointments();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("ERROR", "The read failed: "+databaseError.getCode());
+            }
+        });
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void getAppointments() {
+        currentDate = new Date();
         dbAp.addValueEventListener(new ValueEventListener() {
             //@TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 apList.clear();
-
                 for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                            if (uid.equals(idSnapshot.child("patient").getValue(String.class))) {
-                                String docId = idSnapshot.child("doctor").getValue(String.class);
-                                String doc = "";
-                                String loc = "";
-                                if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
-                                    doc = idToDoc.get(docId).get(0);
-                                    loc = idToDoc.get(docId).get(1);
-                                }
-                                String date = idSnapshot.child("date").getValue(String.class);
-                                String time = idSnapshot.child("time").getValue(String.class);
-                                String duration = idSnapshot.child("duration").getValue(String.class);
-                                //String duration = FirebaseHelper.dataSnapshotChildToString(idSnapshot, "duration");
-                                Boolean pending = Integer.parseInt(duration) == 0;
-                                PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time,duration, pending);
-                                apList.add(ap);
+                    if (uid.equals(idSnapshot.child("patient").getValue(String.class))) {
+                        String docId = idSnapshot.child("doctor").getValue(String.class);
+                        String doc = "";
+                        String loc = "";
+                        if (idToDoc.get(docId) != null && idToDoc.get(docId) !=null) {
+                            doc = idToDoc.get(docId).get(0);
+                            loc = idToDoc.get(docId).get(1);
+                        }
+                        String date = idSnapshot.child("date").getValue(String.class);
+                        String time = idSnapshot.child("time").getValue(String.class);
+                        String duration = idSnapshot.child("duration").getValue(String.class);
+                        try {
+                            currentDate = dateFormat.parse(dateFormat.format(currentDate));
+                            int comparison = dateFormat.parse(date).compareTo(currentDate);
+                            if(comparison > -1){
+                                addAppointment(duration, doc, loc, date, time);
                             }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 Collections.sort(apList, new appointmentsComparator());
@@ -100,6 +151,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                         startActivity(appInfo);
                     }
                 });*/
+
+                LayoutHelper.adaptLayoutIfNoData(apList.isEmpty(),noAppointment);
             }
 
             @Override
@@ -107,10 +160,16 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         });
-
     }
 
 
+    private void addAppointment(String duration, String doc, String loc, String date, String time) {
+        if (duration != null) {
+            Boolean pending = Integer.parseInt(duration) == 0;
+            PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time, duration, pending);
+            apList.add(ap);
+        }
+    }
 
     private class appointmentsComparator implements Comparator<PtPersonalAppointment> {
         @Override
@@ -184,30 +243,5 @@ public class PatientPersonalAppointments extends AppCompatActivity {
             int i = Integer.parseInt(y);
             return i * 10000;
         }
-
-    }
-
-    private void populateDocMap() {
-        //recover doctor names and locations
-        dbDoc.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot idSnapshot : dataSnapshot.getChildren()) {
-                    String name = idSnapshot.child("lastName").getValue(String.class);
-                    String location = idSnapshot.child("streetNumber").getValue(String.class) + " " +
-                            idSnapshot.child("street").getValue(String.class) + " " +
-                            idSnapshot.child("city").getValue(String.class);
-                    String docId = idSnapshot.getKey();
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(name);
-                    list.add(location);
-                    idToDoc.put(docId,list);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ERROR", "The read failed: "+databaseError.getCode());
-            }
-        });
     }
 }

@@ -37,7 +37,6 @@ class PatientInfoDatabaseService {
     private final AppCompatActivity activity;
     private final DatabaseReference userDatabaseReference;
 
-
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
 
@@ -151,7 +150,11 @@ class PatientInfoDatabaseService {
     private void showUpdateInfo(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
         dialogBuilder.setView(dialogView);
         final UpdateViewsHolder holder = getHolder(category, dialogView);
-        dialogBuilder.setTitle(String.format("Updating %s", category.toLowerCase()));
+        String title = category.toLowerCase();
+        if (category == "DrugReaction") {
+            title = "drug reaction";
+        }
+        dialogBuilder.setTitle(String.format("Updating %s", title));
 
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -160,18 +163,12 @@ class PatientInfoDatabaseService {
             @Override
             public void onClick(View view) {
                 Info info = getCorrectInfo(category, holder.getAndroidName(), holder.getAdditionalField1(), holder.getAdditionalField2());
-                //TODO: check information present
-                /*if (TextUtils.isDigitsOnly(info)) {
-                    editTextName.setError("Information required");
-                    return;
-                }*/
                 deleteItem(oldInfo, category);
                 addItemToDatabase(info,category);
 
                 alertDialog.dismiss();
             }
         });
-        //}
 
         holder.getButtonDelete().setOnClickListener(new View.OnClickListener() {
             @Override
