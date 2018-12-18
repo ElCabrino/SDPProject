@@ -130,8 +130,9 @@ class PatientInfoDatabaseService {
             case "Substance":
                 return inflater.inflate(R.layout.activity_patient_info_update, null);
             case "Surgery":
-            case "DrugReaction":
                 return inflater.inflate(R.layout.activity_patient_info_update_surgery, null);
+            case "DrugReaction":
+                return inflater.inflate(R.layout.activity_patient_info_update_drug_reaction, null);
             //Drug
             default:
                 return inflater.inflate(R.layout.activity_patient_info_update_drug, null);
@@ -151,7 +152,7 @@ class PatientInfoDatabaseService {
         dialogBuilder.setView(dialogView);
         final UpdateViewsHolder holder = getHolder(category, dialogView);
         String title = category.toLowerCase();
-        if (category == "DrugReaction") {
+        if (category.equals("DrugReaction")) {
             title = "drug reaction";
         }
         dialogBuilder.setTitle(String.format("Updating %s", title));
@@ -163,9 +164,8 @@ class PatientInfoDatabaseService {
             @Override
             public void onClick(View view) {
                 Info info = getCorrectInfo(category, holder.getAndroidName(), holder.getAdditionalField1(), holder.getAdditionalField2());
-                deleteItem(oldInfo, category);
-                addItemToDatabase(info,category);
-
+                deleteItem(oldInfo, category,true);
+                addItemToDatabase(info,category,true);
                 alertDialog.dismiss();
             }
         });
@@ -173,7 +173,7 @@ class PatientInfoDatabaseService {
         holder.getButtonDelete().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteItem(oldInfo, category);
+                deleteItem(oldInfo, category,false);
                 alertDialog.dismiss();
             }
         });
@@ -192,7 +192,7 @@ class PatientInfoDatabaseService {
             case "Allergy":
             case "Substance":
                 return UpdateViewsHolder.forSingleFieldInfo(dialogView);
-            case "Surgery":
+            case "Surgery": ;
             case "DrugReaction":
                 return UpdateViewsHolder.forDoubleFieldInfo(dialogView);
             //drug
@@ -208,7 +208,7 @@ class PatientInfoDatabaseService {
      * @param androidName the main information field, used by all informations
      * @param additionalField1 an additional information field, will be null if the category does not require it
      * @param additionalField2 an additional information field, will be null if the category does not require it
-     * @return the medical information of the category
+     * @return the medical information of the category if the informations were entered in the field, or null if a field is missing
      */
     private Info getCorrectInfo(String category, EditText androidName, EditText additionalField1, EditText additionalField2) {
         switch (category) {
@@ -236,7 +236,8 @@ class PatientInfoDatabaseService {
      * @param info the information
      * @param category category of the medical information
      */
-    void addItemToDatabase(Info info,String category) {
+    void addItemToDatabase(Info info,String category, boolean isUpdate) {
+
         String firebaseName = info.getAndroidInfo();
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
@@ -247,7 +248,11 @@ class PatientInfoDatabaseService {
 
         if (!TextUtils.isEmpty(firebaseName)) {
             dbCat.child(firebaseName).setValue(info);
-            Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
+            if (isUpdate) {
+                Toast.makeText(this.activity, String.format("%s updated.", toastText), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
+            }
 
         } else {
             Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.", toastText.toLowerCase()), Toast.LENGTH_LONG).show();
@@ -272,18 +277,18 @@ class PatientInfoDatabaseService {
         }
     }
 
-    //TODO: fix delete toast display when updating
     /**
      * Method to delete an item from firebase.
      *
      * @param info the information to delete
      * @param category the category of the information
      */
-    private void deleteItem(String info, String category) {
+    private void deleteItem(String info, String category, boolean isUpdate) {
         DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
         dbCat.removeValue();
-        Toast.makeText(this.activity, String.format("%s deleted", category), Toast.LENGTH_LONG).show();
+        // do not display toast if delete is used for an update
+        if (!isUpdate) {
+            Toast.makeText(this.activity, String.format("%s deleted", category), Toast.LENGTH_LONG).show();
+        }
     }
-
-
 }

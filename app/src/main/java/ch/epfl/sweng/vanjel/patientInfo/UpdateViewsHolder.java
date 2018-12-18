@@ -68,11 +68,11 @@ class UpdateViewsHolder {
      * @return a new UpdateViewsHolder with views corresponding to a patient information containing two fields of information
      */
     static UpdateViewsHolder forDoubleFieldInfo(View dialogView) {
-        return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateSurgeryType),
-                dialogView.findViewById(R.id.patientInfoUpdateSurgeryYear),
+        return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateMainInfo),
+                dialogView.findViewById(R.id.patientInfoUpdateSecondaryInfo),
                 null,
-                dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery),
-                dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery));
+                dialogView.findViewById(R.id.buttonPatientInfoUpdateDoubleInfo),
+                dialogView.findViewById(R.id.buttonPatientInfoDeleteDoubleInfo));
     }
 
     /**

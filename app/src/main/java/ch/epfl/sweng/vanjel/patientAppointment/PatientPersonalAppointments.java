@@ -29,12 +29,13 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
+ * Class to represent the personal appointments of a patient
+ *
  * @author Nicolas BRANDT
  * @reviewer Etienne CAQUOT
  * @reviewer Vincent CABRINI
  */
 
- 
 public class PatientPersonalAppointments extends AppCompatActivity {
 
     private DatabaseReference dbAp;
@@ -140,18 +141,8 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                 }
 
                 Collections.sort(apList, new appointmentsComparator());
-                //apList.sort(new appointmentsComparator());
                 PtPersonalAppointmentsList adapter = new PtPersonalAppointmentsList(PatientPersonalAppointments.this,apList);
                 listViewAp.setAdapter(adapter);
-                //TODO: click on appointment to get doctor info
-                /*listViewAp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                        Intent appInfo = new Intent(YourActivity.this, ApkInfoActivity.class);
-                        startActivity(appInfo);
-                    }
-                });*/
-
                 LayoutHelper.adaptLayoutIfNoData(apList.isEmpty(),noAppointment);
             }
 
