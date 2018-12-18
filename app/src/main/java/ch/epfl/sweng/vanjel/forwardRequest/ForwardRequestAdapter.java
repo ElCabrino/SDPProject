@@ -23,6 +23,9 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
 /**
+ * Conditional display for cardviews in order to display Forward requests made by doctors to the patient
+ */
+/**
  * @author Aslam CADER
  * @author Etienne CAQUOT
  * @reviewer
@@ -89,24 +92,33 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
         Button doctorDetails, delete;
 
         ViewHolder(@NonNull View itemView){
+
             super(itemView);
             getViews();
+
         }
 
         private void getViews(){
+
             doctor1 = itemView.findViewById(R.id.firstDoctorRequested);
             doctor2 = itemView.findViewById(R.id.secondDoctorAdviced);
             doctorDetails = itemView.findViewById(R.id.seeForwadedDoctor);
             delete = itemView.findViewById(R.id.deleteForwardRequest);
+
         }
     }
 
     private String forwardToUid(Forward f) throws RuntimeException{
+
         for (Map.Entry<String, Forward> entry : forwardsMap.entrySet()) {
+
             if (f.equals(entry.getValue())) {
+
                 return entry.getKey();
+
             }
         }
+
         throw new RuntimeException("Missing element when forwarding");
     }
 

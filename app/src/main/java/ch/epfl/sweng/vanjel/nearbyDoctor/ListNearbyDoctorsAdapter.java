@@ -20,6 +20,16 @@ import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 
+/**
+ *  This activity displays the nearbyDoctors (list and map)
+ *  The list is displayed using a cardview which is implemented with ListNearbyDoctorsAdapter
+ */
+
+/**
+ * @author Aslam Cader
+ * @author Etienne Caquot
+ */
+
 public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoctorsAdapter.ViewHolder> {
 
     private final ArrayList<Doctor> doctors;
@@ -36,7 +46,7 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
 
         doctors = new ArrayList<>();
 
-//         loop for to take doctorHashmap to doctor
+        // loop for to take doctorHashmap to doctor
         doctors.addAll(doctorHashMap.values());
 
 
@@ -45,16 +55,14 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
     @NonNull
     @Override
     public ListNearbyDoctorsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
         return new ListNearbyDoctorsAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_doctor_distance, viewGroup, false));
-//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_doctor_cardview,
-//                viewGroup,false);
-//        ViewHolder holder = new ViewHolder(view);
-//
-//        return holder;
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
         viewHolder.lastName.setText("Dr." + doctors.get(i).getLastName());
         viewHolder.activity.setText(doctors.get(i).getActivity());
         viewHolder.address.setText(doctors.get(i).getStreet() + ", " + doctors.get(i).getStreetNumber() + " - " + doctors.get(i).getCity());
@@ -63,23 +71,27 @@ public class ListNearbyDoctorsAdapter extends RecyclerViewAdapter<ListNearbyDoct
         final int id = i;
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(context, DoctorInformation.class);
+
                 for (Map.Entry<String,Doctor> entry : doctorHashMap.entrySet()) {
+
                     if (doctors.get(id).equals(entry.getValue())) {
                         intent.putExtra("doctorUID", entry.getKey());
                     }
+
                 }
+
                 context.startActivity(intent);
             }
         });
     }
 
     @Override
-    public int getItemCount() {
-        return doctors.size();
-    }
+    public int getItemCount() { return doctors.size(); }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

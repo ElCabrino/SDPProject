@@ -12,6 +12,11 @@ import java.util.NoSuchElementException;
 import ch.epfl.sweng.vanjel.R;
 
 /**
+ * This activity displays the EditText in order to have the user filters to search for doctors
+ * This will trigger FilteredDoctors with the filter
+ */
+
+/**
  * @author Luca JOSS
  * @reviewer Aslam CADER
  */
@@ -41,7 +46,9 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.buttonSearch) {
+
             getFieldStrings();
             Intent intent = new Intent(SearchDoctor.this, FilteredDoctors.class);
             Bundle b = new Bundle();
@@ -55,37 +62,48 @@ public class SearchDoctor extends AppCompatActivity implements View.OnClickListe
             intent.putExtras(b);
             startActivity(intent);
             finish();
+
         }
     }
 
     private void getBundle(){
+
         Bundle bundle = getIntent().getExtras();
+
         if (bundle != null) {
+
             isForward = bundle.getBoolean("isForward");
             doctor1Forward = bundle.getString("doctor1Forward");
             patientForward = bundle.getString("patientForward");
+
         } else {
+
             throw new NoSuchElementException("Extras in search doctor are empty");
+
         }
 
     }
 
 
     private void getAllFields() {
+
         this.firstName = findViewById(R.id.firstNameSearch);
         this.lastName = findViewById(R.id.lastNameSearch);
         this.specialisation = findViewById(R.id.specialisationSearch);
         this.city = findViewById(R.id.citySearch);
 
     }
+
     private void getAllButtons() {
         this.searchButton = findViewById(R.id.buttonSearch);
     }
 
     private void getFieldStrings() {
+
         this.nameString = firstName.getText().toString().trim();
         this.lastNameString = lastName.getText().toString().trim();
         this.specialisationString = specialisation.getText().toString().trim();
         this.cityString = city.getText().toString().trim();
+
     }
 }

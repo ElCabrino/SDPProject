@@ -22,16 +22,18 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 
 /**
+ * This activity is launched by SearchDoctor with filters on the bundle
+ * This activity retrieves the doctors and displays only the one corresponding to the user filters
+ * This uses a cardview displayer with FilteredDoctorsAdapter to display them
+ */
+
+/**
  * @author Aslam CADER
  * @reviewer Vincent CABRINI
  */
 
 public class FilteredDoctors extends AppCompatActivity {
 
-    /**
-     * This activity uses the values given in the bundle to retrieve and display the doctors
-     * that correspond to the filters
-     */
 
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
@@ -44,7 +46,7 @@ public class FilteredDoctors extends AppCompatActivity {
     // user choices
     private String lastName, firstName, specialisation, city;
 
-    // if it's a forward request
+    // if it's a forward request, we will display the forward button
     private Boolean isForward;
     private HashMap<String, Object> isForwardDetails;
     private HashMap<String, Doctor> allDoctors;
@@ -62,6 +64,7 @@ public class FilteredDoctors extends AppCompatActivity {
     }
 
     private void init(){
+
         // get Database pointer
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
@@ -69,11 +72,18 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = new HashMap<>();
         allDoctors = new HashMap<>();
         bundle = getIntent().getExtras();
+
         if (bundle != null) {
+
             isForward = bundle.getBoolean("isForward");
+
         } else {
+
+            // by default the forward button is not displayed
             isForward = Boolean.FALSE;
+
         }
+
         isForwardDetails = new HashMap<>();
         String doctor1Forward = bundle.getString("doctor1Forward");
         String patientForward = bundle.getString("patientForward");
@@ -82,22 +92,21 @@ public class FilteredDoctors extends AppCompatActivity {
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails, allDoctors);
         recyclerView.setAdapter(adapter);
 
-
-
     }
 
     private void getUserFilters(){
+
         lastName = bundle.getString("lastName");
         firstName = bundle.getString("firstName");
         specialisation = bundle.getString("specialisation");
         city = bundle.getString("city");
 
+
     }
 
-    private boolean compareString(String s1, String s2){
-        return s1.toLowerCase().equals(s2.toLowerCase());
-    }
+    private boolean compareString(String s1, String s2){ return s1.toLowerCase().equals(s2.toLowerCase()); }
 
+    // This method add the doctor to doctorHashMap if it correspond to the user filters
     private void select(){
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
@@ -115,32 +124,44 @@ public class FilteredDoctors extends AppCompatActivity {
             Boolean b3 = compareString(doc.getActivity(), specialisation);
             Boolean b4 = compareString(doc.getCity(), city);
 
-            if (b1 || b2 || b3 || b4)
+            if (b1 || b2 || b3 || b4) {
+
                 selectedDoctorsHashMap.put(oneDoc.getKey(), doc);
+
+            }
 
 
         }
+
         doctorHashMap = selectedDoctorsHashMap;
         adapter.notifyDataSetChanged();
+
     }
+
     private void databaseListener(){
+
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     doctorHashMap.put(dataSnapshot1.getKey(), dataSnapshot1.getValue(Doctor.class));
                 }
+
                 allDoctors = doctorHashMap;
                 select(); // remove unwanted doctors
                 adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails, allDoctors);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 Toast.makeText(FilteredDoctors.this, "@+id/database_error", Toast.LENGTH_SHORT).show();
+
             }
 
         });

@@ -21,6 +21,14 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.R;
 
+
+/**
+ * This activity displays to the patient the forward requests:
+ *  shows the doctors that has been advised to the patient
+ *
+ *  It uses a cardview displayer : ForwardRequestAdapter
+ */
+
 /**
  * @author Aslam CADER
  * @author Etienne CAQUOT
@@ -42,54 +50,82 @@ public class ForwardRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forwaded_requests);
+
         try {
+
             init();
             notifyAdapter();
+
         } catch (FirebaseAuthInvalidUserException e) {
+
             Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
             e.printStackTrace();
+
         }
     }
 
     private void init() throws FirebaseAuthInvalidUserException {
+
         recyclerView = findViewById(R.id.forwardCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         forward = new HashMap<>();
         ref = database.getReference().child("Forwards");
+
         if (FirebaseAuthCustomBackend.getInstance().getCurrentUser() != null) {
+
             currentUserUID = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+
         } else {
+
             throw new FirebaseAuthInvalidUserException("forwardRequest", "No user logged in");
+
         }
+
         getMyForwards();
     }
 
     private void getMyForwards(){
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                forward = new HashMap<>(); // in case the the forward is updated, we need to remove ther old stuff
+
+                // in case the the forward is updated, we need to remove ther old stuff
+                forward = new HashMap<>();
+
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+
                     Forward dbForward = dataSnapshot1.getValue(Forward.class);
-                    if ((dbForward !=null) && (dbForward.getPatient().equals(currentUserUID)) && (dataSnapshot1.getKey() != null))
+
+                    // add the forward requests if its the patients'
+                    if ((dbForward !=null) && (dbForward.getPatient().equals(currentUserUID)) && (dataSnapshot1.getKey() != null)){
+
                         forward.put(dataSnapshot1.getKey(),dbForward);
-                }
+
+                    }
+
+                } // end for
+
                 notifyAdapter();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
 
     }
 
 
     private void notifyAdapter() {
+
         ForwardRequestAdapter adapter = new ForwardRequestAdapter(ForwardRequest.this, forward);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
     }
 
 

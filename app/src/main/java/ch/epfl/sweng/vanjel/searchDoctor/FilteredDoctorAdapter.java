@@ -25,7 +25,9 @@ import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
-
+/**
+ * Conditional display for cardviews in order to display the filtered doctors
+ */
 /**
  * @author Aslam CADER
  * @reviewer
