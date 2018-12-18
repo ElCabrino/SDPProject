@@ -3,23 +3,24 @@
     android:id="@+id/doctorDistanceView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:layout_weight="3"
     android:background="@drawable/background_item"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#D3D3D3"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:padding="8dp"
+        android:weightSum="6">
 
         <LinearLayout
             android:id="@+id/Linear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:orientation="vertical"
             android:weightSum="3">
 
@@ -28,29 +29,28 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
                 android:text="lastName"
-                android:textColor="@android:color/black"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/firstName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="firstName"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="22sp" />
-
 
             <TextView
                 android:id="@+id/activity"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
                 android:text="activity"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="22sp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
+                android:text="address"
+                android:textSize="20sp"
                 android:textStyle="italic" />
 
 
@@ -62,6 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
             android:text="Distance" />
     </LinearLayout>
 

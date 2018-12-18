@@ -30,9 +30,8 @@ import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText emailField, passwordField;
-    private Button buttonLogin;
 
-    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordField = findViewById(R.id.passwordLogin);
 
         //Button listener
-        buttonLogin = findViewById(R.id.buttonLogin);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
         findViewById(R.id.registrationLogin).setOnClickListener(this);
     }

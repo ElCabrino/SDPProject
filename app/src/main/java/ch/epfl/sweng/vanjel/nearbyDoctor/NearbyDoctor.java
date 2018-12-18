@@ -32,7 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -52,16 +51,13 @@ import ch.epfl.sweng.vanjel.models.Doctor;
  */
 public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-    private static final String TAG = "NearbyDoctor";
 
     private static final int REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION = 0x01;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
 
     private View permissionDeniedView;
-    private TextView permissionDeniedRationaleView;
-    private TextView mapButton;
-    private TextView listButton;
+    private TextView permissionDeniedRationaleView, mapButton, listButton;
     private LinearLayout NearbyDoctorTop;
 
     //to get user Location
@@ -72,18 +68,11 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap gmap;
 
     // Database
-    FirebaseDatabase database;
+    private FirebaseDatabase database;
 
-    // this will contain the doctors
-    ArrayList<Doctor> doctors = new ArrayList<>();
-
-    private HashMap<String, Doctor> doctorHashMap = new HashMap<>();
+    private final HashMap<String, Doctor> doctorHashMap = new HashMap<>();
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-
-    private Boolean mapPressed = true;
-    private Boolean listPressed = false;
 
     private LatLng userLocation;
 
@@ -166,7 +155,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * Initialize the Google Maps map components that require user Location
-     * @param location
+     * @param location location of the doctor
      */
     private void initMap(Location location){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -183,7 +172,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     /**
-     * Method to fetch all doctors from firebase and add them to doctorHasMap and then call sort method them by distance.
+     * Method to fetch all doctors from firebase and add them to doctorHashMap and then call sort method them by distance.
      */
     private void getDoctors() {
         database.getReference("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -193,17 +182,19 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
-                    doctors.add(myDoctor);
-                    LatLng doctorLocation = myDoctor.getLocationFromAddress(NearbyDoctor.this);
-                    // if doctor address is incorrect we do not put his marker
-                    if (doctorLocation == null) {
-                        Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // put the pin (marker)
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.title("Dr. " + myDoctor.getLastName() + " " + myDoctor.getFirstName());
-                        markerOptions.position(doctorLocation);
-                        gmap.addMarker(markerOptions);
+
+                    if (myDoctor!=null) {
+                        LatLng doctorLocation = myDoctor.getLocationFromAddress(NearbyDoctor.this);
+                        // if doctor address is incorrect we do not put his marker
+                        if (doctorLocation == null) {
+                            Toast.makeText(NearbyDoctor.this, "Some doctors may have incorrect addresses", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // put the pin (marker)
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.title("Dr. " + myDoctor.getLastName() + " " + myDoctor.getFirstName());
+                            markerOptions.position(doctorLocation);
+                            gmap.addMarker(markerOptions);
+                        }
                     }
                 }
                 orderDoctors(doctorHashMap,userLocation);
@@ -218,29 +209,29 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * This method orders the HashMap with Doctors and their ids according to distance to user and then finalize the activity's screen.
-     * @param doctorhashMap
-     * @param userLocation
+     * @param doctorHashMap HashMap of doctor object with their userID as key
+     * @param userLocation location of the user that does the query
      */
-    private void orderDoctors(HashMap<String, Doctor> doctorhashMap, LatLng userLocation) {
-        HashMap<String,Double> distanceHashMap = createDistanceHashMap(doctorhashMap,userLocation);
+    private void orderDoctors(HashMap<String, Doctor> doctorHashMap, LatLng userLocation) {
+        HashMap<String,Double> distanceHashMap = createDistanceHashMap(doctorHashMap,userLocation);
         LinkedHashMap<String,Doctor> doctorHashMapSorted = new LinkedHashMap<>(); //use LinkedHashMap to keep order
         for (Map.Entry<String,Double> entry : sortHashMapOnValues(distanceHashMap).entrySet()){
-            doctorHashMapSorted.put(entry.getKey(),doctorhashMap.get(entry.getKey()));
+            doctorHashMapSorted.put(entry.getKey(),doctorHashMap.get(entry.getKey()));
         }
-        adapter = new ListNearbyDoctorsAdapter(NearbyDoctor.this, doctorHashMapSorted,userLocation);
+        RecyclerView.Adapter adapter = new ListNearbyDoctorsAdapter(NearbyDoctor.this, doctorHashMapSorted, userLocation);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     /**
      * This method creates a HashMap with key : id of doctors and values : distance to doctor for user.
-     * @param doctorhashMap
-     * @param userLocation
-     * @return
+     * @param doctorHashMap HashMap of doctor object with their userID as key
+     * @param userLocation location of the user that does the query
+     * @return A HashMap of doctor with their distance from the patient
      */
-    private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorhashMap, LatLng userLocation){
+    private HashMap<String,Double> createDistanceHashMap(HashMap<String, Doctor> doctorHashMap, LatLng userLocation){
         HashMap<String,Double> distanceHashMap = new HashMap<>();
-        for(Map.Entry<String,Doctor> entry : doctorhashMap.entrySet()){
+        for(Map.Entry<String,Doctor> entry : doctorHashMap.entrySet()){
             Double doctorDistance = entry.getValue().getDistance(userLocation,this);
             distanceHashMap.put(entry.getKey(),doctorDistance);
         }
@@ -280,9 +271,9 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * This method checks the grantResult and display message
      * depending on user's device preference toward GPS usage on app
-     * @param grantResult
+     * @param grantResult The permission to access the localisation of the user
      */
-    public void permissionsMessage(int grantResult){
+    private void permissionsMessage(int grantResult){
         switch (grantResult){
             case PackageManager.PERMISSION_GRANTED:
 
@@ -303,7 +294,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Method called when the user click on the Grant Permission button. Either Asks for Location
      * permission or go to settings if user wants to grant permission but alredy checked "Don't Ask Again"
-     * @param view
+     * @param view View where the prompt is displayed
      */
     public void onGrantPermission(View view) {
         permissionDeniedView.setVisibility(View.INVISIBLE);
@@ -330,16 +321,21 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.mapButton:
-                mapView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
+                changeVisibility(View.GONE,View.VISIBLE);
                 break;
             case R.id.listButton:
-                mapView.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
+                changeVisibility(View.VISIBLE,View.GONE);
                 break;
             default:
                 break;
 
         }
+    }
+
+    private void changeVisibility(Integer visibilityList, Integer visibilityMap){
+        mapButton.setVisibility(visibilityList);
+        listButton.setVisibility(visibilityMap);
+        mapView.setVisibility(visibilityMap);
+        recyclerView.setVisibility(visibilityList);
     }
 }

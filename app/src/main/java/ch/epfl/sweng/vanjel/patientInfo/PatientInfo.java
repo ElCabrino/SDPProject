@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -17,32 +18,57 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 
 /**
- * @author Vincent CABRINI
- * @reviewer Nicolas BRANDT
+ * A class to represent the medical information of a patient.
+ *
+ * @author Nicolas BRANDT
+ * @reviewer Vincent CABRINI
  */
-public class PatientInfo extends AppCompatActivity implements View.OnClickListener{
+public class PatientInfo extends AppCompatActivity implements View.OnClickListener {
 
-    PatientInfoDatabaseService patientInfoDatabaseService;
+    private PatientInfoDatabaseService patientInfoDatabaseService;
 
-    Button saveButton;
+    private EditText priorConditionsReg;
+    private EditText surgeriesReg;
+    private EditText surgeriesYearReg;
+    private EditText allergyReg;
+    private EditText drugReactionDrugReg;
+    private EditText drugReactionReactionReg;
+    private EditText drugRegimenDrugReg;
+    private EditText drugRegimenDosageReg;
+    private EditText drugRegimenTimesReg;
+    private EditText substancesReg;
+    private EditText smokingReg;
+    private EditText drinkingReg;
+    private EditText exerciseReg;
 
-    EditText priorConditionsReg, surgeriesReg, surgeriesYearReg, allergyReg, drugReactionDrugReg, drugReactionReactionReg, drugRegimenDrugReg;
-    EditText drugRegimenDosageReg, drugRegimenTimesReg, substancesReg, smokingReg, drinkingReg, exerciseReg;
+    private Button buttonConditions;
+    private Button buttonSurgeries;
+    private Button buttonAllergies;
+    private Button buttonDrugReactions;
+    private Button buttonDrug;
+    private Button buttonSubstance;
+    private Button buttonSmoking;
+    private Button buttonDrinking;
+    private Button buttonExercise;
 
-    Button buttonConditions, buttonSurgeries, buttonAllergies, buttonDrugReactions, buttonDrug, buttonSubstance, buttonSmoking;
-    Button buttonDrinking, buttonExercise;
+    private ListView listViewConditions;
+    private ListView listViewSurgeries;
+    private ListView listViewAllergies;
+    private ListView listViewDrugReactions;
+    private ListView listViewDrugs;
+    private ListView listViewSubstances;
+    private TextView textViewSmoking;
+    private TextView textViewDrinking;
+    private TextView textViewExercise;
 
-    ListView listViewConditions, listViewSurgeries, listViewAllergies, listViewDrugReactions, listViewDrugs, listViewSubstances;
-    TextView textViewSmoking, textViewDrinking, textViewExercise;
+    private List<InfoString> conditionList;
+    private List<Surgery> surgeryList;
+    private List<InfoString> allergyList;
+    private List<DrugReaction> drugReactionList;
+    private List<Drug> drugList;
+    private List<InfoString> substanceList;
 
-    List<InfoString> conditionList;
-    List<Surgery> surgeryList;
-    List<InfoString> allergyList;
-    List<DrugReaction> drugReactionList;
-    List<Drug> drugList;
-    List<InfoString> substanceList;
-
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +76,16 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_patient_info);
 
         //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
-        patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getCurrentUser().getUid());
+        if (auth.getCurrentUser() != null) {
+            patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
+            getAllEditText();
+            getAllPatientInfoFields();
+            initializeButtonsListeners();
+            initializeLists();
+        } else {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+        }
 
-        saveButton = findViewById(R.id.buttonGenInfoPtReg);
-
-        getAllEditText();
-
-        getAllPatientInfoFields();
-
-        initializeButtonsListeners();
-
-        initializeLists();
     }
 
     private void initializeButtonsListeners() {
@@ -126,65 +151,81 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onStart();
         // add the database listeners
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
-                InfoString.class, new InfoList<InfoString>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
+                InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
-                Surgery.class, new InfoList<Surgery>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
+                Surgery.class, new InfoList<>(this, surgeryList, R.layout.list_surgeries_layout, R.id.textViewSurgeries));
         patientInfoDatabaseService.addListListener(allergyList,listViewAllergies,"Allergy",
-                InfoString.class, new InfoList<InfoString>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
+                InfoString.class, new InfoList<>(this, allergyList, R.layout.list_allergies_layout, R.id.textViewAllergies));
         patientInfoDatabaseService.addListListener(drugReactionList,listViewDrugReactions,"DrugReaction",
-                DrugReaction.class, new InfoList<DrugReaction>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
+                DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
-                Drug.class, new InfoList<Drug>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
-
+                Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
-                InfoString.class, new InfoList<InfoString>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+                InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+
 
         patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
         patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
         patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
+
+        //add listeners to listviews for updates
+        patientInfoDatabaseService.listViewListener(listViewConditions, conditionList, "Condition", this);
+        patientInfoDatabaseService.listViewListener(listViewAllergies, allergyList, "Allergy", this);
+        patientInfoDatabaseService.listViewListener(listViewSubstances, substanceList, "Substance", this);
+        patientInfoDatabaseService.listViewListener(listViewSurgeries, surgeryList, "Surgery", this);
+        patientInfoDatabaseService.listViewListener(listViewDrugReactions, drugReactionList, "DrugReaction", this);
+        patientInfoDatabaseService.listViewListener(listViewDrugs, drugList, "Drug", this);
+
+
     }
 
+    //TODO: consistency
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        switch (i){
+        switch (i) {
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(priorConditionsReg.getText().toString().trim(),"Condition", new InfoString(priorConditionsReg.getText().toString().trim()));
+                        addItemToDatabase(getTextFromField(priorConditionsReg), "Condition", new InfoString(getTextFromField(priorConditionsReg)));
                 break;
             case R.id.buttonSurgery:
-                patientInfoDatabaseService.addItemToDatabase(surgeriesReg.getText().toString().trim(), "Surgery", new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(surgeriesReg), "Surgery",
+                        new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.addItemToDatabase(allergyReg.getText().toString().trim(),"Allergy",
-                                new InfoString(allergyReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(allergyReg), "Allergy",
+                        new InfoString(allergyReg.getText().toString().trim()));
                 break;
             case R.id.buttonDrugRegimen:
-                Drug drug = new Drug(drugRegimenDrugReg.getText().toString().trim(), drugRegimenDosageReg.getText().toString().trim(),
-                        drugRegimenTimesReg.getText().toString().trim());
-                patientInfoDatabaseService.addItemToDatabase(drugRegimenDrugReg.getText().toString().trim(), "Drug",drug);
+                Drug drug = new Drug(getTextFromField(drugRegimenDrugReg), getTextFromField(drugRegimenDosageReg),
+                        getTextFromField(drugRegimenTimesReg));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugRegimenDrugReg), "Drug", drug);
                 break;
             case R.id.buttonDrugReaction:
-                patientInfoDatabaseService.addItemToDatabase(drugReactionDrugReg.getText().toString().trim(),
-                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg), getTextFromField(drugReactionReactionReg)));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugReactionDrugReg),
+                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg),
+                                getTextFromField(drugReactionReactionReg)));
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addItemToDatabase(substancesReg.getText().toString().trim(),"Substance", new InfoString(substancesReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(getTextFromField(substancesReg), "Substance",
+                        new InfoString(getTextFromField(substancesReg)));
                 break;
             case R.id.buttonSmoking:
-                patientInfoDatabaseService.addAmount(smokingReg.getText().toString().trim(),"Smoking");
+                patientInfoDatabaseService.addAmount(getTextFromField(smokingReg), "Smoking");
                 break;
             case R.id.buttonDrinking:
-                patientInfoDatabaseService.addAmount(drinkingReg.getText().toString().trim(),"Drinking");
+                patientInfoDatabaseService.addAmount(getTextFromField(drinkingReg), "Drinking");
                 break;
             case R.id.buttonExercise:
-                patientInfoDatabaseService.addAmount(exerciseReg.getText().toString().trim(),"Exercise");
+                patientInfoDatabaseService.addAmount(getTextFromField(exerciseReg), "Exercise");
                 break;
 
         }
     }
 
-    String getTextFromField(EditText field){
+    static String getTextFromField(EditText field) {
         return field.getText().toString().trim();
     }
+
+
 }

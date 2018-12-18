@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ import ch.epfl.sweng.vanjel.models.Doctor;
 
 /**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Vincent CABRINI
  */
 
 public class FilteredDoctors extends AppCompatActivity {
@@ -34,11 +33,9 @@ public class FilteredDoctors extends AppCompatActivity {
      * that correspond to the filters
      */
 
-    private static final String TAG = "OKLM2727";
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private DatabaseReference ref;
     private RecyclerView recyclerView;
-    private ArrayList<Doctor> doctors;
     private FilteredDoctorAdapter adapter;
 
     // bundle to retrieve data from search
@@ -49,7 +46,6 @@ public class FilteredDoctors extends AppCompatActivity {
 
     // if it's a forward request
     private Boolean isForward;
-    private String doctor1Forward, patientForward;
     private HashMap<String, Object> isForwardDetails;
     private HashMap<String, Doctor> allDoctors;
 
@@ -65,19 +61,22 @@ public class FilteredDoctors extends AppCompatActivity {
         databaseListener();
     }
 
-    public void init(){
+    private void init(){
         // get Database pointer
         ref = database.getReference().child("Doctor");
         recyclerView = findViewById(R.id.doctorCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        doctors = new ArrayList<>();
         doctorHashMap = new HashMap<>();
         allDoctors = new HashMap<>();
         bundle = getIntent().getExtras();
-        isForward = bundle.getBoolean("isForward");
+        if (bundle != null) {
+            isForward = bundle.getBoolean("isForward");
+        } else {
+            isForward = Boolean.FALSE;
+        }
         isForwardDetails = new HashMap<>();
-        doctor1Forward = bundle.getString("doctor1Forward");
-        patientForward = bundle.getString("patientForward");
+        String doctor1Forward = bundle.getString("doctor1Forward");
+        String patientForward = bundle.getString("patientForward");
         isForwardDetails.put("patient", patientForward);
         isForwardDetails.put("doctor1UID", doctor1Forward);
         adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctorHashMap, isForward, isForwardDetails, allDoctors);
@@ -87,7 +86,7 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
-    public void getUserFilters(){
+    private void getUserFilters(){
         lastName = bundle.getString("lastName");
         firstName = bundle.getString("firstName");
         specialisation = bundle.getString("specialisation");
@@ -95,14 +94,11 @@ public class FilteredDoctors extends AppCompatActivity {
 
     }
 
-    public boolean compareString(String s1, String s2){
-        if(s1.toLowerCase().equals(s2.toLowerCase()))
-            return true;
-        else
-            return false;
+    private boolean compareString(String s1, String s2){
+        return s1.toLowerCase().equals(s2.toLowerCase());
     }
 
-    public void select(){
+    private void select(){
         // userDemand correspond to what the user wrote
         // key correspond to the key (firstname, lastname, etc)
         // This method select data from array doctors where the conditions of userDemand are verified
@@ -127,24 +123,13 @@ public class FilteredDoctors extends AppCompatActivity {
         doctorHashMap = selectedDoctorsHashMap;
         adapter.notifyDataSetChanged();
     }
-    public void databaseListener(){
-
-        // useful to see if DB problem or not
-//        Doctor myDoctor = new Doctor("lol", "Gregory", "House", "10/08/8010", "Revolution Street", "45", "New Jersey", "US", Gender.Male, DoctorActivity.Generalist);
-//        doctors.add(myDoctor);
-//        doctors.add(myDoctor);
-//        adapter = new FilteredDoctorAdapter(FilteredDoctors.this, doctors);
-//        recyclerView.setAdapter(adapter);
-
+    private void databaseListener(){
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    Doctor myDoctor = dataSnapshot1.getValue(Doctor.class);
-                    String key = dataSnapshot1.getKey();
-                    doctorHashMap.put(key, myDoctor);
-                    doctors.add(myDoctor);
+                    doctorHashMap.put(dataSnapshot1.getKey(), dataSnapshot1.getValue(Doctor.class));
                 }
                 allDoctors = doctorHashMap;
                 select(); // remove unwanted doctors

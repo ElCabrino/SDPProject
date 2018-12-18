@@ -82,5 +82,37 @@
     <string name="mail">Mail</string>
     <string name="password">Password</string>
     <string name="notRegisteredYet">Not registered yet ? Click here</string>
+<<<<<<< HEAD
     <string name="appCardViewDesc">appointment card view parent</string>
+=======
+    <string name="treated_patients">Treated patients</string>
+    <string name="logout">Logout</string>
+    <string name="appname">VANJEL</string>
+    <string name="profile">Profile</string>
+    <string name="next_appointment">Next Appointment</string>
+    <string name="chat">Chat</string>
+    <string name="requests">Requests</string>
+    <string name="search">Search</string>
+    <string name="nearby_doctors">Nearby doctors</string>
+    <string name="favorites">Favorites</string>
+    <string name="set_availabilities">Set availabilities</string>
+    <string name="your_medical_infos">Your medical infos</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="date">Date</string>
+    <string name="patient">Patient</string>
+    <string name="register">Register</string>
+    <string name="create_your_account">Create Your Account</string>
+    <string name="name_example_com">name@example.com</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="date_format">DD/MM/YYYY</string>
+    <string name="street">Street</string>
+    <string name="number">Number</string>
+    <string name="city">City</string>
+    <string name="postcode">PostCode</string>
+    <string name="country">Country</string>
+    <string name="enter_new_information">Enter new information</string>
+    <string name="personal_appointments">Personal Appointments</string>
+>>>>>>> master
 </resources>

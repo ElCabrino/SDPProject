@@ -21,16 +21,18 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
+
             <TextView
                 android:id="@+id/lastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="doctor information last name"
-                android:paddingRight="20dp"
+                android:paddingRight="5dp"
                 android:text="LastName"
-                android:textColor="@android:color/black"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/firstName"
@@ -38,14 +40,10 @@
                 android:layout_height="33dp"
                 android:text="FirstName"
                 android:textSize="23sp"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#000000" />
 
-            <Button
-                android:id="@+id/addToFavoriteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="favorite" />
 
         </LinearLayout>
 
@@ -56,80 +54,145 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/topDocInfo"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@+id/activity"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="activity"
-                android:textStyle="italic"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="22sp" />
+
+
 
             <!-- adresse -->
+
+
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
 
                 <TextView
-                    android:id="@+id/street"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="street"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="22sp" />
+                    android:text="Activity"
+                    android:textSize="13sp" />
+
 
                 <TextView
-                    android:id="@+id/streetNumber"
+                    android:id="@+id/activity"
+                    android:gravity="center_horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="streetNumber"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="22sp" />
+                    android:text="activity"
+                    android:textStyle="italic"
+                    android:textColor="#000000"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adresse"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/street"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="street"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="#000000"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/streetNumber"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="streetNumber"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="#000000"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/streetNumber"
+                    android:text="city"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/country"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@+id/city"
+                    android:text="country"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+
+
+
 
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/city"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/streetNumber"
-                android:text="city"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/country"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/city"
-                android:text="country"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="22sp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp">
 
                 <Button
                     android:id="@+id/buttonTakeAppointment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Take Appointment" />
+                    android:layout_width="35dip"
+                    android:layout_marginTop="5dip"
+                    android:layout_height="35dip"
+                    android:background="@drawable/appointment"
+                    android:layout_marginRight="50dp"/>
 
                 <Button
                     android:id="@+id/buttonChat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="CHAT" />
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_marginTop="5dip"
+                    android:background="@drawable/chat"
+                    android:layout_marginRight="45dp"/>
+
+                <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                    android:id="@+id/addToFavoriteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_alignParentRight="true" />
+
+
+
+
             </LinearLayout>
 
         </LinearLayout>
@@ -137,15 +200,16 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapViewDoctorInfo"
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_height="340dp" />
 
         <!--<TextView-->
-            <!--android:id="@+id/doctorUID"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="doctorUID"-->
-            <!--tools:layout_editor_absoluteX="118dp"-->
-            <!--tools:layout_editor_absoluteY="160dp" />-->
+        <!--android:id="@+id/doctorUID"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="doctorUID"-->
+        <!--tools:layout_editor_absoluteX="118dp"-->
+        <!--tools:layout_editor_absoluteY="160dp" />-->
     </LinearLayout>
 
 

@@ -1,12 +1,16 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel.doctorAppointment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
@@ -33,10 +38,16 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_appointment_list);
-        this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
-        this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
-        initAdapter();
-        getAppointments();
+        FirebaseUser user = FirebaseAuthCustomBackend.getInstance().getCurrentUser();
+        if (user != null) {
+            this.uid = FirebaseAuthCustomBackend.getInstance().getCurrentUser().getUid();
+            this.dbReferenceAppointments = FirebaseDatabaseCustomBackend.getInstance().getReference("Requests");
+            initAdapter();
+            getAppointments();
+        } else {
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void initAdapter() {
@@ -53,24 +64,33 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         dbReferenceAppointments.addValueEventListener(valueListener);
     }
 
-    public ValueEventListener getAppointmentValueEventListener() {
+    private ValueEventListener getAppointmentValueEventListener() {
         return new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.appointmentsList = new ArrayList<>();
                 for (DataSnapshot request : dataSnapshot.getChildren()) {
-                    refreshAppointmentsList(request);
+                    try {
+                        refreshAppointmentsList(request);
+                    } catch (FirebaseException e) {
+                        showError();
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("ERROR", "The read failed: "+databaseError.getCode());
             }
         };
     }
 
-    private void refreshAppointmentsList(DataSnapshot request) {
+    private void showError() {
+        Toast.makeText(this, "An error occured while fetching the data", Toast.LENGTH_LONG).show();
+    }
+
+    private void refreshAppointmentsList(DataSnapshot request) throws FirebaseException {
         String day, hour, patientUid, doctorUid, appointmentID, duration;
         appointmentID = request.getKey();
         day = request.child("date").getValue(String.class);
@@ -78,8 +98,16 @@ public class DoctorAppointmentsList extends AppCompatActivity{
         hour = request.child("time").getValue(String.class);
         patientUid = request.child("patient").getValue(String.class);
         duration = request.child("duration").getValue(String.class);
-        if ((this.uid.equals(doctorUid))&&(Integer.valueOf(duration) == 0)){ //refresh with new element
+        if (duration!=null) {
             Appointment appointment = new Appointment(day, hour, doctorUid, patientUid, appointmentID);
+            refresh(doctorUid, duration, appointment);
+        } else {
+            throw new FirebaseException("Error while fetching the data");
+        }
+    }
+
+    private void refresh(String doctorUid, String duration, Appointment appointment){
+        if ((this.uid.equals(doctorUid)) && (Integer.valueOf(duration) == 0)) { //refresh with new element
             adapter.appointmentsList.add(appointment);
             adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
@@ -87,6 +115,5 @@ public class DoctorAppointmentsList extends AppCompatActivity{
             adapter = new DoctorAppointmentListAdapter(this, adapter.appointmentsList);
             recyclerView.setAdapter(adapter);
         }
-
     }
 }

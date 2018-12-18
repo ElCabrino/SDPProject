@@ -1,6 +1,6 @@
 package ch.epfl.sweng.vanjel.chat;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +16,19 @@ import ch.epfl.sweng.vanjel.R;
  *
  * @author Etienne Caquot
  */
-public class MessageListAdapter extends RecyclerView.Adapter {
+class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private Context mContext;
-    private List<Message> mMessageList;
-    private String mUserUid;
+    private final List<Message> mMessageList;
+    private final String mUserUid;
 
     /**
      * Constructor of MessageListAdapter
-     * @param context the context of Adapter
      * @param messageList the list of all message to put in the adapter
+     * @param userUid the user's id
      */
-    public MessageListAdapter(Context context, List<Message> messageList, String userUid) {
-        mContext = context;
+    MessageListAdapter(List<Message> messageList, String userUid) {
         mMessageList = messageList;
         mUserUid = userUid;
     }
@@ -50,8 +48,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_send_message, parent, false);
@@ -63,7 +62,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message message = mMessageList.get(position);
         if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_SENT) {
             ((MessageHolder) holder).bind(message);
@@ -77,7 +76,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
      * A ViewHolder for messages
      */
     private class MessageHolder extends RecyclerView.ViewHolder {
-        TextView messageText, timeText;
+        final TextView messageText;
+        final TextView timeText;
 
         /**
          * Create ViewHolder

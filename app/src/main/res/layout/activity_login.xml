@@ -68,6 +68,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:contentDescription="login button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:text="Login"
             android:visibility="visible" />
 

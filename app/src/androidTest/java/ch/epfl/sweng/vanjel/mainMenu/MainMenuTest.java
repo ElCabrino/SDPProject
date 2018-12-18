@@ -12,9 +12,9 @@ import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.appointment.DoctorAppointmentsList;
-import ch.epfl.sweng.vanjel.appointment.DoctorComingAppointments;
 import ch.epfl.sweng.vanjel.chat.ChatListActivity;
+import ch.epfl.sweng.vanjel.doctorAppointment.DoctorAppointmentsList;
+import ch.epfl.sweng.vanjel.doctorAppointment.DoctorComingAppointments;
 import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;

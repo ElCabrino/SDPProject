@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
-/**
+/*
  * Since this class is mostly mock initialisation for the tests, it is ignore by code climate.
  */
 

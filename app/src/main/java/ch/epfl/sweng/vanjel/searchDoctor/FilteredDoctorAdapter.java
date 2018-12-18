@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,19 +32,20 @@ import ch.epfl.sweng.vanjel.models.Doctor;
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
-    ArrayList<Doctor> doctors;
-    HashMap<String, Doctor> doctorHashMap;
-    Context context;
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    DatabaseReference ref;
+    private final ArrayList<Doctor> doctors;
+    private final HashMap<String, Doctor> doctorHashMap;
+    private final Context context;
 
-    Boolean isForward;
-    HashMap<String, Object> isForwardDetails;
-    private HashMap<String, Doctor> allDoctors;
+    private final DatabaseReference ref;
+
+    private final Boolean isForward;
+    private final HashMap<String, Object> isForwardDetails;
+    private final HashMap<String, Doctor> allDoctors;
 
 
-    public FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
+
+    FilteredDoctorAdapter(Context context, HashMap<String, Doctor> data, Boolean isForward, HashMap<String, Object> isForwardDetails, HashMap<String, Doctor> allDoctors){
 
         this.doctorHashMap = data;
         this.context = context;
@@ -55,11 +55,11 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
         doctors = new ArrayList<>();
 
+        FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
         ref = database.getReference("Forwards");
 
         // loop for to take doctorHashmap to doctor
-        for(Doctor doc: doctorHashMap.values())
-            doctors.add(doc);
+        doctors.addAll(doctorHashMap.values());
 
     }
 
@@ -80,10 +80,10 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
         viewHolder.city.setText(doctors.get(i).getCity());
         viewHolder.country.setText(doctors.get(i).getCountry());
 
-        final int id = i;
-
         // we need to give the uid of the doctor the user want to see
-        final String finalKey = getDoctorUIDWithKey(id);
+        final String finalKey = getDoctorUIDWithKey(i);
+
+        final int id = i;
 
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,21 +102,21 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
                 isForwardDetails.put("doctor2name", doctors.get(id).toString());
                 isForwardDetails.put("doctor2UID", finalKey);
                 String doctor1UID = (String) isForwardDetails.get("doctor1UID");
-                isForwardDetails.put("doctor1name", allDoctors.get(doctor1UID).toString());
-                DatabaseReference r1 = ref.push();
-                Task r2 = r1.updateChildren(isForwardDetails);
-                r2.addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
-                        // TODO: delete request??
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Doctor doctor = allDoctors.get(doctor1UID);
+                if (doctor != null) {
+                    isForwardDetails.put("doctor1name", doctor.toString());
+                    ref.push().updateChildren(isForwardDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context, "Forward successfully done.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "Failed forward.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }
@@ -140,13 +140,19 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstName, lastName, activity, street, streetNumber, city, country;
+        final TextView firstName;
+        final TextView lastName;
+        final TextView activity;
+        final TextView street;
+        final TextView streetNumber;
+        final TextView city;
+        final TextView country;
 
-        Button forwardButton;
+        final Button forwardButton;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             firstName = itemView.findViewById(R.id.firstName);
@@ -158,7 +164,15 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
             country = itemView.findViewById(R.id.country);
             forwardButton = itemView.findViewById(R.id.forwardButtonInFilteredDoctors);
 
-            if(!isForward) forwardButton.setVisibility(View.INVISIBLE);
+            if(!isForward) {
+
+                forwardButton.setVisibility(View.GONE);
+
+            } else {
+
+                forwardButton.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 }

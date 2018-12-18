@@ -2,7 +2,6 @@ package ch.epfl.sweng.vanjel.searchDoctor;
 
 import android.os.Bundle;
 import android.support.test.espresso.intent.Intents;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -60,7 +59,7 @@ public class SearchDoctorTest {
         setupWithExtras(SearchDoctor.class, ActivityRule, false, true, false, false, false, false, false, new HashMap<String, String>(), extras);
         fillFields();
 
-        onView(ViewMatchers.withId(R.id.firstNameSearch)).perform(scrollTo()).check(matches(withText(firstName)));
+        onView(withId(R.id.firstNameSearch)).perform(scrollTo()).check(matches(withText(firstName)));
         onView(withId(R.id.lastNameSearch)).perform(scrollTo()).check(matches(withText(lastName)));
         onView(withId(R.id.specialisationSearch)).perform(scrollTo()).check(matches(withText(specialisation)));
         onView(withId(R.id.citySearch)).perform(scrollTo()).check(matches(withText(city)));
@@ -76,7 +75,7 @@ public class SearchDoctorTest {
         b.putString("city", city);
 
         fillFields();
-        onView(withId(R.id.buttonSearch)).perform(scrollTo(), click());
+        onView(withId(R.id.buttonSearch)).perform(click());
         intended(hasExtra("lastName", lastName));
         intended(hasExtra("firstName", firstName));
         intended(hasExtra("specialisation", specialisation));

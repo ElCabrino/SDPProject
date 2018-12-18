@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,21 +29,29 @@ public class TreatedPatients extends AppCompatActivity {
     private List<String> treatedPatientsUID;
     private TreatedPatientsAdapter adapter;
 
-    FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treated_patients);
-        setupValues();
-        getPatientsFirebase();
+        try {
+            setupValues();
+            getPatientsFirebase();
+        } catch (FirebaseAuthInvalidUserException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setupValues() {
+    private void setupValues() throws FirebaseAuthInvalidUserException {
+        if (auth.getCurrentUser() == null) {
+            throw new FirebaseAuthInvalidUserException("treated patient", "User not logged in");
+        }
         treatedPatients = new ArrayList<>();
         treatedPatientsUID = new ArrayList<>();
         docUID = auth.getCurrentUser().getUid();
+
         recyclerView = findViewById(R.id.treatedPatientsView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
