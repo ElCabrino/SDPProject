@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 
 /**
@@ -35,19 +33,19 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 class PatientInfoDatabaseService {
 
-    private String UserID; //FirebaseAuth.getInstance().getUid();
-    private AppCompatActivity activity;
-    private DatabaseReference userDatabaseReference;
-    final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+
+    private final AppCompatActivity activity;
+    private final DatabaseReference userDatabaseReference;
+
 
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
+
+        FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+
         this.userDatabaseReference = database.getReference("Patient").child(patientID);
     }
 
-
-    //LISTENERS
 
     /**
      * A generic method for creating listeners for medical informations that can be displayed in a list.
@@ -55,11 +53,10 @@ class PatientInfoDatabaseService {
      * @param typeList a list of the type of the patient information
      * @param listView the listView corresponding to the list
      * @param category the category of the patient information
-     * @param c        the class used
+     * @param c        the class of the information
      * @param adapter  the adapter for the list and the listView
-     * @param <T>      the class used
+     * @param <T>      the class of the information
      */
-    //TODO: check if c param is needed considering T is given
     <T> void addListListener(final List<T> typeList, final ListView listView, final String category, final Class c, final ArrayAdapter<T> adapter) {
         DatabaseReference db = userDatabaseReference.child(category);
         db.addValueEventListener(new ValueEventListener() {
@@ -69,7 +66,7 @@ class PatientInfoDatabaseService {
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
 
                     T item = (T) snap.getValue(c);
-                    typeList.add((T) item);
+                    typeList.add(item);
 
                 }
                 listView.setAdapter(adapter);
@@ -106,7 +103,7 @@ class PatientInfoDatabaseService {
         });
     }
 
-    //LISTVIEW LISTENERS FOR UPDATING ITEMS
+    //ListView listeners for updating information
     void listViewListener(ListView listView, final List<? extends Info> typeList, final String category, final Context context) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -115,7 +112,7 @@ class PatientInfoDatabaseService {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String oldInfo = typeList.get(i).getAndroidInfo();
                 View dialogView = getDialogView(category, inflater);
-                showUpdateInfoString(oldInfo, category, dialogView, dialogBuilder);
+                showUpdateInfo(oldInfo, category, dialogView, dialogBuilder);
             }
         });
     }
@@ -143,7 +140,15 @@ class PatientInfoDatabaseService {
     }
 
 
-    private void showUpdateInfoString(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
+    /**
+     * Method to display and let the user update the update View.
+     *
+     * @param oldInfo the information to be updated
+     * @param category the category of the information
+     * @param dialogView the View to be shown
+     * @param dialogBuilder an alertDialog Builder
+     */
+    private void showUpdateInfo(final String oldInfo, final String category, View dialogView, AlertDialog.Builder dialogBuilder) {
         dialogBuilder.setView(dialogView);
         final UpdateViewsHolder holder = getHolder(category, dialogView);
         dialogBuilder.setTitle(String.format("Updating %s", category.toLowerCase()));
@@ -161,7 +166,7 @@ class PatientInfoDatabaseService {
                     return;
                 }*/
                 deleteItem(oldInfo, category);
-                addItemToDatabase(category, info);
+                addItemToDatabase(info,category);
 
                 alertDialog.dismiss();
             }
@@ -227,14 +232,14 @@ class PatientInfoDatabaseService {
     }
 
 
-    //SETTERS
+    //Setters
     /**
-     * Method for adding informations on firebase for medical informations that can be displayed in a list.
+     * Method for adding patient information on firebase for medical informations that can be displayed in a list.
      *
-     * @param category category of the medical information
      * @param info the information
+     * @param category category of the medical information
      */
-    void addItemToDatabase(String category, Info info) {
+    void addItemToDatabase(Info info,String category) {
         String firebaseName = info.getAndroidInfo();
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
@@ -249,6 +254,7 @@ class PatientInfoDatabaseService {
 
         } else {
             Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.", toastText.toLowerCase()), Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -269,17 +275,7 @@ class PatientInfoDatabaseService {
         }
     }
 
-    //TODO: check if method needed
-    /*void updateCondition(String info, String category) {
-        DatabaseReference dbCat = userDatabaseReference.child(category).child(info);
-        InfoString cond = new InfoString(info);
-        dbCat.setValue(cond);
-        Toast.makeText(this.activity,"Condition updated",Toast.LENGTH_LONG).show();
-
-    }*/
-
     //TODO: fix delete toast display when updating
-
     /**
      * Method to delete an item from firebase.
      *

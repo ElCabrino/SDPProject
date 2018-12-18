@@ -1,11 +1,13 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 /**
+ * Class to represent a surgery.
+ *
  * @author Nicolas BRANDT
  * @reviewer Vincent CABRINI
  */
 public class Surgery extends Info{
-    String type;
-    String year;
+    private String type;
+    private String year;
 
     public Surgery() {}
 
