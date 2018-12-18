@@ -15,7 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
@@ -27,7 +29,7 @@ public class TreatedPatientsActivity extends AppCompatActivity {
 
     private String docUID;
     private RecyclerView recyclerView;
-    private ArrayList<Patient> treatedPatients;
+    private Map<String,Patient> treatedPatients;
     private List<String> treatedPatientsUID;
     private TreatedPatientsAdapter adapter;
     private TextView noTreated;
@@ -52,7 +54,7 @@ public class TreatedPatientsActivity extends AppCompatActivity {
         if (auth.getCurrentUser() == null) {
             throw new FirebaseAuthInvalidUserException("treated patient", "User not logged in");
         }
-        treatedPatients = new ArrayList<>();
+        treatedPatients = new HashMap<>();
         treatedPatientsUID = new ArrayList<>();
         docUID = auth.getCurrentUser().getUid();
 
@@ -84,8 +86,9 @@ public class TreatedPatientsActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
-                        if (treatedPatientsUID.contains(dataSnapshot1.getKey())) {
-                            treatedPatients.add(dataSnapshot1.getValue(Patient.class));
+                        String uid = dataSnapshot1.getKey();
+                        if (treatedPatientsUID.contains(uid)) {
+                            treatedPatients.put(uid,dataSnapshot1.getValue(Patient.class));
                         }
                     }
                     adapter = new TreatedPatientsAdapter(TreatedPatientsActivity.this, treatedPatients);
