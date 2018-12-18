@@ -39,9 +39,7 @@ class PatientInfoDatabaseService {
 
     PatientInfoDatabaseService(AppCompatActivity activity, String patientID) {
         this.activity = activity;
-
         FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-
         this.userDatabaseReference = database.getReference("Patient").child(patientID);
     }
 
@@ -208,7 +206,7 @@ class PatientInfoDatabaseService {
      * @param androidName the main information field, used by all informations
      * @param additionalField1 an additional information field, will be null if the category does not require it
      * @param additionalField2 an additional information field, will be null if the category does not require it
-     * @return the medical information of the category if the informations were entered in the field, or null if a field is missing
+     * @return the medical information of the category
      */
     private Info getCorrectInfo(String category, EditText androidName, EditText additionalField1, EditText additionalField2) {
         switch (category) {
