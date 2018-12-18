@@ -34,8 +34,9 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
  */
 public class AppointmentNotificationBackgroundService extends Service {
 
-    private FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
-    private FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
+
+    private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -63,8 +64,11 @@ public class AppointmentNotificationBackgroundService extends Service {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
+
+                //ensure getValue return a non null object
                 String doctor = dataSnapshot.child("doctor").getValue().toString();
-                Boolean notify = Boolean.parseBoolean(dataSnapshot.child("doctorNotified").getValue().toString());
+                String notified = dataSnapshot.child("doctorNotified").getValue().toString();
+                Boolean notify = Boolean.parseBoolean(notified);
                 if (!notify) {
                     String title = "New appointment";
                     String text = "A patient took a new appointment!";
@@ -137,18 +141,21 @@ public class AppointmentNotificationBackgroundService extends Service {
         } else {
             pIntent = setupActivityToRun(DoctorAppointmentsList.class);
         }
-        if(auth.getCurrentUser() != null && auth.getCurrentUser().getUid().equals(id)) {
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(title)
-                    .setContentText(text)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setPriority(0x00000002)
-                    .setContentIntent(pIntent);
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (auth.getCurrentUser()!=null) {
+            if (id.equals(auth.getCurrentUser().getUid())) {
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "appointmentID")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(title)
+                        .setContentText(text)
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setPriority(0x00000002)
+                        .setContentIntent(pIntent);
 
-            notificationManager.notify(0, mBuilder.build());
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                notificationManager.notify(0, mBuilder.build());
+            }
         }
     }
 }
