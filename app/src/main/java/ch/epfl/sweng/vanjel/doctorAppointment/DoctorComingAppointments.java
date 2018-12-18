@@ -146,7 +146,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
     }
 
 
-    public void patientListener() {
+    private void patientListener() {
 
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
