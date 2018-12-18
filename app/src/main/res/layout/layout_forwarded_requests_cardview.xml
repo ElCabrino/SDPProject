@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/forwardCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:background="@drawable/background_item"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
     <!-- Full cardview -->
+
     <LinearLayout
+        android:id="@+id/linearLayoutForward"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#d3d3d3"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <!-- Left container with sended doctor and adviced doctor -->
@@ -26,20 +37,19 @@
                 android:id="@+id/firstDoctorRequested"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="sans-serif-light"
                 android:text="Doctor 1"
                 android:textColor="@android:color/black"
-                android:fontFamily="sans-serif-light"
-                android:layout_marginBottom="5dp"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/adviced_you_to_visit"
-                android:textColor="@android:color/darker_gray"
-                android:fontFamily="sans-serif-light"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/adviced_you_to_visit"
                 android:textSize="20sp"
                 android:textStyle="italic" />
 
@@ -47,9 +57,9 @@
                 android:id="@+id/secondDoctorAdviced"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:text="Doctor 2"
                 android:textColor="@android:color/black"
-                android:fontFamily="sans-serif-light"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -62,29 +72,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:paddingLeft="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="15dp">
 
             <Button
                 android:id="@+id/seeForwadedDoctor"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:text="See Doctor" />
 
             <Button
                 android:id="@+id/deleteForwardRequest"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:text="Delete" />
-
 
 
         </LinearLayout>
 
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.01"
+        android:background="#dfdfdf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutForward" />
 
 
 </android.support.constraint.ConstraintLayout>

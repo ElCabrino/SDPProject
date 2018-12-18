@@ -207,7 +207,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
     }
 
     private void storeTreatedPatientFirebase(final String doctorUID, final String patientUID, final String date) {
-        database.getReference("Doctor").child(doctorUID).child("TreatedPatients").addValueEventListener(new ValueEventListener() {
+        database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 treatedPatientsMap = new ArrayList<>();
@@ -217,7 +217,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
                 if (treatedPatientsMap == null || !(treatedPatientsMap.contains(patientUID))) {
                     Map<String, Object> newPatient = new HashMap<>();
                     newPatient.put(patientUID, date);
-                    database.getReference("Doctor").child(doctorUID).child("TreatedPatients").updateChildren(newPatient);
+                    database.getReference("Doctor").child(doctorUID).child("TreatedPatientsActivity").updateChildren(newPatient);
                 }
             }
 

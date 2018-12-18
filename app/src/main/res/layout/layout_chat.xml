@@ -73,6 +73,7 @@
         android:id="@+id/view6"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="0.01"
         android:background="#dfdfdf"
         app:layout_constraintEnd_toEndOf="parent"

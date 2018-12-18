@@ -18,15 +18,15 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.vanjel.TestHelper.restoreMockFlags;
 import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 
-public class TreatedPatientsTest {
+public class TreatedPatientsActivityTest {
 
     @Rule
-    public final ActivityTestRule<TreatedPatients> mActivityRule =
-            new ActivityTestRule<>(TreatedPatients.class, true, false);
+    public final ActivityTestRule<TreatedPatientsActivity> mActivityRule =
+            new ActivityTestRule<>(TreatedPatientsActivity.class, true, false);
 
     @Test
     public void displayTreatedPatientsTest() throws Exception {
-        setupNoExtras(TreatedPatients.class, mActivityRule, false, false, false, false, false, false, false);
+        setupNoExtras(TreatedPatientsActivity.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(ViewMatchers.withId(R.id.firstName)).check(matches(withText("fn_ptest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_ptest1")));

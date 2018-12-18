@@ -323,7 +323,7 @@ public final class FirebaseDatabaseCustomBackend {
     private void initTreatedPatientsMock() {
         List<DataSnapshot> treatedRefs = new ArrayList<>();
         treatedRefs.add(treatedPatientsDatasnapshot);
-        when(doctor1DB.child("TreatedPatients")).thenReturn(treatedPatientsRef);
+        when(doctor1DB.child("TreatedPatientsActivity")).thenReturn(treatedPatientsRef);
         doAnswer(new Answer<ValueEventListener>() {
             @Override
             public ValueEventListener answer(InvocationOnMock invocation){

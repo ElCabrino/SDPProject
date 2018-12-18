@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
@@ -16,18 +17,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.models.Patient;
 
-public class TreatedPatients extends AppCompatActivity {
+public class TreatedPatientsActivity extends AppCompatActivity {
 
     private String docUID;
     private RecyclerView recyclerView;
     private ArrayList<Patient> treatedPatients;
     private List<String> treatedPatientsUID;
     private TreatedPatientsAdapter adapter;
+    private TextView noTreated;
 
     private final FirebaseDatabase database = FirebaseDatabaseCustomBackend.getInstance();
     private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
@@ -36,6 +39,7 @@ public class TreatedPatients extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treated_patients);
+        noTreated = findViewById(R.id.noTreated);
         try {
             setupValues();
             getPatientsFirebase();
@@ -57,7 +61,7 @@ public class TreatedPatients extends AppCompatActivity {
     }
 
     private void getPatientsFirebase() {
-        database.getReference("Doctor").child(docUID).child("TreatedPatients").addValueEventListener(new ValueEventListener() {
+        database.getReference("Doctor").child(docUID).child("TreatedPatientsActivity").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
@@ -84,9 +88,10 @@ public class TreatedPatients extends AppCompatActivity {
                             treatedPatients.add(dataSnapshot1.getValue(Patient.class));
                         }
                     }
-                    adapter = new TreatedPatientsAdapter(TreatedPatients.this, treatedPatients);
+                    adapter = new TreatedPatientsAdapter(TreatedPatientsActivity.this, treatedPatients);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    LayoutHelper.adaptLayoutIfNoData(treatedPatients.isEmpty(),noTreated);
                 }
 
                 @Override

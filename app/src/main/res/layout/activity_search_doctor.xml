@@ -44,6 +44,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
                 android:hint="First name"
+                android:imeOptions="actionDone"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -61,6 +62,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
                 android:hint="Last name"
+                android:imeOptions="actionDone"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
@@ -77,6 +79,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
                 android:hint="Specialisation"
+                android:imeOptions="actionDone"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
@@ -93,6 +96,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
                 android:hint="City"
+                android:imeOptions="actionDone"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 

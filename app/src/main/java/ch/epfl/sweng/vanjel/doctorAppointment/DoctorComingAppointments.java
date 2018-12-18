@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
@@ -50,6 +52,8 @@ public class DoctorComingAppointments extends AppCompatActivity {
     private Boolean appointmentsReady = false;
     private Boolean patientHashMapReady = false;
 
+    private TextView noAppointments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +79,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
         adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         currentDate = new Date();
-
+        noAppointments = findViewById(R.id.docNoAppointements);
     }
 
     private void getAppointments(){
@@ -102,6 +106,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
                 Collections.sort(doctorAppointments, new AppointmentComparator());
                 appointmentsReady = true;
                 if(patientHashMapReady) notifyAdapter();
+
 
 
             }
@@ -172,5 +177,6 @@ public class DoctorComingAppointments extends AppCompatActivity {
         adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        LayoutHelper.adaptLayoutIfNoData(doctorAppointments.isEmpty(),noAppointments);
     }
 }

@@ -31,7 +31,7 @@ import ch.epfl.sweng.vanjel.patientAppointment.PatientPersonalAppointments;
 import ch.epfl.sweng.vanjel.patientInfo.PatientInfo;
 import ch.epfl.sweng.vanjel.profile.Profile;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
-import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
+import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatientsActivity;
 
 /**
  * @author Etienne CAQUOT
@@ -145,7 +145,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
                         .putExtra("doctor1Forward","").putExtra("patientForward",""));
                 break;
             case R.id.treatedMainMenu:
-                startActivity(new Intent(this, TreatedPatients.class));
+                startActivity(new Intent(this, TreatedPatientsActivity.class));
                 break;
             case R.id.nearbyMainMenu:
                 startActivity(new Intent(this, NearbyDoctor.class));

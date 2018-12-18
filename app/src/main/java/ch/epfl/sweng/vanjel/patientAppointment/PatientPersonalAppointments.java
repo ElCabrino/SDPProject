@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import ch.epfl.sweng.vanjel.LayoutHelper;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
@@ -152,7 +152,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
                     }
                 });*/
 
-                AdaptLayoutIfNoAppointment(apList.isEmpty());
+                LayoutHelper.adaptLayoutIfNoData(apList.isEmpty(),noAppointment);
             }
 
             @Override
@@ -163,22 +163,13 @@ public class PatientPersonalAppointments extends AppCompatActivity {
     }
 
 
-    private void addAppointment(String duration, String doc, String loc, String date, String time){
+    private void addAppointment(String duration, String doc, String loc, String date, String time) {
         if (duration != null) {
             Boolean pending = Integer.parseInt(duration) == 0;
             PtPersonalAppointment ap = new PtPersonalAppointment(doc, loc, date, time, duration, pending);
             apList.add(ap);
         }
     }
-
-    private void AdaptLayoutIfNoAppointment(boolean isEmpty) {
-        if(isEmpty){
-            noAppointment.setVisibility(View.VISIBLE);
-        } else {
-            noAppointment.setVisibility(View.GONE);
-        }
-    }
-
 
     private class appointmentsComparator implements Comparator<PtPersonalAppointment> {
         @Override
