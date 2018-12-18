@@ -9,6 +9,7 @@ import android.view.View;
 
 import org.hamcrest.Matcher;
 import org.junit.AfterClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,6 +83,7 @@ public class DoctorAppointmentsListTest {
         onView(withId(16908314)).check(matches(withText("Cancel"))).perform(click());
     }
 
+    @Ignore
     @Test
     public void declineAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
