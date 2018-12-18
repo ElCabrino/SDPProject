@@ -9,6 +9,7 @@ import android.view.View;
 
 import org.hamcrest.Matcher;
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +41,12 @@ public class DoctorAppointmentsListTest {
     @Rule
     public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
             new IntentsTestRule<>(DoctorAppointmentsList.class, true, false);
+
+    // First test launched on Travis. Wait 1 minute to avoid idle intent error.
+    @BeforeClass
+    public static void waitForStarted() throws Exception {
+        TimeUnit.SECONDS.sleep(60);
+    }
 
     @Test
     public void acceptAppointmentTest() throws Exception {
