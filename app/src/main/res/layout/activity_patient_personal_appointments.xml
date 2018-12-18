@@ -19,7 +19,7 @@
             android:drawableLeft="@drawable/appointment"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text=" Your Next Appointments"
+            android:text="Your Next Appointments"
             android:textSize="24sp" />
 
         <View
