@@ -75,7 +75,7 @@ public class SearchDoctorTest {
         b.putString("city", city);
 
         fillFields();
-        onView(withId(R.id.buttonSearch)).perform(click());
+        onView(withId(R.id.buttonSearch)).perform(scrollTo(), click());
         intended(hasExtra("lastName", lastName));
         intended(hasExtra("firstName", firstName));
         intended(hasExtra("specialisation", specialisation));

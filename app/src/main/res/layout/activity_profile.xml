@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".profile.Profile">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -182,5 +185,6 @@
         </RelativeLayout>
 
     </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
