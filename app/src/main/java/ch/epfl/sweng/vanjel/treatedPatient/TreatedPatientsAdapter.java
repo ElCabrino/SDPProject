@@ -40,7 +40,7 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull TreatedPatientsAdapter.ViewHolder viewHolder,int i) {
         viewHolder.firstName.setText(treatedPatients.get(i).getFirstName());
         viewHolder.lastName.setText(treatedPatients.get(i).getLastName());
         viewHolder.street.setText(treatedPatients.get(i).getStreet());
@@ -48,10 +48,12 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
         viewHolder.city.setText(treatedPatients.get(i).getCity());
         viewHolder.country.setText(treatedPatients.get(i).getCountry());
 
+        final int pos = i;
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DoctorPatientInfo.class).putExtra("patientUID",mapPatients.get(i));
+                Intent intent = new Intent(context, DoctorPatientInfo.class).putExtra("patientUID",mapPatients.get(pos));
                 context.startActivity(intent);
             }
         });
