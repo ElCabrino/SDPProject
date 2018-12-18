@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,9 +16,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:drawableLeft="@drawable/appointment"
+            android:drawablePadding="5dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="Your Next Appointments"
+            android:text="@string/next_appointment"
             android:textSize="24sp" />
 
         <View
