@@ -73,7 +73,7 @@ public class DoctorAppointmentsListTest {
     }
 
     @Test
-    public void acceptCancelAppointmentTest() throws InterruptedException{
+    public void acceptCancelAppointmentTest() throws InterruptedException {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         // click accept button but changes his mind and click cancel
@@ -83,7 +83,6 @@ public class DoctorAppointmentsListTest {
         onView(withId(16908314)).check(matches(withText("Cancel"))).perform(click());
     }
 
-    @Ignore
     @Test
     public void declineAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
