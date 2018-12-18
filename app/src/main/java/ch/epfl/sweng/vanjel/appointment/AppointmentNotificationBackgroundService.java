@@ -81,7 +81,7 @@ public class AppointmentNotificationBackgroundService extends Service {
 
                 String patient = dataSnapshot.child("patient").toString();
                 String bool = dataSnapshot.child("userNotified").toString();
-                String durationString = dataSnapshot.child("duration").toString();
+                String durationString = dataSnapshot.child("duration").getValue().toString();
 
                 int duration = Integer.parseInt(durationString);
                 Boolean notify = Boolean.parseBoolean(bool);

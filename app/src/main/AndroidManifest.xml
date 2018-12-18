@@ -55,7 +55,7 @@
         <activity android:name=".doctorAppointment.DoctorAppointmentsList" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".chat.ChatListActivity" />
-        <activity android:name=".treatedPatient.TreatedPatients" />
+        <activity android:name=".treatedPatient.TreatedPatientsActivity" />
         <activity android:name=".favoriteList.PatientFavoriteListActivity" />
         <activity android:name=".forwardRequest.ForwardRequest"></activity>
         <activity android:name=".mainMenu.MainMenu"></activity>
