@@ -21,7 +21,7 @@ import ch.epfl.sweng.vanjel.nearbyDoctor.NearbyDoctor;
 import ch.epfl.sweng.vanjel.patientAppointment.PatientPersonalAppointments;
 import ch.epfl.sweng.vanjel.patientInfo.PatientInfo;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
-import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatients;
+import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatientsActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -86,7 +86,7 @@ public class MainMenuTest {
         setupNoExtras(MainMenu.class, mActivityRule, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.treatedMainMenu)).perform(click());
-        intended(hasComponent(TreatedPatients.class.getName()));
+        intended(hasComponent(TreatedPatientsActivity.class.getName()));
     }
 
     @Test

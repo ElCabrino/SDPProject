@@ -17,14 +17,23 @@
             android:gravity="center"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text=" Requets"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:text=" Requests"
+            android:textSize="24sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/noRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="You don't have any requets"
+            android:textSize="18sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/appointmentCardView"
