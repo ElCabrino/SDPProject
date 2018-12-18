@@ -10,7 +10,7 @@
         android:fontFamily="sans-serif-light"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/common_google_signin_btn_text_light_focused"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
 
 
