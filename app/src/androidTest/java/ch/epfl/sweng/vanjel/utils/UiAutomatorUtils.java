@@ -5,12 +5,12 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
-public final class UiAutomatorUtils {
+final class UiAutomatorUtils {
 
-    public static final String TEXT_ALLOW = "ALLOW";
-    public static final String TEXT_DENY = "DENY";
-    public static final String TEXT_NEVER_ASK_AGAIN = "Don't ask again";
-    public static final String TEXT_PERMISSIONS = "Permissions";
+    private static final String TEXT_ALLOW = "ALLOW";
+    private static final String TEXT_DENY = "DENY";
+    private static final String TEXT_NEVER_ASK_AGAIN = "Don't ask again";
+    private static final String TEXT_PERMISSIONS = "Permissions";
 
     private UiAutomatorUtils() {
         // no instances
@@ -39,7 +39,7 @@ public final class UiAutomatorUtils {
         allowButton.click();
     }
 
-    public static void denyCurrentPermission(UiDevice device) throws UiObjectNotFoundException {
+    private static void denyCurrentPermission(UiDevice device) throws UiObjectNotFoundException {
         UiObject denyButton = device.findObject(new UiSelector().text(TEXT_DENY));
         denyButton.click();
     }

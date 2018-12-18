@@ -93,7 +93,7 @@ public class ForwardRequest extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                // in case the the forward is updated, we need to remove ther old stuff
+                // in case the the forward is updated, we need to remove the old stuff
                 forward = new HashMap<>();
 
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){

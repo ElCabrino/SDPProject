@@ -11,8 +11,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class SurgeryTest {
 
-    String typeSurgery = "eye laser";
-    String year = "2018";
+    private final String typeSurgery = "eye laser";
+    private final String year = "2018";
 
     @Test
     public void testEntityEmptyConstructor(){

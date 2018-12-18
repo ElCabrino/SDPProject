@@ -16,7 +16,6 @@ import ch.epfl.sweng.vanjel.registration.ChooseRegistration;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -34,10 +33,10 @@ import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
 
-    private LoginHelper helper = new LoginHelper();
+    private final LoginHelper helper = new LoginHelper();
 
-    private String email = "test@test.ch";
-    private String password = "123456";
+    private final String email = "test@test.ch";
+    private final String password = "123456";
 
     @Rule
     public final ActivityTestRule<LoginActivity> ActivityRule =

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/doctorDistanceView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -31,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
-                android:text="lastName"
+                android:text="@string/last_name"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -41,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
-                android:text="activity"
+                android:text="@string/activity"
                 android:textSize="20sp" />
 
             <TextView
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
-                android:text="address"
+                android:text="@string/address"
                 android:textSize="20sp"
                 android:textStyle="italic" />
 
@@ -65,7 +64,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="Distance" />
+            android:text="@string/distance" />
     </LinearLayout>
 
 

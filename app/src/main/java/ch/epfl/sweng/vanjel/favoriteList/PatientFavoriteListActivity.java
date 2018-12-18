@@ -20,7 +20,6 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
 
     private PatientFavoriteListAdapter adapter;
     private LocalDatabase localDatabase;
-    private TextView noFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class PatientFavoriteListActivity extends AppCompatActivity {
 
     private void refreshView(){
         setContentView(R.layout.activity_favorite_list);
-        noFavorite = findViewById(R.id.noFavorite);
+        TextView noFavorite = findViewById(R.id.noFavorite);
         //set up adapter
         RecyclerView recyclerView = findViewById(R.id.doctorFavoriteCardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

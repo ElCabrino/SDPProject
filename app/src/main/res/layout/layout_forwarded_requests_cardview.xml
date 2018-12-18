@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/forwardCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <!-- Left container with sended doctor and adviced doctor -->
+        <!-- Left container with sent doctor and advised doctor -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="sans-serif-light"
-                android:text="Doctor 1"
+                android:text="@string/doctor_1"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -59,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="Doctor 2"
+                android:text="@string/doctor_2"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -81,14 +80,14 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="See Doctor" />
+                android:text="@string/see_doctor" />
 
             <Button
                 android:id="@+id/deleteForwardRequest"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete" />
+                android:text="@string/delete" />
 
 
         </LinearLayout>

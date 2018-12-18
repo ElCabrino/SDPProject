@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class InfoStringTest {
 
-    String info = "my Info";
+    private final String info = "my Info";
 
     @Test
     public void testEntityEmptyConstructor(){

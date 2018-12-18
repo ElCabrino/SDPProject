@@ -8,9 +8,9 @@ import static org.junit.Assert.assertEquals;
 
 public class DrugTest {
 
-    String drug = "Dafalgan";
-    String dosage = "2";
-    String frequency = "3";
+    private final String drug = "Dafalgan";
+    private final String dosage = "2";
+    private final String frequency = "3";
 
     @Test
     public void testEntity() {

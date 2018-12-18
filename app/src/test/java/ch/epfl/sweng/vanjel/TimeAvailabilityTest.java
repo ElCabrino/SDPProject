@@ -9,10 +9,10 @@ import static org.junit.Assert.assertEquals;
 
 public class TimeAvailabilityTest {
 
-    private int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
+    private final int NUMBER_OF_SLOTS = TimeAvailability.getIdLength();
 
     // Id values for ToggleButtons in activity_doctor_availability
-    private int[] idValues = {
+    private final int[] idValues = {
             R.id.monday8,
             R.id.monday8_3,
             R.id.monday9,

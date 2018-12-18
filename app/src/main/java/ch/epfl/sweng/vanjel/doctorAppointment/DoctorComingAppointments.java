@@ -92,7 +92,7 @@ public class DoctorComingAppointments extends AppCompatActivity {
         adapter = new DoctorComingAppointmentsAdapter(DoctorComingAppointments.this, doctorAppointments, patientHashMap);
         recyclerView.setAdapter(adapter);
         currentDate = new Date();
-        noAppointments = findViewById(R.id.docNoAppointements);
+        noAppointments = findViewById(R.id.docNoAppointments);
     }
 
     private void getAppointments(){
@@ -148,14 +148,14 @@ public class DoctorComingAppointments extends AppCompatActivity {
 
             } else {
 
-                Toast.makeText(this, "An error occured when adding the appointment", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "An error occurred when adding the appointment", Toast.LENGTH_LONG).show();
 
             }
         }
 
     }
 
-    // check if it corresponds to a futur appointment to add it
+    // check if it corresponds to a future appointment to add it
     private void appendListAppointment(String durationText, DataSnapshot request) throws ParseException {
 
         String day, hour, patientUid, doctorUid;

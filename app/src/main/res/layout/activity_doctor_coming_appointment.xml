@@ -37,13 +37,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
-            android:id="@+id/docNoAppointements"
+            android:id="@+id/docNoAppointments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:text="You don't have any upcomming appointments"
+            android:text="@string/you_don_t_have_any_upcoming_appointments"
             android:textSize="18sp" />
 
         <android.support.v7.widget.RecyclerView

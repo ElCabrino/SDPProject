@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
             getLastMessage();
         } catch (FirebaseAuthInvalidUserException e) {
             e.printStackTrace();
-            Toast.makeText(this, "An error occured when initializing the chat", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "An error occurred when initializing the chat", Toast.LENGTH_LONG).show();
         }
     }
 
