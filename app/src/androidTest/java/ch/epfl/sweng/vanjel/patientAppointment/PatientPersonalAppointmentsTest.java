@@ -1,6 +1,5 @@
 package ch.epfl.sweng.vanjel.patientAppointment;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 

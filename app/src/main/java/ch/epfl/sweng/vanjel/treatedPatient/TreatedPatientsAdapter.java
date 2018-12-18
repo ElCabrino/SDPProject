@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
-import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
+import ch.epfl.sweng.vanjel.models.Patient;
+import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 
 public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsAdapter.ViewHolder> {
 

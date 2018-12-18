@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 
 /**
  * @author Vincent CABRINI

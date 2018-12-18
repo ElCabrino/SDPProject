@@ -7,8 +7,6 @@ import ch.epfl.sweng.vanjel.models.DoctorActivity;
 import ch.epfl.sweng.vanjel.models.Gender;
 import ch.epfl.sweng.vanjel.searchDoctor.FilteredDoctorAdapter;
 
-import static org.junit.Assert.assertEquals;
-
 public class FilteredDoctorAdapterTest {
 
     Doctor d1 = new Doctor(

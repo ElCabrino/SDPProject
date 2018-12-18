@@ -9,12 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.patientInfo.Drug;
-import ch.epfl.sweng.vanjel.patientInfo.DrugReaction;
-import ch.epfl.sweng.vanjel.patientInfo.InfoList;
-import ch.epfl.sweng.vanjel.patientInfo.InfoString;
-import ch.epfl.sweng.vanjel.patientInfo.PatientInfoDatabaseService;
-import ch.epfl.sweng.vanjel.patientInfo.Surgery;
 
 /**
  * @author Nicolas BRANDT

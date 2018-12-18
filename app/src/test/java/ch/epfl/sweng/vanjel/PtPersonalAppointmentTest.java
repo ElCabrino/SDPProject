@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import ch.epfl.sweng.vanjel.patientAppointment.PtPersonalAppointment;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PtPersonalAppointmentTest {
 
