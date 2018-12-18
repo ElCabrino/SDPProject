@@ -165,7 +165,7 @@ class PatientInfoDatabaseService {
             public void onClick(View view) {
                 Info info = getCorrectInfo(category, holder.getAndroidName(), holder.getAdditionalField1(), holder.getAdditionalField2());
                 deleteItem(oldInfo, category,true);
-                addItemToDatabase(info,category,true);
+                addItemToDatabase(info,category);
                 alertDialog.dismiss();
             }
         });
@@ -236,23 +236,18 @@ class PatientInfoDatabaseService {
      * @param info the information
      * @param category category of the medical information
      */
-    void addItemToDatabase(Info info,String category, boolean isUpdate) {
-
-        String firebaseName = info.getAndroidInfo();
+    void addItemToDatabase(Info info,String category) {
         DatabaseReference dbCat = userDatabaseReference.child(category);
         String toastText = category;
         // correct string format
         if (category.equals("DrugReaction")) {
             toastText = "Drug reaction";
         }
-
+        String firebaseName = info.getAndroidInfo();
         if (!TextUtils.isEmpty(firebaseName)) {
             dbCat.child(firebaseName).setValue(info);
-            if (isUpdate) {
-                Toast.makeText(this.activity, String.format("%s updated.", toastText), Toast.LENGTH_LONG).show();
-            } else {
+
                 Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
-            }
 
         } else {
             Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.", toastText.toLowerCase()), Toast.LENGTH_LONG).show();

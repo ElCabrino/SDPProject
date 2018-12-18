@@ -186,28 +186,28 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         switch (i) {
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(new InfoString(getTextFromField(priorConditionsReg)),"Condition",false);
+                        addItemToDatabase(new InfoString(getTextFromField(priorConditionsReg)),"Condition");
                 break;
             case R.id.buttonSurgery:
                 patientInfoDatabaseService.addItemToDatabase(new Surgery(getTextFromField(surgeriesReg),
-                        getTextFromField(surgeriesYearReg)),"Surgery",false);
+                        getTextFromField(surgeriesYearReg)),"Surgery");
                 break;
             case R.id.buttonAllergy:
                 patientInfoDatabaseService.addItemToDatabase(new InfoString(getTextFromField(allergyReg)),
-                        "Allergy",false);
+                        "Allergy");
                 break;
             case R.id.buttonDrugRegimen:
                 Drug drug = new Drug(getTextFromField(drugRegimenDrugReg), getTextFromField(drugRegimenDosageReg),
                         getTextFromField(drugRegimenTimesReg));
-                patientInfoDatabaseService.addItemToDatabase( drug,"Drug",false);
+                patientInfoDatabaseService.addItemToDatabase( drug,"Drug");
                 break;
             case R.id.buttonDrugReaction:
                 patientInfoDatabaseService.addItemToDatabase(new DrugReaction(getTextFromField(drugReactionDrugReg),
-                                getTextFromField(drugReactionReactionReg)),"DrugReaction",false);
+                                getTextFromField(drugReactionReactionReg)),"DrugReaction");
                 break;
             case R.id.buttonSubstance:
                 patientInfoDatabaseService.addItemToDatabase(new InfoString(getTextFromField(substancesReg)),
-                        "Substance",false);
+                        "Substance");
                 break;
             case R.id.buttonSmoking:
                 patientInfoDatabaseService.addAmount(getTextFromField(smokingReg), "Smoking");
