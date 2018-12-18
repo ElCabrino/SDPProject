@@ -72,7 +72,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
@@ -84,6 +84,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
         // we need to give the uid of the doctor the user want to see
         final String finalKey = getDoctorUIDWithKey(i);
+        final int id = i;
 
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +100,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
             @Override
             public void onClick(View v) {
-                isForwardDetails.put("doctor2name", doctors.get(i).toString());
+                isForwardDetails.put("doctor2name", doctors.get(id).toString());
                 isForwardDetails.put("doctor2UID", finalKey);
                 String doctor1UID = (String) isForwardDetails.get("doctor1UID");
                 Doctor doctor = allDoctors.get(doctor1UID);
