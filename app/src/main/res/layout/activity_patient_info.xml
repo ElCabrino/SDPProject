@@ -324,16 +324,18 @@
                     android:text="@string/add"
                     style="@style/Widget.AppCompat.Button.Colored"/>
 
+                <TextView
+                    android:id="@+id/ptSmokingValue"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="3"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"/>
+
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/ptSmokingValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="3"
-                android:fontFamily="sans-serif"/>
 
 
             <TextView
@@ -365,15 +367,17 @@
                     android:text="@string/add"
                     style="@style/Widget.AppCompat.Button.Colored"/>
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/ptDrinkingValue"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="3"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"/>
 
-            <TextView
-                android:id="@+id/ptDrinkingValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="3"
-                android:fontFamily="sans-serif"/>
+            </LinearLayout>
 
 
             <TextView
@@ -406,16 +410,18 @@
                     android:text="@string/add"
                     style="@style/Widget.AppCompat.Button.Colored"/>
 
+                <TextView
+                    android:id="@+id/ptExerciseValue"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="3"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"/>
+
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/ptExerciseValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="3"
-                android:fontFamily="sans-serif"/>
 
 
             <TextView
