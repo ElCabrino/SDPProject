@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -144,6 +145,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     if (location != null) {
                         userLocation = new LatLng(location.getLatitude(),location.getLongitude());
                         initMap(location);
+                        getDoctors();
                     } else {
                         Toast.makeText(NearbyDoctor.this, "Cannot find your Location " +
                                 "please open Google Maps until your Location is find and come back", Toast.LENGTH_SHORT).show();
@@ -168,7 +170,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userPosition, 18);
         gmap.animateCamera(yourLocation);
         gmap.getUiSettings().setMyLocationButtonEnabled(true);
-        getDoctors();
     }
 
     /**
@@ -182,7 +183,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
-
                     if (myDoctor!=null) {
                         LatLng doctorLocation = myDoctor.getLocationFromAddress(NearbyDoctor.this);
                         // if doctor address is incorrect we do not put his marker

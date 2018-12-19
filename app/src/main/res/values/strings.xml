@@ -126,7 +126,7 @@
     <string name="are_you">Are You ?</string>
     <string name="a_patient">A Patient</string>
     <string name="a_doctor">A Doctor</string>
-    <string name="request">Request</string>
+    <string name="request">Requests</string>
     <string name="you_don_t_have_any_requests">You don\'t have any requests</string>
     <string name="you_don_t_have_any_upcoming_appointments">You don\'t have any upcoming appointments</string>
     <string name="doctor_information_last_name">doctor information last name</string>
@@ -158,7 +158,7 @@
     <string name="frequency">Frequency</string>
     <string name="surgery">Surgery</string>
     <string name="next_appointments">Next Appointments</string>
-    <string name="you_don_t_have_any_upcoming_cappointments">You don\'t have any upcoming cappointments</string>
+    <string name="you_don_t_have_any_upcoming_cappointments">You don\'t have any upcoming appointments</string>
     <string name="specialisation">Specialisation</string>
     <string name="you_don_t_have_any_treated_patients">You don\'t have any treated patients</string>
     <string name="day">day</string>

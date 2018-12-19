@@ -1,321 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".mainMenu.MainMenu">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/logoutMainMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@color/colorAccent"
-                android:drawableTop="@drawable/logout"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/logout"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/titleMainMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:background="@color/colorAccent"
-                android:gravity="center"
-                android:text="@string/appname"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/profileMainMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@color/colorAccent"
-                android:baselineAligned="false"
-                android:drawableTop="@drawable/user"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="@string/profile"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="6">
-
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1.1"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/logoutMainMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorAccent"
+                    android:drawableTop="@drawable/logout"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/logout"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/titleMainMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:text="@string/appname"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/profileMainMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorAccent"
+                    android:baselineAligned="false"
+                    android:drawableTop="@drawable/user"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="@string/profile"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/nextAppointMainMenu"
-                    android:layout_width="0px"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:drawableTop="@drawable/appointment"
                     android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/next_appointment"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/chatMainMenu"
-                    android:layout_width="0px"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:drawableTop="@drawable/chat"
                     android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/chat"
                     android:textSize="18sp" />
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
+                android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1.1"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:weightSum="2">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
 
-                <RelativeLayout
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/requestsMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/request"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/requests"
-                         />
-
-                    <TextView
-                        android:id="@+id/searchMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/search"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/search"
-                        android:textSize="18sp"
-                         />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/treatedMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/patient"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/treated_patients"
-                         />
-
-                    <TextView
-                        android:id="@+id/nearbyMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/placeholder"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/nearby_doctors"
-                        android:textSize="18sp"
-                         />
-
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1.1"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/searchMainMenu"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/search"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/search"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/favoriteMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/star"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/favorites"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/setAvailMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/time"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/set_availabilities"
-                        android:textSize="18sp" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0px"
+                <TextView
+                    android:id="@+id/nearbyMainMenu"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/placeholder"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/nearby_doctors"
+                    android:textSize="18sp" />
+            </TableRow>
 
-                    <TextView
-                        android:id="@+id/infosMainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/border"
-                        android:drawableTop="@drawable/help"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/your_medical_infos"
-                        android:textSize="18sp"
-                         />
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TableRow
+                android:id="@+id/tableRow2"
                 android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1.1"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/requestsMainMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/request"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/requests"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/treatedMainMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/patient"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/treated_patients"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/favoriteMainMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/star"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/favorites"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/infosMainMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/help"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/your_medical_infos"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/recommendationsMainMenu"
-                    android:layout_width="0px"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:drawableTop="@drawable/recommendation"
                     android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/recommendations"
-                    android:textSize="18sp"
-                     />
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/emptySlotMainMenu"
-                    android:layout_width="0px"
+                    android:id="@+id/textView14"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/setAvailMainMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:drawableTop="@drawable/time"
                     android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/set_availabilities"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textSize="18sp"
                     android:visibility="invisible" />
-            </LinearLayout>
+            </TableRow>
 
-        </LinearLayout>
-
-    </LinearLayout>
-
-
+        </TableLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
