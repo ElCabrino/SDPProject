@@ -247,8 +247,8 @@ class PatientInfoDatabaseService {
                 Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.", toastText.toLowerCase()), Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this.activity, String.format("Please enter the %s information you want to add.",
+                    toastText.toLowerCase()), Toast.LENGTH_LONG).show();
         }
     }
 
