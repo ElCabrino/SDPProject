@@ -34,6 +34,7 @@ import java.util.Map;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.appointment.Appointment;
 import ch.epfl.sweng.vanjel.appointment.AppointmentComparator;
+import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
@@ -79,6 +80,16 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
     public void onBindViewHolder(@NonNull DoctorAppointmentListAdapter.ViewHolder viewHolder, int i) {
         Appointment appointment = appointmentsList.get(i);
         viewHolder.bind(appointment);
+
+        final String patientUID = appointmentsList.get(i).getPatientUid();
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DoctorInformation.class).putExtra("patientUID", patientUID);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
