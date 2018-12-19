@@ -44,15 +44,15 @@ public class DoctorAppointmentsListTest {
     public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
             new IntentsTestRule<>(DoctorAppointmentsList.class, true, false);
 
-    @Test
-    public void acceptAppointmentTest() throws Exception {
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
-        TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.acceptAppointmentButton)));
-        // id taken in stacktrace
-        onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
-        onView(withId(16908313)).check(matches(withText("Confirm")));
-    }
+//    @Test
+//    public void acceptAppointmentTest() throws Exception {
+//        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
+//        TimeUnit.SECONDS.sleep(1);
+//        onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.acceptAppointmentButton)));
+//        // id taken in stacktrace
+//        onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
+//        onView(withId(16908313)).check(matches(withText("Confirm")));
+//    }
 
     private ViewAction clickOnChild(final int id) {
         return new ViewAction() {
