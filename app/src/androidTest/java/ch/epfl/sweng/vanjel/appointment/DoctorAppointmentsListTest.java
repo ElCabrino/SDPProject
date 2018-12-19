@@ -45,15 +45,16 @@ public class DoctorAppointmentsListTest {
     public final ActivityTestRule<DoctorAppointmentsList> ActivityRule =
             new ActivityTestRule<>(DoctorAppointmentsList.class, true, true);
 
-//    @Test
-//    public void acceptAppointmentTest() throws Exception {
-//        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
-//        TimeUnit.SECONDS.sleep(1);
-//        onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.acceptAppointmentButton)));
-//        // id taken in stacktrace
-//        onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
-//        onView(withId(16908313)).check(matches(withText("Confirm")));
-//    }
+    @Test
+    public void acceptAppointmentTest() throws Exception {
+        ActivityRule.finishActivity();
+        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
+        TimeUnit.SECONDS.sleep(1);
+        onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.acceptAppointmentButton)));
+        // id taken in stacktrace
+        onView(withId(R.id.durationChosenByDoctor)).perform(typeText("12"), closeSoftKeyboard());
+        onView(withId(16908313)).check(matches(withText("Confirm")));
+    }
 
     private ViewAction clickOnChild(final int id) {
         return new ViewAction() {
@@ -89,6 +90,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void declineAppointmentTest() throws Exception {
+        ActivityRule.finishActivity();
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(5);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.declineAppointmentButton)));
@@ -98,6 +100,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void declineAppointmentFailedTest() throws Exception {
+        ActivityRule.finishActivity();
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(5);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.declineAppointmentButton)));
@@ -107,6 +110,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void modifyDurationTest() throws Exception {
+        ActivityRule.finishActivity();
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.acceptAppointmentButton)));
@@ -120,6 +124,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void modifyDurationFailedTest() throws Exception {
+        ActivityRule.finishActivity();
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.acceptAppointmentButton)));
@@ -133,6 +138,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void getAppointmentsCancelled() throws Exception {
+        ActivityRule.finishActivity();
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, true, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.acceptAppointmentButton)).check(doesNotExist());
