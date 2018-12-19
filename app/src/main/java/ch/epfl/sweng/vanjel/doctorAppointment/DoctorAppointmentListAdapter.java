@@ -87,8 +87,7 @@ public class DoctorAppointmentListAdapter extends RecyclerViewAdapter<DoctorAppo
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DoctorPatientInfo.class).putExtra("patientUID", patientUID);
-                context.startActivity(intent);
+                context.startActivity(new Intent(context, DoctorPatientInfo.class).putExtra("patientUID", patientUID));
             }
         });
     }
