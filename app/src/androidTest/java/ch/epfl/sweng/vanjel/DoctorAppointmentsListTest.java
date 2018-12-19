@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel.appointment;
+package ch.epfl.sweng.vanjel;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
@@ -43,14 +43,6 @@ public class DoctorAppointmentsListTest {
     @Rule
     public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
             new IntentsTestRule<>(DoctorAppointmentsList.class, true, false);
-
-    // Used as first test to avoid idle intent error on Travis.
-    @Test
-    public void aaa() {
-        ActivityRule.finishActivity();
-        setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
-        assert(true);
-    }
 
     @Test
     public void acceptAppointmentTest() throws Exception {
