@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp">
 
     <EditText
-        android:id="@+id/patientInfoUpdateDrugReactionDrug"
+        android:id="@+id/patientInfoUpdateMainInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -33,7 +33,7 @@
         android:layout_marginBottom="8dp">
 
     <EditText
-        android:id="@+id/patientInfoUpdateDrugReactionReaction"
+        android:id="@+id/patientInfoUpdateSecondaryInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,7 +49,7 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/buttonPatientInfoUpdateDrugReaction"
+            android:id="@+id/buttonPatientInfoUpdateDoubleInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -57,7 +57,7 @@
 
 
         <Button
-            android:id="@+id/buttonPatientInfoDeleteDrugReaction"
+            android:id="@+id/buttonPatientInfoDeleteDoubleInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Colored"

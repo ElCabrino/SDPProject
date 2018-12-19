@@ -1,6 +1,8 @@
 package ch.epfl.sweng.vanjel.patientInfo;
 
 /**
+ * Class to represent a drug reaction.
+ *
  * @author Nicolas BRANDT
  * @reviewer
  */

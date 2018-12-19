@@ -143,7 +143,7 @@ public class PatientInfoTest {
         for (InfoString condition : conditions) {
             onView(withId(R.id.ptPriorConditionsReg)).perform(setTextInTextView(condition.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonPriorConditions)).perform(click());
-            onView(withText("Condition added")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+            onView(withText("Condition added.")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
             TimeUnit.SECONDS.sleep(5);
         }
     }
@@ -156,7 +156,7 @@ public class PatientInfoTest {
         for (InfoString allergy : allergies) {
             onView(withId(R.id.ptAllergyReg)).perform(setTextInTextView(allergy.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonAllergy)).perform(click());
-            onView(withText("Allergy added")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+            onView(withText("Allergy added.")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
             TimeUnit.SECONDS.sleep(5);
         }
     }
@@ -170,7 +170,7 @@ public class PatientInfoTest {
         for (InfoString substance : substances) {
             onView(withId(R.id.ptSubstanceReg)).perform(setTextInTextView(substance.getInfo()), closeSoftKeyboard());
             onView(withId(R.id.buttonSubstance)).perform(click());
-            onView(withText("Substance added")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+            onView(withText("Substance added.")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
             TimeUnit.SECONDS.sleep(5);
         }
     }
@@ -184,7 +184,7 @@ public class PatientInfoTest {
             onView(withId(R.id.ptSurgeryYearReg)).perform(setTextInTextView(surgery.getYear()), closeSoftKeyboard());
             onView(withId(R.id.ptSurgeryReg)).perform(setTextInTextView(surgery.getType()), closeSoftKeyboard());
             onView(withId(R.id.buttonSurgery)).perform(click());
-            onView(withText("Surgery added")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+            onView(withText("Surgery added.")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
             TimeUnit.SECONDS.sleep(5);
         }
     }
@@ -198,7 +198,7 @@ public class PatientInfoTest {
             onView(withId(R.id.ptDrugReactionDrugReg)).perform(setTextInTextView(reaction.getDrug()), closeSoftKeyboard());
             onView(withId(R.id.ptDrugReactionReactionReg)).perform(setTextInTextView(reaction.getReaction()), closeSoftKeyboard());
             onView(withId(R.id.buttonDrugReaction)).perform(click());
-            onView(withText("DrugReaction added")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+            onView(withText("Drug reaction added.")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
             TimeUnit.SECONDS.sleep(5);
         }
     }
@@ -213,7 +213,7 @@ public class PatientInfoTest {
             onView(withId(R.id.ptDrugRegimenDosageReg)).perform(setTextInTextView(drug.getDosage()), closeSoftKeyboard());
             onView(withId(R.id.ptDrugRegimenTimesReg)).perform(setTextInTextView(drug.getFrequency()), closeSoftKeyboard());
             onView(withId(R.id.buttonDrugRegimen)).perform(click());
-            onView(withText("Drug added")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+            onView(withText("Drug added.")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
             TimeUnit.SECONDS.sleep(5);
         }
     }
@@ -266,17 +266,7 @@ public class PatientInfoTest {
         onView(withId(R.id.textViewSurgeries)).perform(scrollTo());
         onView(withId(R.id.textViewSurgeries)).perform(click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.buttonPatientInfoUpdateSurgery)).perform(click());
-    }
-
-    @Test
-    public void deleteDoubleInfo() throws InterruptedException {
-        setupNoExtras(PatientInfo.class, ActivityRule, false, true, false, false, false, false, false);
-        onView(withId(R.id.textViewSurgeries)).perform(scrollTo());
-        onView(withId(R.id.textViewSurgeries)).perform(click());
-        TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.buttonPatientInfoDeleteSurgery)).perform(click());
-        onView(withText("Surgery deleted")).inRoot(withDecorView(Matchers.not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+        onView(withId(R.id.buttonPatientInfoUpdateDoubleInfo)).perform(click());
     }
 
     @Test

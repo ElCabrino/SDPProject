@@ -75,7 +75,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-        //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
         if (auth.getCurrentUser() != null) {
             patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
             getAllEditText();
@@ -175,40 +174,36 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         patientInfoDatabaseService.listViewListener(listViewSurgeries, surgeryList, "Surgery", this);
         patientInfoDatabaseService.listViewListener(listViewDrugReactions, drugReactionList, "DrugReaction", this);
         patientInfoDatabaseService.listViewListener(listViewDrugs, drugList, "Drug", this);
-
-
     }
 
-    //TODO: consistency
     @Override
     public void onClick(View v) {
         int i = v.getId();
         switch (i) {
             case R.id.buttonPriorConditions:
                 patientInfoDatabaseService.
-                        addItemToDatabase(getTextFromField(priorConditionsReg), "Condition", new InfoString(getTextFromField(priorConditionsReg)));
+                        addItemToDatabase(new InfoString(getTextFromField(priorConditionsReg)),"Condition");
                 break;
             case R.id.buttonSurgery:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(surgeriesReg), "Surgery",
-                        new Surgery(getTextFromField(surgeriesReg), getTextFromField(surgeriesYearReg)));
+                patientInfoDatabaseService.addItemToDatabase(new Surgery(getTextFromField(surgeriesReg),
+                        getTextFromField(surgeriesYearReg)),"Surgery");
                 break;
             case R.id.buttonAllergy:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(allergyReg), "Allergy",
-                        new InfoString(allergyReg.getText().toString().trim()));
+                patientInfoDatabaseService.addItemToDatabase(new InfoString(getTextFromField(allergyReg)),
+                        "Allergy");
                 break;
             case R.id.buttonDrugRegimen:
                 Drug drug = new Drug(getTextFromField(drugRegimenDrugReg), getTextFromField(drugRegimenDosageReg),
                         getTextFromField(drugRegimenTimesReg));
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugRegimenDrugReg), "Drug", drug);
+                patientInfoDatabaseService.addItemToDatabase( drug,"Drug");
                 break;
             case R.id.buttonDrugReaction:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(drugReactionDrugReg),
-                        "DrugReaction", new DrugReaction(getTextFromField(drugReactionDrugReg),
-                                getTextFromField(drugReactionReactionReg)));
+                patientInfoDatabaseService.addItemToDatabase(new DrugReaction(getTextFromField(drugReactionDrugReg),
+                                getTextFromField(drugReactionReactionReg)),"DrugReaction");
                 break;
             case R.id.buttonSubstance:
-                patientInfoDatabaseService.addItemToDatabase(getTextFromField(substancesReg), "Substance",
-                        new InfoString(getTextFromField(substancesReg)));
+                patientInfoDatabaseService.addItemToDatabase(new InfoString(getTextFromField(substancesReg)),
+                        "Substance");
                 break;
             case R.id.buttonSmoking:
                 patientInfoDatabaseService.addAmount(getTextFromField(smokingReg), "Smoking");
@@ -223,6 +218,12 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Method used to return the trimmed string from an EditText.
+     *
+     * @param field an EditText
+     * @return the trimmed string from field
+     */
     static String getTextFromField(EditText field) {
         return field.getText().toString().trim();
     }
