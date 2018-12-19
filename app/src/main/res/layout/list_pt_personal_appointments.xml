@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:maxLines="1"
-        android:text="Date -Dr. First Last (confirmation)"
+        android:text="@string/date_dr_first_last_confirmation"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="10dp"
@@ -38,7 +37,7 @@
         android:fontFamily="sans-serif-light"
         android:textColor="#000000"
         android:maxLines="1"
-        android:text="Time, Duration minutes"
+        android:text="@string/time_duration_minutes"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textSize="18sp" />
@@ -50,7 +49,7 @@
         android:textColor="#000000"
         android:fontFamily="sans-serif-light"
         android:maxLines="1"
-        android:text="Location"
+        android:text="@string/location"
         android:textSize="18sp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

@@ -62,7 +62,7 @@
         android:fontFamily="sans-serif-light"
         android:textColor="#000000"
         android:ems="10"
-        android:hint="Frequency" />
+        android:hint="@string/frequency" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -81,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:text="Update" />
+        android:text="@string/update" />
 
 
     <Button
@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:text="Delete" />
+        android:text="@string/delete" />
 
     </LinearLayout>
 

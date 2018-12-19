@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Previous medical conditions"
+                android:text="@string/previous_medical_conditions"
                 android:textSize="20sp" />
 
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Previous surgeries"
+                android:text="@string/previous_surgeries1"
                 android:textSize="20sp" />
 
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Allergies"
+                android:text="@string/allergies1"
                 android:textSize="20sp" />
 
 
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Previous drug reactions"
+                android:text="@string/previous_drug_reactions1"
                 android:textSize="20sp" />
 
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Current medications"
+                android:text="@string/current_medications"
                 android:textSize="20sp" />
 
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="Cigarettes per day:"
+                    android:text="@string/cigarettes_per_day"
                     android:textSize="20sp" />
 
                 <TextView
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="Drinks per day:"
+                    android:text="@string/drinks_per_day1"
                     android:textSize="20sp" />
 
 
@@ -179,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="Hours of exercises per week:"
+                    android:text="@string/hours_of_exercises_per_week"
                     android:textSize="20sp" />
 
 
@@ -199,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Other substances"
+                android:text="@string/other_substances1"
                 android:textSize="20sp" />
 
 

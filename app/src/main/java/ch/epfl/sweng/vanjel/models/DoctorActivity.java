@@ -1,8 +1,10 @@
 package ch.epfl.sweng.vanjel.models;
 
 /**
+ * Enumeration for all doctor activities
+ *
  * @author Vincent CABRINI
- * @reviewer
+ * @reviewer Etienne CAQUOT
  */
 public enum DoctorActivity {
     Generalist,

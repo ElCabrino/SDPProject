@@ -71,7 +71,7 @@ public class PatientPersonalAppointments extends AppCompatActivity {
         dbDoc = database.getReference("Doctor");
 
         listViewAp = findViewById(R.id.ptPersonalAppointmentsListView);
-        noAppointment = findViewById(R.id.ptNoAppointements);
+        noAppointment = findViewById(R.id.ptNoAppointments);
     }
 
     @SuppressWarnings("ConstantConditions")

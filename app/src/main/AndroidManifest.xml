@@ -36,13 +36,12 @@
 
         <activity android:name=".registration.ChooseRegistration" />
         <activity android:name=".registration.Registration" />
-        <activity android:name=".doctorCalendar.DoctorCalendar" />
-        <activity android:name=".profile.Profile"></activity>
+        <activity android:name=".profile.Profile" />
         <activity android:name=".patientInfo.PatientInfo" />
         <activity android:name=".searchDoctor.FilteredDoctors" />
         <activity android:name=".doctorAvailability.DoctorAvailabilityActivity" />
-        <activity android:name=".nearbyDoctor.NearbyDoctor"></activity>
-        <activity android:name=".patientAppointment.PatientPersonalAppointments"></activity>
+        <activity android:name=".nearbyDoctor.NearbyDoctor" />
+        <activity android:name=".patientAppointment.PatientPersonalAppointments" />
         <activity android:name=".searchDoctor.SearchDoctor" />
         <activity android:name=".patientAppointment.PatientCalendarActivity" />
         <activity android:name=".patientAppointment.PatientAppointmentActivity" />
@@ -57,8 +56,8 @@
         <activity android:name=".chat.ChatListActivity" />
         <activity android:name=".treatedPatient.TreatedPatientsActivity" />
         <activity android:name=".favoriteList.PatientFavoriteListActivity" />
-        <activity android:name=".forwardRequest.ForwardRequest"></activity>
-        <activity android:name=".mainMenu.MainMenu"></activity>
+        <activity android:name=".forwardRequest.ForwardRequest" />
+        <activity android:name=".mainMenu.MainMenu" />
     </application>
 
 </manifest>

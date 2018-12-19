@@ -8,13 +8,13 @@ import static org.junit.Assert.*;
 
 public class PtPersonalAppointmentTest {
 
-    String doctor = "doctorUID";
-    String location = "Location";
-    String date = "Mon 26 Nov 2018";
-    String time = "17:00";
-    String duration = "30";
+    private final String doctor = "doctorUID";
+    private final String location = "Location";
+    private final String date = "Mon 26 Nov 2018";
+    private final String time = "17:00";
+    private final String duration = "30";
     // 0 = appointment confirmed, 1 = pending
-    Boolean pendingStatus = true;
+    private final Boolean pendingStatus = true;
     @Test
     public void testEntityEmptyConstructor() {
         PtPersonalAppointment appointment = new PtPersonalAppointment();

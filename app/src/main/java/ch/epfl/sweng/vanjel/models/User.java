@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * A class to represent a user
+ *
  * @author Vincent CABRINI
  * @reviewer Luca JOSS
  */
@@ -109,6 +111,11 @@ public abstract class User {
         this.gender = gender;
     }
 
+    /**
+     * Return the latitude and longitude of the postal adress of the user
+     * @param context
+     * @return latitude and longitude of user
+     */
     public LatLng getLocationFromAddress(Context context){
 
         //        String strAddress = "Place de la Gare 9, 1003 Lausanne, Switzerland";

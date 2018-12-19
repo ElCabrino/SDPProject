@@ -44,53 +44,40 @@ PatientInfoTest {
 
     private String id = "ABLlrLukjAaPzaf5GA03takkw5k2";
 
-    private String cond1 = "Heart failure";
     private String cond2 = "Diabetes";
-    private String al1 = "Peanuts";
-    private String al2 = "Cats";
-    private String sub1 = "Cocaine";
-    private String sub2 = "Krokodil";
 
 
-    private String surgery1 = "THA";
-    private String surgery1Year = "2000";
-    private String surgery2 = "Cholecystectomy";
-    private String surgery2Year = "2005";
-    private String expectedSurgery1 = surgery1 + " in " + surgery1Year;
-    private String expectedSurgery2 = surgery2 + " in " + surgery2Year;
+    private final String surgery1 = "THA";
+    private final String surgery1Year = "2000";
+    private final String surgery2 = "Cholecystectomy";
+    private final String surgery2Year = "2005";
+    private final String expectedSurgery1 = surgery1 + " in " + surgery1Year;
+    private final String expectedSurgery2 = surgery2 + " in " + surgery2Year;
 
-    private String drDrug1 = "Carbamazepine";
-    private String drReaction1 = "TEN";
-    private String drDrug2 = "Contrast";
-    private String drReaction2 = "Rashes";
-    private String expectedDrugReaction1 = drDrug1 + " : " + drReaction1;
-    private String expectedDrugReaction2 = drDrug2 + " : " + drReaction2;
-
-
-    private String drugDrug1 = "Enalapril";
-    private String drugDosage1 = "10mg";
-    private String drugFreq1 = "1";
-    private String drugDrug2 = "Propranolol";
-    private String drugDosage2 = "80mg";
-    private String drugFreq2 = "2";
-    private String expectedDrug1 = drugDrug1 + " " + drugDosage1 + ", " + drugFreq1 + " per day";
-    private String expectedDrug2 = drugDrug2 + " " + drugDosage2 + ", " + drugFreq2 + " per day";
+    private final String drDrug1 = "Carbamazepine";
+    private final String drReaction1 = "TEN";
+    private final String drDrug2 = "Contrast";
+    private final String drReaction2 = "Rashes";
+    private final String expectedDrugReaction1 = drDrug1 + " : " + drReaction1;
+    private final String expectedDrugReaction2 = drDrug2 + " : " + drReaction2;
 
 
-    private String smoking = "40";
-    private String drinking = "10";
-    private String exercise = "0";
+    private final String drugDrug1 = "Enalapril";
+    private final String drugDosage1 = "10mg";
+    private final String drugFreq1 = "1";
+    private final String drugDrug2 = "Propranolol";
+    private final String drugDosage2 = "80mg";
+    private final String drugFreq2 = "2";
+    private final String expectedDrug1 = drugDrug1 + " " + drugDosage1 + ", " + drugFreq1 + " per day";
+    private final String expectedDrug2 = drugDrug2 + " " + drugDosage2 + ", " + drugFreq2 + " per day";
 
-  
+
     private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
     private ArrayList<InfoString> substances;
     private ArrayList<Surgery> surgeries;
-    private ArrayList<String> expectedSurgeries;
     private ArrayList<DrugReaction> drugReactions;
-    private ArrayList<String> expectedDrugReactions;
     private ArrayList<Drug> drugs;
-    private ArrayList<String> expectedDrugs;
 
     //TODO: retrieval tests and mocks
     @BeforeClass
@@ -111,8 +98,7 @@ PatientInfoTest {
 
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() {
         populateConditions();
         populateAllergies();
         populateSubstances();
@@ -122,36 +108,38 @@ PatientInfoTest {
 
     }
 
-    private void populateArray(ArrayList<Info> list, Info e1, Info e2) {
-    }
-
     private void populateConditions()
     {
-        conditions = new ArrayList<InfoString>();
+        conditions = new ArrayList<>();
+        String cond1 = "Heart failure";
         conditions.add(new InfoString(cond1));
         //conditions.add(new InfoString(cond2));
     }
 
     private void populateAllergies()
     {
-        allergies = new ArrayList<InfoString>();
+        allergies = new ArrayList<>();
+        String al1 = "Peanuts";
         allergies.add(new InfoString(al1));
+        String al2 = "Cats";
         allergies.add(new InfoString(al2));
     }
 
     private void populateSubstances()
     {
-        substances = new ArrayList<InfoString>();
+        substances = new ArrayList<>();
+        String sub1 = "Cocaine";
         substances.add(new InfoString(sub1));
+        String sub2 = "Krokodil";
         substances.add(new InfoString(sub2));
     }
 
     private void populateSurgeries()
     {
-        surgeries = new ArrayList<Surgery>();
+        surgeries = new ArrayList<>();
         surgeries.add(new Surgery(surgery1, surgery1Year));
         surgeries.add(new Surgery(surgery2, surgery2Year));
-        expectedSurgeries = new ArrayList<String>();
+        ArrayList<String> expectedSurgeries = new ArrayList<>();
         expectedSurgeries.add(expectedSurgery1);
         expectedSurgeries.add(expectedSurgery2);
 
@@ -159,20 +147,20 @@ PatientInfoTest {
 
     private void populateDrugReactions()
     {
-        drugReactions = new ArrayList<DrugReaction>();
+        drugReactions = new ArrayList<>();
         drugReactions.add(new DrugReaction(drDrug1, drReaction1));
         drugReactions.add(new DrugReaction(drDrug2, drReaction2));
-        expectedDrugReactions = new ArrayList<String>();
+        ArrayList<String> expectedDrugReactions = new ArrayList<>();
         expectedDrugReactions.add(expectedDrugReaction1);
         expectedDrugReactions.add(expectedDrugReaction2);
     }
 
     private void populateDrugs()
     {
-        drugs = new ArrayList<Drug>();
+        drugs = new ArrayList<>();
         drugs.add(new Drug(drugDrug1, drugDosage1, drugFreq1));
         drugs.add(new Drug(drugDrug2, drugDosage2,drugFreq2));
-        expectedDrugs = new ArrayList<String>();
+        ArrayList<String> expectedDrugs = new ArrayList<>();
         expectedDrugs.add(expectedDrug1);
         expectedDrugs.add(expectedDrug2);
     }
@@ -298,18 +286,21 @@ PatientInfoTest {
     //@Ignore
     @Test
     public void testAddAndRecoverSmoking() {
+        String smoking = "40";
         addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, smoking);
     }
 
     //@Ignore
     @Test
     public void testAddAndRecoverDrinking() {
+        String drinking = "10";
         addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, drinking);
     }
 
     //@Ignore
     @Test
     public void testAddAndRecoverExercise() {
+        String exercise = "0";
         addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }
 

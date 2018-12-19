@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class FavoriteListTest {
 
-    private String doctor1ID = "doctorid1";
-    private Doctor defDoctor1 = new Doctor("doctor1@test.ch", "fn_dtest1", "ln_dtest1", "11/11/2011", "street_dtest1", "11", "city_dtest1", "country_dtest1", Gender.Male, DoctorActivity.Dentist);
+    private final String doctor1ID = "doctorid1";
+    private final Doctor defDoctor1 = new Doctor("doctor1@test.ch", "fn_dtest1", "ln_dtest1", "11/11/2011", "street_dtest1", "11", "city_dtest1", "country_dtest1", Gender.Male, DoctorActivity.Dentist);
 
-    private String doctor2ID = "doctorid2";
-    private Doctor defDoctor2 =  new Doctor("doctor2@test.ch", "fn_dtest2", "ln_dtest2", "11/11/2012", "street_dtest2", "12", "city_dtest2", "country_dtest2", Gender.Female, DoctorActivity.Ophthalmologist);
+    private final String doctor2ID = "doctorid2";
+    private final Doctor defDoctor2 =  new Doctor("doctor2@test.ch", "fn_dtest2", "ln_dtest2", "11/11/2012", "street_dtest2", "12", "city_dtest2", "country_dtest2", Gender.Female, DoctorActivity.Ophthalmologist);
 
     @Rule
     public final IntentsTestRule<PatientFavoriteListActivity> mActivityRule =

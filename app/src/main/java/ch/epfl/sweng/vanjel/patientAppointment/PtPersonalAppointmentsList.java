@@ -14,7 +14,7 @@ import ch.epfl.sweng.vanjel.R;
 
 /**
  * @author Nicolas BRANDT
- * @reviewer
+ * @reviewer Etienne CAQUOT
  */
 class PtPersonalAppointmentsList extends ArrayAdapter<PtPersonalAppointment> {
 

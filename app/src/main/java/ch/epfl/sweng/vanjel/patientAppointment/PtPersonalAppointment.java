@@ -3,6 +3,7 @@ package ch.epfl.sweng.vanjel.patientAppointment;
 /**
  * @author Nicolas BRANDT
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class PtPersonalAppointment {
     private String doctor;

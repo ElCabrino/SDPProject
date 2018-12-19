@@ -56,11 +56,13 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyA9vanYX7kgGCS4A3cffxn2-YnwDNf6zEU";
 
     // confirmation value that database and map are ready, the second element that calls will launch the marker
+    // since there is two asynchronous call
     private Boolean isDatabaseReady = false;
     private Boolean isMapReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_information);
 
@@ -70,14 +72,23 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         doctorUID = bundle.getString("doctorUID");
 
         if(doctorUID == null){
+
             Toast.makeText(DoctorInformation.this, "No doctor content to display", Toast.LENGTH_SHORT).show();
             finish();
             return;
-        } else { getDocWithUID(doctorUID); }
+
+        } else {
+
+            getDocWithUID(doctorUID);
+
+        }
 
         Bundle mapViewBundle = null;
+
         if(savedInstanceState != null){
+
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
+
         }
 
         mapView.onCreate(mapViewBundle);
@@ -110,6 +121,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     }
 
     public void onClick(View v) {
+
         int i = v.getId();
         Intent intent;
         switch (i) {
@@ -125,21 +137,24 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
             startActivity(intent);
             break;
         case R.id.addToFavoriteButton:
+
             if (!favoriteState){
+
                 favoriteState = true;
                 favorite.setFavorite(true);
                 this.localDatabaseService.save(this.doctor, this.doctorUID);
+
             }
             else {
+
                 favoriteState = false;
                 favorite.setFavorite(false);
                 this.localDatabaseService.delete(this.doctor, this.doctorUID);
+
             }
 
+        } // end switch case
 
-
-
-        }
     }
 
     private void getDocWithUID(String uid){
@@ -149,16 +164,21 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 doctor = snapshot.getValue(Doctor.class);
                 initLocalDatabase();
                 findIfAlreadyFavoriteButtonState();
                 setData();
                 isDatabaseReady = true;
                 putMarkerOnMap();
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 Toast.makeText(DoctorInformation.this, R.string.database_error, Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -168,13 +188,18 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     }
 
     private void findIfAlreadyFavoriteButtonState(){
+
         if (localDatabaseService.getWithKey(this.doctorUID).size() != 0){
+
             favoriteState = true;
             favorite.setFavorite(true);
+
         }
+
     }
 
     private void setData(){
+
         firstName.setText(doctor.getFirstName());
         lastName.setText(doctor.getLastName());
         activity.setText(doctor.getActivity());
@@ -182,15 +207,22 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
         streetNumber.setText(doctor.getStreetNumber());
         city.setText(doctor.getCity());
         country.setText(doctor.getCountry());
+
     }
 
     private void putMarkerOnMap(){
+
         if(isMapReady && isDatabaseReady) {
             LatLng doctorLocation = doctor.getLocationFromAddress(this);
 
             // if address does not exist, we zoom in Lausanne and don't put any marker
-            if (doctorLocation == null) doctorLocation = new LatLng(46.519962, 6.633597);
+            if (doctorLocation == null){
+
+                doctorLocation = new LatLng(46.519962, 6.633597);
+
+            }
             else {
+
                 // put the pin (marker)
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(doctorLocation);
@@ -211,12 +243,16 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+
         super.onSaveInstanceState(outState);
 
         Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
+
         if (mapViewBundle == null) {
+
             mapViewBundle = new Bundle();
             outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
+
         }
 
         mapView.onSaveInstanceState(mapViewBundle);
@@ -261,6 +297,7 @@ public class DoctorInformation extends AppCompatActivity implements View.OnClick
     // method that display the wanted element
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         gmap = googleMap;
         gmap.setMinZoomPreference(15);
 

@@ -1,7 +1,6 @@
 package ch.epfl.sweng.vanjel.chat;
 
 import android.support.test.espresso.intent.Intents;
-import android.support.test.internal.runner.TestRequestBuilder;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;

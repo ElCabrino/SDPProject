@@ -1,187 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.Profile">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/titleSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/user32x32"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text=" Your Profile"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/lastnameProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="profile last name"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom"
-            android:hint="lastname" />
-
-        <EditText
-            android:id="@+id/nameProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="profile name"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom"
-            android:hint="firstname"
-            android:text="" />
-
-
-        <EditText
-            android:id="@+id/birthdayProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="profile birthday"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom"
-            android:hint="birthday"
-            android:text="" />
-
-
-        <EditText
-            android:id="@+id/genderProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="profile gender"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|start"
-            android:hint="gender"
-            android:text="" />
-
-        <EditText
-            android:id="@+id/emailProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:contentDescription="profile email"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|start"
-            android:hint="email"
-            android:text="" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <EditText
-                android:id="@+id/streetProfile"
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:contentDescription="profile street"
-                android:enabled="false"
-                android:fontFamily="sans-serif-light"
-                android:gravity="bottom"
-                android:hint="street"
-                android:text="" />
-
-            <EditText
-                android:id="@+id/numberStreetProfile"
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:contentDescription="profile street number"
-                android:enabled="false"
-                android:fontFamily="sans-serif-light"
-                android:gravity="bottom"
-                android:hint="number"
-                android:text="" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/cityProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="profile city"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom"
-            android:hint="city"
-            android:text="" />
-
-        <EditText
-            android:id="@+id/countryProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="profile country"
-            android:enabled="false"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|start"
-            android:hint="country"
-            android:text="" />
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
-
-            <Button
-                android:id="@+id/saveButton"
-                style="@style/Widget.AppCompat.Button.Colored"
+            <TextView
+                android:id="@+id/titleSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:contentDescription="profile save button"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/user32x32"
                 android:fontFamily="sans-serif-light"
-                android:text="Save"
-                android:visibility="invisible" />
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text=" Your Profile"
+                android:textSize="24sp" />
 
-            <Button
-                android:id="@+id/editButton"
-                style="@style/Widget.AppCompat.Button.Colored"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:contentDescription="profile edit button"
-                android:fontFamily="sans-serif-light"
-                android:text="Edit" />
-        </RelativeLayout>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/lastnameProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:contentDescription="profile last name"
+                    android:enabled="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="bottom"
+                    android:hint="lastname" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/nameProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:contentDescription="profile name"
+                    android:enabled="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="bottom"
+                    android:hint="firstname"
+                    android:text="" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <EditText
+                android:id="@+id/birthdayProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:contentDescription="profile birthday"
+                android:enabled="false"
+                android:fontFamily="sans-serif-light"
+                android:gravity="bottom"
+                android:hint="birthday"
+                android:text="" />
+
+
+            <EditText
+                android:id="@+id/genderProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:contentDescription="profile gender"
+                android:enabled="false"
+                android:fontFamily="sans-serif-light"
+                android:gravity="bottom|start"
+                android:hint="gender"
+                android:text="" />
+
+
+            <EditText
+                android:id="@+id/emailProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:contentDescription="profile email"
+                android:enabled="false"
+                android:fontFamily="sans-serif-light"
+                android:gravity="bottom|start"
+                android:hint="email"
+                android:text="" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <EditText
+                        android:id="@+id/streetProfile"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:contentDescription="profile street"
+                        android:enabled="false"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="bottom"
+                        android:hint="street"
+                        android:text="" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <EditText
+                        android:id="@+id/numberStreetProfile"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:contentDescription="profile street number"
+                        android:enabled="false"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="bottom"
+                        android:hint="number"
+                        android:text="" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/cityProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:contentDescription="profile city"
+                    android:enabled="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="bottom"
+                    android:hint="city"
+                    android:text="" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/countryProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:contentDescription="profile country"
+                    android:enabled="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="bottom|start"
+                    android:hint="country"
+                    android:text="" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+
+                <Button
+                    android:id="@+id/saveButton"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="profile save button"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Save"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/editButton"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="profile edit button"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Edit" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
