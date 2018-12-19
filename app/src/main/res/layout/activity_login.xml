@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/heart" />
+            android:src="@drawable/heart"/>
 
 
         <android.support.design.widget.TextInputLayout
@@ -68,9 +68,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:contentDescription="login button"
+            android:contentDescription="@string/login_button"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:text="Login"
+            android:text="@string/login"
             android:visibility="visible" />
 
 
@@ -83,7 +83,8 @@
             android:clickable="true"
             android:gravity="center"
             android:text="@string/notRegisteredYet"
-            android:textSize="16dip" />
+            android:textSize="16dip"
+            android:focusable="true" />
 
     </LinearLayout>
     </ScrollView>

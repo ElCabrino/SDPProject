@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Surgery" />
+        android:hint="@string/surgery" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:text="Update" />
+            android:text="@string/update" />
 
 
         <Button
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:text="Delete" />
+            android:text="@string/delete" />
 
     </LinearLayout>
 

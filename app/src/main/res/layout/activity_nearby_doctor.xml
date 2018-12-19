@@ -45,10 +45,12 @@
                 android:drawableLeft="@drawable/list_icon"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="  List"
+                android:text="@string/list"
+                android:drawablePadding="5dp"
                 android:textSize="12sp"
                 android:fontFamily="sans-serif-light"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/mapButton"
@@ -61,11 +63,13 @@
                 android:drawableLeft="@drawable/map_icon"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text=" Map"
+                android:text="@string/map"
+                android:drawablePadding="5dp"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-light"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:focusable="true" />
 
         </LinearLayout>
 

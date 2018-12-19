@@ -17,6 +17,11 @@ import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.favorite.DoctorFavorite;
 
+/**
+ * Class used to populate the activity for favorite Doctors
+ *
+ * @reviewer Etienne CAQUOT
+ */
 public class PatientFavoriteListAdapter extends RecyclerViewAdapter<PatientFavoriteListAdapter.ViewHolder> {
 
     private final Context context;

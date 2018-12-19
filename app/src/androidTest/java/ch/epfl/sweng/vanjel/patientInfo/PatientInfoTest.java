@@ -38,55 +38,14 @@ import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
-public class
-PatientInfoTest {
+public class PatientInfoTest {
 
-    private String cond1 = "Heart failure";
-    private String cond2 = "Diabetes";
-    private String al1 = "Peanuts";
-    private String al2 = "Cats";
-    private String sub1 = "Cocaine";
-    private String sub2 = "Krokodil";
-
-
-    private String surgery1 = "THA";
-    private String surgery1Year = "2000";
-    private String surgery2 = "Cholecystectomy";
-    private String surgery2Year = "2005";
-    private String expectedSurgery1 = surgery1 + " in " + surgery1Year;
-    private String expectedSurgery2 = surgery2 + " in " + surgery2Year;
-
-    private String drDrug1 = "Carbamazepine";
-    private String drReaction1 = "TEN";
-    private String drDrug2 = "Contrast";
-    private String drReaction2 = "Rashes";
-    private String expectedDrugReaction1 = drDrug1 + " : " + drReaction1;
-    private String expectedDrugReaction2 = drDrug2 + " : " + drReaction2;
-
-    private String drugDrug1 = "Enalapril";
-    private String drugDosage1 = "10mg";
-    private String drugFreq1 = "1";
-    private String drugDrug2 = "Propranolol";
-    private String drugDosage2 = "80mg";
-    private String drugFreq2 = "2";
-    private String expectedDrug1 = drugDrug1 + " " + drugDosage1 + ", " + drugFreq1 + " per day";
-    private String expectedDrug2 = drugDrug2 + " " + drugDosage2 + ", " + drugFreq2 + " per day";
-
-
-    private String smoking = "1";
-    private String drinking = "1";
-    private String exercise = "1";
-
-  
     private ArrayList<InfoString> conditions;
     private ArrayList<InfoString> allergies;
     private ArrayList<InfoString> substances;
     private ArrayList<Surgery> surgeries;
-    private ArrayList<String> expectedSurgeries;
     private ArrayList<DrugReaction> drugReactions;
-    private ArrayList<String> expectedDrugReactions;
     private ArrayList<Drug> drugs;
-    private ArrayList<String> expectedDrugs;
 
     @Rule
     public final IntentsTestRule<PatientInfo> ActivityRule =
@@ -115,12 +74,15 @@ PatientInfoTest {
 
     private void populateConditions()
     {
+        String cond1 = "Heart failure";
         conditions = new ArrayList<>();
         conditions.add(new InfoString(cond1));
     }
 
     private void populateAllergies()
     {
+        String al1 = "Peanuts";
+        String al2 = "Cats";
         allergies = new ArrayList<>();
         allergies.add(new InfoString(al1));
         allergies.add(new InfoString(al2));
@@ -128,6 +90,8 @@ PatientInfoTest {
 
     private void populateSubstances()
     {
+        String sub1 = "Cocaine";
+        String sub2 = "Krokodil";
         substances = new ArrayList<>();
         substances.add(new InfoString(sub1));
         substances.add(new InfoString(sub2));
@@ -135,33 +99,40 @@ PatientInfoTest {
 
     private void populateSurgeries()
     {
+
+        String surgery1 = "THA";
+        String surgery1Year = "2000";
+        String surgery2 = "Cholecystectomy";
+        String surgery2Year = "2005";
         surgeries = new ArrayList<>();
         surgeries.add(new Surgery(surgery1, surgery1Year));
         surgeries.add(new Surgery(surgery2, surgery2Year));
-        expectedSurgeries = new ArrayList<>();
-        expectedSurgeries.add(expectedSurgery1);
-        expectedSurgeries.add(expectedSurgery2);
 
     }
 
     private void populateDrugReactions()
     {
+
+        String drDrug1 = "Carbamazepine";
+        String drReaction1 = "TEN";
+        String drDrug2 = "Contrast";
+        String drReaction2 = "Rashes";
         drugReactions = new ArrayList<>();
         drugReactions.add(new DrugReaction(drDrug1, drReaction1));
         drugReactions.add(new DrugReaction(drDrug2, drReaction2));
-        expectedDrugReactions = new ArrayList<>();
-        expectedDrugReactions.add(expectedDrugReaction1);
-        expectedDrugReactions.add(expectedDrugReaction2);
     }
 
     private void populateDrugs()
     {
+        String drugDrug1 = "Enalapril";
+        String drugDosage1 = "10mg";
+        String drugFreq1 = "1";
+        String drugDrug2 = "Propranolol";
+        String drugDosage2 = "80mg";
+        String drugFreq2 = "2";
         drugs = new ArrayList<>();
         drugs.add(new Drug(drugDrug1, drugDosage1, drugFreq1));
         drugs.add(new Drug(drugDrug2, drugDosage2,drugFreq2));
-        expectedDrugs = new ArrayList<>();
-        expectedDrugs.add(expectedDrug1);
-        expectedDrugs.add(expectedDrug2);
     }
 
     @Test
@@ -249,18 +220,21 @@ PatientInfoTest {
 
     @Test
     public void testAddAndRecoverSmoking() {
+        String smoking = "1";
         setupNoExtras(PatientInfo.class, ActivityRule, false, true, false, false, false, false, false);
         addAndRecoverSingleValue(R.id.buttonSmoking, R.id.ptSmokingReg, R.id.ptSmokingValue, smoking);
     }
 
     @Test
     public void testAddAndRecoverDrinking() {
+        String drinking = "1";
         setupNoExtras(PatientInfo.class, ActivityRule, false, true, false, false, false, false, false);
         addAndRecoverSingleValue(R.id.buttonDrinking, R.id.ptDrinkingReg, R.id.ptDrinkingValue, drinking);
     }
 
     @Test
     public void testAddAndRecoverExercise() {
+        String exercise = "1";
         setupNoExtras(PatientInfo.class, ActivityRule, false, true, false, false, false, false, false);
         addAndRecoverSingleValue(R.id.buttonExercise, R.id.ptExerciseReg, R.id.ptExerciseValue, exercise);
     }

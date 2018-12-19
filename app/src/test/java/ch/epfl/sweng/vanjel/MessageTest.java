@@ -8,15 +8,14 @@ import static org.junit.Assert.assertEquals;
 
 public class MessageTest {
 
-    private String time = "11.30";
-    private String Message = "This is a message";
-    private String senderUid = "oubsdf87gr3wuibf";
-
     @Test
     public void getterTestConstructor1() {
-        Message message = new Message(time,Message,senderUid);
-        assertEquals(message.getTime(),time);
-        assertEquals(message.getMessage(),Message);
-        assertEquals(message.getSenderUid(),senderUid);
+        String senderUid = "oubsdf87gr3wuibf";
+        String message1 = "This is a message";
+        String time = "11.30";
+        Message message = new Message(time, message1, senderUid);
+        assertEquals(message.getTime(), time);
+        assertEquals(message.getMessage(), message1);
+        assertEquals(message.getSenderUid(), senderUid);
     }
 }

@@ -15,7 +15,7 @@
         android:background="@drawable/rounded_rectangle_blue"
         android:maxWidth="200dp"
         android:padding="10dp"
-        android:text="fsbdifugsdiufbisdubfisdubfiusdbifubdsif sdijf isdufisdj  fdsfdsf"
+        android:text="@string/fsbdifugsdiufbisdubfisdubfiusdbifubdsif_sdijf_isdufisdj_fdsfdsf"
         android:textColor="#ffffff"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="1dp"
-        android:text="Date"
+        android:text="@string/date"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sendMessage" />

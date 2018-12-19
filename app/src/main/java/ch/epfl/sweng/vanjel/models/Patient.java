@@ -1,6 +1,8 @@
 package ch.epfl.sweng.vanjel.models;
 
 /**
+ * A class to represent a patient inherits User
+ *
  * @author Vincent CABRINI
  * @reviewer Luca JOSS
  */

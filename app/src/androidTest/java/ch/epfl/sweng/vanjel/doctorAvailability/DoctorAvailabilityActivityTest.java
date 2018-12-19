@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.not;
 
 public class DoctorAvailabilityActivityTest {
 
-    private int[] toCheck = {
+    private final int[] toCheck = {
             0,
             5,
             18,
@@ -44,7 +44,7 @@ public class DoctorAvailabilityActivityTest {
             130
     };
 
-    private int[] avIndex = {
+    private final int[] avIndex = {
             1,
             2,
             3,
@@ -58,7 +58,7 @@ public class DoctorAvailabilityActivityTest {
     };
 
     @Rule
-    public ActivityTestRule<DoctorAvailabilityActivity> mActivityRule =
+    public final ActivityTestRule<DoctorAvailabilityActivity> mActivityRule =
             new ActivityTestRule<>(DoctorAvailabilityActivity.class, true, false);
 
     @Test

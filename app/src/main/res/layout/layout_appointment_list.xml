@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="1dp"
-                    android:text="day"
+                    android:text="@string/day"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -55,7 +55,7 @@
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp">
 
-                <!-- adresse -->
+                <!-- address -->
 
                 <TextView
                     android:id="@+id/fromTextView"
@@ -65,7 +65,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:padding="1dp"
-                    android:text="from"
+                    android:text="@string/from"
                     android:textSize="20sp" />
 
 
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
-                android:text="accept" />
+                android:text="@string/accept" />
 
             <Button
                 android:id="@+id/forwardAppointmentButton"
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
-                android:text="Forward" />
+                android:text="@string/forward" />
 
             <Button
                 android:id="@+id/declineAppointmentButton"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
-                android:text="decline" />
+                android:text="@string/decline" />
         </LinearLayout>
 
     </LinearLayout>

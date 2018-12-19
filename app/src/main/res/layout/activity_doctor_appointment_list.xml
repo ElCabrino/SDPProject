@@ -17,8 +17,11 @@
             android:gravity="center"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text=" Requests"
-            android:textSize="24sp" />
+            android:text="@string/request"
+            android:drawablePadding="5dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
 
         <View
             android:layout_width="match_parent"
@@ -32,7 +35,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:text="You don't have any requets"
+            android:text="@string/you_don_t_have_any_requests"
             android:textSize="18sp" />
 
         <android.support.v7.widget.RecyclerView

@@ -31,10 +31,10 @@ import static ch.epfl.sweng.vanjel.TestHelper.setupWithExtras;
 @RunWith(AndroidJUnit4.class)
 public class SearchDoctorTest {
 
-    String firstName = "Luca";
-    String lastName = "Joss";
-    String specialisation = "ORL";
-    String city = "Morges";
+    private final String firstName = "Luca";
+    private final String lastName = "Joss";
+    private final String specialisation = "ORL";
+    private final String city = "Morges";
 
     static Map<String, Boolean> extras = new HashMap<>();
 

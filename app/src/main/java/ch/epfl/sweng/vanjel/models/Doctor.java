@@ -7,8 +7,10 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
+ * Class used to represent a doctor, inherits User.
+ *
  * @author Vincent CABRINI
- * @reviewer
+ * @reviewer Etienne CAQUOT
  */
 public class Doctor extends User {
 

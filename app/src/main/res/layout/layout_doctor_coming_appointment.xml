@@ -35,7 +35,7 @@
                 android:id="@+id/appointmentLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lastName"
+                android:text="@string/last_name"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="firstName"
+                android:text="@string/first_name"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="italic" />
@@ -71,7 +71,7 @@
                 android:id="@+id/appointmentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="@string/date"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Time"
+                android:text="@string/time"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="Duration"
+                android:text="@string/duration"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />

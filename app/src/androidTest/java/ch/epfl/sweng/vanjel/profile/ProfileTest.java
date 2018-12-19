@@ -38,32 +38,17 @@ import static org.hamcrest.core.IsNot.not;
 @RunWith(AndroidJUnit4.class)
 public class ProfileTest {
 
-    private String p_expectedLastname = "ln_ptest1";
-    private String p_expectedName = "fn_ptest1";
-    private String p_expectedBirtday = "01/01/2001";
-    private String p_expectedGender = "Male";
-    private String p_expectedEmail = "patient1@test.ch";
-    private String p_expectedStreet = "street_ptest1";
-    private String p_expectedStreetNumber = "1";
-    private String p_expectedCity = "city_ptest1";
-    private String p_expectedCountry = "country_ptest1";
-
-    private String d_expectedLastname = "ln_dtest1";
-    private String d_expectedName = "fn_dtest1";
-    private String d_expectedBirtday = "11/11/2011";
-    private String d_expectedGender = "Male";
-    private String d_expectedEmail = "doctor1@test.ch";
-    private String d_expectedStreet = "street_dtest1";
-    private String d_expectedStreetNumber = "11";
-    private String d_expectedCity = "city_dtest1";
-    private String d_expectedCountry = "country_dtest1";
+    private final String p_expectedBirtday = "01/01/2001";
+    private final String p_expectedGender = "Male";
+    private final String p_expectedEmail = "patient1@test.ch";
+    private final String p_expectedCountry = "country_ptest1";
 
 
-    static Map<String, String> patient = new HashMap<>();
-    static Map<String, String> doctor = new HashMap<>();
+    private static final Map<String, String> patient = new HashMap<>();
+    private static final Map<String, String> doctor = new HashMap<>();
 
     @Rule
-    public ActivityTestRule<Profile> mActivityRule =
+    public final ActivityTestRule<Profile> mActivityRule =
             new ActivityTestRule<>(Profile.class, true, false);
 
     @BeforeClass
@@ -84,13 +69,18 @@ public class ProfileTest {
         setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
+        String p_expectedLastname = "ln_ptest1";
         onView(withContentDescription("profile last name")).check(matches(withText(p_expectedLastname)));
+        String p_expectedName = "fn_ptest1";
         onView(withContentDescription("profile name")).check(matches(withText(p_expectedName)));
         onView(withContentDescription("profile birthday")).check(matches(withText(p_expectedBirtday)));
         onView(withContentDescription("profile gender")).check(matches(withText(p_expectedGender)));
         onView(withContentDescription("profile email")).check(matches(withText(p_expectedEmail)));
+        String p_expectedStreet = "street_ptest1";
         onView(withContentDescription("profile street")).check(matches(withText(p_expectedStreet)));
+        String p_expectedStreetNumber = "1";
         onView(withContentDescription("profile street number")).check(matches(withText(p_expectedStreetNumber)));
+        String p_expectedCity = "city_ptest1";
         onView(withContentDescription("profile city")).check(matches(withText(p_expectedCity)));
         onView(withContentDescription("profile country")).check(matches(withText(p_expectedCountry)));
     }
@@ -177,14 +167,23 @@ public class ProfileTest {
         setupWithExtras(Profile.class, mActivityRule, false, false, false, false, false, false, false, doctor, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
+        String d_expectedLastname = "ln_dtest1";
         onView(withContentDescription("profile last name")).check(matches(withText(d_expectedLastname)));
+        String d_expectedName = "fn_dtest1";
         onView(withContentDescription("profile name")).check(matches(withText(d_expectedName)));
+        String d_expectedBirtday = "11/11/2011";
         onView(withContentDescription("profile birthday")).check(matches(withText(d_expectedBirtday)));
+        String d_expectedGender = "Male";
         onView(withContentDescription("profile gender")).check(matches(withText(d_expectedGender)));
+        String d_expectedEmail = "doctor1@test.ch";
         onView(withContentDescription("profile email")).check(matches(withText(d_expectedEmail)));
+        String d_expectedStreet = "street_dtest1";
         onView(withContentDescription("profile street")).check(matches(withText(d_expectedStreet)));
+        String d_expectedStreetNumber = "11";
         onView(withContentDescription("profile street number")).check(matches(withText(d_expectedStreetNumber)));
+        String d_expectedCity = "city_dtest1";
         onView(withContentDescription("profile city")).check(matches(withText(d_expectedCity)));
+        String d_expectedCountry = "country_dtest1";
         onView(withContentDescription("profile country")).check(matches(withText(d_expectedCountry)));
     }
 

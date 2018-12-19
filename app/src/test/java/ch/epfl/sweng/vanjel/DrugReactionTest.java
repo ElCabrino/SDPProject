@@ -8,8 +8,8 @@ import static org.junit.Assert.assertEquals;
 
 public class DrugReactionTest {
 
-    String drug;
-    String reaction;
+    private String drug;
+    private String reaction;
 
     @Test
     public void testEntity() {

@@ -27,8 +27,12 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 import ch.epfl.sweng.vanjel.models.Doctor;
 
 /**
+ * Conditional display for cardviews in order to display the filtered doctors
+ */
+
+/**
  * @author Aslam CADER
- * @reviewer
+ * @reviewer Etienne CAQUOT
  */
 public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAdapter.ViewHolder> {
 
@@ -70,7 +74,7 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.firstName.setText(doctors.get(i).getFirstName());
         viewHolder.lastName.setText(doctors.get(i).getLastName());
@@ -82,7 +86,6 @@ public class FilteredDoctorAdapter extends RecyclerViewAdapter<FilteredDoctorAda
 
         // we need to give the uid of the doctor the user want to see
         final String finalKey = getDoctorUIDWithKey(i);
-
         final int id = i;
 
 

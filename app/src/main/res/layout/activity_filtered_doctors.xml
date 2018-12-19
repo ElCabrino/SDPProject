@@ -22,7 +22,8 @@
             android:layout_marginBottom="8dp"
             android:drawableLeft="@drawable/search"
             android:fontFamily="sans-serif-light"
-            android:text=" Search"
+            android:text="@string/search"
+            android:drawablePadding="5dp"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +45,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:text="Didn't find any doctors with the given criteria"
+            android:text="@string/didn_t_find_any_doctors_with_the_given_criteria"
             android:textSize="18sp" />
 
         <android.support.v7.widget.RecyclerView

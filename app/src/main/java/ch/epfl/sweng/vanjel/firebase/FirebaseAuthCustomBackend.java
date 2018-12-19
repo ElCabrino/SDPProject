@@ -113,7 +113,7 @@ public class FirebaseAuthCustomBackend {
     private void initListenerAuth() {
         doAnswer((new Answer<OnCompleteListener<AuthResult>>() {
             @Override
-            public OnCompleteListener<AuthResult> answer(InvocationOnMock invocation) throws Throwable {
+            public OnCompleteListener<AuthResult> answer(InvocationOnMock invocation) {
                 OnCompleteListener<AuthResult> listener = (OnCompleteListener<AuthResult>) invocation.getArguments()[0];
                 listener.onComplete(mockUserTask);
                 return listener;

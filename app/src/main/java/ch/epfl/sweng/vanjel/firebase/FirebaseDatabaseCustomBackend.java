@@ -58,21 +58,6 @@ public final class FirebaseDatabaseCustomBackend {
 
     private final static String appointmentKey = "aptKey";
 
-    private final String ap1DateString = "Tue Jan 16 2019";
-    private final String ap2DateString = "Tue Feb 06 2019";
-    private final String ap3DateString = "Tue Mar 06 2019";
-    private final String ap4DateString = "Tue Apr 03 2019";
-    private final String ap5DateString = "Tue May 15 2019";
-    private final String ap6DateString = "Tue Jun 12 2019";
-    private final String ap7DateString = "Tue Jul 10 2019";
-    private final String ap8DateString = "Tue Aug 14 2019";
-    private final String ap9DateString = "Tue Sep 11 2019";
-    private final String ap10DateString = "Tue Oct 16 2019";
-    private final String ap11DateString = "Tue Nov 20 2019";
-    private final String ap12DateString = "Tue Dec 18 2019";
-    private final String apTimeString = "10:00";
-    private final String apTimeString2 = "14:00";
-
     private static boolean isCancelled = false;
     private static boolean isCancelledSecond = false;
     private static boolean isCancelledThird = false;
@@ -342,6 +327,9 @@ public final class FirebaseDatabaseCustomBackend {
 
     //mock for the method DoctorAppointmentList.getAppointmentValueListener()
     private void initDoctorAvailabilitySnapshots() {
+        String apTimeString = "10:00";
+        String apTimeString2 = "14:00";
+
         List<DataSnapshot> listApp = new ArrayList<>();
         listApp.add(appointmentSnapshot);
         listApp.add(appointmentSnapshot2);
@@ -378,7 +366,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(appointmentReqRef.removeValue()).thenReturn(appointmentRequestTask);
         when(appointmentRequestTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -388,7 +376,7 @@ public final class FirebaseDatabaseCustomBackend {
         });
         when(appointmentRequestTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(null);
@@ -401,7 +389,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(durationAppointmentRef.setValue(any(String.class))).thenReturn(acceptChangeDuration);
         when(acceptChangeDuration.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -411,7 +399,7 @@ public final class FirebaseDatabaseCustomBackend {
         });
         when(acceptChangeDuration.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(null);
@@ -423,6 +411,18 @@ public final class FirebaseDatabaseCustomBackend {
 
     private String getDateFromFlag() {
         String res = "";
+        String ap12DateString = "Tue Dec 18 2019";
+        String ap11DateString = "Tue Nov 20 2019";
+        String ap10DateString = "Tue Oct 16 2019";
+        String ap9DateString = "Tue Sep 11 2019";
+        String ap8DateString = "Tue Aug 14 2019";
+        String ap7DateString = "Tue Jul 10 2019";
+        String ap6DateString = "Tue Jun 12 2019";
+        String ap5DateString = "Tue May 15 2019";
+        String ap4DateString = "Tue Apr 03 2019";
+        String ap3DateString = "Tue Mar 06 2019";
+        String ap2DateString = "Tue Feb 06 2019";
+        String ap1DateString = "Tue Jan 16 2019";
         switch(dateFlag) {
             case 1:
                 res = ap1DateString;
@@ -500,7 +500,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updateAvailabilityTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -511,7 +511,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updateSuccessAvailabilityTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(null);
@@ -529,7 +529,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(chatHistoriqueRef.updateChildren(any(Map.class))).thenReturn(chatTask);
         when(chatTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -539,7 +539,7 @@ public final class FirebaseDatabaseCustomBackend {
         });
         when(chatTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(null);
@@ -550,7 +550,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(chatError);
@@ -583,7 +583,7 @@ public final class FirebaseDatabaseCustomBackend {
         when(forwardDataRef.removeValue()).thenReturn(forwardDeleteTask);
         when(forwardDeleteTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -594,7 +594,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelledSecond) {
                     listener.onCancelled(forwardError);
@@ -636,7 +636,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(patientError);
@@ -652,7 +652,7 @@ public final class FirebaseDatabaseCustomBackend {
     private void initDBListeners() {
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelledSecond) {
                     listener.onCancelled(patientError);
@@ -666,7 +666,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(patientError);
@@ -679,7 +679,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(patientError);
@@ -692,7 +692,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelledSecond) {
                     listener.onCancelled(doctorError);
@@ -705,7 +705,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(doctorError);
@@ -718,7 +718,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(doctorError);
@@ -731,7 +731,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updatePatientTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -742,7 +742,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updatePatientTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(new IllegalStateException("Patient update failed."));
@@ -753,7 +753,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updateDoctorTask.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -764,7 +764,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updateDoctorTask.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(new IllegalStateException("Patient update failed."));
@@ -775,7 +775,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updateApt1Task.addOnSuccessListener(any(OnSuccessListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnSuccessListener<Void> listener = (OnSuccessListener<Void>) invocation.getArguments()[0];
                 if (!shouldFail) {
                     listener.onSuccess(null);
@@ -786,7 +786,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         when(updateApt1Task.addOnFailureListener(any(OnFailureListener.class))).thenAnswer(new Answer<Task<Void>>() {
             @Override
-            public Task<Void> answer(InvocationOnMock invocation) throws Throwable {
+            public Task<Void> answer(InvocationOnMock invocation) {
                 OnFailureListener listener = (OnFailureListener) invocation.getArguments()[0];
                 if (shouldFail) {
                     listener.onFailure(new IllegalStateException("Appointment request failed."));
@@ -797,7 +797,7 @@ public final class FirebaseDatabaseCustomBackend {
 
         doAnswer(new Answer<ValueEventListener>() {
             @Override
-            public ValueEventListener answer(InvocationOnMock invocation) throws Throwable {
+            public ValueEventListener answer(InvocationOnMock invocation) {
                 ValueEventListener listener = (ValueEventListener) invocation.getArguments()[0];
                 if (isCancelled) {
                     listener.onCancelled(doctorError);
