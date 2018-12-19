@@ -7,17 +7,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
+import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
+import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 
 /**
  * Class used to populate the activity_treated_patients recyclerView
@@ -29,6 +39,7 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
     private final ArrayList<Patient> treatedPatients;
     private final List<String> mapPatients;
     private final Context context;
+    private final FirebaseAuth auth = FirebaseAuthCustomBackend.getInstance();
 
     TreatedPatientsAdapter(Context context, Map<String,Patient> data){
         this.context = context;
@@ -37,6 +48,7 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
         this.mapPatients = new ArrayList<>();
         this.mapPatients.addAll(data.keySet());
     }
+
 
     @NonNull
     @Override
@@ -62,6 +74,21 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
                 context.startActivity(intent);
             }
         });
+
+        viewHolder.forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent search = new Intent(context, SearchDoctor.class);
+
+                search.putExtra("isForward", true);
+                search.putExtra("doctor1Forward", auth.getCurrentUser().getUid());
+                search.putExtra("patientForward", mapPatients.get(pos));
+
+                context.startActivity(search);
+
+            }
+        });
     }
 
     @Override
@@ -79,6 +106,7 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
         final TextView city;
         final TextView country;
         final TextView drStatus;
+        final Button forwardButton;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +121,12 @@ public class TreatedPatientsAdapter extends RecyclerViewAdapter<TreatedPatientsA
             streetNumber = itemView.findViewById(R.id.streetNumber);
             city = itemView.findViewById(R.id.city);
             country = itemView.findViewById(R.id.country);
+
+            forwardButton = itemView.findViewById(R.id.forwardButtonInFilteredDoctors);
+            forwardButton.setText("Forward to another doctor");
+            forwardButton.setVisibility(View.VISIBLE);
+
+
         }
     }
 }

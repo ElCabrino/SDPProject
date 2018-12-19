@@ -182,5 +182,6 @@
     <string name="time_duration_minutes">Time, Duration minutes</string>
     <string name="location">Location</string>
     <string name="date">Date</string>
+    <string name="forwardToAnotherDoctor">Forward to another doctor</string>
 
 </resources>
