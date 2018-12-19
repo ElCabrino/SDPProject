@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +24,8 @@
             android:gravity="center"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text=" Search"
+            android:drawablePadding="5dp"
+            android:text="@string/search"
             android:textSize="24sp" />
 
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
-                android:hint="First name"
+                android:hint="@string/first_name"
                 android:imeOptions="actionDone"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
-                android:hint="Last name"
+                android:hint="@string/last_name"
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
-                android:hint="Specialisation"
+                android:hint="@string/specialisation"
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-light"
-                android:hint="City"
+                android:hint="@string/city"
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
@@ -108,7 +108,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:fontFamily="sans-serif-light"
-            android:text="Search"
+            android:text="@string/search"
             android:visibility="visible" />
 
     </LinearLayout>

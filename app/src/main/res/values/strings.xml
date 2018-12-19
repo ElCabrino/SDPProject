@@ -17,7 +17,7 @@
     <string name="input_country_error">country required</string>
     <string name="title_activity_profile">Profile</string>
     <string name="your_profile">Your profile</string>
-    <string name="general_informations">General informations</string>
+    <string name="general_informations">General information</string>
     <string name="medical_condition">Do you suffer from any medical condition ?</string>
     <string name="previous_surgeries">Have you ever had surgery ? Please list which surgeries and what year (or years if more than 1)</string>
     <string name="allergies">Do you have any allergies ? Please specify which</string>
@@ -27,8 +27,8 @@
     <string name="dosage">Dosage</string>
     <string name="times_per_day">Times per day</string>
     <string name="add">add</string>
-    <string name="cig_per_day">How many cigarettes do you consumme on average per day?</string>
-    <string name="drinks_per_day">How many drinks do you consumme on average per day?</string>
+    <string name="cig_per_day">How many cigarettes do you consume on average per day?</string>
+    <string name="drinks_per_day">How many drinks do you consume on average per day?</string>
     <string name="exercise_per_week">How many hours of physical exercise do you do per week ?</string>
     <string name="other_substances">Do you consume any other substances (recreationnal drugs, alternative medicines,..) ?</string>
     <string name="save_your_informations">Save your informations</string>
@@ -74,7 +74,7 @@
     <string name="permission_denied_rationale_long">We need access to your Location to display nearby doctors\n\nPlease go to the Permissions section inside the application Settings and toggle the Location permission switch</string>
     <string name="grant_permission">Grant permission</string>
     <string name="your_next_appointments">Your next appointments</string>
-    <string name="adviced_you_to_visit">adviced you to visit:</string>
+    <string name="adviced_you_to_visit">advised you to visit:</string>
     <!-- Login Page -->
     <string name="mail">Mail</string>
     <string name="password">Password</string>
@@ -92,7 +92,6 @@
     <string name="set_availabilities">Set availabilities</string>
     <string name="your_medical_infos">Your Medical Infos</string>
     <string name="recommendations">Recommendations</string>
-    <string name="date">Date</string>
     <string name="patient">Patient</string>
     <string name="register">Register</string>
     <string name="create_your_account">Create Your Account</string>
@@ -108,6 +107,7 @@
     <string name="country">Country</string>
     <string name="enter_new_information">Enter new information</string>
     <string name="personal_appointments">Personal Appointments</string>
+
     <!-- DoctorPatientInfo -->
     <string name="previous_medical_conditions">Previous medical conditions</string>
     <string name="previous_surgeries_doctor_pt_info">Previous surgeries</string>
@@ -119,4 +119,68 @@
     <string name="drinks_per_day_doctor_pt_info">Drinks per day:</string>
     <string name="hours_of_exercises_per_week">Hours of exercises per week:</string>
     <string name="patient_medical_informations"> Patient Medical Informations</string>
+
+    <string name="send_message">Send message</string>
+    <string name="send">Send</string>
+    <string name="you_don_t_have_any_chats">You don\'t have any chats</string>
+    <string name="are_you">Are You ?</string>
+    <string name="a_patient">A Patient</string>
+    <string name="a_doctor">A Doctor</string>
+    <string name="request">Request</string>
+    <string name="you_don_t_have_any_requests">You don\'t have any requests</string>
+    <string name="you_don_t_have_any_upcoming_appointments">You don\'t have any upcoming appointments</string>
+    <string name="doctor_information_last_name">doctor information last name</string>
+    <string name="lastname">LastName</string>
+    <string name="firstname">FirstName</string>
+    <string name="activity">Activity</string>
+    <string name="activity1">activity</string>
+    <string name="address">Address</string>
+    <string name="street1">street</string>
+    <string name="streetnumber">streetNumber</string>
+    <string name="city1">city</string>
+    <string name="country1">country</string>
+    <string name="previous_surgeries1">Previous surgeries</string>
+    <string name="allergies1">Allergies</string>
+    <string name="previous_drug_reactions1">Previous drug reactions</string>
+    <string name="drinks_per_day1">Drinks per day:</string>
+    <string name="other_substances1">Other substances</string>
+    <string name="favorite">Favorite</string>
+    <string name="you_don_t_have_any_favorite_doctors">You don\'t have any favorite doctors</string>
+    <string name="didn_t_find_any_doctors_with_the_given_criteria">Didn\'t find any doctors with the given criteria</string>
+    <string name="you_don_t_have_any_recommendations">You don\'t have any recommendations</string>
+    <string name="login_button">login button</string>
+    <string name="login">Login</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
+    <string name="select_schedule">Select schedule</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="frequency">Frequency</string>
+    <string name="surgery">Surgery</string>
+    <string name="next_appointments">Next Appointments</string>
+    <string name="you_don_t_have_any_upcoming_cappointments">You don\'t have any upcoming cappointments</string>
+    <string name="specialisation">Specialisation</string>
+    <string name="you_don_t_have_any_treated_patients">You don\'t have any treated patients</string>
+    <string name="day">day</string>
+    <string name="from">from</string>
+    <string name="accept">accept</string>
+    <string name="forward">Forward</string>
+    <string name="decline">decline</string>
+    <string name="contactname">ContactName</string>
+    <string name="time">Time</string>
+    <string name="lastmessage">LastMessage</string>
+    <string name="dr">Dr. </string>
+    <string name="no">No</string>
+    <string name="forward_to_this_doctor">Forward to this doctor</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="doctor_1">Doctor 1</string>
+    <string name="doctor_2">Doctor 2</string>
+    <string name="see_doctor">See Doctor</string>
+    <string name="fsbdifugsdiufbisdubfisdubfiusdbifubdsif_sdijf_isdufisdj_fdsfdsf">fsbdifugsdiufbisdubfisdubfiusdbifubdsif sdijf isdufisdj fdsfdsf</string>
+    <string name="date_dr_first_last_confirmation">Date -Dr. First Last (confirmation)</string>
+    <string name="time_duration_minutes">Time, Duration minutes</string>
+    <string name="location">Location</string>
+    <string name="date">Date</string>
+
 </resources>

@@ -78,7 +78,6 @@
                 android:textSize="20sp"
                 android:fontFamily="sans-serif"/>
 
-
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtSurgeryList"
                 android:layout_width="match_parent"
@@ -100,7 +99,6 @@
                 android:text="@string/allergies_doctor_pt_info"
                 android:textSize="20sp"
                 android:fontFamily="sans-serif"/>
-
 
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
                 android:id="@+id/doctorPtAllergyList"
@@ -240,6 +238,7 @@
                     android:text="@string/hours_of_exercises_per_week"
                     android:textSize="20sp"
                     android:fontFamily="sans-serif"/>
+
 
 
                 <TextView

@@ -21,8 +21,10 @@
             android:layout_marginTop="8dp"
             android:drawableLeft="@drawable/recommendation"
             android:fontFamily="sans-serif-light"
-            android:text=" Recommendations"
+            android:text="@string/recommendations"
+            android:padding="5dp"
             android:textSize="24sp"
+            android:drawablePadding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +45,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:text="You don't have any recommendations"
+            android:text="@string/you_don_t_have_any_recommendations"
             android:textSize="18sp" />
 
         <android.support.v7.widget.RecyclerView

@@ -35,12 +35,7 @@ import static org.hamcrest.Matchers.not;
 @RunWith(AndroidJUnit4.class)
 public class PatientAppointmentTest {
 
-    private String monday = "Mon Oct 22 2018";
-    private String tuesday = "Tue Oct 23 2018";
-    private String wednesday = "Wed Oct 24 2018";
-    private String thursday = "Thu Oct 25 2018";
-    private String friday = "Fri Oct 26 2018";
-    private String saturday = "Sat Oct 27 2018";
+    private final String monday = "Mon Oct 22 2018";
 
     @Rule
     public final IntentsTestRule<PatientAppointmentActivity> ActivityRule =
@@ -101,18 +96,23 @@ public class PatientAppointmentTest {
         loadDayAvailability(monday);
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
+        String tuesday = "Tue Oct 23 2018";
         loadDayAvailability(tuesday);
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
+        String wednesday = "Wed Oct 24 2018";
         loadDayAvailability(wednesday);
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
+        String thursday = "Thu Oct 25 2018";
         loadDayAvailability(thursday);
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
+        String friday = "Fri Oct 26 2018";
         loadDayAvailability(friday);
         checkAvailability();
         TimeUnit.SECONDS.sleep(1);
+        String saturday = "Sat Oct 27 2018";
         loadDayAvailability(saturday);
         checkAvailability();
     }

@@ -28,6 +28,7 @@ import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
 /**
  * @author Vincent CABRINI
  * @reviewer Aslam CADER
+ * @reviewer Etienne CAQUOT
  */
 public class DoctorAppointmentsList extends AppCompatActivity{
 
@@ -91,7 +92,7 @@ public class DoctorAppointmentsList extends AppCompatActivity{
     }
 
     private void showError() {
-        Toast.makeText(this, "An error occured while fetching the data", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "An error occurred while fetching the data", Toast.LENGTH_LONG).show();
     }
 
     private void refreshAppointmentsList(DataSnapshot request) throws FirebaseException {

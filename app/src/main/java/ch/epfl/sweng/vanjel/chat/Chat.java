@@ -7,7 +7,6 @@ package ch.epfl.sweng.vanjel.chat;
  */
 
 /**
- * Class that represents a Chat
  * @author Etienne Caquot
  * @reviewer Luca Joss
  */
@@ -32,34 +31,18 @@ public class Chat {
         this.contactUid = contactUid;
     }
 
-    /**
-     *
-     * @return time of last message
-     */
     public String getTime() {
         return time;
     }
 
-    /**
-     *
-     * @return last message
-     */
     public String getLastMessage() {
         return lastMessage;
     }
 
-    /**
-     *
-     * @return contact Name
-     */
     public String getContactName() {
         return contactName;
     }
 
-    /**
-     *
-     * @return contact UID
-     */
     public String getContactUid() {
         return contactUid;
     }

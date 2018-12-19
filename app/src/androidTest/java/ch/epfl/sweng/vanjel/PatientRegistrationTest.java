@@ -31,18 +31,7 @@ public class PatientRegistrationTest {
     public final ActivityTestRule<Registration> mActivityRule =
             new ActivityTestRule<>(Registration.class);
 
-    private String email = "test@test.ch";
-    private String password = "123456";
-    private String confirmedPassword = "12345"; // not the same
-    private String firstName = "John";
-    private String lastName = "Smith";
-    private String street = "Best avenue";
-    private String streetNumber = "42";
-    private String city = "Gaillard";
-    private String country = "EPFL Land";
-    private String postCode = "1212";
-
-    private String birthday = "09/10/1997";
+    private final String email = "test@test.ch";
 
     @Test
     public void testEmptyForm(){
@@ -55,15 +44,26 @@ public class PatientRegistrationTest {
     @Test
     public void testForm() {
         onView(withId(R.id.mailReg)).perform(scrollTo(), typeText(email)).perform(closeSoftKeyboard());
+        String password = "123456";
         onView(withId(R.id.passwordReg)).perform(scrollTo(), typeText(password)).perform(closeSoftKeyboard());
+        // not the same
+        String confirmedPassword = "12345";
         onView(withId(R.id.confirmPasswordReg)).perform(scrollTo(), typeText(confirmedPassword)).perform(closeSoftKeyboard());
+        String firstName = "John";
         onView(withId(R.id.firstNameReg)).perform(scrollTo(), typeText(firstName)).perform(closeSoftKeyboard());
+        String lastName = "Smith";
         onView(withId(R.id.lastNameReg)).perform(scrollTo(), typeText(lastName)).perform(closeSoftKeyboard());
+        String birthday = "09/10/1997";
         onView(withId(R.id.birthdayReg)).perform(scrollTo(), typeText(birthday)).perform(closeSoftKeyboard());
+        String street = "Best avenue";
         onView(withId(R.id.streetReg)).perform(scrollTo(), typeText(street)).perform(closeSoftKeyboard());
+        String streetNumber = "42";
         onView(withId(R.id.numberReg)).perform(scrollTo(), typeText(streetNumber)).perform(closeSoftKeyboard());
+        String city = "Gaillard";
         onView(withId(R.id.cityReg)).perform(scrollTo(), typeText(city)).perform(closeSoftKeyboard());
+        String country = "EPFL Land";
         onView(withId(R.id.countryReg)).perform(scrollTo(), typeText(country)).perform(closeSoftKeyboard());
+        String postCode = "1212";
         onView(withId(R.id.postcodeReg)).perform(scrollTo(), typeText(postCode)).perform(closeSoftKeyboard());
 
         onView(withId(R.id.buttonReg)).perform(scrollTo(), click());

@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 public class MainMenuTest {
 
     @Rule
-    public ActivityTestRule<MainMenu> mActivityRule =
+    public final ActivityTestRule<MainMenu> mActivityRule =
             new ActivityTestRule<>(MainMenu.class, true, false);
 
     @BeforeClass
@@ -135,7 +135,7 @@ public class MainMenuTest {
         setupNoExtras(MainMenu.class, mActivityRule, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.logoutMainMenu)).perform(click());
-        //verifiy if local favorite are erased
+        //verify if local favorite are erased
         LocalDatabaseService l = new LocalDatabaseService(mActivityRule.getActivity().getApplicationContext());
         assertEquals(0, l.getAll().size());
     }

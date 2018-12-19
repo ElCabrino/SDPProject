@@ -76,6 +76,7 @@
                     android:text="@string/add"
                     style="@style/Widget.AppCompat.Button.Colored"/>
 
+
             </LinearLayout>
 
             <ch.epfl.sweng.vanjel.patientInfo.ExpandedListView
@@ -476,16 +477,6 @@
                     android:fontFamily="sans-serif"/>
 
             </LinearLayout>
-
-
-            <Button
-                android:id="@+id/buttonGenInfoPtReg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="@string/save_your_informations"
-                style="@style/Widget.AppCompat.Button.Colored"/>
 
 
         </LinearLayout>

@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
  */
 public class ForwardTest {
 
-    String patient = "patient";
-    String doctor1UID = "doctor1UID";
-    String doctor2UID = "doctor2UID";
-    String doctor1name = "doctor1name";
-    String doctor2name = "doctor2name";
+    private final String patient = "patient";
+    private final String doctor1UID = "doctor1UID";
+    private final String doctor2UID = "doctor2UID";
+    private final String doctor1name = "doctor1name";
+    private final String doctor2name = "doctor2name";
 
     @Test
     public void testEntity(){

@@ -36,11 +36,11 @@ public class PatientCalendarActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.buttonSelectSchedule){
-            launchAppointmentActiviy();
+            launchAppointmentActivity();
         }
     }
 
-    private void launchAppointmentActiviy() {
+    private void launchAppointmentActivity() {
         Intent intent = new Intent(PatientCalendarActivity.this,PatientAppointmentActivity.class);
         intent.putExtra("date", selectedDate);
         intent.putExtra("doctorUID", doctorUID);

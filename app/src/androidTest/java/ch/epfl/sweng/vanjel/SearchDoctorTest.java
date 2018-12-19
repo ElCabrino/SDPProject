@@ -19,7 +19,6 @@ import ch.epfl.sweng.vanjel.searchDoctor.SearchDoctor;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
@@ -29,10 +28,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class SearchDoctorTest {
 
-    String firstName = "Luca";
-    String lastName = "Joss";
-    String specialisation = "ORL";
-    String city = "Morges";
+    private final String firstName = "Luca";
+    private final String lastName = "Joss";
+    private final String specialisation = "ORL";
+    private final String city = "Morges";
 
     @Rule
     public final ActivityTestRule<SearchDoctor> ActivityRule =

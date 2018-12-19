@@ -75,10 +75,6 @@ public class PatientInfo extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_info);
 
-
-        //saveButton = findViewById(R.id.buttonGenInfoPtReg);
-
-        //patientInfoDatabaseService = new PatientInfoDatabaseService(this,auth.getUid());
         if (auth.getCurrentUser() != null) {
             patientInfoDatabaseService = new PatientInfoDatabaseService(this, auth.getCurrentUser().getUid());
             getAllEditText();

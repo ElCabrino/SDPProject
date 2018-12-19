@@ -293,7 +293,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     /**
      * Method called when the user click on the Grant Permission button. Either Asks for Location
-     * permission or go to settings if user wants to grant permission but alredy checked "Don't Ask Again"
+     * permission or go to settings if user wants to grant permission but already checked "Don't Ask Again"
      * @param view View where the prompt is displayed
      */
     public void onGrantPermission(View view) {
@@ -306,9 +306,6 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    /**
-     * Opens the settings App
-     */
     private void goToSettings() {
         permissionDeniedView.setVisibility(View.INVISIBLE);
         Uri uri = Uri.fromParts("package", getPackageName(), null);

@@ -8,14 +8,14 @@ import static org.junit.Assert.assertEquals;
 
 public class DoctorFavoriteTest {
 
-    String docID = "docID";
-    String firstName = "Vincent";
-    String lastName  = "Cabrini";
-    String street = "Route de Drize";
-    String  number = "11";
-    String city = "Carouge";
-    String country = "Switzerland";
-    String profession = "Generalist";
+    private final String docID = "docID";
+    private final String firstName = "Vincent";
+    private final String lastName  = "Cabrini";
+    private final String street = "Route de Drize";
+    private final String  number = "11";
+    private final String city = "Carouge";
+    private final String country = "Switzerland";
+    private final String profession = "Generalist";
 
     @Test
     public void testGetterSetter() {

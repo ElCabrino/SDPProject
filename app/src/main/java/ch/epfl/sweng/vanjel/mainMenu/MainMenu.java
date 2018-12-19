@@ -66,8 +66,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         logout.setOnClickListener(this);
         TextView profile = findViewById(R.id.profileMainMenu);
         profile.setOnClickListener(this);
-        TextView nextAppointement = findViewById(R.id.nextAppointMainMenu);
-        nextAppointement.setOnClickListener(this);
+        TextView nextAppointment = findViewById(R.id.nextAppointMainMenu);
+        nextAppointment.setOnClickListener(this);
         TextView chat = findViewById(R.id.chatMainMenu);
         chat.setOnClickListener(this);
         requests = findViewById(R.id.requestsMainMenu);
