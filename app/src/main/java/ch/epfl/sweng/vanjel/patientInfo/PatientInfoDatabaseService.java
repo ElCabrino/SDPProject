@@ -244,7 +244,6 @@ class PatientInfoDatabaseService {
         String firebaseName = info.getAndroidInfo();
         if (!TextUtils.isEmpty(firebaseName)) {
             dbCat.child(firebaseName).setValue(info);
-
                 Toast.makeText(this.activity, String.format("%s added.", toastText), Toast.LENGTH_LONG).show();
 
         } else {
