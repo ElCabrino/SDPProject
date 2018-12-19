@@ -48,6 +48,7 @@ public class DoctorAppointmentsListTest {
     @Test
     public void aaa() {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
+        ActivityRule.finishActivity();
         assert(true);
     }
 
