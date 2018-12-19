@@ -1,5 +1,6 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.searchDoctor;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.searchDoctor.FilteredDoctors;
+import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -39,9 +40,9 @@ public class FilteredDoctorsTest {
         extras.put("firstName", "fn_dtest1");
         extras.put("specialisation", "Dentist");
         extras.put("city", "city_dtest1");
-        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, false, extras, new HashMap<String, Boolean>());
+        setupWithExtras(FilteredDoctors.class, mActivityRule, false, true, false, false, false, false, false, extras, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.firstName)).check(matches(withText("fn_dtest1")));
+        onView(ViewMatchers.withId(R.id.firstName)).check(matches(withText("fn_dtest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_dtest1")));
         onView(withId(R.id.activity)).check(matches(withText("Dentist")));
         onView(withId(R.id.city)).check(matches(withText("city_dtest1")));

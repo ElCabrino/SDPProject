@@ -12,10 +12,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
 import ch.epfl.sweng.vanjel.R;
-import ch.epfl.sweng.vanjel.favorite.DoctorFavorite;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
+import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
+import ch.epfl.sweng.vanjel.favorite.DoctorFavorite;
+
 /**
  * Class used to populate the activity for favorite Doctors
  *

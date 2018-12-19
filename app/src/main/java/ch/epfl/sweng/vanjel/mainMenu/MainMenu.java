@@ -1,9 +1,9 @@
 package ch.epfl.sweng.vanjel.mainMenu;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,9 +16,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.doctorAppointment.DoctorAppointmentsList;
 import ch.epfl.sweng.vanjel.doctorAppointment.DoctorComingAppointments;
-import ch.epfl.sweng.vanjel.chat.ChatListActivity;
 import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
 import ch.epfl.sweng.vanjel.favorite.LocalDatabaseService;
 import ch.epfl.sweng.vanjel.favoriteList.PatientFavoriteListActivity;

@@ -30,7 +30,7 @@ public class ChatListActivityTest {
 
     @Test
     public void displayChatListTest() throws Exception {
-        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, false, false, false, false);
         Intents.init();
         String expectedName = "fn_dtest1 ln_dtest1";
         TimeUnit.SECONDS.sleep(1);
@@ -44,7 +44,7 @@ public class ChatListActivityTest {
 
     @Test
     public void getClassUsersCancelled() throws Exception {
-        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, false, true, false);
+        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, false, true, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.contactName)).check(doesNotExist());
         onView(withId(R.id.time)).check(doesNotExist());
@@ -53,7 +53,7 @@ public class ChatListActivityTest {
 
     @Test
     public void getChatsCancelled() throws Exception {
-        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, true, false, false);
+        setupNoExtras(ChatListActivity.class, mActivityRule, false, true, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.contactName)).check(doesNotExist());
         onView(withId(R.id.time)).check(doesNotExist());

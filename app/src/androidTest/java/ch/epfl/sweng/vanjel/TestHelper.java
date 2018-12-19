@@ -21,9 +21,10 @@ public class TestHelper {
         FirebaseAuthCustomBackend.setMockPatient(true);
     }
 
-    public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird, Map<String, String> extras ,Map<String,Boolean> extrasBoolean) {
+    public static void setupWithExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird, boolean authShouldFail, Map<String, String> extras ,Map<String,Boolean> extrasBoolean) {
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
+        FirebaseAuthCustomBackend.setShouldFail(authShouldFail);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
         FirebaseDatabaseCustomBackend.setIsCancelled(isCancelled);
         FirebaseDatabaseCustomBackend.setIsCancelledSecond(isCancelledSecond);
@@ -40,10 +41,10 @@ public class TestHelper {
         rule.launchActivity(intent);
     }
 
-    public static void setupNoExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird) {
+    public static void setupNoExtras(Class<?> c, ActivityTestRule<?> rule, boolean userNull, boolean mockPatient, boolean shouldFail, boolean isCancelled, boolean isCancelledSecond, boolean isCancelledThird, boolean authShouldFail) {
         FirebaseAuthCustomBackend.setNullUser(userNull);
         FirebaseAuthCustomBackend.setMockPatient(mockPatient);
-        FirebaseAuthCustomBackend.setShouldFail(shouldFail);
+        FirebaseAuthCustomBackend.setShouldFail(authShouldFail);
         FirebaseDatabaseCustomBackend.setShouldFail(shouldFail);
         FirebaseDatabaseCustomBackend.setIsCancelled(isCancelled);
         FirebaseDatabaseCustomBackend.setIsCancelledSecond(isCancelledSecond);

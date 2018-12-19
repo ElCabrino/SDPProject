@@ -1,4 +1,4 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.profile;
 
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import ch.epfl.sweng.vanjel.profile.Profile;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -68,7 +66,7 @@ public class ProfileTest {
 
     @Test
     public void displayPatientProfileTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         String p_expectedLastname = "ln_ptest1";
@@ -88,8 +86,8 @@ public class ProfileTest {
     }
 
     @Test
-    public void EditTextTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
+    public void editTextTest() throws Exception {
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         String newLastName = "JossEdit";
@@ -98,14 +96,14 @@ public class ProfileTest {
         String newNumberStreet = "12";
         String newCity = "BussignyEdit";
 
-        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(), click());
         onView(withContentDescription("profile last name")).perform(replaceText(newLastName));
         onView(withContentDescription("profile name")).perform(replaceText(newName));
         onView(withContentDescription("profile street")).perform(replaceText(newStreet));
         onView(withContentDescription("profile street number")).perform(replaceText(newNumberStreet));
         onView(withContentDescription("profile city")).perform(replaceText(newCity));
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile save button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile save button")).perform(scrollTo(), click());
 
         onView(withContentDescription("profile last name")).check(matches(withText(newLastName)));
         onView(withContentDescription("profile name")).check(matches(withText(newName)));
@@ -120,10 +118,10 @@ public class ProfileTest {
 
     @Test
     public void editButtonTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(), click());
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
         onView(withContentDescription("profile save button")).check(matches(isDisplayed())).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
@@ -141,12 +139,12 @@ public class ProfileTest {
 
     @Test
     public void saveButtonTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, patient,new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, false, false, false, false, patient,new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile save button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile save button")).perform(scrollTo(), click());
         onView(withText("User successfully updated.")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
 
         onView(withContentDescription("profile edit button")).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
@@ -166,7 +164,7 @@ public class ProfileTest {
 
     @Test
     public void displayDoctorProfileTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, false, false, false, false, false, doctor, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, false, false, false, false, false, false, doctor, new HashMap<String, Boolean>());
         // The app needs a few seconds to load the content
         TimeUnit.SECONDS.sleep(1);
         String d_expectedLastname = "ln_dtest1";
@@ -191,7 +189,7 @@ public class ProfileTest {
 
     @Test
     public void createValueEventListenerCancelled() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, false, true, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, false, true, false, false, false, patient, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
         onView(withContentDescription("profile last name")).check(matches(withText("")));
         onView(withContentDescription("profile name")).check(matches(withText("")));
@@ -206,11 +204,11 @@ public class ProfileTest {
 
     @Test
     public void saveNewValuesFailureTest() throws Exception {
-        setupWithExtras(Profile.class, mActivityRule, false, true, true, false, false, false, patient, new HashMap<String, Boolean>());
+        setupWithExtras(Profile.class, mActivityRule, false, true, true, false, false, false, false, patient, new HashMap<String, Boolean>());
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile edit button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile edit button")).perform(scrollTo(), click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withContentDescription("profile save button")).perform(scrollTo(),click());
+        onView(withContentDescription("profile save button")).perform(scrollTo(), click());
         onView(withText("Failed to update user.")).inRoot(withDecorView(Matchers.not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }

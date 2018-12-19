@@ -1,6 +1,7 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.forwardRequest;
 
 import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -9,8 +10,8 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.doctorInformation.DoctorInformation;
-import ch.epfl.sweng.vanjel.forwardRequest.ForwardRequest;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -35,16 +36,16 @@ public class ForwardRequestTest {
             new ActivityTestRule<>(ForwardRequest.class,true,false);
     @Test
     public void TestForwardedIsDisplayed() throws Exception {
-        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false, false);
+        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false, false, false);
 
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.forwardCardView)).check(matches(hasChildCount(1)));
+        onView(ViewMatchers.withId(R.id.forwardCardView)).check(matches(hasChildCount(1)));
     }
 
     @Test
     public void clickOnSeeDoctor() throws Exception {
         Intents.init();
-        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false,false);
+        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false,false, false);
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.seeForwadedDoctor)).perform(click());
@@ -54,7 +55,7 @@ public class ForwardRequestTest {
 
     @Test
     public void clickOnDelete() throws Exception {
-        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false,false);
+        setupNoExtras(ForwardRequest.class, mActivityRule, false, true, false, false, false,false, false);
 
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.deleteForwardRequest)).perform(click());
