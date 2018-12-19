@@ -9,9 +9,11 @@ import android.view.View;
 
 import org.hamcrest.Matcher;
 import org.junit.AfterClass;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +36,7 @@ import static ch.epfl.sweng.vanjel.TestHelper.setupNoExtras;
 import static org.hamcrest.Matchers.not;
 
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class DoctorAppointmentsListTest {
 
@@ -85,6 +88,7 @@ public class DoctorAppointmentsListTest {
     @Test
     public void declineAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
+        TimeUnit.SECONDS.sleep(5);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.declineAppointmentButton)));
         onView(withText("Appointment declined")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
         TimeUnit.SECONDS.sleep(5);
@@ -93,7 +97,7 @@ public class DoctorAppointmentsListTest {
     @Test
     public void declineAppointmentFailedTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, true, false, false, false, false);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(5);
         onView(withContentDescription(R.string.appCardViewDesc)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickOnChild(R.id.declineAppointmentButton)));
         onView(withText("An error occurred when declining the appointment")).inRoot(withDecorView(not(ActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
         TimeUnit.SECONDS.sleep(5);
