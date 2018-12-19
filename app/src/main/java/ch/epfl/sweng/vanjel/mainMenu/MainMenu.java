@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +48,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     private TextView favorite;
     private TextView infos;
     private TextView recommendations;
+    private TableRow tableRow1,tableRow2,tableRow3,tableRow4,tableRow5;
 
     private String userType;
 
@@ -86,6 +88,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         infos.setOnClickListener(this);
         recommendations = findViewById(R.id.recommendationsMainMenu);
         recommendations.setOnClickListener(this);
+        tableRow1 = findViewById(R.id.tableRow1);
+        tableRow2 = findViewById(R.id.tableRow2);
+        tableRow3 = findViewById(R.id.tableRow3);
+        tableRow4 = findViewById(R.id.tableRow4);
+        tableRow5 = findViewById(R.id.tableRow5);
     }
 
     private void isUserPatient() {
@@ -110,15 +117,12 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
     private void setLayout() {
         if (userType.equals("Patient")){
-            requests.setVisibility(View.INVISIBLE);
-            treated.setVisibility(View.INVISIBLE);
-            setAvailability.setVisibility(View.INVISIBLE);
+            tableRow2.setVisibility(View.GONE);
+            tableRow5.setVisibility(View.GONE);
         } else {
-            search.setVisibility(View.INVISIBLE);
-            nearby.setVisibility(View.INVISIBLE);
-            favorite.setVisibility(View.INVISIBLE);
-            infos.setVisibility(View.INVISIBLE);
-            recommendations.setVisibility(View.INVISIBLE);
+            tableRow1.setVisibility(View.GONE);
+            tableRow3.setVisibility(View.GONE);
+            tableRow4.setVisibility(View.GONE);
         }
     }
 

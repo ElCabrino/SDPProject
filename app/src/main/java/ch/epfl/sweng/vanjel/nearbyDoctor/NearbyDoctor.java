@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -125,6 +126,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d("Nearby","MapReady");
         gmap = googleMap;
         gmap.getUiSettings().setZoomControlsEnabled(true);
         getUserLocation();
@@ -142,8 +144,10 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
+                        Log.d("Nearby","Got Location");
                         userLocation = new LatLng(location.getLatitude(),location.getLongitude());
                         initMap(location);
+                        getDoctors();
                     } else {
                         Toast.makeText(NearbyDoctor.this, "Cannot find your Location " +
                                 "please open Google Maps until your Location is find and come back", Toast.LENGTH_SHORT).show();
@@ -162,13 +166,15 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQ_CODE_PERMISSIONS_ACCESS_FINE_LOCATION);
         }
+        Log.d("Nearby","init map");
+
         mapView.setVisibility(View.VISIBLE);
         LatLng userPosition = new LatLng(location.getLatitude(),location.getLongitude());
         gmap.setMyLocationEnabled(true);
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userPosition, 18);
         gmap.animateCamera(yourLocation);
         gmap.getUiSettings().setMyLocationButtonEnabled(true);
-        getDoctors();
+        //getDoctors();
     }
 
     /**
@@ -182,7 +188,7 @@ public class NearbyDoctor extends AppCompatActivity implements OnMapReadyCallbac
                     Doctor myDoctor = dataSnapshotChild.getValue(Doctor.class);
                     String key = dataSnapshotChild.getKey();
                     doctorHashMap.put(key, myDoctor);
-
+                    Log.d("Nearby","get Doctors");
                     if (myDoctor!=null) {
                         LatLng doctorLocation = myDoctor.getLocationFromAddress(NearbyDoctor.this);
                         // if doctor address is incorrect we do not put his marker
