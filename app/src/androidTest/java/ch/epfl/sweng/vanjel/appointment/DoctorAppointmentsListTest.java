@@ -4,6 +4,7 @@ import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
@@ -41,8 +42,8 @@ import static org.hamcrest.Matchers.not;
 public class DoctorAppointmentsListTest {
 
     @Rule
-    public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
-            new IntentsTestRule<>(DoctorAppointmentsList.class, true, false);
+    public final ActivityTestRule<DoctorAppointmentsList> ActivityRule =
+            new ActivityTestRule<>(DoctorAppointmentsList.class, true, false);
 
 //    @Test
 //    public void acceptAppointmentTest() throws Exception {
