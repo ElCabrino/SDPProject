@@ -1,0 +1,1395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/doc_availabilities"
+            android:textSize="18sp" />
+
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/monday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/monday"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tuesday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/tuesday"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/wednesday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/wednesday"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/thursday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:gravity="center"
+                        android:text="@string/thursday"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/friday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:gravity="center"
+                        android:text="@string/friday"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/saturday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:gravity="center"
+                        android:text="@string/saturday"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight"
+                        android:textOn="@string/eight"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight"
+                        android:textOn="@string/eight"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight"
+                        android:textOn="@string/eight"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight"
+                        android:textOn="@string/eight"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight"
+                        android:textOn="@string/eight"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight"
+                        android:textOn="@string/eight"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday8_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight_thirty"
+                        android:textOn="@string/eight_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday8_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight_thirty"
+                        android:textOn="@string/eight_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday8_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight_thirty"
+                        android:textOn="@string/eight_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday8_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight_thirty"
+                        android:textOn="@string/eight_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday8_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight_thirty"
+                        android:textOn="@string/eight_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday8_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eight_thirty"
+                        android:textOn="@string/eight_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine"
+                        android:textOn="@string/nine"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine"
+                        android:textOn="@string/nine"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine"
+                        android:textOn="@string/nine"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine"
+                        android:textOn="@string/nine"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine"
+                        android:textOn="@string/nine"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine"
+                        android:textOn="@string/nine"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday9_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine_thirty"
+                        android:textOn="@string/nine_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday9_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine_thirty"
+                        android:textOn="@string/nine_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday9_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine_thirty"
+                        android:textOn="@string/nine_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday9_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine_thirty"
+                        android:textOn="@string/nine_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday9_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine_thirty"
+                        android:textOn="@string/nine_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday9_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/nine_thirty"
+                        android:textOn="@string/nine_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten"
+                        android:textOn="@string/ten"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten"
+                        android:textOn="@string/ten"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten"
+                        android:textOn="@string/ten"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten"
+                        android:textOn="@string/ten"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten"
+                        android:textOn="@string/ten"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten"
+                        android:textOn="@string/ten"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday10_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten_thirty"
+                        android:textOn="@string/ten_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday10_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten_thirty"
+                        android:textOn="@string/ten_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday10_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten_thirty"
+                        android:textOn="@string/ten_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday10_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten_thirty"
+                        android:textOn="@string/ten_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday10_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten_thirty"
+                        android:textOn="@string/ten_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday10_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/ten_thirty"
+                        android:textOn="@string/ten_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven"
+                        android:textOn="@string/eleven"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven"
+                        android:textOn="@string/eleven"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven"
+                        android:textOn="@string/eleven"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven"
+                        android:textOn="@string/eleven"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven"
+                        android:textOn="@string/eleven"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven"
+                        android:textOn="@string/eleven"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday11_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven_thirty"
+                        android:textOn="@string/eleven_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday11_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven_thirty"
+                        android:textOn="@string/eleven_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday11_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven_thirty"
+                        android:textOn="@string/eleven_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday11_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven_thirty"
+                        android:textOn="@string/eleven_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday11_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven_thirty"
+                        android:textOn="@string/eleven_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday11_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eleven_thirty"
+                        android:textOn="@string/eleven_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve"
+                        android:textOn="@string/twelve"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve"
+                        android:textOn="@string/twelve"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve"
+                        android:textOn="@string/twelve"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve"
+                        android:textOn="@string/twelve"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve"
+                        android:textOn="@string/twelve"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve"
+                        android:textOn="@string/twelve"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday12_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve_thirty"
+                        android:textOn="@string/twelve_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday12_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve_thirty"
+                        android:textOn="@string/twelve_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday12_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve_thirty"
+                        android:textOn="@string/twelve_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday12_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve_thirty"
+                        android:textOn="@string/twelve_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday12_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve_thirty"
+                        android:textOn="@string/twelve_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday12_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/twelve_thirty"
+                        android:textOn="@string/twelve_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen"
+                        android:textOn="@string/thirteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen"
+                        android:textOn="@string/thirteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen"
+                        android:textOn="@string/thirteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen"
+                        android:textOn="@string/thirteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen"
+                        android:textOn="@string/thirteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen"
+                        android:textOn="@string/thirteen"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday13_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen_thirty"
+                        android:textOn="@string/thirteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday13_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen_thirty"
+                        android:textOn="@string/thirteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday13_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen_thirty"
+                        android:textOn="@string/thirteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday13_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen_thirty"
+                        android:textOn="@string/thirteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday13_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen_thirty"
+                        android:textOn="@string/thirteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday13_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/thirteen_thirty"
+                        android:textOn="@string/thirteen_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen"
+                        android:textOn="@string/fourteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen"
+                        android:textOn="@string/fourteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen"
+                        android:textOn="@string/fourteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen"
+                        android:textOn="@string/fourteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen"
+                        android:textOn="@string/fourteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen"
+                        android:textOn="@string/fourteen"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday14_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen_thirty"
+                        android:textOn="@string/fourteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday14_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen_thirty"
+                        android:textOn="@string/fourteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday14_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen_thirty"
+                        android:textOn="@string/fourteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday14_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen_thirty"
+                        android:textOn="@string/fourteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday14_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen_thirty"
+                        android:textOn="@string/fourteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday14_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fourteen_thirty"
+                        android:textOn="@string/fourteen_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen"
+                        android:textOn="@string/fifteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen"
+                        android:textOn="@string/fifteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen"
+                        android:textOn="@string/fifteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen"
+                        android:textOn="@string/fifteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen"
+                        android:textOn="@string/fifteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen"
+                        android:textOn="@string/fifteen"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday15_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen_thirty"
+                        android:textOn="@string/fifteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday15_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen_thirty"
+                        android:textOn="@string/fifteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday15_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen_thirty"
+                        android:textOn="@string/fifteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday15_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen_thirty"
+                        android:textOn="@string/fifteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday15_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen_thirty"
+                        android:textOn="@string/fifteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday15_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/fifteen_thirty"
+                        android:textOn="@string/fifteen_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen"
+                        android:textOn="@string/sixteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen"
+                        android:textOn="@string/sixteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen"
+                        android:textOn="@string/sixteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen"
+                        android:textOn="@string/sixteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen"
+                        android:textOn="@string/sixteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen"
+                        android:textOn="@string/sixteen"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday16_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen_thirty"
+                        android:textOn="@string/sixteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday16_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen_thirty"
+                        android:textOn="@string/sixteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday16_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen_thirty"
+                        android:textOn="@string/sixteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday16_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen_thirty"
+                        android:textOn="@string/sixteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday16_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen_thirty"
+                        android:textOn="@string/sixteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday16_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/sixteen_thirty"
+                        android:textOn="@string/sixteen_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen"
+                        android:textOn="@string/seventeen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen"
+                        android:textOn="@string/seventeen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen"
+                        android:textOn="@string/seventeen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen"
+                        android:textOn="@string/seventeen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen"
+                        android:textOn="@string/seventeen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen"
+                        android:textOn="@string/seventeen"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday17_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen_thirty"
+                        android:textOn="@string/seventeen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday17_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen_thirty"
+                        android:textOn="@string/seventeen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday17_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen_thirty"
+                        android:textOn="@string/seventeen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday17_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen_thirty"
+                        android:textOn="@string/seventeen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday17_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen_thirty"
+                        android:textOn="@string/seventeen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday17_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/seventeen_thirty"
+                        android:textOn="@string/seventeen_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen"
+                        android:textOn="@string/eighteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen"
+                        android:textOn="@string/eighteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen"
+                        android:textOn="@string/eighteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen"
+                        android:textOn="@string/eighteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen"
+                        android:textOn="@string/eighteen"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen"
+                        android:textOn="@string/eighteen"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/monday18_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen_thirty"
+                        android:textOn="@string/eighteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tuesday18_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen_thirty"
+                        android:textOn="@string/eighteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/wednesday18_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen_thirty"
+                        android:textOn="@string/eighteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/thursday18_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen_thirty"
+                        android:textOn="@string/eighteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/friday18_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen_thirty"
+                        android:textOn="@string/eighteen_thirty"
+                        android:textSize="14sp" />
+
+                    <ToggleButton
+                        android:id="@+id/saturday18_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="@string/eighteen_thirty"
+                        android:textOn="@string/eighteen_thirty"
+                        android:textSize="14sp" />
+                </TableRow>
+            </TableLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/valid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/valid" />
+    </LinearLayout>
+</ScrollView>

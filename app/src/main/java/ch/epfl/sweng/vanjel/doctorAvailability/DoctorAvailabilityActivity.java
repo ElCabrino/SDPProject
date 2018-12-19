@@ -47,7 +47,7 @@ public class DoctorAvailabilityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_availability);
+        setContentView(R.layout.activity_doctor_availability_bis);
 
         initButtons();
 
