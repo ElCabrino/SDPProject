@@ -43,7 +43,7 @@ public class DoctorAppointmentsListTest {
 
     @Rule
     public final ActivityTestRule<DoctorAppointmentsList> ActivityRule =
-            new ActivityTestRule<>(DoctorAppointmentsList.class, true, false);
+            new ActivityTestRule<>(DoctorAppointmentsList.class, true, true);
 
 //    @Test
 //    public void acceptAppointmentTest() throws Exception {
@@ -77,6 +77,7 @@ public class DoctorAppointmentsListTest {
 
     @Test
     public void acceptCancelAppointmentTest() throws InterruptedException {
+        ActivityRule.finishActivity();
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         // click accept button but changes his mind and click cancel
