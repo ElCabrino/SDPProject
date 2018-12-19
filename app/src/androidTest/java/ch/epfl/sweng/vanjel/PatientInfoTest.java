@@ -348,7 +348,7 @@ PatientInfoTest {
         onView(withId(R.id.textViewSurgeries)).perform(scrollTo());
         onView(withId(R.id.textViewSurgeries)).perform(click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.buttonPatientInfoUpdateSurgery)).perform(click());
+        onView(withId(R.id.buttonPatientInfoUpdateDoubleInfo)).perform(click());
     }
 
     @Test
@@ -364,7 +364,7 @@ PatientInfoTest {
         onView(withId(R.id.textViewSurgeries)).perform(scrollTo());
         onView(withId(R.id.textViewSurgeries)).perform(click());
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.buttonPatientInfoDeleteSurgery)).perform(click());
+        onView(withId(R.id.buttonPatientInfoDeleteDoubleInfo)).perform(click());
     }
 
     @Test

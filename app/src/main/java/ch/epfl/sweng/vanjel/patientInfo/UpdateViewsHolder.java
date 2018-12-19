@@ -7,8 +7,9 @@ import android.widget.EditText;
 import ch.epfl.sweng.vanjel.R;
 
 /**
+ * A utility class to create an object holding views initialized for a given patient information category.
+ *
  * @author Nicolas BRANDT
- * @reviewer
  */
 class UpdateViewsHolder {
 
@@ -46,7 +47,13 @@ class UpdateViewsHolder {
         return buttonDelete;
     }
 
-    static UpdateViewsHolder forSingleInfo(View dialogView) {
+    /**
+     * Method to create an UpdateViewsHolder corresponding to a patient information containing a single field of information
+     *
+     * @param dialogView a dialogView
+     * @return a new UpdateViewsHolder with views corresponding to a patient information containing a single field of information
+     */
+    static UpdateViewsHolder forSingleFieldInfo(View dialogView) {
         return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateEditView),
                 null,
                 null,
@@ -54,14 +61,26 @@ class UpdateViewsHolder {
                 dialogView.findViewById(R.id.buttonPatientInfoDelete));
     }
 
-    static UpdateViewsHolder forSurgery(View dialogView) {
-        return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateSurgeryType),
-                dialogView.findViewById(R.id.patientInfoUpdateSurgeryYear),
+    /**
+     * Method to create an UpdateViewsHolder corresponding to a patient information containing two fields of information
+     *
+     * @param dialogView a dialogView
+     * @return a new UpdateViewsHolder with views corresponding to a patient information containing two fields of information
+     */
+    static UpdateViewsHolder forDoubleFieldInfo(View dialogView) {
+        return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateMainInfo),
+                dialogView.findViewById(R.id.patientInfoUpdateSecondaryInfo),
                 null,
-                dialogView.findViewById(R.id.buttonPatientInfoUpdateSurgery),
-                dialogView.findViewById(R.id.buttonPatientInfoDeleteSurgery));
+                dialogView.findViewById(R.id.buttonPatientInfoUpdateDoubleInfo),
+                dialogView.findViewById(R.id.buttonPatientInfoDeleteDoubleInfo));
     }
 
+    /**
+     * Method to create an UpdateViewsHolder corresponding to a patient drug information containing
+     *
+     * @param dialogView a dialogView
+     * @return a new UpdateViewsHolder with views corresponding to a patient drug information
+     */
     static UpdateViewsHolder forDrug(View dialogView) {
         return new UpdateViewsHolder(dialogView.findViewById(R.id.patientInfoUpdateDrugDrug),
                 dialogView.findViewById(R.id.patientInfoUpdateDrugDosage),

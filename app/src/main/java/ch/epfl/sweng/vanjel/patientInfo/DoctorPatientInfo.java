@@ -12,6 +12,8 @@ import java.util.List;
 import ch.epfl.sweng.vanjel.R;
 
 /**
+ * Class to represent a patient's medical information from the doctor's point of view.
+ *
  * @author Nicolas BRANDT
  * @reviewer Aslam CADER
  */
@@ -56,7 +58,6 @@ public class DoctorPatientInfo extends AppCompatActivity {
         
     }
 
-
     private void getAllPatientInfoFields() {
         listViewConditions = findViewById(R.id.doctorPtPriorConditionsList);
         listViewSurgeries = findViewById(R.id.doctorPtSurgeryList);
@@ -69,14 +70,10 @@ public class DoctorPatientInfo extends AppCompatActivity {
         textViewExercise = findViewById(R.id.doctorPtExerciseValue);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
         // add the database listeners
-        patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
-        patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
-        patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
         patientInfoDatabaseService.addListListener(conditionList,listViewConditions,"Condition",
                 InfoString.class, new InfoList<>(this, conditionList, R.layout.list_conditions_layout, R.id.textViewConditions));
         patientInfoDatabaseService.addListListener(surgeryList,listViewSurgeries,"Surgery",
@@ -87,9 +84,11 @@ public class DoctorPatientInfo extends AppCompatActivity {
                 DrugReaction.class, new InfoList<>(this, drugReactionList, R.layout.list_drug_reactions_layout, R.id.textViewDrugReactions));
         patientInfoDatabaseService.addListListener(drugList,listViewDrugs,"Drug",
                 Drug.class, new InfoList<>(this, drugList, R.layout.list_drugs_layout, R.id.textViewDrugs));
-
         patientInfoDatabaseService.addListListener(substanceList,listViewSubstances,"Substance",
                 InfoString.class, new InfoList<>(this, substanceList, R.layout.list_substances_layout, R.id.textViewSubstances));
+        patientInfoDatabaseService.addAmountListener(textViewSmoking, "Smoking");
+        patientInfoDatabaseService.addAmountListener(textViewDrinking, "Drinking");
+        patientInfoDatabaseService.addAmountListener(textViewExercise, "Exercise");
     }
 
 }
