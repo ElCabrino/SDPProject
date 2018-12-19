@@ -44,6 +44,12 @@ public class DoctorAppointmentsListTest {
     public final IntentsTestRule<DoctorAppointmentsList> ActivityRule =
             new IntentsTestRule<>(DoctorAppointmentsList.class, true, false);
 
+    // Used as first test to avoid idle intent error on Travis.
+    @Test
+    public void aaa() {
+        assert(true);
+    }
+
     @Test
     public void acceptAppointmentTest() throws Exception {
         setupNoExtras(DoctorAppointmentsList.class, ActivityRule, false, false, false, false, false, false, false);
