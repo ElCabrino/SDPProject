@@ -1,5 +1,6 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.registration;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -10,7 +11,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.registration.Registration;
+import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -32,10 +33,10 @@ public class DoctorRegistrationTest {
 
     @Test
     public void testForm() throws Exception {
-        setupNoExtras(Registration.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(Registration.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         // Check if register without anything affect
-        onView(withId(R.id.buttonReg)).perform(scrollTo(), click());
+        onView(ViewMatchers.withId(R.id.buttonReg)).perform(scrollTo(), click());
 
 
         assertEquals("Unexpected Activity before adding elements", mActivityRule.getActivity().getClass().getName(), Registration.class.getName());

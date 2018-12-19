@@ -1,5 +1,6 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.treatedPatient;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -8,7 +9,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.treatedPatient.TreatedPatientsActivity;
+import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -25,9 +26,9 @@ public class TreatedPatientsActivityTest {
 
     @Test
     public void displayTreatedPatientsTest() throws Exception {
-        setupNoExtras(TreatedPatientsActivity.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(TreatedPatientsActivity.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.firstName)).check(matches(withText("fn_ptest1")));
+        onView(ViewMatchers.withId(R.id.firstName)).check(matches(withText("fn_ptest1")));
         onView(withId(R.id.lastName)).check(matches(withText("ln_ptest1")));
         onView(withId(R.id.street)).check(matches(withText("street_ptest1")));
         onView(withId(R.id.streetNumber)).check(matches(withText("1")));

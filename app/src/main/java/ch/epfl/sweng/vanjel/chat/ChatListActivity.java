@@ -19,11 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.vanjel.LayoutHelper;
-import ch.epfl.sweng.vanjel.models.Doctor;
+import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.models.Patient;
-import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.models.User;
 
 /**

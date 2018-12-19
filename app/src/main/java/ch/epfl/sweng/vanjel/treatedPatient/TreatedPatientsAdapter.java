@@ -10,14 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
-import ch.epfl.sweng.vanjel.models.Patient;
 import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.RecyclerViewAdapter;
+import ch.epfl.sweng.vanjel.models.Patient;
+import ch.epfl.sweng.vanjel.patientInfo.DoctorPatientInfo;
 
 /**
  * Class used to populate the activity_treated_patients recyclerView

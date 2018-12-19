@@ -40,8 +40,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import ch.epfl.sweng.vanjel.models.Doctor;
 import ch.epfl.sweng.vanjel.R;
+import ch.epfl.sweng.vanjel.models.Doctor;
 
 /**
  * Handles interaction with activity_nearby_doctor

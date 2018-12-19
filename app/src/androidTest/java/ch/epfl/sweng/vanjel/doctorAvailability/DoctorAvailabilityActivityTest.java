@@ -1,5 +1,6 @@
-package ch.epfl.sweng.vanjel;
+package ch.epfl.sweng.vanjel.doctorAvailability;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
@@ -8,8 +9,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.vanjel.doctorAvailability.DoctorAvailabilityActivity;
-import ch.epfl.sweng.vanjel.doctorAvailability.TimeAvailability;
+import ch.epfl.sweng.vanjel.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -63,7 +63,7 @@ public class DoctorAvailabilityActivityTest {
 
     @Test
     public void checkOldAvailabilityTest() throws Exception {
-        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         for (int j: avIndex) {
             onView(withId(TimeAvailability.times[j])).perform(scrollTo()).check(matches(isChecked()));
@@ -72,7 +72,7 @@ public class DoctorAvailabilityActivityTest {
 
     @Test
     public void checkOldAvailabilityCancelledTest() throws Exception {
-        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, true, false, false);
+        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, true, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         for (int i=0;i<TimeAvailability.getIdLength();i++) {
             onView(withId(TimeAvailability.times[i])).perform(scrollTo()).check(matches(not(isChecked())));
@@ -81,7 +81,7 @@ public class DoctorAvailabilityActivityTest {
 
     @Test
     public void canSelectAvailabilityTest() throws Exception {
-        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         for (int i: avIndex) {
             onView(withId(TimeAvailability.times[i+TimeAvailability.MONDAY])).perform(scrollTo(), click());
@@ -99,16 +99,16 @@ public class DoctorAvailabilityActivityTest {
 
     @Test
     public void validateTest() throws Exception {
-        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false);
+        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, false, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
-        onView(withId(R.id.valid)).perform(scrollTo(), click());
+        onView(ViewMatchers.withId(R.id.valid)).perform(scrollTo(), click());
         onView(withText("Doctor availability successfully updated.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
 
     }
 
     @Test
     public void validateFailedTest() throws Exception {
-        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, true, false, false, false);
+        setupNoExtras(DoctorAvailabilityActivity.class, mActivityRule, false, false, true, false, false, false, false);
         TimeUnit.SECONDS.sleep(1);
         onView(withId(R.id.valid)).perform(scrollTo(), click());
         onView(withText("Failed to update Doctor availability.")).inRoot(withDecorView(not(mActivityRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
