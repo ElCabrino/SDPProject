@@ -150,6 +150,6 @@ public abstract class User {
     @NonNull
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName();
+        return getLastName() + " " + getFirstName();
     }
 }
