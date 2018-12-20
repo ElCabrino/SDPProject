@@ -104,6 +104,8 @@ public class ForwardRequest extends AppCompatActivity {
                     if ((dbForward !=null) && (dbForward.getPatient().equals(currentUserUID)) && (dataSnapshot1.getKey() != null)){
 
                         forward.put(dataSnapshot1.getKey(),dbForward);
+                        Toast.makeText(ForwardRequest.this,dbForward.getDoctor1name(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForwardRequest.this,dbForward.getDoctor2name(),Toast.LENGTH_SHORT).show();
 
                     }
 

@@ -38,7 +38,7 @@
         <activity android:name=".registration.Registration" />
         <activity android:name=".profile.Profile" />
         <activity android:name=".patientInfo.PatientInfo" />
-        <activity android:name=".searchDoctor.FilteredDoctors" />
+        <activity android:name=".searchDoctor.FilteredDoctors"/>
         <activity android:name=".doctorAvailability.DoctorAvailabilityActivity" />
         <activity android:name=".nearbyDoctor.NearbyDoctor" />
         <activity android:name=".patientAppointment.PatientPersonalAppointments" />

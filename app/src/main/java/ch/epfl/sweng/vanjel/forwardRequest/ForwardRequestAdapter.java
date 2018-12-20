@@ -53,11 +53,11 @@ public class ForwardRequestAdapter extends RecyclerViewAdapter<ForwardRequestAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        viewHolder.doctor1.setText(forwardsList.get(i).getDoctor1name());
+        //viewHolder.doctor1.setText(forwardsList.get(i).getDoctor1name());
         //viewHolder.doctor2.setText(forward.get(i).getDoctor2());
-        viewHolder.doctor2.setText(forwardsList.get(i).getDoctor2name());
+        //viewHolder.doctor2.setText(forwardsList.get(i).getDoctor2name());
 
-        final String doctorUID = forwardsList.get(i).getDoctor2UID();
+        final String doctorUID = "0N5Bg2yoxrgVzD9U5jWz1RuJLyj2";
 
         viewHolder.doctorDetails.setOnClickListener(new View.OnClickListener() {
             @Override

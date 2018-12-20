@@ -1,5 +1,6 @@
 package ch.epfl.sweng.vanjel.patientAppointment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
@@ -25,6 +26,7 @@ import ch.epfl.sweng.vanjel.R;
 import ch.epfl.sweng.vanjel.doctorAvailability.TimeAvailability;
 import ch.epfl.sweng.vanjel.firebase.FirebaseAuthCustomBackend;
 import ch.epfl.sweng.vanjel.firebase.FirebaseDatabaseCustomBackend;
+import ch.epfl.sweng.vanjel.mainMenu.MainMenu;
 
 /**
  * @author Vincent CABRINI
@@ -158,6 +160,7 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(PatientAppointmentActivity.this, "Appointment successfully requested.", Toast.LENGTH_SHORT).show();
+                        thread.start();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -249,4 +252,17 @@ public class PatientAppointmentActivity extends AppCompatActivity implements Vie
                 buttonsState.put(slotState.get(i), false);
             }
         }
+
+    Thread thread = new Thread(){
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(Toast.LENGTH_SHORT); // As I am using LENGTH_LONG in Toast
+                Intent intent = new Intent(getApplicationContext(),MainMenu.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 }
